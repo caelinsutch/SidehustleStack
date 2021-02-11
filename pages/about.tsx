@@ -1,12 +1,6 @@
 import React from 'react';
 import { AboutScreen } from '@Screens';
 
-const About: React.FC = (props) => {
-  return (
-  <div>
-    <AboutScreen/>
-  </div>
-  );
-};
+const About: React.FC = () => <AboutScreen />;
 
 export default About;
