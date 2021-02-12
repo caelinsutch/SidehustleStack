@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@Components/*": ["./src/Components/*"],
+      "@Components": ["./src/Components"],
       "@Api/*": ["./src/Api/*"],
       "@Models/*": ["./src/Models/*"],
       "@Screens/*": ["./src/Screens/*"],
@@ -23,6 +24,7 @@
       "@Hooks/*": ["./src/Hooks/*"],
       "@Constants/*": ["./src/Constants/*"],
       "@Utils/*": ["./src/Utils/*"],
+      "@GraphQL/*": ["./src/GraphQL/*"],
       "@Public/*": ["./public/*"]
     }
   },

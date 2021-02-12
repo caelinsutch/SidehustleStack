@@ -13,6 +13,7 @@
           "@Hooks": "./src/Hooks",
           "@Constants": "./src/Constants",
           "@Utils": "./src/Utils",
+          "@GraphQL": "./src/GraphQL",
           "@Public": "./public"
         }
       }

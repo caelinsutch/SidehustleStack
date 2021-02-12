@@ -11,15 +11,28 @@
     "lint:quiet": "eslint --ext ts,tsx ./ --quiet",
     "prettier:check": "prettier --check",
     "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "generate": "plop --plopfile plop/plop.ts"
+    "generate": "plop --plopfile plop/plop.ts",
+    "graphql": "graphql-codegen"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.9",
+    "@apollo/react-components": "^4.0.0",
+    "@graphql-codegen/typescript-resolvers": "^1.18.2",
+    "apollo-server-micro": "^2.21.0",
+    "graphql": "^15.5.0",
+    "graphql-import-node": "^0.0.4",
     "next": "10.0.6",
+    "node-fetch": "^2.6.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
+    "@graphql-codegen/add": "^2.0.2",
+    "@graphql-codegen/cli": "^1.20.1",
+    "@graphql-codegen/typescript": "^1.21.0",
+    "@graphql-codegen/typescript-operations": "^1.17.14",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
     "@types/node": "^14.14.25",
     "@types/react": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
@@ -39,6 +52,7 @@
     "plop": "^2.7.4",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "webpack-graphql-loader": "^1.0.2"
   }
 }
