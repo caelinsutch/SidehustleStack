@@ -1,11 +1,11 @@
 import { ApolloServer } from 'apollo-server-micro';
 import 'graphql-import-node';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { DIRECTIVES } from '@graphql-codegen/typescript-mongodb';
 import typeDefs from '@GraphQL/schema.graphql';
 import resolvers from '@GraphQL/resolvers';
 
 const apolloServer = new ApolloServer({
-  typeDefs,
+  typeDefs: [DIRECTIVES, typeDefs],
   resolvers,
 });
 
@@ -15,7 +15,7 @@ export const config = {
   },
 };
 
-async function start(req: NextApiRequest, res: NextApiResponse) {
+async function start(req: any, res: any) {
   return apolloServer.createHandler({ path: '/api/graphql' })(req, res);
 }
 

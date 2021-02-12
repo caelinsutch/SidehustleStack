@@ -1,11 +1,17 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Todo } from '@Components';
-import { useIndexQuery } from '@GraphQL/types';
+import { useIndexQuery, useCreateTodoMutation } from '@GraphQL/types';
 import { gql } from '@apollo/client';
 
 export const query = gql`
   query Index {
     allTodos {
+      todoId
+    }
+  }
+
+  mutation CreateTodo($description: String!) {
+    createTodo(description: $description) {
       todoId
     }
   }
@@ -15,7 +21,7 @@ const HomeScreen: React.FC = () => {
   const { data, loading } = useIndexQuery();
   const [newTodoDescription, setNewTodoDescription] = useState('');
   const [todoIds, setTodoIds] = useState<string[]>();
-
+  const [createTodo] = useCreateTodoMutation();
   const fillTodoIds = (d: string[]) => {
     setTodoIds(d?.slice().sort((a, b) => a.localeCompare(b)));
   };
@@ -29,7 +35,11 @@ const HomeScreen: React.FC = () => {
   };
 
   const onClickAddTodo = () => {
-    console.log('Add');
+    createTodo({
+      variables: {
+        description: newTodoDescription,
+      },
+    });
   };
 
   const todoElements = todoIds?.map((id) => <Todo todoId={id} key={id} />);

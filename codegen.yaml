@@ -5,6 +5,14 @@ hooks:
 schema:
   - ./src/GraphQL/schema.graphql
 generates:
+  ./src/DAO/types.ts:
+    plugins:
+      - typescript
+      - typescript-mongodb
+      - add:
+          content: '/* eslint-disable */'
+    config:
+      skipTypename: true
   ./src/GraphQL/types.ts:
     documents: # Provide list of files that needs to be checked for queries
       - ./pages/**/*.ts*

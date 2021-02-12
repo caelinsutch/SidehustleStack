@@ -14,6 +14,7 @@
           "@Constants": "./src/Constants",
           "@Utils": "./src/Utils",
           "@GraphQL": "./src/GraphQL",
+          "@DAO": "./src/DAO",
           "@Public": "./public"
         }
       }
