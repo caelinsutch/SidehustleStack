@@ -1,11 +1,17 @@
 type Query {
     allTodos: [TodoMVC!]!
     Todo(todoId: ID!): TodoMVC
+
+    allPlatforms: [PlatformMVC!]!
+    Platform(platformId: ID!): PlatformMVC
 }
 
 type Mutation {
     createTodo(description: String!): TodoMVC!
     updateTodo(todoId: ID!, data: UpdateTodoInput!): TodoMVC
+
+    createPlatform(name: String!, description: String!): PlatformMVC!
+    updatePlatform(platformId: ID!, data: UpdatePlatformInput!): PlatformMVC
 }
 
 input UpdateTodoInput {
@@ -13,8 +19,75 @@ input UpdateTodoInput {
     completed: Boolean
 }
 
+input UpdatePlatformInput {
+    category: Category
+    name: String
+    description: String
+    equipmentNeeded: [String!]
+    peopleMakingMoney: String
+    requiresAudience: Boolean
+    funding: String
+    platformPricing: String
+    founded: String
+    averagePay: String
+    links: [LinkInput!]
+}
+
+input LinkInput {
+    label: String
+    url: String
+}
+
 type TodoMVC @entity {
     todoId: ID! @id
     completed: Boolean! @column
     description: String! @column
+}
+
+type PlatformMVC @entity {
+    platformId: ID! @id
+    category: Category @column
+    name: String! @column
+    description: String! @column
+    equipmentNeeded: [String!] @column
+    peopleMakingMoney: String @column
+    requiresAudience: Boolean @column
+    funding: String @column
+    platformPricing: String @column
+    founded: String @column
+    averagePay: String @column
+    links: [Link!] @embedded
+}
+
+
+enum Category {
+    ADULT_CONTENT_CREATOR
+    AUDIO_CONTENT_CREATOR
+    CHEF
+    COACH
+    COMMUNITY_LEADER
+    CONTENT_CREATOR
+    ECOMMERCE
+    EVENT_ORGANIZER
+    DRIVER
+    FITNESS_INSTRUCTOR
+    GAMER
+    HEALTH
+    LIVESTREAMER
+    PERSONAL_SHOPPER
+    PET_CARETAKER
+    PODCASTER
+    RENTALS
+    RESELLER
+    RESTAURANT_WORKER
+    SALESPERSON
+    TASKS_AND_SERVICES
+    TEACHER
+    TECH
+    VIDEO_COURSE_CREATOR
+    WRITER
+}
+type Link @entity(embedded: true){
+    label: String! @column
+    url: String! @column
 }

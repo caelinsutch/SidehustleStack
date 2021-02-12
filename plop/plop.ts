@@ -24,7 +24,7 @@ module.exports = (plop: NodePlopAPI) => {
       },
       {
         type: 'modify',
-        path: '../src/Components/index.ts',
+        path: '../src/Components/resolvers.ts',
         transform: (template: string, { name }: { name: string }) =>
           `${template.replace(
             /\\n$/,
@@ -61,7 +61,7 @@ module.exports = (plop: NodePlopAPI) => {
       },
       {
         type: 'modify',
-        path: '../src/Screens/index.ts',
+        path: '../src/Screens/resolvers.ts',
         transform: (template: string, { name }: { name: string }) =>
           `${template.replace(
             /\\n$/,
