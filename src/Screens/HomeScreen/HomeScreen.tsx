@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Todo } from '@Components';
 import { useIndexQuery } from '@GraphQL/types';
 import { gql } from '@apollo/client';
@@ -13,25 +13,55 @@ export const query = gql`
 
 const HomeScreen: React.FC = () => {
   const { data, loading } = useIndexQuery();
+  const [newTodoDescription, setNewTodoDescription] = useState('');
+  const [todoIds, setTodoIds] = useState<string[]>();
 
-  const allTodos = data?.allTodos
-    ?.slice()
-    .sort((a, b) => a.todoId.localeCompare(b.todoId));
+  const fillTodoIds = (d: string[]) => {
+    setTodoIds(d?.slice().sort((a, b) => a.localeCompare(b)));
+  };
 
-  const todoElements = allTodos?.map((t) => (
-    <Todo todoId={t.todoId} key={t.todoId} />
-  ));
+  useEffect(() => {
+    fillTodoIds(data?.allTodos?.map((t) => t.todoId));
+  }, [data?.allTodos]);
 
-  if (loading) {
+  const updateTodoDescription = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTodoDescription(e.target.value.toString());
+  };
+
+  const onClickAddTodo = () => {
+    console.log('Add');
+  };
+
+  const todoElements = todoIds?.map((id) => <Todo todoId={id} key={id} />);
+
+  if (loading || typeof todoElements === 'undefined') {
     return null;
   }
 
-  return todoElements.length > 0 ? (
-    <table>
-      <tbody>{todoElements}</tbody>
-    </table>
-  ) : (
-    <div>No Todos!</div>
+  const body =
+    todoElements.length > 0 ? (
+      <>
+        <table>
+          <tbody>{todoElements}</tbody>
+        </table>
+      </>
+    ) : (
+      <div>No ToDos!</div>
+    );
+
+  return (
+    <>
+      <input
+        type="text"
+        placeholder="What needs to be done?"
+        value={newTodoDescription}
+        onChange={updateTodoDescription}
+      />
+      <button type="button" onClick={onClickAddTodo}>
+        Add
+      </button>
+      {body}
+    </>
   );
 };
 

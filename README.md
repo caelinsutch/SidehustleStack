@@ -1,5 +1,11 @@
 # Side Hustle Stack Web
 
+## Getting Started
+
+### Install MongoDB
+
+Install [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
+
 ## Tools
 Some commands that enhance the dev experience
 
