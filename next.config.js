@@ -2,7 +2,7 @@ module.exports = {
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.graphql?$/,
-      loader: 'webpack-GraphQL-loader',
+      loader: 'webpack-graphql-loader',
     });
 
     return config;
