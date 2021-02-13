@@ -1,26 +1,16 @@
 type Query {
-    allTodos: [TodoMVC!]!
-    Todo(todoId: ID!): TodoMVC
-
     allPlatforms: [PlatformMVC!]!
     Platform(platformId: ID!): PlatformMVC
 }
 
 type Mutation {
-    createTodo(description: String!): TodoMVC!
-    updateTodo(todoId: ID!, data: UpdateTodoInput!): TodoMVC
-
     createPlatform(name: String!, description: String!): PlatformMVC!
     updatePlatform(platformId: ID!, data: UpdatePlatformInput!): PlatformMVC
 }
 
-input UpdateTodoInput {
-    description: String
-    completed: Boolean
-}
-
 input UpdatePlatformInput {
-    category: Category
+    category: CategoryInput
+    tags: [TagInput!]
     name: String
     description: String
     equipmentNeeded: [String!]
@@ -33,20 +23,24 @@ input UpdatePlatformInput {
     links: [LinkInput!]
 }
 
+input CategoryInput {
+    name: CategoryTypes
+    color: String
+}
+
+input TagInput {
+    name: String
+    color: String
+}
+
 input LinkInput {
     label: String
     url: String
 }
-
-type TodoMVC @entity {
-    todoId: ID! @id
-    completed: Boolean! @column
-    description: String! @column
-}
-
 type PlatformMVC @entity {
     platformId: ID! @id
-    category: Category @column
+    category: Category @embedded
+    tags: [Tag!] @embedded
     name: String! @column
     description: String! @column
     equipmentNeeded: [String!] @column
@@ -59,8 +53,17 @@ type PlatformMVC @entity {
     links: [Link!] @embedded
 }
 
+type Tag {
+    name: String!
+    color: String
+}
 
-enum Category {
+type Category {
+    name: CategoryTypes
+    color: String
+}
+
+enum CategoryTypes {
     ADULT_CONTENT_CREATOR
     AUDIO_CONTENT_CREATOR
     CHEF

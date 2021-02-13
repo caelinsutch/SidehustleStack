@@ -25,14 +25,8 @@ export type Scalars = {
 };
 
 export type Query = {
-  allTodos: Array<TodoMvc>;
-  Todo?: Maybe<TodoMvc>;
   allPlatforms: Array<PlatformMvc>;
   Platform?: Maybe<PlatformMvc>;
-};
-
-export type QueryTodoArgs = {
-  todoId: Scalars['ID'];
 };
 
 export type QueryPlatformArgs = {
@@ -40,19 +34,8 @@ export type QueryPlatformArgs = {
 };
 
 export type Mutation = {
-  createTodo: TodoMvc;
-  updateTodo?: Maybe<TodoMvc>;
   createPlatform: PlatformMvc;
   updatePlatform?: Maybe<PlatformMvc>;
-};
-
-export type MutationCreateTodoArgs = {
-  description: Scalars['String'];
-};
-
-export type MutationUpdateTodoArgs = {
-  todoId: Scalars['ID'];
-  data: UpdateTodoInput;
 };
 
 export type MutationCreatePlatformArgs = {
@@ -65,13 +48,9 @@ export type MutationUpdatePlatformArgs = {
   data: UpdatePlatformInput;
 };
 
-export type UpdateTodoInput = {
-  description?: Maybe<Scalars['String']>;
-  completed?: Maybe<Scalars['Boolean']>;
-};
-
 export type UpdatePlatformInput = {
-  category?: Maybe<Category>;
+  category?: Maybe<CategoryInput>;
+  tags?: Maybe<Array<TagInput>>;
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   equipmentNeeded?: Maybe<Array<Scalars['String']>>;
@@ -84,20 +63,25 @@ export type UpdatePlatformInput = {
   links?: Maybe<Array<LinkInput>>;
 };
 
+export type CategoryInput = {
+  name?: Maybe<CategoryTypes>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export type TagInput = {
+  name?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+};
+
 export type LinkInput = {
   label?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
 };
 
-export type TodoMvc = {
-  todoId: Scalars['ID'];
-  completed: Scalars['Boolean'];
-  description: Scalars['String'];
-};
-
 export type PlatformMvc = {
   platformId: Scalars['ID'];
   category?: Maybe<Category>;
+  tags?: Maybe<Array<Tag>>;
   name: Scalars['String'];
   description: Scalars['String'];
   equipmentNeeded?: Maybe<Array<Scalars['String']>>;
@@ -110,7 +94,17 @@ export type PlatformMvc = {
   links?: Maybe<Array<Link>>;
 };
 
-export enum Category {
+export type Tag = {
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+};
+
+export type Category = {
+  name?: Maybe<CategoryTypes>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export enum CategoryTypes {
   AdultContentCreator = 'ADULT_CONTENT_CREATOR',
   AudioContentCreator = 'AUDIO_CONTENT_CREATOR',
   Chef = 'CHEF',
@@ -263,13 +257,15 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  UpdateTodoInput: UpdateTodoInput;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   UpdatePlatformInput: UpdatePlatformInput;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CategoryInput: CategoryInput;
+  TagInput: TagInput;
   LinkInput: LinkInput;
-  TodoMVC: ResolverTypeWrapper<TodoMvc>;
   PlatformMVC: ResolverTypeWrapper<PlatformMvc>;
-  Category: Category;
+  Tag: ResolverTypeWrapper<Tag>;
+  Category: ResolverTypeWrapper<Category>;
+  CategoryTypes: CategoryTypes;
   Link: ResolverTypeWrapper<Link>;
 };
 
@@ -279,12 +275,14 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Mutation: {};
   String: Scalars['String'];
-  UpdateTodoInput: UpdateTodoInput;
-  Boolean: Scalars['Boolean'];
   UpdatePlatformInput: UpdatePlatformInput;
+  Boolean: Scalars['Boolean'];
+  CategoryInput: CategoryInput;
+  TagInput: TagInput;
   LinkInput: LinkInput;
-  TodoMVC: TodoMvc;
   PlatformMVC: PlatformMvc;
+  Tag: Tag;
+  Category: Category;
   Link: Link;
 };
 
@@ -292,17 +290,6 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
-  allTodos?: Resolver<
-    Array<ResolversTypes['TodoMVC']>,
-    ParentType,
-    ContextType
-  >;
-  Todo?: Resolver<
-    Maybe<ResolversTypes['TodoMVC']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryTodoArgs, 'todoId'>
-  >;
   allPlatforms?: Resolver<
     Array<ResolversTypes['PlatformMVC']>,
     ParentType,
@@ -320,18 +307,6 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
-  createTodo?: Resolver<
-    ResolversTypes['TodoMVC'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateTodoArgs, 'description'>
-  >;
-  updateTodo?: Resolver<
-    Maybe<ResolversTypes['TodoMVC']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateTodoArgs, 'todoId' | 'data'>
-  >;
   createPlatform?: Resolver<
     ResolversTypes['PlatformMVC'],
     ParentType,
@@ -346,16 +321,6 @@ export type MutationResolvers<
   >;
 };
 
-export type TodoMvcResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['TodoMVC'] = ResolversParentTypes['TodoMVC']
-> = {
-  todoId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type PlatformMvcResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
@@ -366,6 +331,7 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
+  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   equipmentNeeded?: Resolver<
@@ -403,6 +369,28 @@ export type PlatformMvcResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type TagResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']
+> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CategoryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']
+> = {
+  name?: Resolver<
+    Maybe<ResolversTypes['CategoryTypes']>,
+    ParentType,
+    ContextType
+  >;
+  color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type LinkResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Link'] = ResolversParentTypes['Link']
@@ -415,8 +403,9 @@ export type LinkResolvers<
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
-  TodoMVC?: TodoMvcResolvers<ContextType>;
   PlatformMVC?: PlatformMvcResolvers<ContextType>;
+  Tag?: TagResolvers<ContextType>;
+  Category?: CategoryResolvers<ContextType>;
   Link?: LinkResolvers<ContextType>;
 };
 
@@ -426,229 +415,179 @@ export type Resolvers<ContextType = any> = {
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
-export type TodoQueryVariables = Exact<{
-  todoId: Scalars['ID'];
+export type PlatformQueryVariables = Exact<{
+  platformId: Scalars['ID'];
 }>;
 
-export type TodoQuery = {
-  Todo?: Maybe<Pick<TodoMvc, 'description' | 'completed'>>;
+export type PlatformQuery = {
+  Platform?: Maybe<Pick<PlatformMvc, 'name' | 'description'>>;
 };
 
-export type UpdateTodoMutationVariables = Exact<{
-  todoId: Scalars['ID'];
-  data: UpdateTodoInput;
-}>;
+export type HomeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type UpdateTodoMutation = {
-  updateTodo?: Maybe<Pick<TodoMvc, 'description' | 'completed'>>;
+export type HomeQuery = {
+  allPlatforms: Array<Pick<PlatformMvc, 'platformId' | 'name'>>;
 };
 
-export type IndexQueryVariables = Exact<{ [key: string]: never }>;
-
-export type IndexQuery = { allTodos: Array<Pick<TodoMvc, 'todoId'>> };
-
-export type CreateTodoMutationVariables = Exact<{
+export type CreatePlatformMutationVariables = Exact<{
+  name: Scalars['String'];
   description: Scalars['String'];
 }>;
 
-export type CreateTodoMutation = { createTodo: Pick<TodoMvc, 'todoId'> };
+export type CreatePlatformMutation = {
+  createPlatform: Pick<PlatformMvc, 'platformId'>;
+};
 
-export const TodoDocument = gql`
-  query Todo($todoId: ID!) {
-    Todo(todoId: $todoId) {
+export const PlatformDocument = gql`
+  query Platform($platformId: ID!) {
+    Platform(platformId: $platformId) {
+      name
       description
-      completed
     }
   }
 `;
 
 /**
- * __useTodoQuery__
+ * __usePlatformQuery__
  *
- * To run a query within a React component, call `useTodoQuery` and pass it any options that fit your needs.
- * When your component renders, `useTodoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `usePlatformQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlatformQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useTodoQuery({
+ * const { data, loading, error } = usePlatformQuery({
  *   variables: {
- *      todoId: // value for 'todoId'
+ *      platformId: // value for 'platformId'
  *   },
  * });
  */
-export function useTodoQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<TodoQuery, TodoQueryVariables>
-) {
-  return ApolloReactHooks.useQuery<TodoQuery, TodoQueryVariables>(
-    TodoDocument,
-    baseOptions
-  );
-}
-export function useTodoLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    TodoQuery,
-    TodoQueryVariables
+export function usePlatformQuery(
+  baseOptions: ApolloReactHooks.QueryHookOptions<
+    PlatformQuery,
+    PlatformQueryVariables
   >
 ) {
-  return ApolloReactHooks.useLazyQuery<TodoQuery, TodoQueryVariables>(
-    TodoDocument,
+  return ApolloReactHooks.useQuery<PlatformQuery, PlatformQueryVariables>(
+    PlatformDocument,
     baseOptions
   );
 }
-export type TodoQueryHookResult = ReturnType<typeof useTodoQuery>;
-export type TodoLazyQueryHookResult = ReturnType<typeof useTodoLazyQuery>;
-export type TodoQueryResult = ApolloReactCommon.QueryResult<
-  TodoQuery,
-  TodoQueryVariables
+export function usePlatformLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    PlatformQuery,
+    PlatformQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<PlatformQuery, PlatformQueryVariables>(
+    PlatformDocument,
+    baseOptions
+  );
+}
+export type PlatformQueryHookResult = ReturnType<typeof usePlatformQuery>;
+export type PlatformLazyQueryHookResult = ReturnType<
+  typeof usePlatformLazyQuery
 >;
-export const UpdateTodoDocument = gql`
-  mutation UpdateTodo($todoId: ID!, $data: UpdateTodoInput!) {
-    updateTodo(todoId: $todoId, data: $data) {
-      description
-      completed
+export type PlatformQueryResult = ApolloReactCommon.QueryResult<
+  PlatformQuery,
+  PlatformQueryVariables
+>;
+export const HomeDocument = gql`
+  query Home {
+    allPlatforms {
+      platformId
+      name
     }
   }
 `;
-export type UpdateTodoMutationFn = ApolloReactCommon.MutationFunction<
-  UpdateTodoMutation,
-  UpdateTodoMutationVariables
+
+/**
+ * __useHomeQuery__
+ *
+ * To run a query within a React component, call `useHomeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHomeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useHomeQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<HomeQuery, HomeQueryVariables>
+) {
+  return ApolloReactHooks.useQuery<HomeQuery, HomeQueryVariables>(
+    HomeDocument,
+    baseOptions
+  );
+}
+export function useHomeLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    HomeQuery,
+    HomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<HomeQuery, HomeQueryVariables>(
+    HomeDocument,
+    baseOptions
+  );
+}
+export type HomeQueryHookResult = ReturnType<typeof useHomeQuery>;
+export type HomeLazyQueryHookResult = ReturnType<typeof useHomeLazyQuery>;
+export type HomeQueryResult = ApolloReactCommon.QueryResult<
+  HomeQuery,
+  HomeQueryVariables
+>;
+export const CreatePlatformDocument = gql`
+  mutation CreatePlatform($name: String!, $description: String!) {
+    createPlatform(name: $name, description: $description) {
+      platformId
+    }
+  }
+`;
+export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
+  CreatePlatformMutation,
+  CreatePlatformMutationVariables
 >;
 
 /**
- * __useUpdateTodoMutation__
+ * __useCreatePlatformMutation__
  *
- * To run a mutation, you first call `useUpdateTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTodoMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreatePlatformMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlatformMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateTodoMutation, { data, loading, error }] = useUpdateTodoMutation({
+ * const [createPlatformMutation, { data, loading, error }] = useCreatePlatformMutation({
  *   variables: {
- *      todoId: // value for 'todoId'
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useUpdateTodoMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    UpdateTodoMutation,
-    UpdateTodoMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    UpdateTodoMutation,
-    UpdateTodoMutationVariables
-  >(UpdateTodoDocument, baseOptions);
-}
-export type UpdateTodoMutationHookResult = ReturnType<
-  typeof useUpdateTodoMutation
->;
-export type UpdateTodoMutationResult = ApolloReactCommon.MutationResult<UpdateTodoMutation>;
-export type UpdateTodoMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdateTodoMutation,
-  UpdateTodoMutationVariables
->;
-export const IndexDocument = gql`
-  query Index {
-    allTodos {
-      todoId
-    }
-  }
-`;
-
-/**
- * __useIndexQuery__
- *
- * To run a query within a React component, call `useIndexQuery` and pass it any options that fit your needs.
- * When your component renders, `useIndexQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useIndexQuery({
- *   variables: {
- *   },
- * });
- */
-export function useIndexQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    IndexQuery,
-    IndexQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<IndexQuery, IndexQueryVariables>(
-    IndexDocument,
-    baseOptions
-  );
-}
-export function useIndexLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    IndexQuery,
-    IndexQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<IndexQuery, IndexQueryVariables>(
-    IndexDocument,
-    baseOptions
-  );
-}
-export type IndexQueryHookResult = ReturnType<typeof useIndexQuery>;
-export type IndexLazyQueryHookResult = ReturnType<typeof useIndexLazyQuery>;
-export type IndexQueryResult = ApolloReactCommon.QueryResult<
-  IndexQuery,
-  IndexQueryVariables
->;
-export const CreateTodoDocument = gql`
-  mutation CreateTodo($description: String!) {
-    createTodo(description: $description) {
-      todoId
-    }
-  }
-`;
-export type CreateTodoMutationFn = ApolloReactCommon.MutationFunction<
-  CreateTodoMutation,
-  CreateTodoMutationVariables
->;
-
-/**
- * __useCreateTodoMutation__
- *
- * To run a mutation, you first call `useCreateTodoMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTodoMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createTodoMutation, { data, loading, error }] = useCreateTodoMutation({
- *   variables: {
+ *      name: // value for 'name'
  *      description: // value for 'description'
  *   },
  * });
  */
-export function useCreateTodoMutation(
+export function useCreatePlatformMutation(
   baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreateTodoMutation,
-    CreateTodoMutationVariables
+    CreatePlatformMutation,
+    CreatePlatformMutationVariables
   >
 ) {
   return ApolloReactHooks.useMutation<
-    CreateTodoMutation,
-    CreateTodoMutationVariables
-  >(CreateTodoDocument, baseOptions);
+    CreatePlatformMutation,
+    CreatePlatformMutationVariables
+  >(CreatePlatformDocument, baseOptions);
 }
-export type CreateTodoMutationHookResult = ReturnType<
-  typeof useCreateTodoMutation
+export type CreatePlatformMutationHookResult = ReturnType<
+  typeof useCreatePlatformMutation
 >;
-export type CreateTodoMutationResult = ApolloReactCommon.MutationResult<CreateTodoMutation>;
-export type CreateTodoMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreateTodoMutation,
-  CreateTodoMutationVariables
+export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<CreatePlatformMutation>;
+export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreatePlatformMutation,
+  CreatePlatformMutationVariables
 >;

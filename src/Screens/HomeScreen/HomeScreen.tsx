@@ -1,73 +1,85 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Todo } from '@Components';
-import { useIndexQuery, useCreateTodoMutation } from '@GraphQL/types';
+import React, { ChangeEvent, useState } from 'react';
+import { PlatformCard } from '@Components';
+import { useCreatePlatformMutation, useHomeQuery } from '@GraphQL/types';
 import { gql } from '@apollo/client';
 
 export const query = gql`
-  query Index {
-    allTodos {
-      todoId
+  query Home {
+    allPlatforms {
+      platformId
+      name
     }
   }
 
-  mutation CreateTodo($description: String!) {
-    createTodo(description: $description) {
-      todoId
+  mutation CreatePlatform($name: String!, $description: String!) {
+    createPlatform(name: $name, description: $description) {
+      platformId
     }
   }
 `;
 
 const HomeScreen: React.FC = () => {
-  const { data, loading } = useIndexQuery();
-  const [newTodoDescription, setNewTodoDescription] = useState('');
-  const [todoIds, setTodoIds] = useState<string[]>();
-  const [createTodo] = useCreateTodoMutation();
-  const fillTodoIds = (d: string[]) => {
-    setTodoIds(d?.slice().sort((a, b) => a.localeCompare(b)));
+  const { data, loading, refetch } = useHomeQuery();
+  const [createPlatform] = useCreatePlatformMutation();
+
+  const [newPlatform, setNewPlatform] = useState({
+    name: '',
+    description: '',
+  });
+
+  const updatePlatformName = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPlatform((prev) => ({ ...prev, name: e.target.value }));
   };
 
-  useEffect(() => {
-    fillTodoIds(data?.allTodos?.map((t) => t.todoId));
-  }, [data?.allTodos]);
-
-  const updateTodoDescription = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTodoDescription(e.target.value.toString());
+  const updatePlatformDescription = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPlatform((prev) => ({ ...prev, description: e.target.value }));
   };
 
-  const onClickAddTodo = () => {
-    createTodo({
+  const onClickAddPlatform = () => {
+    const { name, description } = newPlatform;
+    createPlatform({
       variables: {
-        description: newTodoDescription,
+        name,
+        description,
       },
-    });
+    }).then(() => refetch());
   };
 
-  const todoElements = todoIds?.map((id) => <Todo todoId={id} key={id} />);
+  const platformElements = data?.allPlatforms
+    .map((a) => a.platformId)
+    ?.map((id) => <PlatformCard platformId={id} key={id} />);
 
-  if (loading || typeof todoElements === 'undefined') {
+  if (loading || typeof platformElements === 'undefined') {
     return null;
   }
 
   const body =
-    todoElements.length > 0 ? (
+    platformElements.length > 0 ? (
       <>
         <table>
-          <tbody>{todoElements}</tbody>
+          <tbody>{platformElements}</tbody>
         </table>
       </>
     ) : (
-      <div>No ToDos!</div>
+      <div>No Platforms!</div>
     );
 
   return (
     <>
       <input
         type="text"
-        placeholder="What needs to be done?"
-        value={newTodoDescription}
-        onChange={updateTodoDescription}
+        placeholder="Name"
+        value={newPlatform.name}
+        onChange={updatePlatformName}
       />
-      <button type="button" onClick={onClickAddTodo}>
+      <input
+        type="text"
+        placeholder="Description"
+        value={newPlatform.description}
+        onChange={updatePlatformDescription}
+      />
+
+      <button type="button" onClick={onClickAddPlatform}>
         Add
       </button>
       {body}

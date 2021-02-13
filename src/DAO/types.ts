@@ -17,14 +17,8 @@ export type Scalars = {
 };
 
 export type Query = {
-  allTodos: Array<TodoMvc>;
-  Todo?: Maybe<TodoMvc>;
   allPlatforms: Array<PlatformMvc>;
   Platform?: Maybe<PlatformMvc>;
-};
-
-export type QueryTodoArgs = {
-  todoId: Scalars['ID'];
 };
 
 export type QueryPlatformArgs = {
@@ -32,19 +26,8 @@ export type QueryPlatformArgs = {
 };
 
 export type Mutation = {
-  createTodo: TodoMvc;
-  updateTodo?: Maybe<TodoMvc>;
   createPlatform: PlatformMvc;
   updatePlatform?: Maybe<PlatformMvc>;
-};
-
-export type MutationCreateTodoArgs = {
-  description: Scalars['String'];
-};
-
-export type MutationUpdateTodoArgs = {
-  todoId: Scalars['ID'];
-  data: UpdateTodoInput;
 };
 
 export type MutationCreatePlatformArgs = {
@@ -57,13 +40,9 @@ export type MutationUpdatePlatformArgs = {
   data: UpdatePlatformInput;
 };
 
-export type UpdateTodoInput = {
-  description?: Maybe<Scalars['String']>;
-  completed?: Maybe<Scalars['Boolean']>;
-};
-
 export type UpdatePlatformInput = {
-  category?: Maybe<Category>;
+  category?: Maybe<CategoryInput>;
+  tags?: Maybe<Array<TagInput>>;
   name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   equipmentNeeded?: Maybe<Array<Scalars['String']>>;
@@ -76,20 +55,25 @@ export type UpdatePlatformInput = {
   links?: Maybe<Array<LinkInput>>;
 };
 
+export type CategoryInput = {
+  name?: Maybe<CategoryTypes>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export type TagInput = {
+  name?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
+};
+
 export type LinkInput = {
   label?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
 };
 
-export type TodoMvc = {
-  todoId: Scalars['ID'];
-  completed: Scalars['Boolean'];
-  description: Scalars['String'];
-};
-
 export type PlatformMvc = {
   platformId: Scalars['ID'];
   category?: Maybe<Category>;
+  tags?: Maybe<Array<Tag>>;
   name: Scalars['String'];
   description: Scalars['String'];
   equipmentNeeded?: Maybe<Array<Scalars['String']>>;
@@ -102,7 +86,17 @@ export type PlatformMvc = {
   links?: Maybe<Array<Link>>;
 };
 
-export enum Category {
+export type Tag = {
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+};
+
+export type Category = {
+  name?: Maybe<CategoryTypes>;
+  color?: Maybe<Scalars['String']>;
+};
+
+export enum CategoryTypes {
   AdultContentCreator = 'ADULT_CONTENT_CREATOR',
   AudioContentCreator = 'AUDIO_CONTENT_CREATOR',
   Chef = 'CHEF',
@@ -141,15 +135,10 @@ export type AdditionalEntityFields = {
 };
 
 import { ObjectID } from 'mongodb';
-export type TodoMvcDbObject = {
-  _id: ObjectID;
-  completed: boolean;
-  description: string;
-};
-
 export type PlatformMvcDbObject = {
   _id: ObjectID;
-  category?: Maybe<string>;
+  category?: Maybe<CategoryDbObject>;
+  tags?: Maybe<Array<TagDbObject>>;
   name: string;
   description: string;
   equipmentNeeded?: Maybe<Array<string>>;

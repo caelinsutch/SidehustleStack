@@ -24,7 +24,7 @@ module.exports = (plop: NodePlopAPI) => {
       },
       {
         type: 'modify',
-        path: '../src/Components/resolvers.ts',
+        path: '../src/Components/index.ts',
         transform: (template: string, { name }: { name: string }) =>
           `${template.replace(
             /\\n$/,
