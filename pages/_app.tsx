@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import {
   ApolloProvider,
@@ -15,7 +16,9 @@ const client = new ApolloClient({
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <ApolloProvider client={client}>
-    <Component {...pageProps} />
+    <ChakraProvider>
+      <Component {...pageProps} />
+    </ChakraProvider>
   </ApolloProvider>
 );
 
