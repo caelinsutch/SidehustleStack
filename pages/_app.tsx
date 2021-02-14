@@ -7,7 +7,8 @@ import {
   HttpLink,
   InMemoryCache,
 } from '@apollo/client';
-import fetch from 'node-fetch'; // Use node-fetch here to allow SSR
+import fetch from 'node-fetch';
+import { theme } from '@Config';
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: '/api/graphql', fetch: fetch as any }),
@@ -16,7 +17,7 @@ const client = new ApolloClient({
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <ApolloProvider client={client}>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>
   </ApolloProvider>

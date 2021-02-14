@@ -15,6 +15,7 @@
           "@Utils": "./src/Utils",
           "@GraphQL": "./src/GraphQL",
           "@DAO": "./src/DAO",
+          "@Config": "./src/Config",
           "@Public": "./public"
         }
       }

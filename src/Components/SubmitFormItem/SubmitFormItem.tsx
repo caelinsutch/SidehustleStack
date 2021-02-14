@@ -36,7 +36,7 @@ const SubmitFormItem: React.FC<SubmitFormItemProps> = ({
   if (componentProps.type === 'input') {
     inputElement = (
       <Input
-        borderRadius="xl"
+        borderRadius="2xl"
         boxShadow="md"
         _focus={{
           boxShadow: 'md',

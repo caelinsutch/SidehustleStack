@@ -29,9 +29,7 @@ const SubmitForm: React.FC = () => (
       label="Total Funding"
       placeholder="$xx million"
     />
-    <Button colorScheme="orange" borderRadius={1000}>
-      Submit
-    </Button>
+    <Button borderRadius={1000}>Submit</Button>
   </Box>
 );
 

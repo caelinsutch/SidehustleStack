@@ -1,14 +1,20 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { Navbar } from '@Components';
 
-const PageWrapper: React.FC = ({ children }) => (
+type PageWrapperProps = {
+  backgroundImage?: BoxProps['backgroundImage'];
+  backgroundPosition?: BoxProps['backgroundPosition'];
+  backgroundSize?: BoxProps['backgroundSize'];
+};
+
+const PageWrapper: React.FC<PageWrapperProps> = ({ children, ...props }) => (
   <Box
     as="main"
     backgroundPosition="top"
     backgroundSize="contain"
-    backgroundImage="url('submit-top-background.png');"
     backgroundRepeat="no-repeat"
+    {...props}
   >
     <Navbar title="Nav" />
     <Box maxWidth="1200px" px={4} mx="auto">

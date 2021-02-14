@@ -4,7 +4,7 @@ import { PageWrapper, SubmitForm, TextLink } from '@Components';
 import { TopSection } from '@Screens/SubmitScreen/Components';
 
 const SubmitScreen: React.FC = () => (
-  <PageWrapper>
+  <>
     <Box textAlign="center">
       <Text fontSize="3xl" fontWeight="semibold">
         Submit Screen
@@ -12,7 +12,7 @@ const SubmitScreen: React.FC = () => (
     </Box>
     <TopSection />
     <SubmitForm />
-  </PageWrapper>
+  </>
 );
 
 export default SubmitScreen;
