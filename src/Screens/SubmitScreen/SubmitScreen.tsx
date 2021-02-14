@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Box } from '@chakra-ui/react';
-import { PageWrapper, TextLink } from '@Components';
+import { PageWrapper, SubmitForm, TextLink } from '@Components';
 import { TopSection } from '@Screens/SubmitScreen/Components';
 
 const SubmitScreen: React.FC = () => (
@@ -11,6 +11,7 @@ const SubmitScreen: React.FC = () => (
       </Text>
     </Box>
     <TopSection />
+    <SubmitForm />
   </PageWrapper>
 );
 

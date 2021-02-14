@@ -7,7 +7,7 @@ const SubmissionInfoText: React.FC<SubmissionInfoTextProps> = ({
   children,
   ...props
 }) => (
-  <Text mt={4} fontSize="3xl" fontWeight="semibold" {...props}>
+  <Text mt={4} fontSize="2xl" fontWeight="semibold" {...props}>
     {children}
   </Text>
 );
