@@ -7,3 +7,5 @@ export { default as TextLink } from './TextLink';
 export type { TextLinkProps } from './TextLink';
 export { default as SubmitForm } from './SubmitForm';
 export { default as FormItemTitle } from './SubmitFormItem';
+export { default as DefaultContainer } from './DefaultContainer';
+export type { DefaultContainerProps } from './DefaultContainer';

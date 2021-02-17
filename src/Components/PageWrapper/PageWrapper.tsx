@@ -16,10 +16,8 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children, ...props }) => (
     backgroundRepeat="no-repeat"
     {...props}
   >
-    <Navbar title="Nav" />
-    <Box maxWidth="1200px" px={4} mx="auto">
-      {children}
-    </Box>
+    <Navbar />
+    <Box mx="auto">{children}</Box>
   </Box>
 );
 

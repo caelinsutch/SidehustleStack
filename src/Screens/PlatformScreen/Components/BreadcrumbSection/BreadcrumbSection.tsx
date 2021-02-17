@@ -25,7 +25,7 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
         <BreadcrumbLink href="/">All Platforms</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <BreadcrumbLink href={`/platforms/${platformId}`}>
+        <BreadcrumbLink href={`/platform/${platformId}`}>
           {platformName}
         </BreadcrumbLink>
       </BreadcrumbItem>
