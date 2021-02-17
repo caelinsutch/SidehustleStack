@@ -1,36 +1,25 @@
 import React from 'react';
-import { Box, Button } from '@chakra-ui/react';
-import SubmitFormItem from '@Components/SubmitFormItem';
+import { Box } from '@chakra-ui/react';
+import FormSection from '@Components/FormSection';
 
-const SubmitForm: React.FC = () => (
-  <Box my={8}>
-    <SubmitFormItem
-      type="input"
-      label="Company Name"
-      placeholder="Side Hustle Stack"
-    />
-    <SubmitFormItem
-      type="input"
-      label="Company Website"
-      placeholder="https://sidehustlestack.co"
-    />
-    <SubmitFormItem
-      type="input"
-      label="Company Year Founded"
-      placeholder="2020"
-    />
-    <SubmitFormItem
-      type="input"
-      label="Headquartered In"
-      placeholder="Pittsburgh, PA"
-    />
-    <SubmitFormItem
-      type="input"
-      label="Total Funding"
-      placeholder="$xx million"
-    />
-    <Button borderRadius={1000}>Submit</Button>
-  </Box>
-);
+const SubmitForm: React.FC = () => {
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <Box my={8}>
+      <FormSection
+        onSubmit={onSubmit}
+        items={[
+          {
+            name: 'companyName',
+            placeholder: 'Side Hustle Stack',
+            type: 'input',
+            title: 'Company Name',
+          },
+        ]}
+      />
+    </Box>
+  );
+};
 
 export default SubmitForm;
