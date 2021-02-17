@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import BreadcrumbSection from '@Screens/PlatformScreen/Components/BreadcrumbSection/BreadcrumbSection';
 import {
   FounderQuoteSection,
   HeaderInfo,
+  BreadcrumbSection,
+  InfoSection,
 } from '@Screens/PlatformScreen/Components';
 
 export type PlatformScreenProps = {
@@ -27,6 +28,18 @@ old-school memorabilia into new-school money."
         quoteAuthor="Scott Cutler"
         quoteAuthorPosition="CEO"
         quoteAuthorLink="https://google.com"
+      />
+      <InfoSection
+        title="Requirements"
+        body={[
+          'Items to sell including unworn sneakers, trading cards, luxury goods, electronics, and more',
+          'A smartphone or similar device to access StockX with',
+          'The ability to ship items',
+        ]}
+      />
+      <InfoSection
+        title="People Making Money on Platform"
+        body={['100,000 (January 2021)']}
       />
     </Box>
   </Box>

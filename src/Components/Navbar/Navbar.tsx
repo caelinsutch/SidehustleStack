@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Button } from '@chakra-ui/react';
 import { Logo, TextLink } from '@Components';
-import { navbarItems } from '@Components/Navbar/Navbar.constants';
+import { navbarItems } from './Navbar.constants';
 
 export type NavbarProps = {
   title: string;
@@ -24,7 +24,9 @@ const Navbar: React.FC<NavbarProps> = ({ title }) => (
       ))}
     </Flex>
     <Box>
-      <Button colorScheme="orange">Upload a Platform</Button>
+      <Button colorScheme="orange" borderRadius="md">
+        Upload a Platform
+      </Button>
     </Box>
   </Flex>
 );

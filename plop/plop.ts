@@ -2,7 +2,7 @@
 import { NodePlopAPI } from 'plop';
 
 module.exports = (plop: NodePlopAPI) => {
-  plop.setGenerator('component', {
+  plop.setGenerator('Component', {
     description: 'Create a component',
     prompts: [
       {
@@ -34,40 +34,38 @@ module.exports = (plop: NodePlopAPI) => {
     ],
   });
 
-  plop.setGenerator('pageComponent', {
-    description: 'Create a single-use page component',
+  plop.setGenerator('Screen Component', {
+    description: 'Create a component under a screen',
     prompts: [
       {
         type: 'input',
-        name: 'page',
-        message: 'Which page is this for?',
+        name: 'screen',
+        message: 'Which screen is this for? (i.e. PlatformScreen)',
       },
       {
         type: 'input',
         name: 'name',
-        message: 'What is your component name?',
+        message:
+          'What is your component name? Usually preface this with `Section`',
       },
     ],
     actions: [
       {
         type: 'add',
         path:
-          '../src/Screens/{{pascalCase page}}/Components/{{pascalCase name}}/{{pascalCase name}}.tsx',
+          '../src/Screens/{{pascalCase screen}}/Components/{{pascalCase name}}/{{pascalCase name}}.tsx',
         templateFile: 'templates/Component.tsx.hbs',
       },
       {
         type: 'add',
         path:
-          '../src/Screens/{{pascalCase page}}/Components/{{pascalCase name}}/index.tsx',
+          '../src/Screens/{{pascalCase screen}}/Components/{{pascalCase name}}/index.tsx',
         templateFile: 'templates/index.tsx.hbs',
       },
       {
         type: 'modify',
-        path: '../src/Screens/{{pascalCase page}}/Components/index.ts',
-        transform: (
-          template: string,
-          { name }: { name: string; page: string }
-        ) =>
+        path: '../src/Screens/{{pascalCase screen}}/Components/index.ts',
+        transform: (template: string, { name }: { name: string }) =>
           `${template.replace(
             /\\n$/,
             ''
@@ -76,7 +74,7 @@ module.exports = (plop: NodePlopAPI) => {
     ],
   });
 
-  plop.setGenerator('page', {
+  plop.setGenerator('Page', {
     description: 'Create a page',
     prompts: [
       {
