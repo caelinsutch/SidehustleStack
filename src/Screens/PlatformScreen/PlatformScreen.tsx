@@ -10,13 +10,13 @@ import {
 import { DefaultContainer } from '@Components';
 
 export type PlatformScreenProps = {
-  id: string;
+  platformId: string;
 };
 
-const PlatformScreen: React.FC<PlatformScreenProps> = ({ id }) => (
+const PlatformScreen: React.FC<PlatformScreenProps> = ({ platformId }) => (
   <Box as="section">
     <DefaultContainer>
-      <BreadcrumbSection platformId={id} platformName="Reseller" />
+      <BreadcrumbSection platformId={platformId} platformName="Reseller" />
       <HeaderInfo
         name="StockX"
         tags={['Small Business', 'Work From Home', '18+', '$$$']}
@@ -45,6 +45,8 @@ old-school memorabilia into new-school money."
       />
     </DefaultContainer>
     <ReviewSection
+      platformId={platformId}
+      platformName="StockX"
       reviews={[
         {
           numStars: 3,

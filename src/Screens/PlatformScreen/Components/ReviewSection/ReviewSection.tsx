@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Flex } from '@chakra-ui/react';
 import { DefaultContainer } from '@Components';
-import { ReviewCard } from '@Screens/PlatformScreen/Components';
+import { ReviewCard, ReviewInput } from '@Screens/PlatformScreen/Components';
 
 export type Review = {
   body: string;
@@ -11,9 +11,15 @@ export type Review = {
 
 export type ReviewSectionProps = {
   reviews: Review[];
+  platformId;
+  platformName;
 };
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
+const ReviewSection: React.FC<ReviewSectionProps> = ({
+  reviews,
+  platformName,
+  platformId,
+}) => {
   const reviewAverage =
     reviews.reduce((sum, curr) => sum + curr.numStars, 0) / reviews.length;
 
@@ -42,6 +48,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ reviews }) => {
           </Box>
         </Flex>
         <Box mt={15}>
+          <ReviewInput platformId={platformId} platformName={platformName} />
           {reviews.map((review) => (
             <ReviewCard key={review.body} {...review} />
           ))}

@@ -9,3 +9,5 @@ export { default as ReviewSection } from './ReviewSection';
 export type { ReviewSectionProps } from './ReviewSection';
 export { default as ReviewCard } from './ReviewCard';
 export type { ReviewCardProps } from './ReviewCard';
+export { default as ReviewInput } from './ReviewInput';
+export type { ReviewInputProps } from './ReviewInput';

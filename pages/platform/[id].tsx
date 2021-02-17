@@ -7,7 +7,7 @@ const Platform: React.FC = () => (
     backgroundImage="url('../platform-profile-background.png')"
     backgroundSize="contain"
   >
-    <PlatformScreen id="test" />
+    <PlatformScreen platformId="test" />
   </PageWrapper>
 );
 

@@ -22,6 +22,7 @@ const FounderQuoteSection: React.FC<FounderQuoteSectionProps> = ({
       <Link
         _hover={{
           textDecoration: 'none',
+          color: 'orange.500',
         }}
         borderBottom="2px solid"
         borderColor="orange.400"

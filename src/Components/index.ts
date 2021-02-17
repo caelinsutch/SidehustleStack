@@ -9,3 +9,5 @@ export { default as SubmitForm } from './SubmitForm';
 export { default as FormItemTitle } from './SubmitFormItem';
 export { default as DefaultContainer } from './DefaultContainer';
 export type { DefaultContainerProps } from './DefaultContainer';
+export { default as StarInput } from './StarInput';
+export type { StarInputProps } from './StarInput';
