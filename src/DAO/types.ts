@@ -152,6 +152,16 @@ export type PlatformMvcDbObject = {
   links?: Maybe<Array<LinkDbObject>>;
 };
 
+export type TagDbObject = {
+  name: string;
+  color?: Maybe<string>;
+};
+
+export type CategoryDbObject = {
+  name?: Maybe<string>;
+  color?: Maybe<string>;
+};
+
 export type LinkDbObject = {
   label: string;
   url: string;

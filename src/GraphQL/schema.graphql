@@ -53,14 +53,14 @@ type PlatformMVC @entity {
     links: [Link!] @embedded
 }
 
-type Tag {
-    name: String!
-    color: String
+type Tag @entity(embedded: true) {
+    name: String! @column
+    color: String @column
 }
 
-type Category {
-    name: CategoryTypes
-    color: String
+type Category @entity(embedded: true) {
+    name: CategoryTypes @column
+    color: String @column
 }
 
 enum CategoryTypes {
@@ -90,7 +90,7 @@ enum CategoryTypes {
     VIDEO_COURSE_CREATOR
     WRITER
 }
-type Link @entity(embedded: true){
+type Link @entity(embedded: true) {
     label: String! @column
     url: String! @column
 }
