@@ -15,6 +15,8 @@ export const query = gql`
   }
 `;
 
+//https://i.imgur.com/pIfdoIW.gif
+
 const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
   const { loading, data } = usePlatformQuery({
     variables: {

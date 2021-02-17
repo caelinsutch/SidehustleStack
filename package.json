@@ -10,7 +10,7 @@
     "lint:fix": "eslint --ext ts,tsx ./ --fix",
     "lint:quiet": "eslint --ext ts,tsx ./ --quiet",
     "prettier:check": "prettier --check",
-    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx}'",
+    "prettier:fix": "prettier --write src/**/*.{ts,tsx}",
     "generate": "plop --plopfile plop/plop.ts",
     "graphql": "graphql-codegen"
   },

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-mutable-exports */
-import { MongoClient, Db } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 
 export * from './types';
 

@@ -1,8 +1,9 @@
 /* eslint-disable */
 import { GraphQLResolveInfo } from 'graphql';
-import { gql } from '@apollo/client';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
+import { gql } from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -474,6 +475,7 @@ export function usePlatformQuery(
     baseOptions
   );
 }
+
 export function usePlatformLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
     PlatformQuery,
@@ -485,6 +487,7 @@ export function usePlatformLazyQuery(
     baseOptions
   );
 }
+
 export type PlatformQueryHookResult = ReturnType<typeof usePlatformQuery>;
 export type PlatformLazyQueryHookResult = ReturnType<
   typeof usePlatformLazyQuery
@@ -525,6 +528,7 @@ export function useHomeQuery(
     baseOptions
   );
 }
+
 export function useHomeLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
     HomeQuery,
@@ -536,6 +540,7 @@ export function useHomeLazyQuery(
     baseOptions
   );
 }
+
 export type HomeQueryHookResult = ReturnType<typeof useHomeQuery>;
 export type HomeLazyQueryHookResult = ReturnType<typeof useHomeLazyQuery>;
 export type HomeQueryResult = ApolloReactCommon.QueryResult<
@@ -583,6 +588,7 @@ export function useCreatePlatformMutation(
     CreatePlatformMutationVariables
   >(CreatePlatformDocument, baseOptions);
 }
+
 export type CreatePlatformMutationHookResult = ReturnType<
   typeof useCreatePlatformMutation
 >;
