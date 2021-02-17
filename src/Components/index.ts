@@ -11,3 +11,5 @@ export { default as DefaultContainer } from './DefaultContainer';
 export type { DefaultContainerProps } from './DefaultContainer';
 export { default as StarInput } from './StarInput';
 export type { StarInputProps } from './StarInput';
+export { default as VoteIcons } from './VoteIcons';
+export type { VoteIconsProps } from './VoteIcons';
