@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, BoxProps } from '@chakra-ui/react';
 import { Navbar } from '@Components';
 
-type PageWrapperProps = {
+export type PageWrapperProps = {
   backgroundImage?: BoxProps['backgroundImage'];
   backgroundPosition?: BoxProps['backgroundPosition'];
   backgroundSize?: BoxProps['backgroundSize'];
