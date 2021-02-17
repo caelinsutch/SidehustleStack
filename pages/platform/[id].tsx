@@ -4,10 +4,10 @@ import { PageWrapper } from '@Components';
 
 const Platform: React.FC = () => (
   <PageWrapper
-    backgroundImage="url('home-top-background.png')"
-    backgroundSize="cover"
+    backgroundImage="url('../platform-profile-background.png')"
+    backgroundSize="contain"
   >
-    <PlatformScreen id="test" />
+    <PlatformScreen platformId="test" />
   </PageWrapper>
 );
 

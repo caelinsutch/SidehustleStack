@@ -9,7 +9,7 @@ export type HeaderInfoProps = {
 };
 
 const HeaderInfo: React.FC<HeaderInfoProps> = ({ name, tags, signUpLink }) => (
-  <Box mt={4}>
+  <Box mt={4} as="section">
     <Text fontSize="4xl" fontWeight="bold">
       {name}
     </Text>

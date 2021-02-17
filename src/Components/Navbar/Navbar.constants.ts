@@ -6,19 +6,19 @@ type NavbarItem = {
 const navbarItems: NavbarItem[] = [
   {
     label: 'About',
-    href: 'about',
+    href: '/about',
   },
   {
     label: 'Advertise With Us',
-    href: 'advertise',
+    href: '/advertise',
   },
   {
     label: 'Community',
-    href: 'community',
+    href: '/community',
   },
   {
     label: 'Newsletter',
-    href: 'newsletter',
+    href: '/newsletter',
   },
 ];
 

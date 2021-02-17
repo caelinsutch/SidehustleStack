@@ -14,7 +14,7 @@ const FounderQuoteSection: React.FC<FounderQuoteSectionProps> = ({
   quoteAuthorLink,
   quoteAuthorPosition,
 }) => (
-  <Box textAlign="right" mt={4}>
+  <Box textAlign="right" mt={4} as="section">
     <Text fontSize="2xl" fontWeight="semibold">
       {quote}
     </Text>
@@ -22,6 +22,7 @@ const FounderQuoteSection: React.FC<FounderQuoteSectionProps> = ({
       <Link
         _hover={{
           textDecoration: 'none',
+          color: 'orange.500',
         }}
         borderBottom="2px solid"
         borderColor="orange.400"

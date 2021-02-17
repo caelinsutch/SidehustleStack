@@ -5,16 +5,18 @@ import {
   HeaderInfo,
   BreadcrumbSection,
   InfoSection,
+  ReviewSection,
 } from '@Screens/PlatformScreen/Components';
+import { DefaultContainer } from '@Components';
 
 export type PlatformScreenProps = {
-  id: string;
+  platformId: string;
 };
 
-const PlatformScreen: React.FC<PlatformScreenProps> = ({ id }) => (
-  <Box>
-    <Box as="section">
-      <BreadcrumbSection platformId={id} platformName="Reseller" />
+const PlatformScreen: React.FC<PlatformScreenProps> = ({ platformId }) => (
+  <Box as="section">
+    <DefaultContainer>
+      <BreadcrumbSection platformId={platformId} platformName="Reseller" />
       <HeaderInfo
         name="StockX"
         tags={['Small Business', 'Work From Home', '18+', '$$$']}
@@ -41,7 +43,18 @@ old-school memorabilia into new-school money."
         title="People Making Money on Platform"
         body={['100,000 (January 2021)']}
       />
-    </Box>
+    </DefaultContainer>
+    <ReviewSection
+      platformId={platformId}
+      platformName="StockX"
+      reviews={[
+        {
+          numStars: 3,
+          author: 'Anonymous',
+          body: 'Test test test',
+        },
+      ]}
+    />
   </Box>
 );
 
