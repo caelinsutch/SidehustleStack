@@ -34,6 +34,48 @@ module.exports = (plop: NodePlopAPI) => {
     ],
   });
 
+  plop.setGenerator('pageComponent', {
+    description: 'Create a single-use page component',
+    prompts: [
+      {
+        type: 'input',
+        name: 'page',
+        message: 'Which page is this for?',
+      },
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is your component name?',
+      },
+    ],
+    actions: [
+      {
+        type: 'add',
+        path:
+          '../src/Screens/{{pascalCase page}}/Components/{{pascalCase name}}/{{pascalCase name}}.tsx',
+        templateFile: 'templates/Component.tsx.hbs',
+      },
+      {
+        type: 'add',
+        path:
+          '../src/Screens/{{pascalCase page}}/Components/{{pascalCase name}}/index.tsx',
+        templateFile: 'templates/index.tsx.hbs',
+      },
+      {
+        type: 'modify',
+        path: '../src/Screens/{{pascalCase page}}/Components/index.ts',
+        transform: (
+          template: string,
+          { name }: { name: string; page: string }
+        ) =>
+          `${template.replace(
+            /\\n$/,
+            ''
+          )}export { default as ${name} } from './${name}';\nexport type { ${name}Props } from './${name}';\n`,
+      },
+    ],
+  });
+
   plop.setGenerator('page', {
     description: 'Create a page',
     prompts: [
