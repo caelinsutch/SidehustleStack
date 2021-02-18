@@ -1,5 +1,3 @@
-import { SubmitFormItemProps } from '@Components/SubmitFormItem';
-
 const formItems = [
   {
     name: 'companyName',

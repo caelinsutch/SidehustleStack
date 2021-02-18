@@ -15,7 +15,6 @@ import { VoteIcons } from '@Components/index';
 
 export type PlatformCardProps = {
   platformId: string;
-  upvotes: number;
 };
 
 export const query = gql`
@@ -29,7 +28,7 @@ export const query = gql`
 
 // https://i.imgur.com/pIfdoIW.gif
 
-const PlatformCard: React.FC<PlatformCardProps> = ({ platformId, upvotes }) => {
+const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
   const { loading, data } = usePlatformQuery({
     variables: {
       platformId,
@@ -46,7 +45,9 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId, upvotes }) => {
     upvotes: 26,
   };
 
-  const onUpvote = (i: number) => {};
+  const onUpvote = (i: number) => {
+    console.log(i);
+  };
 
   return (
     <VStack
@@ -56,7 +57,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId, upvotes }) => {
       bg="white"
       borderRadius="md"
       boxShadow="md"
-      order={upvotes}
+      order={fdata.upvotes}
       alignItems="flex-start"
       spacing="10px"
     >
