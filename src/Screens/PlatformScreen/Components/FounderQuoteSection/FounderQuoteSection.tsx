@@ -24,8 +24,6 @@ const FounderQuoteSection: React.FC<FounderQuoteSectionProps> = ({
           textDecoration: 'none',
           color: 'orange.500',
         }}
-        borderBottom="2px solid"
-        borderColor="orange.400"
         pb={1}
         color="orange.400"
         href={quoteAuthorLink}

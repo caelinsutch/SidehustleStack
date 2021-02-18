@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, Button, Input, Select, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
 export type FormItemBase = {
@@ -18,12 +27,17 @@ export type FormItemSelect = {
   values: SelectItem[];
 } & FormItemBase;
 
+export type FormItemRadio = {
+  type: 'radio';
+  values: SelectItem[];
+} & FormItemBase;
+
 export type SelectItem = {
   label: string;
   value: string;
 };
 
-export type FormItem = FormItemSelect | FormItemInput;
+export type FormItem = FormItemSelect | FormItemInput | FormItemRadio;
 
 export type FormSectionProps = {
   items: FormItem[];
@@ -40,21 +54,8 @@ const FormSection: React.FC<FormSectionProps> = ({
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
       {items.map((props) => {
-        let formElement;
-        if (props.type === 'select') {
-          const { values, placeholder, name } = props;
-          formElement = (
-            <Select placeholder={placeholder} ref={register()} name={name}>
-              {values.map(({ value, label }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Select>
-          );
-        }
         const { placeholder, name } = props;
-        formElement = (
+        let formElement = (
           <Input
             key={name}
             as="input"
@@ -68,6 +69,39 @@ const FormSection: React.FC<FormSectionProps> = ({
             }}
           />
         );
+        if (props.type === 'select') {
+          const { values } = props;
+          formElement = (
+            <Select placeholder={placeholder} ref={register} name={name}>
+              {values.map(({ value, label }) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </Select>
+          );
+        }
+
+        if (props.type === 'radio') {
+          const { values } = props;
+          formElement = (
+            <RadioGroup name={name}>
+              <Stack direction="column">
+                {values.map(({ value, label }) => (
+                  <Radio
+                    name={name}
+                    key={value}
+                    value={value}
+                    type="radio"
+                    ref={register}
+                  >
+                    {label}
+                  </Radio>
+                ))}
+              </Stack>
+            </RadioGroup>
+          );
+        }
 
         const { title, description } = props;
         return (

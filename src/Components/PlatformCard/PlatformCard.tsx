@@ -36,7 +36,9 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
     upvotes: 26,
   };
 
-  const onUpvote = (action: 'up' | 'down') => {};
+  const onUpvote = (action: 'up' | 'down') => {
+    console.log(action);
+  };
 
   return (
     <VStack

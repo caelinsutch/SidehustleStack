@@ -16,6 +16,21 @@ const SubmitForm: React.FC = () => {
             type: 'input',
             title: 'Company Name',
           },
+          {
+            name: 'workCategory',
+            type: 'radio',
+            values: [
+              {
+                value: 'gig',
+                label: 'Gig work',
+              },
+              {
+                value: 'creator',
+                label: 'Creator / monetize audience/fans',
+              },
+            ],
+            title: 'Category of Work',
+          },
         ]}
       />
     </Box>
