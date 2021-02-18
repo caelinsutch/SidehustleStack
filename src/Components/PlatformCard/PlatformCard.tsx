@@ -11,9 +11,10 @@ import {
   BoxProps,
 } from '@chakra-ui/react';
 import { VoteIcons } from '@Components/index';
+import { PlatformData } from 'src/Screens/HomeScreen';
 
 export type PlatformCardProps = {
-  platformId: string;
+  CardData: PlatformData;
 } & BoxProps;
 
 export const query = gql`
@@ -27,26 +28,7 @@ export const query = gql`
 
 // https://i.imgur.com/pIfdoIW.gif
 
-const PlatformCard: React.FC<PlatformCardProps> = ({
-  platformId,
-  ...props
-}) => {
-  const { loading, data } = usePlatformQuery({
-    variables: {
-      platformId,
-    },
-  });
-
-  const { description, name } = data?.Platform ?? {};
-
-  const fdata = {
-    title: 'Firefox',
-    category: ['Browser', 'Mammal'],
-    logo: 'https://i.imgur.com/pIfdoIW.gif',
-    tags: ['Small Business', '18+', 'WFH', '$$$'],
-    upvotes: 26,
-  };
-
+const PlatformCard: React.FC<PlatformCardProps> = ({ CardData, ...props }) => {
   const onUpvote = (action: 'up' | 'down') => {
     console.log(action);
   };
@@ -59,12 +41,11 @@ const PlatformCard: React.FC<PlatformCardProps> = ({
       bg="white"
       borderRadius="md"
       boxShadow="md"
-      order={fdata.upvotes}
       alignItems="flex-start"
       justifyItems="flex-start"
       {...props}
     >
-      <Image src={fdata.logo} alt="logo" boxSize="300px" />
+      <Image src={CardData.logo} alt="logo" boxSize="300px" />
       <Box w="320px" h="10px" borderTop="2px solid black" />
       <HStack
         justifyContent="flex-start"
@@ -72,21 +53,21 @@ const PlatformCard: React.FC<PlatformCardProps> = ({
         spacing="20px"
         h="100px"
       >
-        <VoteIcons status="down" onClick={onUpvote} upvotes={fdata.upvotes} />
+        <VoteIcons status="down" onClick={onUpvote} upvotes={CardData.votes} />
         <VStack alignItems="flex-start" spacing="15px">
           <Text color="black" fontSize="28px" lineHeight="75%">
-            {fdata.title}
+            {CardData.title}
           </Text>
           <Text color="orange.400" fontSize="20px" lineHeight="75%">
-            {fdata.category.join(' | ')}
+            {CardData.categories.join(' | ')}
           </Text>
         </VStack>
       </HStack>
       <HStack flexWrap="wrap">
-        {fdata.tags.map((item, index) => (
+        {CardData.tags.map((item, index) => (
           <Button
             bg="orange.400"
-            key={fdata.title + index}
+            key={CardData.title + index}
             fontSize="16px"
             h="32px"
             borderRadius="md"
