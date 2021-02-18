@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { gql } from '@apollo/client';
 import { usePlatformQuery } from '@GraphQL/types';
-import { Box, Image, VStack, HStack, Text, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Image,
+  VStack,
+  HStack,
+  Text,
+  Button,
+  BoxProps,
+} from '@chakra-ui/react';
 import { VoteIcons } from '@Components/index';
 
 export type PlatformCardProps = {
   platformId: string;
-};
+} & BoxProps;
 
 export const query = gql`
   query Platform($platformId: ID!) {
@@ -19,7 +27,10 @@ export const query = gql`
 
 // https://i.imgur.com/pIfdoIW.gif
 
-const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
+const PlatformCard: React.FC<PlatformCardProps> = ({
+  platformId,
+  ...props
+}) => {
   const { loading, data } = usePlatformQuery({
     variables: {
       platformId,
@@ -51,6 +62,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
       order={fdata.upvotes}
       alignItems="flex-start"
       justifyItems="flex-start"
+      {...props}
     >
       <Image src={fdata.logo} alt="logo" boxSize="300px" />
       <Box w="320px" h="10px" borderTop="2px solid black" />
