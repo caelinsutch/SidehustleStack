@@ -1,16 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { gql } from '@apollo/client';
 import { usePlatformQuery } from '@GraphQL/types';
-import {
-  Box,
-  Image,
-  Divider,
-  VStack,
-  HStack,
-  Text,
-  Button,
-  Flex,
-} from '@chakra-ui/react';
+import { Box, Image, VStack, HStack, Text, Button } from '@chakra-ui/react';
 import { VoteIcons } from '@Components/index';
 
 export type PlatformCardProps = {
@@ -45,8 +36,8 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
     upvotes: 26,
   };
 
-  const onUpvote = (i: number) => {
-    console.log(i);
+  const onUpvote = (action: 'up' | 'down') => {
+    console.log(action);
   };
 
   return (
@@ -59,31 +50,25 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
       boxShadow="md"
       order={fdata.upvotes}
       alignItems="flex-start"
-      spacing="10px"
+      justifyItems="flex-start"
     >
-      <Image src={fdata.logo} boxSize="320px" alt="logo" />
-      <Divider orientation="horizontal" size="2px" color="black" />
+      <Image src={fdata.logo} alt="logo" boxSize="300px" />
+      <Box w="320px" h="10px" borderTop="2px solid black" />
       <HStack
-        mt="40px"
         justifyContent="flex-start"
         alignContent="center"
-        spacing="25px"
+        spacing="20px"
+        h="100px"
       >
-        <VoteIcons status={1} onClick={onUpvote} upvotes={25} />
-        <Flex
-          ml="20px"
-          flexDir="column"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          spacing="10px"
-        >
-          <Text color="black" fontSize="28px">
+        <VoteIcons status="down" onClick={onUpvote} upvotes={fdata.upvotes} />
+        <VStack alignItems="flex-start" spacing="15px">
+          <Text color="black" fontSize="28px" lineHeight="75%">
             {fdata.title}
           </Text>
-          <Text color="orange.400" fontSize="20px">
+          <Text color="orange.400" fontSize="20px" lineHeight="75%">
             {fdata.category.join(' | ')}
           </Text>
-        </Flex>
+        </VStack>
       </HStack>
       <HStack flexWrap="wrap">
         {fdata.tags.map((item, index) => (
@@ -91,7 +76,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platformId }) => {
             bg="orange.400"
             key={fdata.title + index}
             fontSize="16px"
-            p="10px"
+            h="32px"
             borderRadius="md"
           >
             {item}
