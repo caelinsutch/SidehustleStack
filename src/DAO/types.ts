@@ -31,8 +31,7 @@ export type Mutation = {
 };
 
 export type MutationCreatePlatformArgs = {
-  name: Scalars['String'];
-  description: Scalars['String'];
+  platform?: Maybe<PlatformInput>;
 };
 
 export type MutationUpdatePlatformArgs = {
@@ -40,19 +39,60 @@ export type MutationUpdatePlatformArgs = {
   data: UpdatePlatformInput;
 };
 
-export type UpdatePlatformInput = {
-  category?: Maybe<CategoryInput>;
-  tags?: Maybe<Array<TagInput>>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  equipmentNeeded?: Maybe<Array<Scalars['String']>>;
-  peopleMakingMoney?: Maybe<Scalars['String']>;
-  requiresAudience?: Maybe<Scalars['Boolean']>;
+export type PlatformInput = {
+  name: Scalars['String'];
+  companyLogo: Scalars['String'];
+  website: Scalars['String'];
+  founded: Scalars['String'];
+  headquarteredIn: Scalars['String'];
   funding?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  category?: Maybe<CategoryInput>;
+  requiresDigitalAudience: Scalars['String'];
+  applicationRequired: Scalars['String'];
+  creativeWork: Scalars['Boolean'];
+  remoteWork: Scalars['Boolean'];
+  minimumAge: Scalars['Int'];
+  equipmentQualSkills: Array<EquipmentQualSkills>;
+  otherRequirements: Scalars['String'];
+  averageHourlyEarnings: Scalars['Int'];
+  averageMonthlyEarnings: Scalars['Int'];
+  daysToFirstDollar?: Maybe<Scalars['Int']>;
+  monthlyActiveEarners?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  tags?: Maybe<Array<TagInput>>;
+};
+
+export type UpdatePlatformInput = {
+  name?: Maybe<Scalars['String']>;
+  companyLogo?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
-  averagePay?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<LinkInput>>;
+  headquarteredIn?: Maybe<Scalars['String']>;
+  funding?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  category?: Maybe<CategoryInput>;
+  requiresDigitalAudience?: Maybe<Scalars['String']>;
+  applicationRequired?: Maybe<Scalars['String']>;
+  creativeWork?: Maybe<Scalars['Boolean']>;
+  remoteWork?: Maybe<Scalars['Boolean']>;
+  minimumAge?: Maybe<Scalars['Int']>;
+  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
+  otherRequirements?: Maybe<Scalars['String']>;
+  averageHourlyEarnings?: Maybe<Scalars['Int']>;
+  averageMonthlyEarnings?: Maybe<Scalars['Int']>;
+  daysToFirstDollar?: Maybe<Scalars['Int']>;
+  monthlyActiveEarners?: Maybe<Scalars['Int']>;
+  platformPricing?: Maybe<Scalars['String']>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<TagInput>>;
 };
 
 export type CategoryInput = {
@@ -72,19 +112,46 @@ export type LinkInput = {
 
 export type PlatformMvc = {
   platformId: Scalars['ID'];
-  category?: Maybe<Category>;
-  tags?: Maybe<Array<Tag>>;
   name: Scalars['String'];
-  description: Scalars['String'];
-  equipmentNeeded?: Maybe<Array<Scalars['String']>>;
-  peopleMakingMoney?: Maybe<Scalars['String']>;
-  requiresAudience?: Maybe<Scalars['Boolean']>;
+  companyLogo: Scalars['String'];
+  website: Scalars['String'];
+  founded: Scalars['String'];
+  headquarteredIn: Scalars['String'];
   funding?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  category?: Maybe<Category>;
+  requiresDigitalAudience: Scalars['String'];
+  applicationRequired: Scalars['String'];
+  creativeWork: Scalars['Boolean'];
+  remoteWork: Scalars['Boolean'];
+  minimumAge: Scalars['Int'];
+  equipmentQualSkills: Array<EquipmentQualSkills>;
+  otherRequirements: Scalars['String'];
+  averageHourlyEarnings: Scalars['Int'];
+  averageMonthlyEarnings: Scalars['Int'];
+  daysToFirstDollar?: Maybe<Scalars['Int']>;
+  monthlyActiveEarners?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
-  founded?: Maybe<Scalars['String']>;
-  averagePay?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<Link>>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
 };
+
+export enum EquipmentQualSkills {
+  Computer = 'COMPUTER',
+  Smartphone = 'SMARTPHONE',
+  Car = 'CAR',
+  Microphone = 'MICROPHONE',
+  BankAccount = 'BANK_ACCOUNT',
+  BachelorsDegree = 'BACHELORS_DEGREE',
+  NativeEnglish = 'NATIVE_ENGLISH',
+  ChildCareExperience = 'CHILD_CARE_EXPERIENCE',
+  AnimalCareExperience = 'ANIMAL_CARE_EXPERIENCE',
+  BackgroundCheck = 'BACKGROUND_CHECK',
+  Other = 'OTHER',
+}
 
 export type Tag = {
   name: Scalars['String'];
@@ -135,21 +202,33 @@ export type AdditionalEntityFields = {
 };
 
 import { ObjectID } from 'mongodb';
-
 export type PlatformMvcDbObject = {
   _id: ObjectID;
-  category?: Maybe<CategoryDbObject>;
-  tags?: Maybe<Array<TagDbObject>>;
   name: string;
-  description: string;
-  equipmentNeeded?: Maybe<Array<string>>;
-  peopleMakingMoney?: Maybe<string>;
-  requiresAudience?: Maybe<boolean>;
+  companyLogo: string;
+  website: string;
+  founded: string;
+  headquarteredIn: string;
   funding?: Maybe<string>;
+  description: string;
+  category?: Maybe<CategoryDbObject>;
+  requiresDigitalAudience: string;
+  applicationRequired: string;
+  creativeWork: boolean;
+  remoteWork: boolean;
+  minimumAge: number;
+  equipmentQualSkills: Array<string>;
+  otherRequirements: string;
+  averageHourlyEarnings: number;
+  averageMonthlyEarnings: number;
+  daysToFirstDollar?: Maybe<number>;
+  monthlyActiveEarners?: Maybe<number>;
   platformPricing?: Maybe<string>;
-  founded?: Maybe<string>;
-  averagePay?: Maybe<string>;
-  links?: Maybe<Array<LinkDbObject>>;
+  geographicalFocus?: Maybe<string>;
+  affiliateLink?: Maybe<string>;
+  founderMessage?: Maybe<string>;
+  email: string;
+  tags?: Maybe<Array<TagDbObject>>;
 };
 
 export type TagDbObject = {

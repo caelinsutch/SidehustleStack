@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { PlatformCard } from '@Components';
-import { useCreatePlatformMutation, useHomeQuery } from '@GraphQL/types';
+import { useHomeQuery } from '@GraphQL/types';
 import { gql } from '@apollo/client';
 
 export const query = gql`
@@ -10,17 +10,11 @@ export const query = gql`
       name
     }
   }
-
-  mutation CreatePlatform($name: String!, $description: String!) {
-    createPlatform(name: $name, description: $description) {
-      platformId
-    }
-  }
 `;
 
 const TestScreen: React.FC = () => {
   const { data, loading, refetch } = useHomeQuery();
-  const [createPlatform] = useCreatePlatformMutation();
+  // const [createPlatform] = useCreatePlatformMutation();
 
   const [newPlatform, setNewPlatform] = useState({
     name: '',
@@ -37,12 +31,12 @@ const TestScreen: React.FC = () => {
 
   const onClickAddPlatform = () => {
     const { name, description } = newPlatform;
-    createPlatform({
-      variables: {
-        name,
-        description,
-      },
-    }).then(() => refetch());
+    // createPlatform({
+    //   variables: {
+    //     name,
+    //     description,
+    //   },
+    // }).then(() => refetch());
   };
 
   const platformElements = data?.allPlatforms

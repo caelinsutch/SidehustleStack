@@ -12,6 +12,7 @@ generates:
       - add:
           content: '/* eslint-disable */'
     config:
+      enumsAsString: true
       skipTypename: true
   ./src/GraphQL/types.ts:
     documents: # Provide list of files that needs to be checked for queries

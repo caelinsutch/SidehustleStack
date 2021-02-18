@@ -1,11 +1,8 @@
 import { PlatformMvcDbObject } from '@DAO';
 import { getPlatformCollection, getPlatformMvcFromDbObject } from '..';
 
-const createPlatform = async (_: any, { description, name }) => {
-  const data: Omit<PlatformMvcDbObject, '_id'> = {
-    description,
-    name,
-  };
+const createPlatform = async (_: any, { platform }) => {
+  const data: Omit<PlatformMvcDbObject, '_id'> = platform;
 
   const collection = await getPlatformCollection();
   const document = await collection.insertOne(data);

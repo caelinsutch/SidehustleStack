@@ -4,23 +4,64 @@ type Query {
 }
 
 type Mutation {
-    createPlatform(name: String!, description: String!): PlatformMVC!
+    createPlatform(platform: PlatformInput): PlatformMVC!
     updatePlatform(platformId: ID!, data: UpdatePlatformInput!): PlatformMVC
 }
 
-input UpdatePlatformInput {
-    category: CategoryInput
-    tags: [TagInput!]
-    name: String
-    description: String
-    equipmentNeeded: [String!]
-    peopleMakingMoney: String
-    requiresAudience: Boolean
+input PlatformInput {
+    name: String!
+    companyLogo: String!
+    website: String!
+    founded: String!
+    headquarteredIn: String!
     funding: String
+    description: String!
+    category: CategoryInput
+    requiresDigitalAudience: String!
+    applicationRequired: String!
+    creativeWork: Boolean!
+    remoteWork: Boolean!
+    minimumAge: Int!
+    equipmentQualSkills: [EquipmentQualSkills!]!
+    otherRequirements: String!
+    averageHourlyEarnings: Int!
+    averageMonthlyEarnings: Int!
+    daysToFirstDollar: Int
+    monthlyActiveEarners: Int
     platformPricing: String
+    geographicalFocus: String
+    affiliateLink: String
+    founderMessage: String
+    email: String!
+    tags: [TagInput!]
+}
+
+input UpdatePlatformInput {
+    name: String
+    companyLogo: String
+    website: String
     founded: String
-    averagePay: String
-    links: [LinkInput!]
+    headquarteredIn: String
+    funding: String
+    description: String
+    category: CategoryInput
+    requiresDigitalAudience: String
+    applicationRequired: String
+    creativeWork: Boolean
+    remoteWork: Boolean
+    minimumAge: Int
+    equipmentQualSkills: [EquipmentQualSkills!]
+    otherRequirements: String
+    averageHourlyEarnings: Int
+    averageMonthlyEarnings: Int
+    daysToFirstDollar: Int
+    monthlyActiveEarners: Int
+    platformPricing: String
+    geographicalFocus: String
+    affiliateLink: String
+    founderMessage: String
+    email: String
+    tags: [TagInput!]
 }
 
 input CategoryInput {
@@ -39,18 +80,45 @@ input LinkInput {
 }
 type PlatformMVC @entity {
     platformId: ID! @id
-    category: Category @embedded
-    tags: [Tag!] @embedded
     name: String! @column
-    description: String! @column
-    equipmentNeeded: [String!] @column
-    peopleMakingMoney: String @column
-    requiresAudience: Boolean @column
+    companyLogo: String! @column
+    website: String! @column
+    founded: String! @column
+    headquarteredIn: String! @column
     funding: String @column
+    description: String! @column
+    category: Category @embedded
+    requiresDigitalAudience: String! @column
+    applicationRequired: String! @column
+    creativeWork: Boolean! @column
+    remoteWork: Boolean! @column
+    minimumAge: Int! @column
+    equipmentQualSkills: [EquipmentQualSkills!]! @column
+    otherRequirements: String! @column
+    averageHourlyEarnings: Int! @column
+    averageMonthlyEarnings: Int! @column
+    daysToFirstDollar: Int @column
+    monthlyActiveEarners: Int @column
     platformPricing: String @column
-    founded: String @column
-    averagePay: String @column
-    links: [Link!] @embedded
+    geographicalFocus: String @column
+    affiliateLink: String @column
+    founderMessage: String @column
+    email: String! @column
+    tags: [Tag!] @embedded
+}
+
+enum EquipmentQualSkills {
+    COMPUTER
+    SMARTPHONE
+    CAR
+    MICROPHONE
+    BANK_ACCOUNT
+    BACHELORS_DEGREE
+    NATIVE_ENGLISH
+    CHILD_CARE_EXPERIENCE
+    ANIMAL_CARE_EXPERIENCE
+    BACKGROUND_CHECK
+    OTHER
 }
 
 type Tag @entity(embedded: true) {

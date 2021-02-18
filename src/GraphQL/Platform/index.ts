@@ -7,10 +7,12 @@ import { dbPromise } from '../resolvers';
 export const getPlatformMvcFromDbObject = ({
   _id,
   category,
+  equipmentQualSkills,
   ...object
 }: PlatformMvcDbObject): PlatformMvc => ({
   platformId: _id.toHexString(),
   category: category as PlatformMvc['category'],
+  equipmentQualSkills: equipmentQualSkills as PlatformMvc['equipmentQualSkills'],
   ...object,
 });
 

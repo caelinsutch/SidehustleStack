@@ -1,9 +1,8 @@
 /* eslint-disable */
 import { GraphQLResolveInfo } from 'graphql';
+import { gql } from '@apollo/client';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
-import { gql } from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -40,8 +39,7 @@ export type Mutation = {
 };
 
 export type MutationCreatePlatformArgs = {
-  name: Scalars['String'];
-  description: Scalars['String'];
+  platform?: Maybe<PlatformInput>;
 };
 
 export type MutationUpdatePlatformArgs = {
@@ -49,19 +47,60 @@ export type MutationUpdatePlatformArgs = {
   data: UpdatePlatformInput;
 };
 
-export type UpdatePlatformInput = {
-  category?: Maybe<CategoryInput>;
-  tags?: Maybe<Array<TagInput>>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  equipmentNeeded?: Maybe<Array<Scalars['String']>>;
-  peopleMakingMoney?: Maybe<Scalars['String']>;
-  requiresAudience?: Maybe<Scalars['Boolean']>;
+export type PlatformInput = {
+  name: Scalars['String'];
+  companyLogo: Scalars['String'];
+  website: Scalars['String'];
+  founded: Scalars['String'];
+  headquarteredIn: Scalars['String'];
   funding?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  category?: Maybe<CategoryInput>;
+  requiresDigitalAudience: Scalars['String'];
+  applicationRequired: Scalars['String'];
+  creativeWork: Scalars['Boolean'];
+  remoteWork: Scalars['Boolean'];
+  minimumAge: Scalars['Int'];
+  equipmentQualSkills: Array<EquipmentQualSkills>;
+  otherRequirements: Scalars['String'];
+  averageHourlyEarnings: Scalars['Int'];
+  averageMonthlyEarnings: Scalars['Int'];
+  daysToFirstDollar?: Maybe<Scalars['Int']>;
+  monthlyActiveEarners?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  tags?: Maybe<Array<TagInput>>;
+};
+
+export type UpdatePlatformInput = {
+  name?: Maybe<Scalars['String']>;
+  companyLogo?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
-  averagePay?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<LinkInput>>;
+  headquarteredIn?: Maybe<Scalars['String']>;
+  funding?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  category?: Maybe<CategoryInput>;
+  requiresDigitalAudience?: Maybe<Scalars['String']>;
+  applicationRequired?: Maybe<Scalars['String']>;
+  creativeWork?: Maybe<Scalars['Boolean']>;
+  remoteWork?: Maybe<Scalars['Boolean']>;
+  minimumAge?: Maybe<Scalars['Int']>;
+  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
+  otherRequirements?: Maybe<Scalars['String']>;
+  averageHourlyEarnings?: Maybe<Scalars['Int']>;
+  averageMonthlyEarnings?: Maybe<Scalars['Int']>;
+  daysToFirstDollar?: Maybe<Scalars['Int']>;
+  monthlyActiveEarners?: Maybe<Scalars['Int']>;
+  platformPricing?: Maybe<Scalars['String']>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<TagInput>>;
 };
 
 export type CategoryInput = {
@@ -81,19 +120,46 @@ export type LinkInput = {
 
 export type PlatformMvc = {
   platformId: Scalars['ID'];
-  category?: Maybe<Category>;
-  tags?: Maybe<Array<Tag>>;
   name: Scalars['String'];
-  description: Scalars['String'];
-  equipmentNeeded?: Maybe<Array<Scalars['String']>>;
-  peopleMakingMoney?: Maybe<Scalars['String']>;
-  requiresAudience?: Maybe<Scalars['Boolean']>;
+  companyLogo: Scalars['String'];
+  website: Scalars['String'];
+  founded: Scalars['String'];
+  headquarteredIn: Scalars['String'];
   funding?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  category?: Maybe<Category>;
+  requiresDigitalAudience: Scalars['String'];
+  applicationRequired: Scalars['String'];
+  creativeWork: Scalars['Boolean'];
+  remoteWork: Scalars['Boolean'];
+  minimumAge: Scalars['Int'];
+  equipmentQualSkills: Array<EquipmentQualSkills>;
+  otherRequirements: Scalars['String'];
+  averageHourlyEarnings: Scalars['Int'];
+  averageMonthlyEarnings: Scalars['Int'];
+  daysToFirstDollar?: Maybe<Scalars['Int']>;
+  monthlyActiveEarners?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
-  founded?: Maybe<Scalars['String']>;
-  averagePay?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<Link>>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
 };
+
+export enum EquipmentQualSkills {
+  Computer = 'COMPUTER',
+  Smartphone = 'SMARTPHONE',
+  Car = 'CAR',
+  Microphone = 'MICROPHONE',
+  BankAccount = 'BANK_ACCOUNT',
+  BachelorsDegree = 'BACHELORS_DEGREE',
+  NativeEnglish = 'NATIVE_ENGLISH',
+  ChildCareExperience = 'CHILD_CARE_EXPERIENCE',
+  AnimalCareExperience = 'ANIMAL_CARE_EXPERIENCE',
+  BackgroundCheck = 'BACKGROUND_CHECK',
+  Other = 'OTHER',
+}
 
 export type Tag = {
   name: Scalars['String'];
@@ -257,13 +323,16 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
+  PlatformInput: PlatformInput;
   String: ResolverTypeWrapper<Scalars['String']>;
-  UpdatePlatformInput: UpdatePlatformInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  UpdatePlatformInput: UpdatePlatformInput;
   CategoryInput: CategoryInput;
   TagInput: TagInput;
   LinkInput: LinkInput;
   PlatformMVC: ResolverTypeWrapper<PlatformMvc>;
+  EquipmentQualSkills: EquipmentQualSkills;
   Tag: ResolverTypeWrapper<Tag>;
   Category: ResolverTypeWrapper<Category>;
   CategoryTypes: CategoryTypes;
@@ -275,9 +344,11 @@ export type ResolversParentTypes = {
   Query: {};
   ID: Scalars['ID'];
   Mutation: {};
+  PlatformInput: PlatformInput;
   String: Scalars['String'];
-  UpdatePlatformInput: UpdatePlatformInput;
   Boolean: Scalars['Boolean'];
+  Int: Scalars['Int'];
+  UpdatePlatformInput: UpdatePlatformInput;
   CategoryInput: CategoryInput;
   TagInput: TagInput;
   LinkInput: LinkInput;
@@ -312,7 +383,7 @@ export type MutationResolvers<
     ResolversTypes['PlatformMVC'],
     ParentType,
     ContextType,
-    RequireFields<MutationCreatePlatformArgs, 'name' | 'description'>
+    RequireFields<MutationCreatePlatformArgs, never>
   >;
   updatePlatform?: Resolver<
     Maybe<ResolversTypes['PlatformMVC']>,
@@ -327,46 +398,83 @@ export type PlatformMvcResolvers<
   ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
 > = {
   platformId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  companyLogo?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  founded?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  headquarteredIn?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  funding?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   category?: Resolver<
     Maybe<ResolversTypes['Category']>,
     ParentType,
     ContextType
   >;
-  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  equipmentNeeded?: Resolver<
-    Maybe<Array<ResolversTypes['String']>>,
+  requiresDigitalAudience?: Resolver<
+    ResolversTypes['String'],
     ParentType,
     ContextType
   >;
-  peopleMakingMoney?: Resolver<
-    Maybe<ResolversTypes['String']>,
+  applicationRequired?: Resolver<
+    ResolversTypes['String'],
     ParentType,
     ContextType
   >;
-  requiresAudience?: Resolver<
-    Maybe<ResolversTypes['Boolean']>,
+  creativeWork?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  remoteWork?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  minimumAge?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  equipmentQualSkills?: Resolver<
+    Array<ResolversTypes['EquipmentQualSkills']>,
     ParentType,
     ContextType
   >;
-  funding?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  otherRequirements?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  averageHourlyEarnings?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  averageMonthlyEarnings?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  daysToFirstDollar?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  monthlyActiveEarners?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
   platformPricing?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
-  founded?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  averagePay?: Resolver<
+  geographicalFocus?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
-  links?: Resolver<
-    Maybe<Array<ResolversTypes['Link']>>,
+  affiliateLink?: Resolver<
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
+  founderMessage?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -430,15 +538,6 @@ export type HomeQuery = {
   allPlatforms: Array<Pick<PlatformMvc, 'platformId' | 'name'>>;
 };
 
-export type CreatePlatformMutationVariables = Exact<{
-  name: Scalars['String'];
-  description: Scalars['String'];
-}>;
-
-export type CreatePlatformMutation = {
-  createPlatform: Pick<PlatformMvc, 'platformId'>;
-};
-
 export const PlatformDocument = gql`
   query Platform($platformId: ID!) {
     Platform(platformId: $platformId) {
@@ -475,7 +574,6 @@ export function usePlatformQuery(
     baseOptions
   );
 }
-
 export function usePlatformLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
     PlatformQuery,
@@ -487,7 +585,6 @@ export function usePlatformLazyQuery(
     baseOptions
   );
 }
-
 export type PlatformQueryHookResult = ReturnType<typeof usePlatformQuery>;
 export type PlatformLazyQueryHookResult = ReturnType<
   typeof usePlatformLazyQuery
@@ -528,7 +625,6 @@ export function useHomeQuery(
     baseOptions
   );
 }
-
 export function useHomeLazyQuery(
   baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
     HomeQuery,
@@ -540,60 +636,9 @@ export function useHomeLazyQuery(
     baseOptions
   );
 }
-
 export type HomeQueryHookResult = ReturnType<typeof useHomeQuery>;
 export type HomeLazyQueryHookResult = ReturnType<typeof useHomeLazyQuery>;
 export type HomeQueryResult = ApolloReactCommon.QueryResult<
   HomeQuery,
   HomeQueryVariables
->;
-export const CreatePlatformDocument = gql`
-  mutation CreatePlatform($name: String!, $description: String!) {
-    createPlatform(name: $name, description: $description) {
-      platformId
-    }
-  }
-`;
-export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
-  CreatePlatformMutation,
-  CreatePlatformMutationVariables
->;
-
-/**
- * __useCreatePlatformMutation__
- *
- * To run a mutation, you first call `useCreatePlatformMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePlatformMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPlatformMutation, { data, loading, error }] = useCreatePlatformMutation({
- *   variables: {
- *      name: // value for 'name'
- *      description: // value for 'description'
- *   },
- * });
- */
-export function useCreatePlatformMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreatePlatformMutation,
-    CreatePlatformMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    CreatePlatformMutation,
-    CreatePlatformMutationVariables
-  >(CreatePlatformDocument, baseOptions);
-}
-
-export type CreatePlatformMutationHookResult = ReturnType<
-  typeof useCreatePlatformMutation
->;
-export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<CreatePlatformMutation>;
-export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreatePlatformMutation,
-  CreatePlatformMutationVariables
 >;
