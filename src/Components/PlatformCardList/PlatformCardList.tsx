@@ -11,7 +11,7 @@ const PlatformCardList: React.FC<PlatformCardListProps> = ({
   cards,
   ...props
 }) => (
-  <Flex flexDir="row" justifyContent="space-around" {...props}>
+  <Flex flexDir="row" justifyContent="space-around" spacing="30px" {...props}>
     {cards.map((card, index) => (
       <PlatformCard
         CardData={card}
