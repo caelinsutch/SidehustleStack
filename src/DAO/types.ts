@@ -135,6 +135,7 @@ export type AdditionalEntityFields = {
 };
 
 import { ObjectID } from 'mongodb';
+
 export type PlatformMvcDbObject = {
   _id: ObjectID;
   category?: Maybe<CategoryDbObject>;
