@@ -12,17 +12,15 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(['']);
 
   const handleFilter = (card: PlatformData): boolean => {
-    tags.forEach((tag) => {
-      if (!card.tags.includes(tag)) return false;
-    });
-    const searchExp = new RegExp(`/${[...search].join('*')}/`);
-    if (card.title.match(searchExp).length < search.length * 0.75) {
-      return false;
+    for (let i = 0; i < tags.length; i += 1) {
+      if (!card.tags.includes(tags[i])) return false;
     }
-    return true;
+    if (search.length === 0) return true;
+    const searchExp = new RegExp(`${[...search].join('*')}*`, 'i');
+    return `${card.title.match(searchExp)}`.length >= search.length;
   };
 
   return (
@@ -33,7 +31,7 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
         Sponsored Platforms
       </Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
-      <Flex justifyContent="space-between">
+      <Flex justifyContent="space-between" mt="85px">
         <Text fontSize="40px">Sponsored Platforms</Text>
         <Flex justifyContent="flex-end">
           <FilterDropdown />
@@ -53,7 +51,11 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
           />
         </Flex>
       </Flex>
-      <PlatformCardList cards={platforms} w="100%" mt="40px" />
+      <PlatformCardList
+        cards={platforms.filter((card) => handleFilter(card))}
+        w="100%"
+        mt="40px"
+      />
     </Box>
   );
 };
