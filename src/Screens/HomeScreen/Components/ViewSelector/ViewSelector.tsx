@@ -5,7 +5,7 @@ import { HomeView } from '@Screens/HomeScreen/HomeScreen';
 export type ViewSelectorProps = {
   view: HomeView;
   self: HomeView;
-  onClick: (view: HomeView) => void;
+  onClick: () => void;
 } & TextProps;
 
 const ViewSelector: React.FC<ViewSelectorProps> = ({
@@ -20,12 +20,13 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({
     color={view === self ? 'orange.400' : 'grey.200'}
     _hover={{
       color: view === self ? 'orange.300' : 'grey.100',
-      borderShadow: 'md',
     }}
-    onClick={() => onClick(self)}
+    onClick={() => onClick()}
+    userSelect="none"
+    cursor="pointer"
     {...props}
   >
-    {self.charAt(0).toUpperCase + self.slice(1)}
+    {self}
   </Text>
 );
 

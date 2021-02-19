@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DefaultContainer, PlatformCard, PlatformCardList } from '@Components';
 import { Text, Flex } from '@chakra-ui/react';
-import { HomeBanner, PlatformSection } from './Components';
+import { HomeBanner, PlatformSection, ViewSelector } from './Components';
 
 export type PlatformData = {
   title: string;
@@ -48,31 +48,17 @@ const HomeScreen: React.FC = () => {
   return (
     <DefaultContainer as="section">
       <HomeBanner onEmailSubmit={(email) => console.log(email)} />
-      <Flex justifyContent="space-around">
-        <Text
-          fontStyle="bold"
-          fontSize="60px"
-          color={view === 'platforms' ? 'orange.400' : 'grey.200'}
-          _hover={{
-            color: view === 'platforms' ? 'orange.300' : 'grey.100',
-            borderShadow: 'md',
-          }}
+      <Flex justifyContent="space-around" mt="115px" mb="240px">
+        <ViewSelector
+          view={view}
+          self="platforms"
           onClick={() => setView('platforms')}
-        >
-          Platforms
-        </Text>
-        <Text
-          fontStyle="bold"
-          fontSize="60px"
-          color={view === 'tools' ? 'orange.400' : 'grey.200'}
-          _hover={{
-            color: view === 'tools' ? 'orange.300' : 'grey.100',
-            borderShadow: 'md',
-          }}
+        />
+        <ViewSelector
+          view={view}
+          self="tools"
           onClick={() => setView('tools')}
-        >
-          Tools
-        </Text>
+        />
       </Flex>
       <PlatformSection
         platforms={fdata}
