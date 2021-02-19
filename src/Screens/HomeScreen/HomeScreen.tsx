@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DefaultContainer, PlatformCard, PlatformCardList } from '@Components';
 import { Text, Flex } from '@chakra-ui/react';
-import { HomeBanner } from './Components';
+import { HomeBanner, PlatformSection } from './Components';
 
 export type PlatformData = {
   title: string;
@@ -11,6 +11,8 @@ export type PlatformData = {
   tags: string[];
   votes: number;
 };
+
+export type HomeView = 'platforms' | 'tools';
 
 const HomeScreen: React.FC = () => {
   const fdata: PlatformData[] = [...Array(5)].map(
@@ -26,19 +28,60 @@ const HomeScreen: React.FC = () => {
       } as PlatformData)
   );
 
+  const tdata: PlatformData[] = [...Array(5)].map(
+    () =>
+      ({
+        title: 'Tools',
+        description: '',
+        categories: ['Browser', 'Mammal'],
+        logo:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png',
+        tags: ['Small Business', '18+', '$$$', 'Animal'],
+        votes: 26,
+      } as PlatformData)
+  );
+
+  const [view, setView] = useState<HomeView>('platforms');
+
   console.log(fdata[1]);
 
   return (
     <DefaultContainer as="section">
       <HomeBanner onEmailSubmit={(email) => console.log(email)} />
-      <Flex flexDir="column" alignContent="center">
-        <Text fontSize="40px">Sponsored Platforms</Text>
-        <PlatformCardList cards={fdata.slice(0, 3)} w="100%" />
-        <Text fontSize="40px">Sponsored Platforms</Text>
-        <PlatformCardList cards={fdata.slice(0, 3)} w="100%" />
-        <Text fontSize="40px">Sponsored Platforms</Text>
-        <PlatformCardList cards={fdata} w="1300px" />
+      <Flex justifyContent="space-around">
+        <Text
+          fontStyle="bold"
+          fontSize="60px"
+          color={view === 'platforms' ? 'orange.400' : 'grey.200'}
+          _hover={{
+            color: view === 'platforms' ? 'orange.300' : 'grey.100',
+            borderShadow: 'md',
+          }}
+          onClick={() => setView('platforms')}
+        >
+          Platforms
+        </Text>
+        <Text
+          fontStyle="bold"
+          fontSize="60px"
+          color={view === 'tools' ? 'orange.400' : 'grey.200'}
+          _hover={{
+            color: view === 'tools' ? 'orange.300' : 'grey.100',
+            borderShadow: 'md',
+          }}
+          onClick={() => setView('tools')}
+        >
+          Tools
+        </Text>
       </Flex>
+      <PlatformSection
+        platforms={fdata}
+        display={view === 'platforms' ? 'initial' : 'none'}
+      />
+      <PlatformSection
+        platforms={tdata}
+        display={view === 'tools' ? 'initial' : 'none'}
+      />
     </DefaultContainer>
   );
 };
