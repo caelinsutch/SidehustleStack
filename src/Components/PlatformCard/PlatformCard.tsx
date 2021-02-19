@@ -14,7 +14,7 @@ import { VoteIcons } from '@Components/index';
 import { PlatformData } from 'src/Screens/HomeScreen';
 
 export type PlatformCardProps = {
-  CardData: PlatformData;
+  card: PlatformData;
 } & BoxProps;
 
 export const query = gql`
@@ -28,15 +28,13 @@ export const query = gql`
 
 // https://i.imgur.com/pIfdoIW.gif
 
-const PlatformCard: React.FC<PlatformCardProps> = ({ CardData, ...props }) => {
+const PlatformCard: React.FC<PlatformCardProps> = ({ card, ...props }) => {
   const onUpvote = (action: 'up' | 'down') => {
     console.log(action);
   };
 
   return (
     <VStack
-      w="400px"
-      h="520px"
       p="40px"
       bg="white"
       borderRadius="md"
@@ -45,32 +43,45 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ CardData, ...props }) => {
       justifyItems="flex-start"
       {...props}
     >
-      <Image src={CardData.logo} alt="logo" boxSize="300px" />
-      <Box w="320px" h="10px" borderTop="2px solid black" />
+      <Image
+        src={card.logo}
+        alt="logo"
+        width="80%"
+        height="auto"
+        alignSelf="center"
+      />
+      <Box w="100%" h="10px" borderTop="2px solid black" alignSelf="center" />
       <HStack
         justifyContent="flex-start"
         alignContent="center"
         spacing="20px"
         h="100px"
       >
-        <VoteIcons status="down" onClick={onUpvote} upvotes={CardData.votes} />
+        <VoteIcons status="down" onClick={onUpvote} upvotes={card.votes} />
         <VStack alignItems="flex-start" spacing="15px">
           <Text color="black" fontSize="28px" lineHeight="75%">
-            {CardData.title}
+            {card.title}
           </Text>
           <Text color="orange.400" fontSize="20px" lineHeight="75%">
-            {CardData.categories.join(' | ')}
+            {card.categories.join(' | ')}
           </Text>
         </VStack>
       </HStack>
-      <HStack flexWrap="wrap">
-        {CardData.tags.map((item, index) => (
+      <HStack w="100%" flexWrap="wrap" justifyContent="flex-start">
+        {card.tags.map((item, index) => (
           <Button
             bg="orange.400"
-            key={CardData.title + index}
+            key={card.title + index}
             fontSize="16px"
-            h="32px"
+            h="30px"
+            pr="9px"
+            pl="9px"
             borderRadius="md"
+            mb="6px"
+            mr="6px"
+            style={{
+              marginInlineStart: '0px',
+            }}
           >
             {item}
           </Button>

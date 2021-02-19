@@ -22,5 +22,5 @@ export { default as PlatformCardList } from './PlatformCardList';
 export type { PlatformCardListProps } from './PlatformCardList';
 export { default as ViewSelector } from './ViewSelector';
 export type { ViewSelectorProps } from './ViewSelector';
-export { default as FilterOptions } from './FilterOptions';
-export type { FilterOptionsProps } from './FilterOptions';
+export { default as FilterDropdown } from './FilterDropdown';
+export type { FilterDropdownProps } from './FilterDropdown';

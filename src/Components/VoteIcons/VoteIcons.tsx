@@ -28,7 +28,12 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
         color: status === 'up' ? 'orange.400' : '#919191',
       }}
     />
-    <Text color="black" fontSize="16px" lineHeight="80%">{`${upvotes}`}</Text>
+    <Text
+      userSelect="none"
+      color="black"
+      fontSize="16px"
+      lineHeight="80%"
+    >{`${upvotes}`}</Text>
     <Icon
       as={IoTriangle}
       color={status === 'down' ? 'red.300' : '#ababab'}
