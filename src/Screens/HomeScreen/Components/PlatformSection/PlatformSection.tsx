@@ -12,12 +12,13 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
-  const [tags, setTags] = useState<string[]>(['']);
+  const [tags, setTags] = useState<string[]>([]);
 
   const handleFilter = (card: PlatformData): boolean => {
     for (let i = 0; i < tags.length; i += 1) {
       if (!card.tags.includes(tags[i])) return false;
     }
+    console.log(search);
     if (search.length === 0) return true;
     const searchExp = new RegExp(`${[...search].join('*')}*`, 'i');
     return `${card.title.match(searchExp)}`.length >= search.length;
@@ -34,13 +35,18 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
       <Flex justifyContent="space-between" mt="85px">
         <Text fontSize="40px">Sponsored Platforms</Text>
         <Flex justifyContent="flex-end">
-          <FilterDropdown />
-          <FilterDropdown />
-          <FilterDropdown />
+          <FilterDropdown
+            items={['high', 'medium', 'low']}
+            name="Items"
+            onSelect={() => {}}
+            selected=""
+            height=""
+          />
           <Input
             key="platformsearch"
             as="input"
             borderRadius="2xl"
+            h="44px"
             boxShadow="md"
             name="search"
             placeholder="search..."

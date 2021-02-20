@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Box, Text, VStack } from '@chakra-ui/react';
+import { Icon, Text, VStack } from '@chakra-ui/react';
 import { IoTriangle } from 'react-icons/io5';
 
 export type VoteIconsProps = {
