@@ -1,5 +1,4 @@
 import React from 'react';
-import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import {
   ApolloProvider,
@@ -8,6 +7,9 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import fetch from 'node-fetch';
+import { ChakraProvider } from '@chakra-ui/react';
+
+import { Fonts } from '@Components';
 import { theme } from '@Config';
 
 const client = new ApolloClient({
@@ -17,6 +19,7 @@ const client = new ApolloClient({
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <ApolloProvider client={client}>
+    <Fonts />
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
     </ChakraProvider>

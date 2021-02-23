@@ -11,6 +11,10 @@ const theme = extendTheme({
       },
     },
   },
+  fonts: {
+    body: 'Circular Std',
+    heading: 'Circular Std',
+  },
 });
 
 export default theme;

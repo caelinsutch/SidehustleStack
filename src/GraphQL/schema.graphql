@@ -65,7 +65,7 @@ input UpdatePlatformInput {
 }
 
 input CategoryInput {
-    name: CategoryTypes
+    name: TypeOfWork
     color: String
 }
 
@@ -107,6 +107,16 @@ type PlatformMVC @entity {
     tags: [Tag!] @embedded
 }
 
+type Tag @entity(embedded: true) {
+    name: String! @column
+    color: String @column
+}
+
+type Category @entity(embedded: true) {
+    name: TypeOfWork @column
+    color: String @column
+}
+
 enum EquipmentQualSkills {
     COMPUTER
     SMARTPHONE
@@ -121,17 +131,35 @@ enum EquipmentQualSkills {
     OTHER
 }
 
-type Tag @entity(embedded: true) {
-    name: String! @column
-    color: String @column
+enum CategoryOfWork {
+    GIG
+    CREATOR
+    PROJECT_BASED
+    SMB
+    RENTALS
+    OTHER
 }
 
-type Category @entity(embedded: true) {
-    name: CategoryTypes @column
-    color: String @column
+enum ExistingDigitalAudienceRequired {
+    YES
+    NO
+    RECOMMENDED
 }
 
-enum CategoryTypes {
+enum ApplicationRequired {
+    YES
+    YES_SELECTION
+    NO
+}
+
+enum PlatformPricing {
+    PERCENTAGE
+    SUBSCRIPTION
+    FREE
+    OTHER
+}
+
+enum TypeOfWork {
     ADULT_CONTENT_CREATOR
     AUDIO_CONTENT_CREATOR
     CHEF
@@ -158,6 +186,7 @@ enum CategoryTypes {
     VIDEO_COURSE_CREATOR
     WRITER
 }
+
 type Link @entity(embedded: true) {
     label: String! @column
     url: String! @column

@@ -24,3 +24,5 @@ export { default as ViewSelector } from './ViewSelector';
 export type { ViewSelectorProps } from './ViewSelector';
 export { default as FilterDropdown } from './FilterDropdown';
 export type { FilterDropdownProps } from './FilterDropdown';
+export { default as Fonts } from './Fonts';
+export type { FontsProps } from './Fonts';
