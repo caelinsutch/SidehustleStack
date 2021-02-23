@@ -27,6 +27,7 @@
       "@GraphQL/*": ["./src/GraphQL/*"],
       "@Config": ["./src/Config"],
       "@DAO": ["./src/DAO"],
+      "@Cache": ["./src/Cache"],
       "@Public/*": ["./public/*"]
     }
   },

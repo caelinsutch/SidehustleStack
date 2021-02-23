@@ -38,7 +38,7 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
           <FilterDropdown
             items={['high', 'medium', 'low']}
             name="Items"
-            onSelect={() => {}}
+            onSelect={() => console.log('Select')}
             selected=""
             height=""
           />

@@ -43,12 +43,14 @@ export type FormSectionProps = {
   items: FormItem[];
   onSubmit: (data: any) => void;
   onError?: (errors: any) => void;
+  buttonText?: string;
 };
 
 const FormSection: React.FC<FormSectionProps> = ({
   items,
   onSubmit,
   onError,
+  buttonText = 'Next',
 }) => {
   const { register, handleSubmit } = useForm();
   return (
@@ -121,7 +123,7 @@ const FormSection: React.FC<FormSectionProps> = ({
         );
       })}
       <Button type="submit" borderRadius={1000}>
-        Submit
+        {buttonText}
       </Button>
     </form>
   );

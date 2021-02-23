@@ -6,8 +6,8 @@ import { TopSection } from '@Screens/SubmitScreen/Components';
 const SubmitScreen: React.FC = () => (
   <DefaultContainer as="section">
     <Box textAlign="center">
-      <Text fontSize="3xl" fontWeight="semibold">
-        Submit Screen
+      <Text fontSize="4xl" fontWeight="semibold">
+        Side Hustle Stack Submission
       </Text>
     </Box>
     <TopSection />
