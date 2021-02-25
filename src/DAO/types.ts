@@ -45,24 +45,21 @@ export type PlatformInput = {
   website: Scalars['String'];
   founded: Scalars['String'];
   headquarteredIn: Scalars['String'];
-  funding?: Maybe<Scalars['String']>;
+  funding: Funding;
   description: Scalars['String'];
-  category?: Maybe<CategoryInput>;
-  requiresDigitalAudience: Scalars['String'];
-  applicationRequired: Scalars['String'];
-  creativeWork: Scalars['Boolean'];
+  typeOfWork: TypeOfWork;
+  category: CategoryOfWork;
+  requiresDigitalAudience: ExistingDigitalAudienceRequired;
+  applicationRequired: ApplicationRequired;
   remoteWork: Scalars['Boolean'];
   minimumAge: Scalars['Int'];
   equipmentQualSkills: Array<EquipmentQualSkills>;
-  otherRequirements: Scalars['String'];
-  averageHourlyEarnings: Scalars['Int'];
-  averageMonthlyEarnings: Scalars['Int'];
-  daysToFirstDollar?: Maybe<Scalars['Int']>;
-  monthlyActiveEarners?: Maybe<Scalars['Int']>;
-  platformPricing?: Maybe<Scalars['String']>;
-  geographicalFocus?: Maybe<Scalars['String']>;
+  averageEarnings: AmountPerInput;
+  timeToFirstDollar: AmountPerInput;
+  geographicalFocus: Scalars['String'];
   affiliateLink?: Maybe<Scalars['String']>;
-  founderMessage?: Maybe<Scalars['String']>;
+  founderMessage: Scalars['String'];
+  founderTwitter: Scalars['String'];
   email: Scalars['String'];
   tags?: Maybe<Array<TagInput>>;
 };
@@ -73,31 +70,23 @@ export type UpdatePlatformInput = {
   website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
-  funding?: Maybe<Scalars['String']>;
+  funding?: Maybe<Funding>;
   description?: Maybe<Scalars['String']>;
-  category?: Maybe<CategoryInput>;
-  requiresDigitalAudience?: Maybe<Scalars['String']>;
-  applicationRequired?: Maybe<Scalars['String']>;
-  creativeWork?: Maybe<Scalars['Boolean']>;
+  typeOfWork?: Maybe<TypeOfWork>;
+  category?: Maybe<CategoryOfWork>;
+  requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
+  applicationRequired?: Maybe<ApplicationRequired>;
   remoteWork?: Maybe<Scalars['Boolean']>;
   minimumAge?: Maybe<Scalars['Int']>;
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
-  otherRequirements?: Maybe<Scalars['String']>;
-  averageHourlyEarnings?: Maybe<Scalars['Int']>;
-  averageMonthlyEarnings?: Maybe<Scalars['Int']>;
-  daysToFirstDollar?: Maybe<Scalars['Int']>;
-  monthlyActiveEarners?: Maybe<Scalars['Int']>;
-  platformPricing?: Maybe<Scalars['String']>;
+  averageEarnings?: Maybe<AmountPerInput>;
+  timeToFirstDollar?: Maybe<AmountPerInput>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
+  founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<TagInput>>;
-};
-
-export type CategoryInput = {
-  name?: Maybe<CategoryTypes>;
-  color?: Maybe<Scalars['String']>;
 };
 
 export type TagInput = {
@@ -110,6 +99,11 @@ export type LinkInput = {
   url?: Maybe<Scalars['String']>;
 };
 
+export type AmountPerInput = {
+  amount: Scalars['Int'];
+  per: Scalars['String'];
+};
+
 export type PlatformMvc = {
   platformId: Scalars['ID'];
   name: Scalars['String'];
@@ -117,27 +111,48 @@ export type PlatformMvc = {
   website: Scalars['String'];
   founded: Scalars['String'];
   headquarteredIn: Scalars['String'];
-  funding?: Maybe<Scalars['String']>;
+  funding: Funding;
   description: Scalars['String'];
-  category?: Maybe<Category>;
-  requiresDigitalAudience: Scalars['String'];
-  applicationRequired: Scalars['String'];
-  creativeWork: Scalars['Boolean'];
+  platformType: PlatformType;
+  typeOfWork: TypeOfWork;
+  category?: Maybe<CategoryOfWork>;
+  requiresDigitalAudience: ExistingDigitalAudienceRequired;
+  applicationRequired: ApplicationRequired;
   remoteWork: Scalars['Boolean'];
   minimumAge: Scalars['Int'];
   equipmentQualSkills: Array<EquipmentQualSkills>;
-  otherRequirements: Scalars['String'];
-  averageHourlyEarnings: Scalars['Int'];
-  averageMonthlyEarnings: Scalars['Int'];
-  daysToFirstDollar?: Maybe<Scalars['Int']>;
-  monthlyActiveEarners?: Maybe<Scalars['Int']>;
-  platformPricing?: Maybe<Scalars['String']>;
+  averageEarnings: AmountPer;
+  timeToFirstDollar: AmountPer;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
+  founderTwitter?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   tags?: Maybe<Array<Tag>>;
 };
+
+export type AmountPer = {
+  amount: Scalars['Int'];
+  per: Scalars['String'];
+};
+
+export type Tag = {
+  name: Scalars['String'];
+  color?: Maybe<Scalars['String']>;
+};
+
+export enum PlatformType {
+  Tool = 'TOOL',
+  Platform = 'PLATFORM',
+}
+
+export enum Funding {
+  Zero = 'ZERO',
+  LessFiveMil = 'LESS_FIVE_MIL',
+  FiveToTenMil = 'FIVE_TO_TEN_MIL',
+  TenPlusMil = 'TEN_PLUS_MIL',
+  PublicCompany = 'PUBLIC_COMPANY',
+}
 
 export enum EquipmentQualSkills {
   Computer = 'COMPUTER',
@@ -153,17 +168,35 @@ export enum EquipmentQualSkills {
   Other = 'OTHER',
 }
 
-export type Tag = {
-  name: Scalars['String'];
-  color?: Maybe<Scalars['String']>;
-};
+export enum CategoryOfWork {
+  Gig = 'GIG',
+  Creator = 'CREATOR',
+  ProjectBased = 'PROJECT_BASED',
+  Smb = 'SMB',
+  Rentals = 'RENTALS',
+  Other = 'OTHER',
+}
 
-export type Category = {
-  name?: Maybe<CategoryTypes>;
-  color?: Maybe<Scalars['String']>;
-};
+export enum ExistingDigitalAudienceRequired {
+  Yes = 'YES',
+  No = 'NO',
+  Recommended = 'RECOMMENDED',
+}
 
-export enum CategoryTypes {
+export enum ApplicationRequired {
+  Yes = 'YES',
+  YesSelective = 'YES_SELECTIVE',
+  No = 'NO',
+}
+
+export enum PlatformPricing {
+  Percentage = 'PERCENTAGE',
+  Subscription = 'SUBSCRIPTION',
+  Free = 'FREE',
+  Other = 'OTHER',
+}
+
+export enum TypeOfWork {
   AdultContentCreator = 'ADULT_CONTENT_CREATOR',
   AudioContentCreator = 'AUDIO_CONTENT_CREATOR',
   Chef = 'CHEF',
@@ -191,11 +224,6 @@ export enum CategoryTypes {
   Writer = 'WRITER',
 }
 
-export type Link = {
-  label: Scalars['String'];
-  url: Scalars['String'];
-};
-
 export type AdditionalEntityFields = {
   path?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -209,39 +237,32 @@ export type PlatformMvcDbObject = {
   website: string;
   founded: string;
   headquarteredIn: string;
-  funding?: Maybe<string>;
+  funding: string;
   description: string;
-  category?: Maybe<CategoryDbObject>;
+  platformType: string;
+  typeOfWork: string;
+  category?: Maybe<string>;
   requiresDigitalAudience: string;
   applicationRequired: string;
-  creativeWork: boolean;
   remoteWork: boolean;
   minimumAge: number;
   equipmentQualSkills: Array<string>;
-  otherRequirements: string;
-  averageHourlyEarnings: number;
-  averageMonthlyEarnings: number;
-  daysToFirstDollar?: Maybe<number>;
-  monthlyActiveEarners?: Maybe<number>;
-  platformPricing?: Maybe<string>;
+  averageEarnings: AmountPer;
+  timeToFirstDollar: AmountPer;
   geographicalFocus?: Maybe<string>;
   affiliateLink?: Maybe<string>;
   founderMessage?: Maybe<string>;
+  founderTwitter?: Maybe<string>;
   email: string;
   tags?: Maybe<Array<TagDbObject>>;
+};
+
+export type AmountPerDbObject = {
+  amount: number;
+  per: string;
 };
 
 export type TagDbObject = {
   name: string;
   color?: Maybe<string>;
-};
-
-export type CategoryDbObject = {
-  name?: Maybe<string>;
-  color?: Maybe<string>;
-};
-
-export type LinkDbObject = {
-  label: string;
-  url: string;
 };

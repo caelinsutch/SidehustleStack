@@ -3,7 +3,7 @@ import { FormItem } from '@Components/FormSection/FormSection';
 const steps = [
   [
     {
-      name: 'platformTool',
+      name: 'platformType',
       placeholder: 'Select',
       type: 'select',
       title: 'Are you selecting a platform or a tool?',
@@ -40,13 +40,13 @@ const steps = [
   ],
   [
     {
-      name: 'companyName',
+      name: 'name',
       placeholder: 'Side Hustle Stack',
       type: 'input',
       title: 'Company Name',
     },
     {
-      name: 'companyWebsite',
+      name: 'website',
       placeholder: 'sidehustlestack.co',
       type: 'input',
       title: 'Company Website',
@@ -54,7 +54,7 @@ const steps = [
   ],
   [
     {
-      name: 'yearFounded',
+      name: 'founded',
       placeholder: 'Side Hustle Stack',
       type: 'input',
       title: 'Company Name',
@@ -66,7 +66,7 @@ const steps = [
       title: 'Company Website',
     },
     {
-      name: 'totalFunding',
+      name: 'funding',
       placeholder: 'xxxxx',
       type: 'input',
       title: 'Total Funding',
@@ -80,7 +80,7 @@ const steps = [
         '4) Public Company - list ticker',
     },
     {
-      name: 'shortDescription',
+      name: 'description',
       placeholder: 'Description',
       type: 'input',
       title: 'Short Description',
@@ -88,16 +88,48 @@ const steps = [
   ],
   [
     {
+      name: 'typeOfWork',
+      type: 'select',
+      title: 'Type of Work',
+      values: [
+        { label: 'Adult Content Creator', value: 'ADULT_CONTENT_CREATOR' },
+        { label: 'Audio Content Creator', value: 'AUDIO_CONTENT_CREATOR' },
+        { label: 'Chef', value: 'CHEF' },
+        { label: 'Coach', value: 'COACH' },
+        { label: 'Community Leader', value: 'COMMUNITY_LEADER' },
+        { label: 'Content Creator', value: 'CONTENT_CREATOR' },
+        { label: 'ECommerce', value: 'ECOMMERCE' },
+        { label: 'Event Organizer', value: 'EVENT_ORGANIZER' },
+        { label: 'Driver', value: 'DRIVER' },
+        { label: 'Fitness Instructor', value: 'FITNESS_INSTRUCTOR' },
+        { label: 'Gamer', value: 'GAMER' },
+        { label: 'Health', value: 'HEALTH' },
+        { label: 'Livestreamer', value: 'LIVESTREAMER' },
+        { label: 'Personal Shopper', value: 'PERSONAL_SHOPPER' },
+        { label: 'Pet Caretaker', value: 'PET_CARETAKER' },
+        { label: 'Podcaster', value: 'PODCASTER' },
+        { label: 'Rentals', value: 'RENTALS' },
+        { label: 'Reseller', value: 'RESELLER' },
+        { label: 'Restaurant Worker', value: 'RESTAURANT_WORKER' },
+        { label: 'Salesperson', value: 'SALESPERSON' },
+        { label: 'Tasks and Services', value: 'TASKS_AND_SERVICES' },
+        { label: 'Teacher', value: 'TEACHER' },
+        { label: 'Tech', value: 'TECH' },
+        { label: 'Video Course Creator', value: 'VIDEO_COURSE_CREATOR' },
+        { label: 'Writer', value: 'WRITER' },
+      ],
+    },
+    {
       name: 'category',
       type: 'select',
       title: 'Work Category',
       values: [
-        { label: 'Gig work (Uber, Doordash)', value: 'gig' },
-        { label: 'Creator / Monetize audience/fans', value: 'creator' },
-        { label: 'Project Based / Freelance', value: 'project' },
-        { label: 'Start an SMB (Shopify, Etsy, Poshmark)', value: 'smb' },
-        { label: 'Rentals', value: 'rentals' },
-        { label: 'Other', value: 'other' },
+        { label: 'Gig work (Uber, Doordash)', value: 'GIG' },
+        { label: 'Creator / Monetize audience/fans', value: 'CREATOR' },
+        { label: 'Project Based / Freelance', value: 'PROJECT_BASED' },
+        { label: 'Start an SMB (Shopify, Etsy, Poshmark)', value: 'SMB' },
+        { label: 'Rentals', value: 'RENTALS' },
+        { label: 'Other', value: 'OTHER' },
       ],
     },
     {
@@ -105,8 +137,9 @@ const steps = [
       type: 'select',
       title: 'Existing digital audience',
       values: [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
+        { label: 'Yes', value: 'YES' },
+        { label: 'No', value: 'NO' },
+        { label: 'Recommended', value: 'RECOMMENDED' },
       ],
     },
     {
@@ -114,8 +147,9 @@ const steps = [
       type: 'select',
       title: 'Application Required',
       values: [
-        { label: 'Yes', value: true },
-        { label: 'No', value: false },
+        { label: 'Yes', value: 'YES' },
+        { label: 'Yes, selective', value: 'YES_SELECTION' },
+        { label: 'No', value: 'NO' },
       ],
     },
     {
@@ -140,41 +174,55 @@ const steps = [
       type: 'select',
       title: 'Equipment, Qualification, and Skills',
       values: [
-        { label: 'Computer', value: 'computer' },
-        { label: 'Smartphone', value: 'smartphone' },
+        { label: 'Computer', value: 'COMPUTER' },
+        { label: 'Smartphone', value: 'SMARTPHONE' },
+        { label: 'Car', value: 'CAR' },
+        { label: 'Microphone', value: 'MICROPHONE' },
+        { label: 'Bank Account', value: 'BANK_ACCOUNT' },
+        { label: 'Bachelors Degree', value: 'BACHELORS_DEGREE' },
+        { label: 'Native English', value: 'NATIVE_ENGLISH' },
+        { label: 'Child Care Experience', value: 'CHILD_CARE_EXPERIENCE' },
+        { label: 'Animal Care Experience', value: 'ANIMAL_CARE_EXPERIENCE' },
+        { label: 'Background Check', value: 'BACKGROUND_CHECK' },
+        { label: 'Other', value: 'OTHER' },
       ],
-    },
-    {
-      name: 'otherReqs',
-      type: 'input',
-      title: 'Other Requirements',
     },
   ],
   [
     {
-      name: 'averageMonthlyEarnings',
+      name: 'averageEarnings',
       type: 'input',
       title: 'Average Monthly Earnings',
     },
     {
-      name: 'daysToFirstDollar',
+      name: 'timeToFirstDollar',
       type: 'input',
       title: 'Days to First Dollar',
-    },
-    {
-      name: 'monthlyActiveEarners',
-      type: 'input',
-      title: 'Monthly Active Earners',
-    },
-    {
-      name: 'platformPricing',
-      type: 'input',
-      title: 'Platform Pricing',
     },
     {
       name: 'geographicalFocus',
       type: 'input',
       title: 'Geographical Focus',
+    },
+    {
+      name: 'affiliateLink',
+      type: 'input',
+      title: 'Affiliate Link',
+    },
+    {
+      name: 'founderMessage',
+      type: 'input',
+      title: 'Founder Message',
+    },
+    {
+      name: 'founderTwitter',
+      type: 'input',
+      title: 'Founder Twitter',
+    },
+    {
+      name: 'email',
+      type: 'input',
+      title: 'Email',
     },
   ],
 ] as FormItem[][];

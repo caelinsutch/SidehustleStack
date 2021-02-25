@@ -14,24 +14,21 @@ input PlatformInput {
     website: String!
     founded: String!
     headquarteredIn: String!
-    funding: String
+    funding: Funding!
     description: String!
-    category: CategoryInput
-    requiresDigitalAudience: String!
-    applicationRequired: String!
-    creativeWork: Boolean!
+    typeOfWork: TypeOfWork!
+    category: CategoryOfWork!
+    requiresDigitalAudience: ExistingDigitalAudienceRequired!
+    applicationRequired: ApplicationRequired!
     remoteWork: Boolean!
     minimumAge: Int!
     equipmentQualSkills: [EquipmentQualSkills!]!
-    otherRequirements: String!
-    averageHourlyEarnings: Int!
-    averageMonthlyEarnings: Int!
-    daysToFirstDollar: Int
-    monthlyActiveEarners: Int
-    platformPricing: String
-    geographicalFocus: String
+    averageEarnings: AmountPerInput!
+    timeToFirstDollar: AmountPerInput!
+    geographicalFocus: String!
     affiliateLink: String
-    founderMessage: String
+    founderMessage: String!
+    founderTwitter: String!
     email: String!
     tags: [TagInput!]
 }
@@ -42,31 +39,23 @@ input UpdatePlatformInput {
     website: String
     founded: String
     headquarteredIn: String
-    funding: String
+    funding: Funding
     description: String
-    category: CategoryInput
-    requiresDigitalAudience: String
-    applicationRequired: String
-    creativeWork: Boolean
+    typeOfWork: TypeOfWork
+    category: CategoryOfWork
+    requiresDigitalAudience: ExistingDigitalAudienceRequired
+    applicationRequired: ApplicationRequired
     remoteWork: Boolean
     minimumAge: Int
     equipmentQualSkills: [EquipmentQualSkills!]
-    otherRequirements: String
-    averageHourlyEarnings: Int
-    averageMonthlyEarnings: Int
-    daysToFirstDollar: Int
-    monthlyActiveEarners: Int
-    platformPricing: String
+    averageEarnings: AmountPerInput
+    timeToFirstDollar: AmountPerInput
     geographicalFocus: String
     affiliateLink: String
     founderMessage: String
+    founderTwitter: String
     email: String
     tags: [TagInput!]
-}
-
-input CategoryInput {
-    name: TypeOfWork
-    color: String
 }
 
 input TagInput {
@@ -78,6 +67,12 @@ input LinkInput {
     label: String
     url: String
 }
+
+input AmountPerInput {
+    amount: Int!
+    per: String!
+}
+
 type PlatformMVC @entity {
     platformId: ID! @id
     name: String! @column
@@ -85,26 +80,29 @@ type PlatformMVC @entity {
     website: String! @column
     founded: String! @column
     headquarteredIn: String! @column
-    funding: String @column
+    funding: Funding! @column
     description: String! @column
-    category: Category @embedded
-    requiresDigitalAudience: String! @column
-    applicationRequired: String! @column
-    creativeWork: Boolean! @column
+    platformType: PlatformType! @column
+    typeOfWork: TypeOfWork! @column
+    category: CategoryOfWork @column
+    requiresDigitalAudience: ExistingDigitalAudienceRequired! @column
+    applicationRequired: ApplicationRequired! @column
     remoteWork: Boolean! @column
     minimumAge: Int! @column
     equipmentQualSkills: [EquipmentQualSkills!]! @column
-    otherRequirements: String! @column
-    averageHourlyEarnings: Int! @column
-    averageMonthlyEarnings: Int! @column
-    daysToFirstDollar: Int @column
-    monthlyActiveEarners: Int @column
-    platformPricing: String @column
+    averageEarnings: AmountPer! @column
+    timeToFirstDollar: AmountPer! @column
     geographicalFocus: String @column
     affiliateLink: String @column
     founderMessage: String @column
+    founderTwitter: String @column
     email: String! @column
     tags: [Tag!] @embedded
+}
+
+type AmountPer @entity(embedded: true) {
+    amount: Int! @column
+    per: String! @column
 }
 
 type Tag @entity(embedded: true) {
@@ -112,9 +110,17 @@ type Tag @entity(embedded: true) {
     color: String @column
 }
 
-type Category @entity(embedded: true) {
-    name: TypeOfWork @column
-    color: String @column
+enum PlatformType {
+    TOOL
+    PLATFORM
+}
+
+enum Funding {
+    ZERO
+    LESS_FIVE_MIL
+    FIVE_TO_TEN_MIL
+    TEN_PLUS_MIL
+    PUBLIC_COMPANY
 }
 
 enum EquipmentQualSkills {
@@ -148,7 +154,7 @@ enum ExistingDigitalAudienceRequired {
 
 enum ApplicationRequired {
     YES
-    YES_SELECTION
+    YES_SELECTIVE
     NO
 }
 
@@ -185,9 +191,4 @@ enum TypeOfWork {
     TECH
     VIDEO_COURSE_CREATOR
     WRITER
-}
-
-type Link @entity(embedded: true) {
-    label: String! @column
-    url: String! @column
 }

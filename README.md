@@ -25,28 +25,38 @@ These are configured in `.babelrc` and `tsconfig.json`.
 
 ## Default Platform
 
+Mutation to create a test platform in your DB. 
+
 ```graphql
-# Write your query or mutation here
 mutation {
     createPlatform(platform: {
-        name: "New Platform"
-        companyLogo: "fea"
-        website: "https://google.com"
-        founded: "2002"
-        headquarteredIn: "Berkeley"
-        funding: "Seed"
-        description: "Description"
-        remoteWork: false
-        requiresDigitalAudience: "true"
-        applicationRequired: "false"
-        creativeWork: false
+        name: "Test"
+        companyLogo: "Test"
+        website: "Test"
+        founded: "Test"
+        headquarteredIn: "Test"
+        funding: ZERO
+        description: "Test"
+        typeOfWork: AUDIO_CONTENT_CREATOR
+        category: CREATOR
+        requiresDigitalAudience: RECOMMENDED
+        applicationRequired: YES_SELECTIVE
+        remoteWork: true
         minimumAge: 18
         equipmentQualSkills: [COMPUTER]
-        otherRequirements: ""
-        averageHourlyEarnings: 20
-        averageMonthlyEarnings: 2000
-        platformPricing: "Pricing"
-        email: "caelinsutch@berkeley.edu"
+        averageEarnings: {
+            amount: 12
+            per: "days"
+        }
+        timeToFirstDollar: {
+            amount: 12
+            per: "weeks"
+        }
+        geographicalFocus: "USA"
+        affiliateLink: "google.com"
+        founderMessage: "Test Message"
+        founderTwitter: "@caelinsutch"
+        email: "caelinsutch@gmail.com"
     }) {
         platformId
     }
