@@ -1,20 +1,50 @@
 import React, { useState } from 'react';
-import { DefaultContainer, PlatformCard, PlatformCardList } from '@Components';
-import { Text, Flex } from '@chakra-ui/react';
+import { DefaultContainer } from '@Components';
+import { Flex } from '@chakra-ui/react';
 import { HomeBanner, PlatformSection, ViewSelector } from './Components';
+
+export type PlatformTags = string;
 
 export type PlatformData = {
   title: string;
   description: string;
   categories: string[];
   logo: string;
-  tags: string[];
+  tags: PlatformTags[];
   votes: number;
+};
+
+export type PlatformFilter = {
+  name: string;
+  options: PlatformTags[];
 };
 
 export type HomeView = 'platforms' | 'tools';
 
 const HomeScreen: React.FC = () => {
+  const workType: PlatformFilter = {
+    name: 'Work Type',
+    options: [
+      'Small Business',
+      'Large Business',
+      'None of Your Business',
+      'Monkey Business',
+      'WFH',
+    ],
+  };
+
+  const age: PlatformFilter = {
+    name: 'Age',
+    options: ['Like Milk', '18+', '21+'],
+  };
+
+  const potentialEarnings: PlatformFilter = {
+    name: 'Potential Earnings',
+    options: ['$', '$$', '$$$', '$$$$'],
+  };
+
+  const filters: PlatformFilter[] = [workType, age, potentialEarnings];
+
   const fdata: PlatformData[] = [...Array(5)].map(
     () =>
       ({
@@ -62,10 +92,12 @@ const HomeScreen: React.FC = () => {
       </Flex>
       <PlatformSection
         platforms={fdata}
+        filters={filters}
         display={view === 'platforms' ? 'initial' : 'none'}
       />
       <PlatformSection
         platforms={tdata}
+        filters={filters}
         display={view === 'tools' ? 'initial' : 'none'}
       />
     </DefaultContainer>

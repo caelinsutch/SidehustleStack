@@ -24,7 +24,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   ...props
 }) => (
   <Menu {...props}>
-    <MenuButton as={Button} rightIcon={IoTriangle}>
+    <MenuButton as={Button} rightIcon={IoTriangle} h="44px" mr="10px">
       <b>{name}</b>
       {selected === '' ? '' : ` - ${selected}`}
     </MenuButton>
