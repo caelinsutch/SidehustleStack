@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { Text, Box, Flex, BoxProps, Input } from '@chakra-ui/react';
 import { FilterDropdown, PlatformCardList } from '@Components';
-import { PlatformData } from '@Screens/HomeScreen';
+import {
+  PlatformData,
+  PlatformFilter,
+  PlatformTags,
+} from '@Screens/HomeScreen';
 
 export type PlatformSectionProps = {
   platforms: PlatformData[];
+  filters: PlatformFilter[];
 } & BoxProps;
 
 const PlatformSection: React.FC<PlatformSectionProps> = ({
   platforms,
+  filters,
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<PlatformTags[]>([]);
 
   const handleFilter = (card: PlatformData): boolean => {
     for (let i = 0; i < tags.length; i += 1) {
@@ -22,6 +28,20 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
     if (search.length === 0) return true;
     const searchExp = new RegExp(`${[...search].join('*')}*`, 'i');
     return `${card.title.match(searchExp)}`.length >= search.length;
+  };
+
+  const modifyFilter = (tag: PlatformTags) => {
+    if (tags.includes(tag)) {
+      setTags(
+        tags.map((thisTag) => {
+          if (thisTag !== tag) {
+            return thisTag;
+          }
+        })
+      );
+    } else {
+      tags.push(tag);
+    }
   };
 
   return (
@@ -35,13 +55,15 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
       <Flex justifyContent="space-between" mt="85px">
         <Text fontSize="40px">Sponsored Platforms</Text>
         <Flex justifyContent="flex-end">
-          <FilterDropdown
-            items={['high', 'medium', 'low']}
-            name="Items"
-            onSelect={() => console.log('Select')}
-            selected=""
-            height=""
-          />
+          {filters.map((filter) => (
+            <FilterDropdown
+              items={filter.options}
+              name={filter.name}
+              onSelect={() => console.log('items')}
+              selected=""
+              mr="10px"
+            />
+          ))}
           <Input
             key="platformsearch"
             as="input"
