@@ -1,4 +1,5 @@
 import { FormItem } from '@Components/FormSection/FormSection';
+import { CategoryOfWork, Funding, TypeOfWork } from '@GraphQL/types';
 
 const steps = [
   [
@@ -68,7 +69,7 @@ const steps = [
     {
       name: 'funding',
       placeholder: 'xxxxx',
-      type: 'input',
+      type: 'select',
       title: 'Total Funding',
       description:
         'Please round and suffix with "K" or "M" — eg. $50K, $500K, $3M, $35.5M, $120.2M. \n' +
@@ -78,6 +79,28 @@ const steps = [
         '2) Currently Raising\n' +
         '3) Undisclosed\n' +
         '4) Public Company - list ticker',
+      values: [
+        {
+          value: Funding.Zero,
+          label: '0',
+        },
+        {
+          value: Funding.LessFiveMil,
+          label: '< 5 mil',
+        },
+        {
+          value: Funding.FiveToTenMil,
+          label: '5-10 mil',
+        },
+        {
+          value: Funding.TenPlusMil,
+          label: '10+ mil',
+        },
+        {
+          value: Funding.PublicCompany,
+          label: 'Public',
+        },
+      ],
     },
     {
       name: 'description',
@@ -92,31 +115,37 @@ const steps = [
       type: 'select',
       title: 'Type of Work',
       values: [
-        { label: 'Adult Content Creator', value: 'ADULT_CONTENT_CREATOR' },
-        { label: 'Audio Content Creator', value: 'AUDIO_CONTENT_CREATOR' },
-        { label: 'Chef', value: 'CHEF' },
-        { label: 'Coach', value: 'COACH' },
-        { label: 'Community Leader', value: 'COMMUNITY_LEADER' },
-        { label: 'Content Creator', value: 'CONTENT_CREATOR' },
-        { label: 'ECommerce', value: 'ECOMMERCE' },
-        { label: 'Event Organizer', value: 'EVENT_ORGANIZER' },
-        { label: 'Driver', value: 'DRIVER' },
-        { label: 'Fitness Instructor', value: 'FITNESS_INSTRUCTOR' },
-        { label: 'Gamer', value: 'GAMER' },
-        { label: 'Health', value: 'HEALTH' },
-        { label: 'Livestreamer', value: 'LIVESTREAMER' },
-        { label: 'Personal Shopper', value: 'PERSONAL_SHOPPER' },
-        { label: 'Pet Caretaker', value: 'PET_CARETAKER' },
-        { label: 'Podcaster', value: 'PODCASTER' },
-        { label: 'Rentals', value: 'RENTALS' },
-        { label: 'Reseller', value: 'RESELLER' },
-        { label: 'Restaurant Worker', value: 'RESTAURANT_WORKER' },
-        { label: 'Salesperson', value: 'SALESPERSON' },
-        { label: 'Tasks and Services', value: 'TASKS_AND_SERVICES' },
-        { label: 'Teacher', value: 'TEACHER' },
-        { label: 'Tech', value: 'TECH' },
-        { label: 'Video Course Creator', value: 'VIDEO_COURSE_CREATOR' },
-        { label: 'Writer', value: 'WRITER' },
+        {
+          label: 'Adult Content Creator',
+          value: TypeOfWork.AdultContentCreator,
+        },
+        {
+          label: 'Audio Content Creator',
+          value: TypeOfWork.AudioContentCreator,
+        },
+        { label: 'Chef', value: TypeOfWork.Chef },
+        { label: 'Coach', value: TypeOfWork.Coach },
+        { label: 'Community Leader', value: TypeOfWork.CommunityLeader },
+        { label: 'Content Creator', value: TypeOfWork.ContentCreator },
+        { label: 'ECommerce', value: TypeOfWork.Ecommerce },
+        { label: 'Event Organizer', value: TypeOfWork.EventOrganizer },
+        { label: 'Driver', value: TypeOfWork.Driver },
+        { label: 'Fitness Instructor', value: TypeOfWork.FitnessInstructor },
+        { label: 'Gamer', value: TypeOfWork.Gamer },
+        { label: 'Health', value: TypeOfWork.Health },
+        { label: 'Livestreamer', value: TypeOfWork.Livestreamer },
+        { label: 'Personal Shopper', value: TypeOfWork.PersonalShopper },
+        { label: 'Pet Caretaker', value: TypeOfWork.PetCaretaker },
+        { label: 'Podcaster', value: TypeOfWork.Podcaster },
+        { label: 'Rentals', value: TypeOfWork.Rentals },
+        { label: 'Reseller', value: TypeOfWork.Reseller },
+        { label: 'Restaurant Worker', value: TypeOfWork.RestaurantWorker },
+        { label: 'Salesperson', value: TypeOfWork.Salesperson },
+        { label: 'Tasks and Services', value: TypeOfWork.TasksAndServices },
+        { label: 'Teacher', value: TypeOfWork.Teacher },
+        { label: 'Tech', value: TypeOfWork.Tech },
+        { label: 'Video Course Creator', value: TypeOfWork.VideoCourseCreator },
+        { label: 'Writer', value: TypeOfWork.Writers },
       ],
     },
     {
@@ -124,12 +153,21 @@ const steps = [
       type: 'select',
       title: 'Work Category',
       values: [
-        { label: 'Gig work (Uber, Doordash)', value: 'GIG' },
-        { label: 'Creator / Monetize audience/fans', value: 'CREATOR' },
-        { label: 'Project Based / Freelance', value: 'PROJECT_BASED' },
-        { label: 'Start an SMB (Shopify, Etsy, Poshmark)', value: 'SMB' },
-        { label: 'Rentals', value: 'RENTALS' },
-        { label: 'Other', value: 'OTHER' },
+        { label: 'Gig work (Uber, Doordash)', value: CategoryOfWork.Gig },
+        {
+          label: 'Creator / Monetize audience/fans',
+          value: CategoryOfWork.Creator,
+        },
+        {
+          label: 'Project Based / Freelance',
+          value: CategoryOfWork.ProjectBased,
+        },
+        {
+          label: 'Start an SMB (Shopify, Etsy, Poshmark)',
+          value: CategoryOfWork.Smb,
+        },
+        { label: 'Rentals', value: CategoryOfWork.Rentals },
+        { label: 'Other', value: CategoryOfWork.Other },
       ],
     },
     {
@@ -188,43 +226,43 @@ const steps = [
       ],
     },
   ],
-  [
-    {
-      name: 'averageEarnings',
-      type: 'input',
-      title: 'Average Monthly Earnings',
-    },
-    {
-      name: 'timeToFirstDollar',
-      type: 'input',
-      title: 'Days to First Dollar',
-    },
-    {
-      name: 'geographicalFocus',
-      type: 'input',
-      title: 'Geographical Focus',
-    },
-    {
-      name: 'affiliateLink',
-      type: 'input',
-      title: 'Affiliate Link',
-    },
-    {
-      name: 'founderMessage',
-      type: 'input',
-      title: 'Founder Message',
-    },
-    {
-      name: 'founderTwitter',
-      type: 'input',
-      title: 'Founder Twitter',
-    },
-    {
-      name: 'email',
-      type: 'input',
-      title: 'Email',
-    },
-  ],
+  // [
+  //   {
+  //     name: 'averageEarnings',
+  //     type: 'input',
+  //     title: 'Average Monthly Earnings',
+  //   },
+  //   {
+  //     name: 'timeToFirstDollar',
+  //     type: 'input',
+  //     title: 'Days to First Dollar',
+  //   },
+  //   {
+  //     name: 'geographicalFocus',
+  //     type: 'input',
+  //     title: 'Geographical Focus',
+  //   },
+  //   {
+  //     name: 'affiliateLink',
+  //     type: 'input',
+  //     title: 'Affiliate Link',
+  //   },
+  //   {
+  //     name: 'founderMessage',
+  //     type: 'input',
+  //     title: 'Founder Message',
+  //   },
+  //   {
+  //     name: 'founderTwitter',
+  //     type: 'input',
+  //     title: 'Founder Twitter',
+  //   },
+  //   {
+  //     name: 'email',
+  //     type: 'input',
+  //     title: 'Email',
+  //   },
+  // ],
 ] as FormItem[][];
 
 export { steps };

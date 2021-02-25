@@ -1,34 +1,57 @@
 import React, { useState } from 'react';
-import { Box, AlertIcon, Alert } from '@chakra-ui/react';
+import { useToast, Box, AlertIcon, Alert } from '@chakra-ui/react';
 import FormSection from '@Components/FormSection';
 import { steps } from '@Components/SubmitForm/SubmitForm.constants';
 import { gql } from '@apollo/client';
+import { useCreatePlatformMutation } from '@GraphQL/types';
 
 export const query = gql`
-  mutation {
+  mutation CreatePlatform(
+    $name: String!
+    $companyLogo: String!
+    $website: String!
+    $founded: String!
+    $headquarteredIn: String!
+    $funding: Funding!
+    $description: String!
+    $typeOfWork: TypeOfWork!
+    $category: CategoryOfWork!
+    $requiresDigitalAudience: ExistingDigitalAudienceRequired!
+    $applicationRequired: ApplicationRequired!
+    $remoteWork: Boolean!
+    $minimumAge: Int!
+    $equipmentQualSkills: [EquipmentQualSkills!]!
+    $averageEarnings: AmountPerInput!
+    $timeToFirstDollar: AmountPerInput!
+    $geographicalFocus: String!
+    $affiliateLink: String!
+    $founderMessage: String!
+    $founderTwitter: String!
+    $email: String!
+  ) {
     createPlatform(
       platform: {
-        name: "Test"
-        companyLogo: "Test"
-        website: "Test"
-        founded: "Test"
-        headquarteredIn: "Test"
-        funding: ZERO
-        description: "Test"
-        typeOfWork: AUDIO_CONTENT_CREATOR
-        category: CREATOR
-        requiresDigitalAudience: RECOMMENDED
-        applicationRequired: YES_SELECTIVE
-        remoteWork: true
-        minimumAge: 18
-        equipmentQualSkills: [COMPUTER]
-        averageEarnings: { amount: 12, per: "days" }
-        timeToFirstDollar: { amount: 12, per: "weeks" }
-        geographicalFocus: "USA"
-        affiliateLink: "google.com"
-        founderMessage: "Test Message"
-        founderTwitter: "@caelinsutch"
-        email: "caelinsutch@gmail.com"
+        name: $name
+        companyLogo: $companyLogo
+        website: $website
+        founded: $founded
+        headquarteredIn: $headquarteredIn
+        funding: $funding
+        description: $description
+        typeOfWork: $typeOfWork
+        category: $category
+        requiresDigitalAudience: $requiresDigitalAudience
+        applicationRequired: $applicationRequired
+        remoteWork: $remoteWork
+        minimumAge: $minimumAge
+        equipmentQualSkills: $equipmentQualSkills
+        averageEarnings: $averageEarnings
+        timeToFirstDollar: $timeToFirstDollar
+        geographicalFocus: $geographicalFocus
+        affiliateLink: $affiliateLink
+        founderMessage: $founderMessage
+        founderTwitter: $founderTwitter
+        email: $email
       }
     ) {
       platformId
@@ -40,9 +63,38 @@ const SubmitForm: React.FC = () => {
   const [data, setData] = useState({});
   const [stepI, setStepI] = useState(0);
   const [maxSteps, setMaxSteps] = useState(steps.length);
+  const [createPlatform] = useCreatePlatformMutation();
+  const toast = useToast();
 
   const handleSubmit = (formData) => {
-    console.log(formData);
+    createPlatform({
+      variables: {
+        ...formData,
+        companyLogo: '',
+        equipmentQualSkills: [],
+        averageEarnings: {
+          amount: 12,
+          per: 'days',
+        },
+        timeToFirstDollar: {
+          amount: 12,
+          per: 'days',
+        },
+      },
+    })
+      .then(() => {
+        toast({
+          status: 'success',
+          title: 'Platform Submitted',
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+        toast({
+          status: 'error',
+          title: e.toString(),
+        });
+      });
   };
 
   const handleNext = (i) => (stepData) => {

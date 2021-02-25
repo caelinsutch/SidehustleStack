@@ -540,6 +540,34 @@ export type PlatformQuery = {
   Platform?: Maybe<Pick<PlatformMvc, 'name' | 'description'>>;
 };
 
+export type CreatePlatformMutationVariables = Exact<{
+  name: Scalars['String'];
+  companyLogo: Scalars['String'];
+  website: Scalars['String'];
+  founded: Scalars['String'];
+  headquarteredIn: Scalars['String'];
+  funding: Funding;
+  description: Scalars['String'];
+  typeOfWork: TypeOfWork;
+  category: CategoryOfWork;
+  requiresDigitalAudience: ExistingDigitalAudienceRequired;
+  applicationRequired: ApplicationRequired;
+  remoteWork: Scalars['Boolean'];
+  minimumAge: Scalars['Int'];
+  equipmentQualSkills: Array<EquipmentQualSkills> | EquipmentQualSkills;
+  averageEarnings: AmountPerInput;
+  timeToFirstDollar: AmountPerInput;
+  geographicalFocus: Scalars['String'];
+  affiliateLink: Scalars['String'];
+  founderMessage: Scalars['String'];
+  founderTwitter: Scalars['String'];
+  email: Scalars['String'];
+}>;
+
+export type CreatePlatformMutation = {
+  createPlatform: Pick<PlatformMvc, 'platformId'>;
+};
+
 export type HomeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type HomeQuery = {
@@ -600,6 +628,120 @@ export type PlatformLazyQueryHookResult = ReturnType<
 export type PlatformQueryResult = ApolloReactCommon.QueryResult<
   PlatformQuery,
   PlatformQueryVariables
+>;
+export const CreatePlatformDocument = gql`
+  mutation CreatePlatform(
+    $name: String!
+    $companyLogo: String!
+    $website: String!
+    $founded: String!
+    $headquarteredIn: String!
+    $funding: Funding!
+    $description: String!
+    $typeOfWork: TypeOfWork!
+    $category: CategoryOfWork!
+    $requiresDigitalAudience: ExistingDigitalAudienceRequired!
+    $applicationRequired: ApplicationRequired!
+    $remoteWork: Boolean!
+    $minimumAge: Int!
+    $equipmentQualSkills: [EquipmentQualSkills!]!
+    $averageEarnings: AmountPerInput!
+    $timeToFirstDollar: AmountPerInput!
+    $geographicalFocus: String!
+    $affiliateLink: String!
+    $founderMessage: String!
+    $founderTwitter: String!
+    $email: String!
+  ) {
+    createPlatform(
+      platform: {
+        name: $name
+        companyLogo: $companyLogo
+        website: $website
+        founded: $founded
+        headquarteredIn: $headquarteredIn
+        funding: $funding
+        description: $description
+        typeOfWork: $typeOfWork
+        category: $category
+        requiresDigitalAudience: $requiresDigitalAudience
+        applicationRequired: $applicationRequired
+        remoteWork: $remoteWork
+        minimumAge: $minimumAge
+        equipmentQualSkills: $equipmentQualSkills
+        averageEarnings: $averageEarnings
+        timeToFirstDollar: $timeToFirstDollar
+        geographicalFocus: $geographicalFocus
+        affiliateLink: $affiliateLink
+        founderMessage: $founderMessage
+        founderTwitter: $founderTwitter
+        email: $email
+      }
+    ) {
+      platformId
+    }
+  }
+`;
+export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
+  CreatePlatformMutation,
+  CreatePlatformMutationVariables
+>;
+
+/**
+ * __useCreatePlatformMutation__
+ *
+ * To run a mutation, you first call `useCreatePlatformMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlatformMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlatformMutation, { data, loading, error }] = useCreatePlatformMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      companyLogo: // value for 'companyLogo'
+ *      website: // value for 'website'
+ *      founded: // value for 'founded'
+ *      headquarteredIn: // value for 'headquarteredIn'
+ *      funding: // value for 'funding'
+ *      description: // value for 'description'
+ *      typeOfWork: // value for 'typeOfWork'
+ *      category: // value for 'category'
+ *      requiresDigitalAudience: // value for 'requiresDigitalAudience'
+ *      applicationRequired: // value for 'applicationRequired'
+ *      remoteWork: // value for 'remoteWork'
+ *      minimumAge: // value for 'minimumAge'
+ *      equipmentQualSkills: // value for 'equipmentQualSkills'
+ *      averageEarnings: // value for 'averageEarnings'
+ *      timeToFirstDollar: // value for 'timeToFirstDollar'
+ *      geographicalFocus: // value for 'geographicalFocus'
+ *      affiliateLink: // value for 'affiliateLink'
+ *      founderMessage: // value for 'founderMessage'
+ *      founderTwitter: // value for 'founderTwitter'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useCreatePlatformMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreatePlatformMutation,
+    CreatePlatformMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    CreatePlatformMutation,
+    CreatePlatformMutationVariables
+  >(CreatePlatformDocument, baseOptions);
+}
+export type CreatePlatformMutationHookResult = ReturnType<
+  typeof useCreatePlatformMutation
+>;
+export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<CreatePlatformMutation>;
+export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreatePlatformMutation,
+  CreatePlatformMutationVariables
 >;
 export const HomeDocument = gql`
   query Home {
