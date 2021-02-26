@@ -158,13 +158,6 @@ enum ApplicationRequired {
     NO
 }
 
-enum PlatformPricing {
-    PERCENTAGE
-    SUBSCRIPTION
-    FREE
-    OTHER
-}
-
 enum TypeOfWork {
     ADULT_CONTENT_CREATOR
     AUDIO_CONTENT_CREATOR

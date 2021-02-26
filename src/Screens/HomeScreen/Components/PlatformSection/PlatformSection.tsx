@@ -30,19 +30,19 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
     return `${card.title.match(searchExp)}`.length >= search.length;
   };
 
-  const modifyFilter = (tag: PlatformTags) => {
-    if (tags.includes(tag)) {
-      setTags(
-        tags.map((thisTag) => {
-          if (thisTag !== tag) {
-            return thisTag;
-          }
-        })
-      );
-    } else {
-      tags.push(tag);
-    }
-  };
+  // const modifyFilter = (tag: PlatformTags) => {
+  //   if (tags.includes(tag)) {
+  //     setTags(
+  //       tags.map((thisTag) => {
+  //         if (thisTag !== tag) {
+  //           return thisTag;
+  //         }
+  //       })
+  //     );
+  //   } else {
+  //     tags.push(tag);
+  //   }
+  // };
 
   return (
     <Box {...props}>
@@ -57,6 +57,7 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
         <Flex justifyContent="flex-end">
           {filters.map((filter) => (
             <FilterDropdown
+              key={filter.name}
               items={filter.options}
               name={filter.name}
               onSelect={() => console.log('items')}

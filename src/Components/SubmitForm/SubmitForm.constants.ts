@@ -1,5 +1,12 @@
 import { FormItem } from '@Components/FormSection/FormSection';
-import { CategoryOfWork, Funding, TypeOfWork } from '@GraphQL/types';
+import {
+  ApplicationRequired,
+  CategoryOfWork,
+  ExistingDigitalAudienceRequired,
+  Funding,
+  PlatformType,
+  TypeOfWork,
+} from '@GraphQL/types';
 
 const steps = [
   [
@@ -10,11 +17,11 @@ const steps = [
       title: 'Are you selecting a platform or a tool?',
       values: [
         {
-          value: 'platform',
+          value: PlatformType.Platform,
           label: 'Platform',
         },
         {
-          value: 'tool',
+          value: PlatformType.Tool,
           label: 'Tool',
         },
       ],
@@ -54,18 +61,6 @@ const steps = [
     },
   ],
   [
-    {
-      name: 'founded',
-      placeholder: 'Side Hustle Stack',
-      type: 'input',
-      title: 'Company Name',
-    },
-    {
-      name: 'headquarteredIn',
-      placeholder: 'sidehustlestack.co',
-      type: 'input',
-      title: 'Company Website',
-    },
     {
       name: 'funding',
       placeholder: 'xxxxx',
@@ -108,6 +103,18 @@ const steps = [
       type: 'input',
       title: 'Short Description',
     },
+    {
+      name: 'founded',
+      placeholder: '02/2021',
+      type: 'input',
+      title: 'Date Founded',
+    },
+    {
+      name: 'headquarteredIn',
+      placeholder: 'Berkeley, CA',
+      type: 'input',
+      title: 'Headquartered In',
+    },
   ],
   [
     {
@@ -145,7 +152,7 @@ const steps = [
         { label: 'Teacher', value: TypeOfWork.Teacher },
         { label: 'Tech', value: TypeOfWork.Tech },
         { label: 'Video Course Creator', value: TypeOfWork.VideoCourseCreator },
-        { label: 'Writer', value: TypeOfWork.Writers },
+        { label: 'Writer', value: TypeOfWork.Writer },
       ],
     },
     {
@@ -175,9 +182,12 @@ const steps = [
       type: 'select',
       title: 'Existing digital audience',
       values: [
-        { label: 'Yes', value: 'YES' },
-        { label: 'No', value: 'NO' },
-        { label: 'Recommended', value: 'RECOMMENDED' },
+        { label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
+        { label: 'No', value: ExistingDigitalAudienceRequired.No },
+        {
+          label: 'Recommended',
+          value: ExistingDigitalAudienceRequired.Recommended,
+        },
       ],
     },
     {
@@ -185,9 +195,9 @@ const steps = [
       type: 'select',
       title: 'Application Required',
       values: [
-        { label: 'Yes', value: 'YES' },
-        { label: 'Yes, selective', value: 'YES_SELECTION' },
-        { label: 'No', value: 'NO' },
+        { label: 'Yes', value: ApplicationRequired.Yes },
+        { label: 'Yes, selective', value: ApplicationRequired.YesSelective },
+        { label: 'No', value: ApplicationRequired.No },
       ],
     },
     {
@@ -226,43 +236,43 @@ const steps = [
       ],
     },
   ],
-  // [
-  //   {
-  //     name: 'averageEarnings',
-  //     type: 'input',
-  //     title: 'Average Monthly Earnings',
-  //   },
-  //   {
-  //     name: 'timeToFirstDollar',
-  //     type: 'input',
-  //     title: 'Days to First Dollar',
-  //   },
-  //   {
-  //     name: 'geographicalFocus',
-  //     type: 'input',
-  //     title: 'Geographical Focus',
-  //   },
-  //   {
-  //     name: 'affiliateLink',
-  //     type: 'input',
-  //     title: 'Affiliate Link',
-  //   },
-  //   {
-  //     name: 'founderMessage',
-  //     type: 'input',
-  //     title: 'Founder Message',
-  //   },
-  //   {
-  //     name: 'founderTwitter',
-  //     type: 'input',
-  //     title: 'Founder Twitter',
-  //   },
-  //   {
-  //     name: 'email',
-  //     type: 'input',
-  //     title: 'Email',
-  //   },
-  // ],
+  [
+    {
+      name: 'averageEarnings',
+      type: 'input',
+      title: 'Average Monthly Earnings',
+    },
+    {
+      name: 'timeToFirstDollar',
+      type: 'input',
+      title: 'Days to First Dollar',
+    },
+    {
+      name: 'geographicalFocus',
+      type: 'input',
+      title: 'Geographical Focus',
+    },
+    {
+      name: 'affiliateLink',
+      type: 'input',
+      title: 'Affiliate Link',
+    },
+    {
+      name: 'founderMessage',
+      type: 'input',
+      title: 'Founder Message',
+    },
+    {
+      name: 'founderTwitter',
+      type: 'input',
+      title: 'Founder Twitter',
+    },
+    {
+      name: 'email',
+      type: 'input',
+      title: 'Email',
+    },
+  ],
 ] as FormItem[][];
 
 export { steps };

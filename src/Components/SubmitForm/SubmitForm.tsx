@@ -62,6 +62,7 @@ export const query = gql`
 const SubmitForm: React.FC = () => {
   const [data, setData] = useState({});
   const [stepI, setStepI] = useState(0);
+  const [error, setError] = useState();
   const [maxSteps, setMaxSteps] = useState(steps.length);
   const [createPlatform] = useCreatePlatformMutation();
   const toast = useToast();
@@ -70,7 +71,9 @@ const SubmitForm: React.FC = () => {
     createPlatform({
       variables: {
         ...formData,
+        remoteWork: Boolean(formData.remoteWork),
         companyLogo: '',
+        minimumAge: parseInt(formData.minimumAge, 10),
         equipmentQualSkills: [],
         averageEarnings: {
           amount: 12,
@@ -89,6 +92,7 @@ const SubmitForm: React.FC = () => {
         });
       })
       .catch((e) => {
+        setError(e?.message);
         console.error(e);
         toast({
           status: 'error',
@@ -99,7 +103,6 @@ const SubmitForm: React.FC = () => {
 
   const handleNext = (i) => (stepData) => {
     if (i === 1) {
-      console.log(stepData);
       if (stepData.isFounder === 'false') {
         setMaxSteps(3);
       }
@@ -126,9 +129,9 @@ const SubmitForm: React.FC = () => {
           buttonText={stepI + 1 === maxSteps ? 'Submit' : undefined}
         />
       ) : (
-        <Alert status="success">
+        <Alert status={error ? 'error' : 'success'}>
           <AlertIcon />
-          Submitted!
+          {error || 'Submitted!'}
         </Alert>
       )}
     </Box>
