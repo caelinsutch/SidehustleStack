@@ -6,13 +6,15 @@ export * from './types';
 let client: MongoClient;
 let database: Db;
 
-let url = 'mongodb://localhost:27017';
+const dbName = `sidehustlestack-${process.env.NODE_ENV}`;
+
+const url = `mongodb+srv://admin:adminpassword@sidehustlestackmain.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 export const connect = async (): Promise<Db> => {
   if (!database) {
     console.info(`Connecting to database ${url}`);
     client = await MongoClient.connect(url);
-    database = client.db('sidehustlestack');
+    database = client.db(dbName);
   }
 
   return database;
