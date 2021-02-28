@@ -15,6 +15,9 @@ const steps = [
       placeholder: 'Select',
       type: 'select',
       title: 'Are you selecting a platform or a tool?',
+      registerOptions: {
+        required: true,
+      },
       values: [
         {
           value: PlatformType.Platform,
@@ -34,6 +37,9 @@ const steps = [
       type: 'select',
       title:
         'Are you the founder of this company or submitting it as a suggestion?',
+      registerOptions: {
+        required: true,
+      },
       values: [
         {
           value: true,
@@ -52,6 +58,9 @@ const steps = [
       placeholder: 'Side Hustle Stack',
       type: 'input',
       title: 'Company Name',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'website',
@@ -96,24 +105,36 @@ const steps = [
           label: 'Public',
         },
       ],
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'description',
       placeholder: 'Description',
       type: 'input',
       title: 'Short Description',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'founded',
       placeholder: '02/2021',
       type: 'input',
       title: 'Date Founded',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'headquarteredIn',
       placeholder: 'Berkeley, CA',
       type: 'input',
       title: 'Headquartered In',
+      registerOptions: {
+        required: true,
+      },
     },
   ],
   [
@@ -121,6 +142,7 @@ const steps = [
       name: 'typeOfWork',
       type: 'select',
       title: 'Type of Work',
+      placeholder: 'Select',
       values: [
         {
           label: 'Adult Content Creator',
@@ -154,10 +176,14 @@ const steps = [
         { label: 'Video Course Creator', value: TypeOfWork.VideoCourseCreator },
         { label: 'Writer', value: TypeOfWork.Writer },
       ],
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'category',
       type: 'select',
+      placeholder: 'Select',
       title: 'Work Category',
       values: [
         { label: 'Gig work (Uber, Doordash)', value: CategoryOfWork.Gig },
@@ -176,11 +202,18 @@ const steps = [
         { label: 'Rentals', value: CategoryOfWork.Rentals },
         { label: 'Other', value: CategoryOfWork.Other },
       ],
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'requiresDigitalAudience',
       type: 'select',
       title: 'Existing digital audience',
+      placeholder: 'Select',
+      registerOptions: {
+        required: true,
+      },
       values: [
         { label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
         { label: 'No', value: ExistingDigitalAudienceRequired.No },
@@ -194,6 +227,10 @@ const steps = [
       name: 'applicationRequired',
       type: 'select',
       title: 'Application Required',
+      placeholder: 'Select',
+      registerOptions: {
+        required: true,
+      },
       values: [
         { label: 'Yes', value: ApplicationRequired.Yes },
         { label: 'Yes, selective', value: ApplicationRequired.YesSelective },
@@ -204,6 +241,10 @@ const steps = [
       name: 'remoteWork',
       type: 'select',
       title: 'Work can be done from home?',
+      placeholder: 'Select',
+      registerOptions: {
+        required: true,
+      },
       values: [
         { label: 'Yes', value: true },
         { label: 'No', value: false },
@@ -214,6 +255,13 @@ const steps = [
       type: 'input',
       title: 'Minimum Age',
       placeholder: '18',
+      registerOptions: {
+        required: true,
+        validate: {
+          number: (value) => typeof parseInt(value, 10) === 'number',
+        },
+        valueAsNumber: true,
+      },
     },
   ],
   [
@@ -234,6 +282,10 @@ const steps = [
         { label: 'Background Check', value: 'BACKGROUND_CHECK' },
         { label: 'Other', value: 'OTHER' },
       ],
+      placeholder: 'Select',
+      registerOptions: {
+        required: true,
+      },
     },
   ],
   [
@@ -241,36 +293,69 @@ const steps = [
       name: 'averageEarnings',
       type: 'input',
       title: 'Average Monthly Earnings',
+      placeholder: 'Select',
+      description: 'Number of dollars',
+      registerOptions: {
+        required: true,
+        validate: {
+          number: (value) => typeof parseInt(value, 10) === 'number',
+        },
+        valueAsNumber: true,
+      },
     },
     {
       name: 'timeToFirstDollar',
       type: 'input',
       title: 'Days to First Dollar',
+      description: 'Number of days',
+      placeholder: 'Select',
+      registerOptions: {
+        required: true,
+        validate: {
+          number: (value) => typeof parseInt(value, 10) === 'number',
+        },
+        valueAsNumber: true,
+      },
     },
     {
       name: 'geographicalFocus',
       type: 'input',
       title: 'Geographical Focus',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'affiliateLink',
       type: 'input',
       title: 'Affiliate Link',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'founderMessage',
       type: 'input',
       title: 'Founder Message',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'founderTwitter',
       type: 'input',
       title: 'Founder Twitter',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'email',
       type: 'input',
       title: 'Email',
+      registerOptions: {
+        required: true,
+      },
     },
   ],
 ] as FormItem[][];

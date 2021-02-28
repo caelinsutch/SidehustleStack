@@ -9,13 +9,14 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { RegisterOptions, useForm } from 'react-hook-form';
 
 export type FormItemBase = {
   name: string;
   title?: string;
   description?: string;
   placeholder?: string;
+  registerOptions?: RegisterOptions;
 };
 
 export type FormItemInput = {
@@ -52,11 +53,19 @@ const FormSection: React.FC<FormSectionProps> = ({
   onError,
   buttonText = 'Next',
 }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
+
+  const handleError = () => {
+    if (onError) onError(errors);
+    console.log(errors);
+  };
+
+  console.log(errors);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)}>
+    <form onSubmit={handleSubmit(onSubmit, handleError)}>
       {items.map((props) => {
-        const { placeholder, name } = props;
+        const { placeholder, name, registerOptions } = props;
         let formElement = (
           <Input
             key={name}
@@ -65,7 +74,7 @@ const FormSection: React.FC<FormSectionProps> = ({
             boxShadow="md"
             name={name}
             placeholder={placeholder}
-            ref={register()}
+            ref={register(registerOptions)}
             _focus={{
               boxShadow: 'md',
             }}
@@ -74,7 +83,11 @@ const FormSection: React.FC<FormSectionProps> = ({
         if (props.type === 'select') {
           const { values } = props;
           formElement = (
-            <Select placeholder={placeholder} ref={register} name={name}>
+            <Select
+              placeholder={placeholder}
+              ref={register(registerOptions)}
+              name={name}
+            >
               {values.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
@@ -95,7 +108,7 @@ const FormSection: React.FC<FormSectionProps> = ({
                     key={value}
                     value={value}
                     type="radio"
-                    ref={register}
+                    ref={register(registerOptions)}
                   >
                     {label}
                   </Radio>
@@ -119,10 +132,18 @@ const FormSection: React.FC<FormSectionProps> = ({
               </Text>
             )}
             {formElement}
+            <Text fontSize="xs" color="red.400" mt={2}>
+              {errors[name]?.type === 'required' && 'Required'}
+              {errors[name]?.type === 'number' && 'Should be a number'}
+            </Text>
           </Box>
         );
       })}
-      <Button type="submit" borderRadius={1000}>
+      <Button
+        type="submit"
+        borderRadius={1000}
+        isDisabled={Object.keys(errors).length !== 0}
+      >
         {buttonText}
       </Button>
     </form>
