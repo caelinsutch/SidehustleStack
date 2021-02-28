@@ -74,13 +74,12 @@ const SubmitForm: React.FC = () => {
         remoteWork: Boolean(formData.remoteWork),
         companyLogo: '',
         minimumAge: parseInt(formData.minimumAge, 10),
-        equipmentQualSkills: [],
         averageEarnings: {
-          amount: 12,
+          amount: formData.averageEarnings,
           per: 'days',
         },
         timeToFirstDollar: {
-          amount: 12,
+          amount: formData.timeToFirstDollar,
           per: 'days',
         },
       },

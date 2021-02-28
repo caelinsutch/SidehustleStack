@@ -49,27 +49,33 @@ export type MutationUpdatePlatformArgs = {
 
 export type PlatformInput = {
   name: Scalars['String'];
+  companyLogo?: Maybe<Scalars['String']>;
+  website: Scalars['String'];
+  platformType?: Maybe<PlatformType>;
+  founded?: Maybe<Scalars['String']>;
+  headquarteredIn?: Maybe<Scalars['String']>;
+  funding?: Maybe<Funding>;
+  description?: Maybe<Scalars['String']>;
+  typeOfWork?: Maybe<TypeOfWork>;
+  category?: Maybe<CategoryOfWork>;
+  requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
+  applicationRequired?: Maybe<ApplicationRequired>;
+  remoteWork?: Maybe<Scalars['Boolean']>;
+  minimumAge?: Maybe<Scalars['Int']>;
+  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
+  averageEarnings?: Maybe<AmountPerInput>;
+  timeToFirstDollar?: Maybe<AmountPerInput>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  founderTwitter?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+};
+
+export type PlatformRecommendationInput = {
+  name: Scalars['String'];
   companyLogo: Scalars['String'];
   website: Scalars['String'];
-  founded: Scalars['String'];
-  headquarteredIn: Scalars['String'];
-  funding: Funding;
-  description: Scalars['String'];
-  typeOfWork: TypeOfWork;
-  category: CategoryOfWork;
-  requiresDigitalAudience: ExistingDigitalAudienceRequired;
-  applicationRequired: ApplicationRequired;
-  remoteWork: Scalars['Boolean'];
-  minimumAge: Scalars['Int'];
-  equipmentQualSkills: Array<EquipmentQualSkills>;
-  averageEarnings: AmountPerInput;
-  timeToFirstDollar: AmountPerInput;
-  geographicalFocus: Scalars['String'];
-  affiliateLink?: Maybe<Scalars['String']>;
-  founderMessage: Scalars['String'];
-  founderTwitter: Scalars['String'];
-  email: Scalars['String'];
-  tags?: Maybe<Array<TagInput>>;
 };
 
 export type UpdatePlatformInput = {
@@ -114,29 +120,30 @@ export type AmountPerInput = {
 
 export type PlatformMvc = {
   platformId: Scalars['ID'];
-  name: Scalars['String'];
-  companyLogo: Scalars['String'];
-  website: Scalars['String'];
-  founded: Scalars['String'];
-  headquarteredIn: Scalars['String'];
-  funding: Funding;
-  description: Scalars['String'];
   platformType: PlatformType;
-  typeOfWork: TypeOfWork;
+  name: Scalars['String'];
+  companyLogo?: Maybe<Scalars['String']>;
+  website: Scalars['String'];
+  founded?: Maybe<Scalars['String']>;
+  headquarteredIn?: Maybe<Scalars['String']>;
+  funding?: Maybe<Funding>;
+  description?: Maybe<Scalars['String']>;
+  typeOfWork?: Maybe<TypeOfWork>;
   category?: Maybe<CategoryOfWork>;
-  requiresDigitalAudience: ExistingDigitalAudienceRequired;
-  applicationRequired: ApplicationRequired;
-  remoteWork: Scalars['Boolean'];
-  minimumAge: Scalars['Int'];
-  equipmentQualSkills: Array<EquipmentQualSkills>;
-  averageEarnings: AmountPer;
-  timeToFirstDollar: AmountPer;
+  requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
+  applicationRequired?: Maybe<ApplicationRequired>;
+  remoteWork?: Maybe<Scalars['Boolean']>;
+  minimumAge?: Maybe<Scalars['Int']>;
+  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
+  averageEarnings?: Maybe<AmountPer>;
+  timeToFirstDollar?: Maybe<AmountPer>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Tag>>;
+  status: Status;
 };
 
 export type AmountPer = {
@@ -197,13 +204,6 @@ export enum ApplicationRequired {
   No = 'NO',
 }
 
-export enum PlatformPricing {
-  Percentage = 'PERCENTAGE',
-  Subscription = 'SUBSCRIPTION',
-  Free = 'FREE',
-  Other = 'OTHER',
-}
-
 export enum TypeOfWork {
   AdultContentCreator = 'ADULT_CONTENT_CREATOR',
   AudioContentCreator = 'AUDIO_CONTENT_CREATOR',
@@ -230,6 +230,11 @@ export enum TypeOfWork {
   Tech = 'TECH',
   VideoCourseCreator = 'VIDEO_COURSE_CREATOR',
   Writer = 'WRITER',
+}
+
+export enum Status {
+  InReview = 'IN_REVIEW',
+  Published = 'PUBLISHED',
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -355,6 +360,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
   TagInput: TagInput;
   LinkInput: LinkInput;
@@ -368,8 +374,8 @@ export type ResolversTypes = {
   CategoryOfWork: CategoryOfWork;
   ExistingDigitalAudienceRequired: ExistingDigitalAudienceRequired;
   ApplicationRequired: ApplicationRequired;
-  PlatformPricing: PlatformPricing;
   TypeOfWork: TypeOfWork;
+  Status: Status;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -381,6 +387,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
+  PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
   TagInput: TagInput;
   LinkInput: LinkInput;
@@ -430,48 +437,68 @@ export type PlatformMvcResolvers<
   ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
 > = {
   platformId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  companyLogo?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  founded?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  headquarteredIn?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  funding?: Resolver<ResolversTypes['Funding'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   platformType?: Resolver<
     ResolversTypes['PlatformType'],
     ParentType,
     ContextType
   >;
-  typeOfWork?: Resolver<ResolversTypes['TypeOfWork'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  companyLogo?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  founded?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  headquarteredIn?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  funding?: Resolver<Maybe<ResolversTypes['Funding']>, ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  typeOfWork?: Resolver<
+    Maybe<ResolversTypes['TypeOfWork']>,
+    ParentType,
+    ContextType
+  >;
   category?: Resolver<
     Maybe<ResolversTypes['CategoryOfWork']>,
     ParentType,
     ContextType
   >;
   requiresDigitalAudience?: Resolver<
-    ResolversTypes['ExistingDigitalAudienceRequired'],
+    Maybe<ResolversTypes['ExistingDigitalAudienceRequired']>,
     ParentType,
     ContextType
   >;
   applicationRequired?: Resolver<
-    ResolversTypes['ApplicationRequired'],
+    Maybe<ResolversTypes['ApplicationRequired']>,
     ParentType,
     ContextType
   >;
-  remoteWork?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  minimumAge?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  remoteWork?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
+  minimumAge?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   equipmentQualSkills?: Resolver<
-    Array<ResolversTypes['EquipmentQualSkills']>,
+    Maybe<Array<ResolversTypes['EquipmentQualSkills']>>,
     ParentType,
     ContextType
   >;
   averageEarnings?: Resolver<
-    ResolversTypes['AmountPer'],
+    Maybe<ResolversTypes['AmountPer']>,
     ParentType,
     ContextType
   >;
   timeToFirstDollar?: Resolver<
-    ResolversTypes['AmountPer'],
+    Maybe<ResolversTypes['AmountPer']>,
     ParentType,
     ContextType
   >;
@@ -495,8 +522,9 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -566,12 +594,6 @@ export type CreatePlatformMutationVariables = Exact<{
 
 export type CreatePlatformMutation = {
   createPlatform: Pick<PlatformMvc, 'platformId'>;
-};
-
-export type HomeQueryVariables = Exact<{ [key: string]: never }>;
-
-export type HomeQuery = {
-  allPlatforms: Array<Pick<PlatformMvc, 'platformId' | 'name'>>;
 };
 
 export const PlatformDocument = gql`
@@ -742,53 +764,4 @@ export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<Crea
 export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePlatformMutation,
   CreatePlatformMutationVariables
->;
-export const HomeDocument = gql`
-  query Home {
-    allPlatforms {
-      platformId
-      name
-    }
-  }
-`;
-
-/**
- * __useHomeQuery__
- *
- * To run a query within a React component, call `useHomeQuery` and pass it any options that fit your needs.
- * When your component renders, `useHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHomeQuery({
- *   variables: {
- *   },
- * });
- */
-export function useHomeQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<HomeQuery, HomeQueryVariables>
-) {
-  return ApolloReactHooks.useQuery<HomeQuery, HomeQueryVariables>(
-    HomeDocument,
-    baseOptions
-  );
-}
-export function useHomeLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    HomeQuery,
-    HomeQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<HomeQuery, HomeQueryVariables>(
-    HomeDocument,
-    baseOptions
-  );
-}
-export type HomeQueryHookResult = ReturnType<typeof useHomeQuery>;
-export type HomeLazyQueryHookResult = ReturnType<typeof useHomeLazyQuery>;
-export type HomeQueryResult = ApolloReactCommon.QueryResult<
-  HomeQuery,
-  HomeQueryVariables
 >;

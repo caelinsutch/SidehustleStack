@@ -41,27 +41,33 @@ export type MutationUpdatePlatformArgs = {
 
 export type PlatformInput = {
   name: Scalars['String'];
+  companyLogo?: Maybe<Scalars['String']>;
+  website: Scalars['String'];
+  platformType?: Maybe<PlatformType>;
+  founded?: Maybe<Scalars['String']>;
+  headquarteredIn?: Maybe<Scalars['String']>;
+  funding?: Maybe<Funding>;
+  description?: Maybe<Scalars['String']>;
+  typeOfWork?: Maybe<TypeOfWork>;
+  category?: Maybe<CategoryOfWork>;
+  requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
+  applicationRequired?: Maybe<ApplicationRequired>;
+  remoteWork?: Maybe<Scalars['Boolean']>;
+  minimumAge?: Maybe<Scalars['Int']>;
+  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
+  averageEarnings?: Maybe<AmountPerInput>;
+  timeToFirstDollar?: Maybe<AmountPerInput>;
+  geographicalFocus?: Maybe<Scalars['String']>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderMessage?: Maybe<Scalars['String']>;
+  founderTwitter?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+};
+
+export type PlatformRecommendationInput = {
+  name: Scalars['String'];
   companyLogo: Scalars['String'];
   website: Scalars['String'];
-  founded: Scalars['String'];
-  headquarteredIn: Scalars['String'];
-  funding: Funding;
-  description: Scalars['String'];
-  typeOfWork: TypeOfWork;
-  category: CategoryOfWork;
-  requiresDigitalAudience: ExistingDigitalAudienceRequired;
-  applicationRequired: ApplicationRequired;
-  remoteWork: Scalars['Boolean'];
-  minimumAge: Scalars['Int'];
-  equipmentQualSkills: Array<EquipmentQualSkills>;
-  averageEarnings: AmountPerInput;
-  timeToFirstDollar: AmountPerInput;
-  geographicalFocus: Scalars['String'];
-  affiliateLink?: Maybe<Scalars['String']>;
-  founderMessage: Scalars['String'];
-  founderTwitter: Scalars['String'];
-  email: Scalars['String'];
-  tags?: Maybe<Array<TagInput>>;
 };
 
 export type UpdatePlatformInput = {
@@ -106,29 +112,30 @@ export type AmountPerInput = {
 
 export type PlatformMvc = {
   platformId: Scalars['ID'];
-  name: Scalars['String'];
-  companyLogo: Scalars['String'];
-  website: Scalars['String'];
-  founded: Scalars['String'];
-  headquarteredIn: Scalars['String'];
-  funding: Funding;
-  description: Scalars['String'];
   platformType: PlatformType;
-  typeOfWork: TypeOfWork;
+  name: Scalars['String'];
+  companyLogo?: Maybe<Scalars['String']>;
+  website: Scalars['String'];
+  founded?: Maybe<Scalars['String']>;
+  headquarteredIn?: Maybe<Scalars['String']>;
+  funding?: Maybe<Funding>;
+  description?: Maybe<Scalars['String']>;
+  typeOfWork?: Maybe<TypeOfWork>;
   category?: Maybe<CategoryOfWork>;
-  requiresDigitalAudience: ExistingDigitalAudienceRequired;
-  applicationRequired: ApplicationRequired;
-  remoteWork: Scalars['Boolean'];
-  minimumAge: Scalars['Int'];
-  equipmentQualSkills: Array<EquipmentQualSkills>;
-  averageEarnings: AmountPer;
-  timeToFirstDollar: AmountPer;
+  requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
+  applicationRequired?: Maybe<ApplicationRequired>;
+  remoteWork?: Maybe<Scalars['Boolean']>;
+  minimumAge?: Maybe<Scalars['Int']>;
+  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
+  averageEarnings?: Maybe<AmountPer>;
+  timeToFirstDollar?: Maybe<AmountPer>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Tag>>;
+  status: Status;
 };
 
 export type AmountPer = {
@@ -189,13 +196,6 @@ export enum ApplicationRequired {
   No = 'NO',
 }
 
-export enum PlatformPricing {
-  Percentage = 'PERCENTAGE',
-  Subscription = 'SUBSCRIPTION',
-  Free = 'FREE',
-  Other = 'OTHER',
-}
-
 export enum TypeOfWork {
   AdultContentCreator = 'ADULT_CONTENT_CREATOR',
   AudioContentCreator = 'AUDIO_CONTENT_CREATOR',
@@ -224,6 +224,11 @@ export enum TypeOfWork {
   Writer = 'WRITER',
 }
 
+export enum Status {
+  InReview = 'IN_REVIEW',
+  Published = 'PUBLISHED',
+}
+
 export type AdditionalEntityFields = {
   path?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
@@ -232,29 +237,30 @@ export type AdditionalEntityFields = {
 import { ObjectID } from 'mongodb';
 export type PlatformMvcDbObject = {
   _id: ObjectID;
-  name: string;
-  companyLogo: string;
-  website: string;
-  founded: string;
-  headquarteredIn: string;
-  funding: string;
-  description: string;
   platformType: string;
-  typeOfWork: string;
+  name: string;
+  companyLogo?: Maybe<string>;
+  website: string;
+  founded?: Maybe<string>;
+  headquarteredIn?: Maybe<string>;
+  funding?: Maybe<string>;
+  description?: Maybe<string>;
+  typeOfWork?: Maybe<string>;
   category?: Maybe<string>;
-  requiresDigitalAudience: string;
-  applicationRequired: string;
-  remoteWork: boolean;
-  minimumAge: number;
-  equipmentQualSkills: Array<string>;
-  averageEarnings: AmountPer;
-  timeToFirstDollar: AmountPer;
+  requiresDigitalAudience?: Maybe<string>;
+  applicationRequired?: Maybe<string>;
+  remoteWork?: Maybe<boolean>;
+  minimumAge?: Maybe<number>;
+  equipmentQualSkills?: Maybe<Array<string>>;
+  averageEarnings?: Maybe<AmountPer>;
+  timeToFirstDollar?: Maybe<AmountPer>;
   geographicalFocus?: Maybe<string>;
   affiliateLink?: Maybe<string>;
   founderMessage?: Maybe<string>;
   founderTwitter?: Maybe<string>;
-  email: string;
+  email?: Maybe<string>;
   tags?: Maybe<Array<TagDbObject>>;
+  status: string;
 };
 
 export type AmountPerDbObject = {

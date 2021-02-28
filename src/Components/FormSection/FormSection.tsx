@@ -8,6 +8,7 @@ import {
   Select,
   Stack,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { RegisterOptions, useForm } from 'react-hook-form';
 
@@ -54,13 +55,15 @@ const FormSection: React.FC<FormSectionProps> = ({
   buttonText = 'Next',
 }) => {
   const { register, handleSubmit, errors } = useForm();
+  const toast = useToast();
 
   const handleError = () => {
     if (onError) onError(errors);
-    console.log(errors);
+    toast({
+      title: 'Form Errors',
+      status: 'error',
+    });
   };
-
-  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(onSubmit, handleError)}>

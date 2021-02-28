@@ -10,27 +10,32 @@ type Mutation {
 
 input PlatformInput {
     name: String!
+    companyLogo: String
+    website: String!
+    platformType: PlatformType
+    founded: String
+    headquarteredIn: String
+    funding: Funding
+    description: String
+    typeOfWork: TypeOfWork
+    category: CategoryOfWork
+    requiresDigitalAudience: ExistingDigitalAudienceRequired
+    applicationRequired: ApplicationRequired
+    remoteWork: Boolean
+    minimumAge: Int
+    equipmentQualSkills: [EquipmentQualSkills!]
+    averageEarnings: AmountPerInput
+    timeToFirstDollar: AmountPerInput
+    geographicalFocus: String
+    affiliateLink: String
+    founderMessage: String
+    founderTwitter: String
+    email: String
+}
+input PlatformRecommendationInput {
+    name: String!
     companyLogo: String!
     website: String!
-    founded: String!
-    headquarteredIn: String!
-    funding: Funding!
-    description: String!
-    typeOfWork: TypeOfWork!
-    category: CategoryOfWork!
-    requiresDigitalAudience: ExistingDigitalAudienceRequired!
-    applicationRequired: ApplicationRequired!
-    remoteWork: Boolean!
-    minimumAge: Int!
-    equipmentQualSkills: [EquipmentQualSkills!]!
-    averageEarnings: AmountPerInput!
-    timeToFirstDollar: AmountPerInput!
-    geographicalFocus: String!
-    affiliateLink: String
-    founderMessage: String!
-    founderTwitter: String!
-    email: String!
-    tags: [TagInput!]
 }
 
 input UpdatePlatformInput {
@@ -75,28 +80,29 @@ input AmountPerInput {
 
 type PlatformMVC @entity {
     platformId: ID! @id
-    name: String! @column
-    companyLogo: String! @column
-    website: String! @column
-    founded: String! @column
-    headquarteredIn: String! @column
-    funding: Funding! @column
-    description: String! @column
+    status: Status! @column
     platformType: PlatformType! @column
-    typeOfWork: TypeOfWork! @column
+    name: String! @column
+    website: String! @column
+    companyLogo: String @column
+    founded: String @column
+    headquarteredIn: String @column
+    funding: Funding @column
+    description: String @column
+    typeOfWork: TypeOfWork @column
     category: CategoryOfWork @column
-    requiresDigitalAudience: ExistingDigitalAudienceRequired! @column
-    applicationRequired: ApplicationRequired! @column
-    remoteWork: Boolean! @column
-    minimumAge: Int! @column
-    equipmentQualSkills: [EquipmentQualSkills!]! @column
-    averageEarnings: AmountPer! @column
-    timeToFirstDollar: AmountPer! @column
+    requiresDigitalAudience: ExistingDigitalAudienceRequired @column
+    applicationRequired: ApplicationRequired @column
+    remoteWork: Boolean @column
+    minimumAge: Int @column
+    equipmentQualSkills: [EquipmentQualSkills!] @column
+    averageEarnings: AmountPer @column
+    timeToFirstDollar: AmountPer @column
     geographicalFocus: String @column
     affiliateLink: String @column
     founderMessage: String @column
     founderTwitter: String @column
-    email: String! @column
+    email: String @column
     tags: [Tag!] @embedded
 }
 
@@ -184,4 +190,9 @@ enum TypeOfWork {
     TECH
     VIDEO_COURSE_CREATOR
     WRITER
+}
+
+enum Status {
+    IN_REVIEW
+    PUBLISHED
 }
