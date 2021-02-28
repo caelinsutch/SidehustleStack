@@ -1,2 +1,2 @@
 export { default } from './HomeScreen';
-export type { PlatformData, PlatformFilter, PlatformTags } from './HomeScreen';
+export type { PlatformFilter } from './HomeScreen.constants';

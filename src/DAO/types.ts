@@ -268,7 +268,7 @@ export type PlatformMvcDbObject = {
   founderMessage?: Maybe<string>;
   founderTwitter?: Maybe<string>;
   email?: Maybe<string>;
-  tags?: Maybe<Array<StringDbObject>>;
+  tags?: Maybe<Array<string>>;
   reviews?: Maybe<Array<ReviewDbObject>>;
   score: number;
 };

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { DefaultContainer, LoadingSection } from '@Components';
-import { Flex, Spinner } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { gql } from '@apollo/client';
 import { PlatformType, useGetAllPlatformsHomeQuery } from '@GraphQL/types';
+import { DefaultContainer, LoadingSection } from '@Components';
 import { HomeBanner, PlatformSection, ViewSelector } from './Components';
 import { filters } from './HomeScreen.constants';
 

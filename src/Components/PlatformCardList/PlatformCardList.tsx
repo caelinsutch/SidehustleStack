@@ -1,8 +1,7 @@
 import React from 'react';
-import { PlatformData } from '@Screens/HomeScreen';
-import { BoxProps, Flex, VStack, Box } from '@chakra-ui/react';
+import { BoxProps, Flex } from '@chakra-ui/react';
 import { PlatformCard } from '@Components/index';
-import { GetAllPlatformsHomeQuery, PlatformMvc } from '@GraphQL/types';
+import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 
 export type PlatformCardListProps = {
   cards: GetAllPlatformsHomeQuery['allPlatforms'];

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, Box, Flex, BoxProps, Input } from '@chakra-ui/react';
 import { FilterDropdown, PlatformCardList } from '@Components';
 import { PlatformFilter } from '@Screens/HomeScreen';
-import { GetAllPlatformsHomeQuery, PlatformMvc } from '@GraphQL/types';
+import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 
 export type PlatformSectionProps = {
   platforms: GetAllPlatformsHomeQuery['allPlatforms'];
@@ -17,7 +17,9 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
   const [search, setSearch] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
 
-  const handleFilter = (card: PlatformMvc): boolean => {
+  const handleFilter = (
+    card: GetAllPlatformsHomeQuery['allPlatforms'][0]
+  ): boolean => {
     for (let i = 0; i < tags.length; i += 1) {
       if (!card.tags.includes(tags[i])) return false;
     }

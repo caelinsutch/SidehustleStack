@@ -108,7 +108,7 @@ type PlatformMVC @entity {
     founderMessage: String @column
     founderTwitter: String @column
     email: String @column
-    tags: [String!] @embedded
+    tags: [String!] @column
     reviews: [Review!] @embedded
     score: Int! @column
 }
