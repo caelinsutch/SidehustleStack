@@ -72,6 +72,8 @@ export type PlatformRecommendationInput = {
 
 export type UpdatePlatformInput = {
   name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  platformType?: Maybe<PlatformType>;
   companyLogo?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
@@ -93,6 +95,7 @@ export type UpdatePlatformInput = {
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<TagInput>>;
+  reviews?: Maybe<Array<ReviewInput>>;
 };
 
 export type TagInput = {
@@ -110,12 +113,19 @@ export type AmountPerInput = {
   per: Scalars['String'];
 };
 
+export type ReviewInput = {
+  rating: Scalars['Int'];
+  description: Scalars['String'];
+  author?: Maybe<Scalars['String']>;
+};
+
 export type PlatformMvc = {
   platformId: Scalars['ID'];
+  status: Status;
   platformType: PlatformType;
   name: Scalars['String'];
-  companyLogo?: Maybe<Scalars['String']>;
   website: Scalars['String'];
+  companyLogo?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
   funding?: Maybe<Funding>;
@@ -135,7 +145,8 @@ export type PlatformMvc = {
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Tag>>;
-  status: Status;
+  reviews?: Maybe<Array<Review>>;
+  score: Scalars['Int'];
 };
 
 export type AmountPer = {
@@ -146,6 +157,12 @@ export type AmountPer = {
 export type Tag = {
   name: Scalars['String'];
   color?: Maybe<Scalars['String']>;
+};
+
+export type Review = {
+  rating: Scalars['Int'];
+  description: Scalars['String'];
+  author: Scalars['String'];
 };
 
 export enum PlatformType {
@@ -237,10 +254,11 @@ export type AdditionalEntityFields = {
 import { ObjectID } from 'mongodb';
 export type PlatformMvcDbObject = {
   _id: ObjectID;
+  status: string;
   platformType: string;
   name: string;
-  companyLogo?: Maybe<string>;
   website: string;
+  companyLogo?: Maybe<string>;
   founded?: Maybe<string>;
   headquarteredIn?: Maybe<string>;
   funding?: Maybe<string>;
@@ -260,7 +278,8 @@ export type PlatformMvcDbObject = {
   founderTwitter?: Maybe<string>;
   email?: Maybe<string>;
   tags?: Maybe<Array<TagDbObject>>;
-  status: string;
+  reviews?: Maybe<Array<ReviewDbObject>>;
+  score: number;
 };
 
 export type AmountPerDbObject = {
@@ -271,4 +290,10 @@ export type AmountPerDbObject = {
 export type TagDbObject = {
   name: string;
   color?: Maybe<string>;
+};
+
+export type ReviewDbObject = {
+  rating: number;
+  description: string;
+  author: string;
 };

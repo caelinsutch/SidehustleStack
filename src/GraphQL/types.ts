@@ -80,6 +80,8 @@ export type PlatformRecommendationInput = {
 
 export type UpdatePlatformInput = {
   name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  platformType?: Maybe<PlatformType>;
   companyLogo?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
@@ -101,6 +103,7 @@ export type UpdatePlatformInput = {
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<TagInput>>;
+  reviews?: Maybe<Array<ReviewInput>>;
 };
 
 export type TagInput = {
@@ -118,12 +121,19 @@ export type AmountPerInput = {
   per: Scalars['String'];
 };
 
+export type ReviewInput = {
+  rating: Scalars['Int'];
+  description: Scalars['String'];
+  author?: Maybe<Scalars['String']>;
+};
+
 export type PlatformMvc = {
   platformId: Scalars['ID'];
+  status: Status;
   platformType: PlatformType;
   name: Scalars['String'];
-  companyLogo?: Maybe<Scalars['String']>;
   website: Scalars['String'];
+  companyLogo?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
   funding?: Maybe<Funding>;
@@ -143,7 +153,8 @@ export type PlatformMvc = {
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Tag>>;
-  status: Status;
+  reviews?: Maybe<Array<Review>>;
+  score: Scalars['Int'];
 };
 
 export type AmountPer = {
@@ -154,6 +165,12 @@ export type AmountPer = {
 export type Tag = {
   name: Scalars['String'];
   color?: Maybe<Scalars['String']>;
+};
+
+export type Review = {
+  rating: Scalars['Int'];
+  description: Scalars['String'];
+  author: Scalars['String'];
 };
 
 export enum PlatformType {
@@ -365,9 +382,11 @@ export type ResolversTypes = {
   TagInput: TagInput;
   LinkInput: LinkInput;
   AmountPerInput: AmountPerInput;
+  ReviewInput: ReviewInput;
   PlatformMVC: ResolverTypeWrapper<PlatformMvc>;
   AmountPer: ResolverTypeWrapper<AmountPer>;
   Tag: ResolverTypeWrapper<Tag>;
+  Review: ResolverTypeWrapper<Review>;
   PlatformType: PlatformType;
   Funding: Funding;
   EquipmentQualSkills: EquipmentQualSkills;
@@ -392,9 +411,11 @@ export type ResolversParentTypes = {
   TagInput: TagInput;
   LinkInput: LinkInput;
   AmountPerInput: AmountPerInput;
+  ReviewInput: ReviewInput;
   PlatformMVC: PlatformMvc;
   AmountPer: AmountPer;
   Tag: Tag;
+  Review: Review;
 };
 
 export type QueryResolvers<
@@ -437,18 +458,19 @@ export type PlatformMvcResolvers<
   ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
 > = {
   platformId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   platformType?: Resolver<
     ResolversTypes['PlatformType'],
     ParentType,
     ContextType
   >;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   companyLogo?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
-  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   founded?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   headquarteredIn?: Resolver<
     Maybe<ResolversTypes['String']>,
@@ -524,7 +546,12 @@ export type PlatformMvcResolvers<
   >;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
-  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
+  reviews?: Resolver<
+    Maybe<Array<ResolversTypes['Review']>>,
+    ParentType,
+    ContextType
+  >;
+  score?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -546,12 +573,23 @@ export type TagResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ReviewResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']
+> = {
+  rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   PlatformMVC?: PlatformMvcResolvers<ContextType>;
   AmountPer?: AmountPerResolvers<ContextType>;
   Tag?: TagResolvers<ContextType>;
+  Review?: ReviewResolvers<ContextType>;
 };
 
 /**

@@ -114,6 +114,7 @@ type PlatformMVC @entity {
     email: String @column
     tags: [Tag!] @embedded
     reviews: [Review!] @embedded
+    score: Int! @column
 }
 
 type AmountPer @entity(embedded: true) {

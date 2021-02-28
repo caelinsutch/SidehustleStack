@@ -12,7 +12,8 @@
     "prettier:check": "prettier --check",
     "prettier:fix": "prettier --write src/**/*.{ts,tsx}",
     "generate": "plop --plopfile plop/plop.ts",
-    "graphql": "graphql-codegen"
+    "graphql": "graphql-codegen",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.3.9",

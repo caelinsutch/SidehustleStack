@@ -7,6 +7,7 @@ const createPlatform = async (_: any, { platform }) => {
     ...platform,
     status: Status.InReview,
     reviews: [],
+    score: 0,
   };
 
   const collection = await getPlatformCollection();
