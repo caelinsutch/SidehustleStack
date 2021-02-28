@@ -43,7 +43,8 @@ export type PlatformInput = {
   name: Scalars['String'];
   companyLogo?: Maybe<Scalars['String']>;
   website: Scalars['String'];
-  platformType?: Maybe<PlatformType>;
+  platformType: PlatformType;
+  tags?: Maybe<Array<Scalars['String']>>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
   funding?: Maybe<Funding>;
@@ -94,13 +95,8 @@ export type UpdatePlatformInput = {
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<TagInput>>;
+  tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
-};
-
-export type TagInput = {
-  name?: Maybe<Scalars['String']>;
-  color?: Maybe<Scalars['String']>;
 };
 
 export type LinkInput = {
@@ -144,7 +140,7 @@ export type PlatformMvc = {
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Tag>>;
+  tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<Review>>;
   score: Scalars['Int'];
 };
@@ -152,11 +148,6 @@ export type PlatformMvc = {
 export type AmountPer = {
   amount: Scalars['Int'];
   per: Scalars['String'];
-};
-
-export type Tag = {
-  name: Scalars['String'];
-  color?: Maybe<Scalars['String']>;
 };
 
 export type Review = {
@@ -277,7 +268,7 @@ export type PlatformMvcDbObject = {
   founderMessage?: Maybe<string>;
   founderTwitter?: Maybe<string>;
   email?: Maybe<string>;
-  tags?: Maybe<Array<TagDbObject>>;
+  tags?: Maybe<Array<StringDbObject>>;
   reviews?: Maybe<Array<ReviewDbObject>>;
   score: number;
 };
@@ -285,11 +276,6 @@ export type PlatformMvcDbObject = {
 export type AmountPerDbObject = {
   amount: number;
   per: string;
-};
-
-export type TagDbObject = {
-  name: string;
-  color?: Maybe<string>;
 };
 
 export type ReviewDbObject = {

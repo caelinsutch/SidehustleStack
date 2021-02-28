@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { gql } from '@apollo/client';
-import { usePlatformQuery } from '@GraphQL/types';
+import React from 'react';
 import {
   Box,
   Image,
@@ -11,26 +9,21 @@ import {
   BoxProps,
 } from '@chakra-ui/react';
 import { VoteIcons } from '@Components/index';
-import { PlatformData } from 'src/Screens/HomeScreen';
+import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
+import { useRouter } from 'next/router';
 
 export type PlatformCardProps = {
-  card: PlatformData;
+  platform: GetAllPlatformsHomeQuery['allPlatforms'][0];
 } & BoxProps;
 
-export const query = gql`
-  query Platform($platformId: ID!) {
-    Platform(platformId: $platformId) {
-      name
-      description
-    }
-  }
-`;
-
-// https://i.imgur.com/pIfdoIW.gif
-
-const PlatformCard: React.FC<PlatformCardProps> = ({ card, ...props }) => {
+const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
+  const router = useRouter();
   const onUpvote = (action: 'up' | 'down') => {
     console.log(action);
+  };
+
+  const handleCardClick = () => {
+    router.push(`/platform/${platform.platformId}`);
   };
 
   return (
@@ -44,11 +37,13 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ card, ...props }) => {
       {...props}
     >
       <Image
-        src={card.logo}
+        src={platform.companyLogo}
         alt="logo"
         width="80%"
         height="auto"
         alignSelf="center"
+        cursor="pointer"
+        onClick={handleCardClick}
       />
       <Box w="100%" h="10px" borderTop="2px solid black" alignSelf="center" />
       <HStack
@@ -57,35 +52,52 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ card, ...props }) => {
         spacing="20px"
         h="100px"
       >
-        <VoteIcons status="down" onClick={onUpvote} upvotes={card.votes} />
+        <div className="vote">
+          <VoteIcons
+            status="down"
+            onClick={onUpvote}
+            upvotes={platform.score}
+          />
+        </div>
         <VStack alignItems="flex-start" spacing="15px">
-          <Text color="black" fontSize="28px" lineHeight="75%">
-            {card.title}
+          <Text
+            color="black"
+            fontSize="28px"
+            lineHeight="75%"
+            cursor="pointer"
+            transition="all 0.2s ease"
+            _hover={{
+              color: 'orange.400',
+            }}
+            onClick={handleCardClick}
+          >
+            {platform.name}
           </Text>
           <Text color="orange.400" fontSize="20px" lineHeight="75%">
-            {card.categories.join(' | ')}
+            {platform.category}
           </Text>
         </VStack>
       </HStack>
       <HStack w="100%" flexWrap="wrap" justifyContent="flex-start">
-        {card.tags.map((item, index) => (
-          <Button
-            bg="orange.400"
-            key={card.title + index}
-            fontSize="16px"
-            h="30px"
-            pr="9px"
-            pl="9px"
-            borderRadius="md"
-            mb="6px"
-            mr="6px"
-            style={{
-              marginInlineStart: '0px',
-            }}
-          >
-            {item}
-          </Button>
-        ))}
+        {platform.tags &&
+          platform.tags.map((item, index) => (
+            <Button
+              bg="orange.400"
+              key={platform.name + index}
+              fontSize="16px"
+              h="30px"
+              pr="9px"
+              pl="9px"
+              borderRadius="md"
+              mb="6px"
+              mr="6px"
+              style={{
+                marginInlineStart: '0px',
+              }}
+            >
+              {item}
+            </Button>
+          ))}
       </HStack>
     </VStack>
   );

@@ -2,9 +2,13 @@ import React from 'react';
 import { PlatformData } from '@Screens/HomeScreen';
 import { BoxProps, Flex, VStack, Box } from '@chakra-ui/react';
 import { PlatformCard } from '@Components/index';
+import { PlatformMvc } from '@GraphQL/types';
 
 export type PlatformCardListProps = {
-  cards: PlatformData[];
+  cards: Pick<
+    PlatformMvc,
+    'name' | 'companyLogo' | 'platformId' | 'category' | 'tags'
+  >[];
 } & BoxProps;
 
 const PlatformCardList: React.FC<PlatformCardListProps> = ({
@@ -21,9 +25,9 @@ const PlatformCardList: React.FC<PlatformCardListProps> = ({
   >
     {cards.map((card, index) => (
       <PlatformCard
-        card={card}
-        order={card.votes}
-        key={card.title + index}
+        platform={card}
+        order={card.score}
+        key={card.name + index}
         w="30%"
         minWidth="130px"
         h="auto"

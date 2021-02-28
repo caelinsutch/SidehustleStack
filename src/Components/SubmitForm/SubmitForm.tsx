@@ -28,6 +28,7 @@ export const query = gql`
     $founderMessage: String!
     $founderTwitter: String!
     $email: String!
+    $platformType: PlatformType!
   ) {
     createPlatform(
       platform: {
@@ -52,6 +53,7 @@ export const query = gql`
         founderMessage: $founderMessage
         founderTwitter: $founderTwitter
         email: $email
+        platformType: $platformType
       }
     ) {
       platformId

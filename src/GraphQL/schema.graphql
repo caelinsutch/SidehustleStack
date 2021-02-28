@@ -12,7 +12,8 @@ input PlatformInput {
     name: String!
     companyLogo: String
     website: String!
-    platformType: PlatformType
+    platformType: PlatformType!
+    tags: [String!]
     founded: String
     headquarteredIn: String
     funding: Funding
@@ -62,13 +63,8 @@ input UpdatePlatformInput {
     founderMessage: String
     founderTwitter: String
     email: String
-    tags: [TagInput!]
+    tags: [String!]
     reviews: [ReviewInput!]
-}
-
-input TagInput {
-    name: String
-    color: String
 }
 
 input LinkInput {
@@ -112,7 +108,7 @@ type PlatformMVC @entity {
     founderMessage: String @column
     founderTwitter: String @column
     email: String @column
-    tags: [Tag!] @embedded
+    tags: [String!] @embedded
     reviews: [Review!] @embedded
     score: Int! @column
 }
@@ -120,11 +116,6 @@ type PlatformMVC @entity {
 type AmountPer @entity(embedded: true) {
     amount: Int! @column
     per: String! @column
-}
-
-type Tag @entity(embedded: true) {
-    name: String! @column
-    color: String @column
 }
 
 type Review @entity(embedded: true) {

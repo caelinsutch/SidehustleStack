@@ -51,7 +51,8 @@ export type PlatformInput = {
   name: Scalars['String'];
   companyLogo?: Maybe<Scalars['String']>;
   website: Scalars['String'];
-  platformType?: Maybe<PlatformType>;
+  platformType: PlatformType;
+  tags?: Maybe<Array<Scalars['String']>>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
   funding?: Maybe<Funding>;
@@ -102,13 +103,8 @@ export type UpdatePlatformInput = {
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<TagInput>>;
+  tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
-};
-
-export type TagInput = {
-  name?: Maybe<Scalars['String']>;
-  color?: Maybe<Scalars['String']>;
 };
 
 export type LinkInput = {
@@ -152,7 +148,7 @@ export type PlatformMvc = {
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Tag>>;
+  tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<Review>>;
   score: Scalars['Int'];
 };
@@ -160,11 +156,6 @@ export type PlatformMvc = {
 export type AmountPer = {
   amount: Scalars['Int'];
   per: Scalars['String'];
-};
-
-export type Tag = {
-  name: Scalars['String'];
-  color?: Maybe<Scalars['String']>;
 };
 
 export type Review = {
@@ -379,13 +370,11 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
-  TagInput: TagInput;
   LinkInput: LinkInput;
   AmountPerInput: AmountPerInput;
   ReviewInput: ReviewInput;
   PlatformMVC: ResolverTypeWrapper<PlatformMvc>;
   AmountPer: ResolverTypeWrapper<AmountPer>;
-  Tag: ResolverTypeWrapper<Tag>;
   Review: ResolverTypeWrapper<Review>;
   PlatformType: PlatformType;
   Funding: Funding;
@@ -408,13 +397,11 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
-  TagInput: TagInput;
   LinkInput: LinkInput;
   AmountPerInput: AmountPerInput;
   ReviewInput: ReviewInput;
   PlatformMVC: PlatformMvc;
   AmountPer: AmountPer;
-  Tag: Tag;
   Review: Review;
 };
 
@@ -545,7 +532,11 @@ export type PlatformMvcResolvers<
     ContextType
   >;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  tags?: Resolver<Maybe<Array<ResolversTypes['Tag']>>, ParentType, ContextType>;
+  tags?: Resolver<
+    Maybe<Array<ResolversTypes['String']>>,
+    ParentType,
+    ContextType
+  >;
   reviews?: Resolver<
     Maybe<Array<ResolversTypes['Review']>>,
     ParentType,
@@ -564,15 +555,6 @@ export type AmountPerResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type TagResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Tag'] = ResolversParentTypes['Tag']
-> = {
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type ReviewResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']
@@ -588,7 +570,6 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   PlatformMVC?: PlatformMvcResolvers<ContextType>;
   AmountPer?: AmountPerResolvers<ContextType>;
-  Tag?: TagResolvers<ContextType>;
   Review?: ReviewResolvers<ContextType>;
 };
 
@@ -597,14 +578,6 @@ export type Resolvers<ContextType = any> = {
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
-
-export type PlatformQueryVariables = Exact<{
-  platformId: Scalars['ID'];
-}>;
-
-export type PlatformQuery = {
-  Platform?: Maybe<Pick<PlatformMvc, 'name' | 'description'>>;
-};
 
 export type CreatePlatformMutationVariables = Exact<{
   name: Scalars['String'];
@@ -628,67 +601,31 @@ export type CreatePlatformMutationVariables = Exact<{
   founderMessage: Scalars['String'];
   founderTwitter: Scalars['String'];
   email: Scalars['String'];
+  platformType: PlatformType;
 }>;
 
 export type CreatePlatformMutation = {
   createPlatform: Pick<PlatformMvc, 'platformId'>;
 };
 
-export const PlatformDocument = gql`
-  query Platform($platformId: ID!) {
-    Platform(platformId: $platformId) {
-      name
-      description
-    }
-  }
-`;
+export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
 
-/**
- * __usePlatformQuery__
- *
- * To run a query within a React component, call `usePlatformQuery` and pass it any options that fit your needs.
- * When your component renders, `usePlatformQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePlatformQuery({
- *   variables: {
- *      platformId: // value for 'platformId'
- *   },
- * });
- */
-export function usePlatformQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<
-    PlatformQuery,
-    PlatformQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<PlatformQuery, PlatformQueryVariables>(
-    PlatformDocument,
-    baseOptions
-  );
-}
-export function usePlatformLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    PlatformQuery,
-    PlatformQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<PlatformQuery, PlatformQueryVariables>(
-    PlatformDocument,
-    baseOptions
-  );
-}
-export type PlatformQueryHookResult = ReturnType<typeof usePlatformQuery>;
-export type PlatformLazyQueryHookResult = ReturnType<
-  typeof usePlatformLazyQuery
->;
-export type PlatformQueryResult = ApolloReactCommon.QueryResult<
-  PlatformQuery,
-  PlatformQueryVariables
->;
+export type GetAllPlatformsHomeQuery = {
+  allPlatforms: Array<
+    Pick<
+      PlatformMvc,
+      | 'platformId'
+      | 'score'
+      | 'name'
+      | 'description'
+      | 'companyLogo'
+      | 'platformType'
+      | 'category'
+      | 'tags'
+    >
+  >;
+};
+
 export const CreatePlatformDocument = gql`
   mutation CreatePlatform(
     $name: String!
@@ -712,6 +649,7 @@ export const CreatePlatformDocument = gql`
     $founderMessage: String!
     $founderTwitter: String!
     $email: String!
+    $platformType: PlatformType!
   ) {
     createPlatform(
       platform: {
@@ -736,6 +674,7 @@ export const CreatePlatformDocument = gql`
         founderMessage: $founderMessage
         founderTwitter: $founderTwitter
         email: $email
+        platformType: $platformType
       }
     ) {
       platformId
@@ -781,6 +720,7 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      founderMessage: // value for 'founderMessage'
  *      founderTwitter: // value for 'founderTwitter'
  *      email: // value for 'email'
+ *      platformType: // value for 'platformType'
  *   },
  * });
  */
@@ -802,4 +742,66 @@ export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<Crea
 export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePlatformMutation,
   CreatePlatformMutationVariables
+>;
+export const GetAllPlatformsHomeDocument = gql`
+  query GetAllPlatformsHome {
+    allPlatforms {
+      platformId
+      score
+      name
+      description
+      companyLogo
+      platformType
+      category
+      tags
+    }
+  }
+`;
+
+/**
+ * __useGetAllPlatformsHomeQuery__
+ *
+ * To run a query within a React component, call `useGetAllPlatformsHomeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPlatformsHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPlatformsHomeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPlatformsHomeQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >(GetAllPlatformsHomeDocument, baseOptions);
+}
+export function useGetAllPlatformsHomeLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >(GetAllPlatformsHomeDocument, baseOptions);
+}
+export type GetAllPlatformsHomeQueryHookResult = ReturnType<
+  typeof useGetAllPlatformsHomeQuery
+>;
+export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<
+  typeof useGetAllPlatformsHomeLazyQuery
+>;
+export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
+  GetAllPlatformsHomeQuery,
+  GetAllPlatformsHomeQueryVariables
 >;

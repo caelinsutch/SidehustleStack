@@ -1,79 +1,39 @@
 import React, { useState } from 'react';
 import { DefaultContainer } from '@Components';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Spinner } from '@chakra-ui/react';
+import { gql } from '@apollo/client';
+import { PlatformType, useGetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { HomeBanner, PlatformSection, ViewSelector } from './Components';
-
-export type PlatformTags = string;
-
-export type PlatformData = {
-  title: string;
-  description: string;
-  categories: string[];
-  logo: string;
-  tags: PlatformTags[];
-  votes: number;
-};
-
-export type PlatformFilter = {
-  name: string;
-  options: PlatformTags[];
-};
+import { filters } from './HomeScreen.constants';
 
 export type HomeView = 'platforms' | 'tools';
 
+export const query = gql`
+  query GetAllPlatformsHome {
+    allPlatforms {
+      platformId
+      score
+      name
+      description
+      companyLogo
+      platformType
+      category
+      tags
+    }
+  }
+`;
+
 const HomeScreen: React.FC = () => {
-  const workType: PlatformFilter = {
-    name: 'Work Type',
-    options: [
-      'Small Business',
-      'Large Business',
-      'None of Your Business',
-      'Monkey Business',
-      'WFH',
-    ],
-  };
-
-  const age: PlatformFilter = {
-    name: 'Age',
-    options: ['Like Milk', '18+', '21+'],
-  };
-
-  const potentialEarnings: PlatformFilter = {
-    name: 'Potential Earnings',
-    options: ['$', '$$', '$$$', '$$$$'],
-  };
-
-  const filters: PlatformFilter[] = [workType, age, potentialEarnings];
-
-  const fdata: PlatformData[] = [...Array(5)].map(
-    () =>
-      ({
-        title: 'Firefox',
-        description: '',
-        categories: ['Browser', 'Mammal'],
-        logo:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png',
-        tags: ['Small Business', '18+', '$$$', 'Animal'],
-        votes: 26,
-      } as PlatformData)
-  );
-
-  const tdata: PlatformData[] = [...Array(5)].map(
-    () =>
-      ({
-        title: 'Tools',
-        description: '',
-        categories: ['Browser', 'Mammal'],
-        logo:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png',
-        tags: ['Small Business', '18+', '$$$', 'Animal'],
-        votes: 26,
-      } as PlatformData)
-  );
+  const { data } = useGetAllPlatformsHomeQuery();
 
   const [view, setView] = useState<HomeView>('platforms');
 
-  console.log(fdata[1]);
+  const platforms = data?.allPlatforms.filter(
+    (platform) => platform.platformType === PlatformType.Platform
+  );
+  const tools = data?.allPlatforms.filter(
+    (platform) => platform.platformType === PlatformType.Tool
+  );
 
   return (
     <DefaultContainer as="section">
@@ -90,16 +50,22 @@ const HomeScreen: React.FC = () => {
           onClick={() => setView('tools')}
         />
       </Flex>
-      <PlatformSection
-        platforms={fdata}
-        filters={filters}
-        display={view === 'platforms' ? 'initial' : 'none'}
-      />
-      <PlatformSection
-        platforms={tdata}
-        filters={filters}
-        display={view === 'tools' ? 'initial' : 'none'}
-      />
+      {data?.allPlatforms ? (
+        <>
+          <PlatformSection
+            platforms={platforms}
+            filters={filters}
+            display={view === 'platforms' ? 'initial' : 'none'}
+          />
+          <PlatformSection
+            platforms={tools}
+            filters={filters}
+            display={view === 'tools' ? 'initial' : 'none'}
+          />
+        </>
+      ) : (
+        <Spinner mx="auto" w={8} h={8} color="orange.400" />
+      )}
     </DefaultContainer>
   );
 };

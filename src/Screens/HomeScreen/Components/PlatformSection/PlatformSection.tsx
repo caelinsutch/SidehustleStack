@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Text, Box, Flex, BoxProps, Input } from '@chakra-ui/react';
 import { FilterDropdown, PlatformCardList } from '@Components';
-import {
-  PlatformData,
-  PlatformFilter,
-  PlatformTags,
-} from '@Screens/HomeScreen';
+import { PlatformFilter } from '@Screens/HomeScreen';
+import { GetAllPlatformsHomeQuery, PlatformMvc } from '@GraphQL/types';
 
 export type PlatformSectionProps = {
-  platforms: PlatformData[];
+  platforms: GetAllPlatformsHomeQuery['allPlatforms'];
   filters: PlatformFilter[];
 } & BoxProps;
 
@@ -18,16 +15,15 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
-  const [tags, setTags] = useState<PlatformTags[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
-  const handleFilter = (card: PlatformData): boolean => {
+  const handleFilter = (card: PlatformMvc): boolean => {
     for (let i = 0; i < tags.length; i += 1) {
       if (!card.tags.includes(tags[i])) return false;
     }
-    console.log(search);
     if (search.length === 0) return true;
     const searchExp = new RegExp(`${[...search].join('*')}*`, 'i');
-    return `${card.title.match(searchExp)}`.length >= search.length;
+    return `${card.name.match(searchExp)}`.length >= search.length;
   };
 
   // const modifyFilter = (tag: PlatformTags) => {

@@ -30,12 +30,13 @@ Mutation to create a test platform in your DB.
 ```graphql
 mutation {
     createPlatform(platform: {
-        name: "Test"
-        companyLogo: "Test"
+        name: "Test 5"
+        companyLogo: "https://www.arborday.org/images/hero/medium/hero-aerial-forest-evergreen-trees.jpg"
         website: "Test"
         founded: "Test"
         headquarteredIn: "Test"
         funding: ZERO
+        tags: ["Tag 1", "Tag 2"]
         description: "Test"
         typeOfWork: AUDIO_CONTENT_CREATOR
         category: CREATOR
@@ -57,6 +58,7 @@ mutation {
         founderMessage: "Test Message"
         founderTwitter: "@caelinsutch"
         email: "caelinsutch@gmail.com"
+        platformType: PLATFORM
     }) {
         platformId
     }
