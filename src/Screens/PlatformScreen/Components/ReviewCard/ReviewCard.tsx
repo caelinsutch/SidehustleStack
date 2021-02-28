@@ -4,15 +4,19 @@ import { StarInput } from '@Components';
 
 export type ReviewCardProps = {
   author: string;
-  body: string;
-  numStars: number;
+  description: string;
+  rating: number;
 };
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ author, body, numStars }) => (
+const ReviewCard: React.FC<ReviewCardProps> = ({
+  author,
+  description,
+  rating,
+}) => (
   <Box boxShadow="base" borderRadius="md" p={4} backgroundColor="white">
-    <StarInput numStarsFilled={numStars} />
+    <StarInput numStarsFilled={rating} />
     <Text fontWeight="semibold" mt={4}>
-      {body}
+      {description}
     </Text>
     <Text fontWeight="semibold" mt={4} fontStyle="italic">
       {author}

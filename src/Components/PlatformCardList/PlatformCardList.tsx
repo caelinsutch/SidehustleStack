@@ -2,13 +2,10 @@ import React from 'react';
 import { PlatformData } from '@Screens/HomeScreen';
 import { BoxProps, Flex, VStack, Box } from '@chakra-ui/react';
 import { PlatformCard } from '@Components/index';
-import { PlatformMvc } from '@GraphQL/types';
+import { GetAllPlatformsHomeQuery, PlatformMvc } from '@GraphQL/types';
 
 export type PlatformCardListProps = {
-  cards: Pick<
-    PlatformMvc,
-    'name' | 'companyLogo' | 'platformId' | 'category' | 'tags'
-  >[];
+  cards: GetAllPlatformsHomeQuery['allPlatforms'];
 } & BoxProps;
 
 const PlatformCardList: React.FC<PlatformCardListProps> = ({

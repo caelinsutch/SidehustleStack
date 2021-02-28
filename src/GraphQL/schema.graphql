@@ -1,6 +1,6 @@
 type Query {
     allPlatforms: [PlatformMVC!]!
-    Platform(platformId: ID!): PlatformMVC
+    platform(platformId: ID!): PlatformMVC
 }
 
 type Mutation {

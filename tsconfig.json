@@ -24,6 +24,7 @@
       "@Hooks/*": ["./src/Hooks/*"],
       "@Constants/*": ["./src/Constants/*"],
       "@Utils/*": ["./src/Utils/*"],
+      "@Utils": ["./src/Utils"],
       "@GraphQL/*": ["./src/GraphQL/*"],
       "@Config": ["./src/Config"],
       "@DAO": ["./src/DAO"],

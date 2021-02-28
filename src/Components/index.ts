@@ -22,3 +22,5 @@ export { default as ViewSelector } from './ViewSelector';
 export { default as FilterDropdown } from './FilterDropdown';
 export type { FilterDropdownProps } from './FilterDropdown';
 export { default as Fonts } from './Fonts';
+export { default as LoadingSection } from './LoadingSection';
+export type { LoadingSectionProps } from './LoadingSection';

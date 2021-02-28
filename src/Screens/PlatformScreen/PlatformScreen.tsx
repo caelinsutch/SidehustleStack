@@ -1,5 +1,8 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { gql } from '@apollo/client';
+import { useGetPlatformQuery } from '@GraphQL/types';
+import _ from 'lodash';
 import {
   FounderQuoteSection,
   HeaderInfo,
@@ -7,55 +10,99 @@ import {
   InfoSection,
   ReviewSection,
 } from '@Screens/PlatformScreen/Components';
-import { DefaultContainer } from '@Components';
+import { DefaultContainer, LoadingSection } from '@Components';
+import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
+import { snakeToStartCase } from '@Utils';
 
 export type PlatformScreenProps = {
   platformId: string;
 };
 
-const PlatformScreen: React.FC<PlatformScreenProps> = ({ platformId }) => (
-  <Box as="section">
-    <DefaultContainer>
-      <BreadcrumbSection platformId={platformId} platformName="Reseller" />
-      <HeaderInfo
-        name="StockX"
-        tags={['Small Business', 'Work From Home', '18+', '$$$']}
-        signUpLink="https://google.com"
-      />
-      <FounderQuoteSection
-        quote="We built StockX to become the largest marketplace for sneakers. Nowadays its
-more known for its role as the marketplace for anything. Sneakers, baseball cards, the
-new PS5 — everything has a home to be resold on StockX. Our mission is to turn your
-old-school memorabilia into new-school money."
-        quoteAuthor="Scott Cutler"
-        quoteAuthorPosition="CEO"
-        quoteAuthorLink="https://google.com"
-      />
-      <InfoSection
-        title="Requirements"
-        body={[
-          'Items to sell including unworn sneakers, trading cards, luxury goods, electronics, and more',
-          'A smartphone or similar device to access StockX with',
-          'The ability to ship items',
-        ]}
-      />
-      <InfoSection
-        title="People Making Money on Platform"
-        body={['100,000 (January 2021)']}
-      />
+export const query = gql`
+  query GetPlatform($platformId: ID!) {
+    platform(platformId: $platformId) {
+      name
+      website
+      description
+      founderMessage
+      category
+      tags
+      typeOfWork
+    }
+  }
+`;
+
+const PlatformScreen: React.FC<PlatformScreenProps> = ({ platformId }) => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data, loading } = useGetPlatformQuery({
+    variables: {
+      platformId: id as string,
+    },
+  });
+
+  if (loading) return <LoadingSection />;
+
+  if (!data?.platform)
+    return (
+      <DefaultContainer as="section">
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle mr={2}>Platform not found, check your link?</AlertTitle>
+        </Alert>
+      </DefaultContainer>
+    );
+
+  const {
+    platform: { name, founderMessage, website, category, tags, typeOfWork },
+  } = data;
+
+  return (
+    <DefaultContainer as="section">
+      <>
+        <BreadcrumbSection platformId={platformId} platformName={name} />
+        <HeaderInfo
+          name={name}
+          tags={[
+            ...tags,
+            snakeToStartCase(typeOfWork),
+            snakeToStartCase(category),
+          ]}
+          signUpLink={website}
+        />
+        <FounderQuoteSection
+          quote={founderMessage}
+          quoteAuthor="Scott Cutler"
+          quoteAuthorPosition="CEO"
+          quoteAuthorLink="https://google.com"
+        />
+        <InfoSection
+          title="Requirements"
+          body={[
+            'Items to sell including unworn sneakers, trading cards, luxury goods, electronics, and more',
+            'A smartphone or similar device to access StockX with',
+            'The ability to ship items',
+          ]}
+        />
+        <InfoSection
+          title="People Making Money on Platform"
+          body={['100,000 (January 2021)']}
+        />
+        <ReviewSection
+          platformId={platformId}
+          platformName="StockX"
+          reviews={[
+            {
+              rating: 3,
+              author: 'Anonymous',
+              description: 'Test test test',
+            },
+          ]}
+        />
+      </>
     </DefaultContainer>
-    <ReviewSection
-      platformId={platformId}
-      platformName="StockX"
-      reviews={[
-        {
-          numStars: 3,
-          author: 'Anonymous',
-          body: 'Test test test',
-        },
-      ]}
-    />
-  </Box>
-);
+  );
+};
 
 export default PlatformScreen;

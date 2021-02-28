@@ -26,7 +26,7 @@ export type Scalars = {
 
 export type Query = {
   allPlatforms: Array<PlatformMvc>;
-  Platform?: Maybe<PlatformMvc>;
+  platform?: Maybe<PlatformMvc>;
 };
 
 export type QueryPlatformArgs = {
@@ -414,7 +414,7 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
-  Platform?: Resolver<
+  platform?: Resolver<
     Maybe<ResolversTypes['PlatformMVC']>,
     ParentType,
     ContextType,
@@ -626,6 +626,25 @@ export type GetAllPlatformsHomeQuery = {
   >;
 };
 
+export type GetPlatformQueryVariables = Exact<{
+  platformId: Scalars['ID'];
+}>;
+
+export type GetPlatformQuery = {
+  platform?: Maybe<
+    Pick<
+      PlatformMvc,
+      | 'name'
+      | 'website'
+      | 'description'
+      | 'founderMessage'
+      | 'category'
+      | 'tags'
+      | 'typeOfWork'
+    >
+  >;
+};
+
 export const CreatePlatformDocument = gql`
   mutation CreatePlatform(
     $name: String!
@@ -804,4 +823,64 @@ export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<
 export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
   GetAllPlatformsHomeQuery,
   GetAllPlatformsHomeQueryVariables
+>;
+export const GetPlatformDocument = gql`
+  query GetPlatform($platformId: ID!) {
+    platform(platformId: $platformId) {
+      name
+      website
+      description
+      founderMessage
+      category
+      tags
+      typeOfWork
+    }
+  }
+`;
+
+/**
+ * __useGetPlatformQuery__
+ *
+ * To run a query within a React component, call `useGetPlatformQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPlatformQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPlatformQuery({
+ *   variables: {
+ *      platformId: // value for 'platformId'
+ *   },
+ * });
+ */
+export function useGetPlatformQuery(
+  baseOptions: ApolloReactHooks.QueryHookOptions<
+    GetPlatformQuery,
+    GetPlatformQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<GetPlatformQuery, GetPlatformQueryVariables>(
+    GetPlatformDocument,
+    baseOptions
+  );
+}
+export function useGetPlatformLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetPlatformQuery,
+    GetPlatformQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetPlatformQuery,
+    GetPlatformQueryVariables
+  >(GetPlatformDocument, baseOptions);
+}
+export type GetPlatformQueryHookResult = ReturnType<typeof useGetPlatformQuery>;
+export type GetPlatformLazyQueryHookResult = ReturnType<
+  typeof useGetPlatformLazyQuery
+>;
+export type GetPlatformQueryResult = ApolloReactCommon.QueryResult<
+  GetPlatformQuery,
+  GetPlatformQueryVariables
 >;

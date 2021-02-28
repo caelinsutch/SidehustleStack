@@ -18,7 +18,7 @@ export type Scalars = {
 
 export type Query = {
   allPlatforms: Array<PlatformMvc>;
-  Platform?: Maybe<PlatformMvc>;
+  platform?: Maybe<PlatformMvc>;
 };
 
 export type QueryPlatformArgs = {

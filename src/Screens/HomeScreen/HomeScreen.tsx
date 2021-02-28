@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DefaultContainer } from '@Components';
+import { DefaultContainer, LoadingSection } from '@Components';
 import { Flex, Spinner } from '@chakra-ui/react';
 import { gql } from '@apollo/client';
 import { PlatformType, useGetAllPlatformsHomeQuery } from '@GraphQL/types';
@@ -64,7 +64,7 @@ const HomeScreen: React.FC = () => {
           />
         </>
       ) : (
-        <Spinner mx="auto" w={8} h={8} color="orange.400" />
+        <LoadingSection />
       )}
     </DefaultContainer>
   );

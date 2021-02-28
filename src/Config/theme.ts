@@ -2,6 +2,11 @@ import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
   components: {
+    Alert: {
+      baseStyle: {
+        borderRadius: 8,
+      },
+    },
     Button: {
       baseStyle: {
         borderRadius: 1000,

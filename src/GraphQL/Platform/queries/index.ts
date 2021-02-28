@@ -1,9 +1,9 @@
 import allPlatforms from './allPlatforms';
-import Platform from './platform';
+import platform from './platform';
 
 const queries = {
   allPlatforms,
-  Platform,
+  platform,
 };
 
 export default queries;
