@@ -6,6 +6,7 @@ const createPlatform = async (_: any, { platform }) => {
   const data: Omit<PlatformMvcDbObject, '_id'> = {
     ...platform,
     status: Status.InReview,
+    reviews: [],
   };
 
   const collection = await getPlatformCollection();

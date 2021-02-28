@@ -40,6 +40,8 @@ input PlatformRecommendationInput {
 
 input UpdatePlatformInput {
     name: String
+    status: Status
+    platformType: PlatformType
     companyLogo: String
     website: String
     founded: String
@@ -61,6 +63,7 @@ input UpdatePlatformInput {
     founderTwitter: String
     email: String
     tags: [TagInput!]
+    reviews: [ReviewInput!]
 }
 
 input TagInput {
@@ -76,6 +79,12 @@ input LinkInput {
 input AmountPerInput {
     amount: Int!
     per: String!
+}
+
+input ReviewInput {
+    rating: Int!
+    description: String!
+    author: String
 }
 
 type PlatformMVC @entity {
@@ -104,6 +113,7 @@ type PlatformMVC @entity {
     founderTwitter: String @column
     email: String @column
     tags: [Tag!] @embedded
+    reviews: [Review!] @embedded
 }
 
 type AmountPer @entity(embedded: true) {
@@ -114,6 +124,12 @@ type AmountPer @entity(embedded: true) {
 type Tag @entity(embedded: true) {
     name: String! @column
     color: String @column
+}
+
+type Review @entity(embedded: true) {
+    rating: Int! @column
+    description: String! @column
+    author: String! @column
 }
 
 enum PlatformType {
