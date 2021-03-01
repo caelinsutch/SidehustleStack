@@ -29,6 +29,7 @@ export const query = gql`
     $founderTwitter: String!
     $email: String!
     $platformType: PlatformType!
+    $numPeopleMakingMoney: Int!
   ) {
     createPlatform(
       platform: {
@@ -44,6 +45,7 @@ export const query = gql`
         requiresDigitalAudience: $requiresDigitalAudience
         applicationRequired: $applicationRequired
         remoteWork: $remoteWork
+        numPeopleMakingMoney: $numPeopleMakingMoney
         minimumAge: $minimumAge
         equipmentQualSkills: $equipmentQualSkills
         averageEarnings: $averageEarnings

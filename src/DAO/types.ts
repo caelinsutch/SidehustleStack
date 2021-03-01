@@ -64,6 +64,7 @@ export type PlatformInput = {
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
   averageEarnings?: Maybe<AmountPerInput>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
+  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
@@ -96,6 +97,7 @@ export type UpdatePlatformInput = {
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
   averageEarnings?: Maybe<AmountPerInput>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
+  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
@@ -145,6 +147,7 @@ export type PlatformMvc = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
+  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<Review>>;
@@ -274,6 +277,7 @@ export type PlatformMvcDbObject = {
   affiliateLink?: Maybe<string>;
   founderMessage?: Maybe<string>;
   founderTwitter?: Maybe<string>;
+  numPeopleMakingMoney?: Maybe<number>;
   email?: Maybe<string>;
   tags?: Maybe<Array<string>>;
   reviews?: Maybe<Array<ReviewDbObject>>;

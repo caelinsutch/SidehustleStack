@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { gql } from '@apollo/client';
 import { useGetPlatformQuery } from '@GraphQL/types';
-import _ from 'lodash';
 import {
   FounderQuoteSection,
   HeaderInfo,
@@ -23,6 +22,7 @@ export const query = gql`
       founderMessage
       category
       tags
+      numPeopleMakingMoney
       typeOfWork
       reviews {
         rating
@@ -64,6 +64,7 @@ const PlatformScreen: React.FC = () => {
       tags,
       typeOfWork,
       reviews,
+      numPeopleMakingMoney,
     },
   } = data;
 
@@ -97,7 +98,7 @@ const PlatformScreen: React.FC = () => {
           />
           <InfoSection
             title="People Making Money on Platform"
-            body={['100,000 (January 2021)']}
+            body={[numPeopleMakingMoney.toLocaleString()]}
           />
         </>
       </DefaultContainer>

@@ -293,7 +293,7 @@ const steps = [
       name: 'averageEarnings',
       type: 'input',
       title: 'Average Monthly Earnings',
-      placeholder: 'Select',
+      placeholder: 'xx',
       description: 'Number of dollars',
       registerOptions: {
         required: true,
@@ -308,7 +308,20 @@ const steps = [
       type: 'input',
       title: 'Days to First Dollar',
       description: 'Number of days',
-      placeholder: 'Select',
+      placeholder: 'xx',
+      registerOptions: {
+        required: true,
+        validate: {
+          number: (value) => typeof parseInt(value, 10) === 'number',
+        },
+        valueAsNumber: true,
+      },
+    },
+    {
+      name: 'numPeopleMakingMoney',
+      type: 'input',
+      title: 'Number of People Making Money',
+      placeholder: 'xxx',
       registerOptions: {
         required: true,
         validate: {

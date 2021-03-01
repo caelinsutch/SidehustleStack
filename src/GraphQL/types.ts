@@ -72,6 +72,7 @@ export type PlatformInput = {
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
   averageEarnings?: Maybe<AmountPerInput>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
+  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
@@ -104,6 +105,7 @@ export type UpdatePlatformInput = {
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
   averageEarnings?: Maybe<AmountPerInput>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
+  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
@@ -153,6 +155,7 @@ export type PlatformMvc = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
+  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<Review>>;
@@ -544,6 +547,11 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
+  numPeopleMakingMoney?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   tags?: Resolver<
     Maybe<Array<ResolversTypes['String']>>,
@@ -616,6 +624,7 @@ export type CreatePlatformMutationVariables = Exact<{
   founderTwitter: Scalars['String'];
   email: Scalars['String'];
   platformType: PlatformType;
+  numPeopleMakingMoney: Scalars['Int'];
 }>;
 
 export type CreatePlatformMutation = {
@@ -636,6 +645,7 @@ export type GetAllPlatformsHomeQuery = {
       | 'platformType'
       | 'category'
       | 'tags'
+      | 'numPeopleMakingMoney'
     >
   >;
 };
@@ -669,6 +679,7 @@ export type GetPlatformQuery = {
       | 'founderMessage'
       | 'category'
       | 'tags'
+      | 'numPeopleMakingMoney'
       | 'typeOfWork'
     > & {
       reviews?: Maybe<Array<Pick<Review, 'rating' | 'description' | 'author'>>>;
@@ -700,6 +711,7 @@ export const CreatePlatformDocument = gql`
     $founderTwitter: String!
     $email: String!
     $platformType: PlatformType!
+    $numPeopleMakingMoney: Int!
   ) {
     createPlatform(
       platform: {
@@ -715,6 +727,7 @@ export const CreatePlatformDocument = gql`
         requiresDigitalAudience: $requiresDigitalAudience
         applicationRequired: $applicationRequired
         remoteWork: $remoteWork
+        numPeopleMakingMoney: $numPeopleMakingMoney
         minimumAge: $minimumAge
         equipmentQualSkills: $equipmentQualSkills
         averageEarnings: $averageEarnings
@@ -771,6 +784,7 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      founderTwitter: // value for 'founderTwitter'
  *      email: // value for 'email'
  *      platformType: // value for 'platformType'
+ *      numPeopleMakingMoney: // value for 'numPeopleMakingMoney'
  *   },
  * });
  */
@@ -804,6 +818,7 @@ export const GetAllPlatformsHomeDocument = gql`
       platformType
       category
       tags
+      numPeopleMakingMoney
     }
   }
 `;
@@ -928,6 +943,7 @@ export const GetPlatformDocument = gql`
       founderMessage
       category
       tags
+      numPeopleMakingMoney
       typeOfWork
       reviews {
         rating
