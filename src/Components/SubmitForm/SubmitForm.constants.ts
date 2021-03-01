@@ -331,6 +331,15 @@ const steps = [
       },
     },
     {
+      name: 'platformPricing',
+      type: 'input',
+      title: 'Platform Pricing',
+      placeholder: 'The platform fee is dependent on...',
+      registerOptions: {
+        required: true,
+      },
+    },
+    {
       name: 'geographicalFocus',
       type: 'input',
       title: 'Geographical Focus',

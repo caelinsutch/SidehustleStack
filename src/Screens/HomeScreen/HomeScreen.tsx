@@ -19,7 +19,6 @@ export const query = gql`
       platformType
       category
       tags
-      numPeopleMakingMoney
     }
   }
 `;

@@ -78,6 +78,7 @@ export type PlatformInput = {
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  platformPricing?: Maybe<Scalars['String']>;
 };
 
 export type PlatformRecommendationInput = {
@@ -113,6 +114,7 @@ export type UpdatePlatformInput = {
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
+  platformPricing?: Maybe<Scalars['String']>;
 };
 
 export type LinkInput = {
@@ -159,7 +161,8 @@ export type PlatformMvc = {
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<Review>>;
-  score: Scalars['Int'];
+  score?: Maybe<Scalars['Int']>;
+  platformPricing?: Maybe<Scalars['String']>;
 };
 
 export type AmountPer = {
@@ -563,7 +566,12 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
-  score?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  score?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  platformPricing?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -645,7 +653,6 @@ export type GetAllPlatformsHomeQuery = {
       | 'platformType'
       | 'category'
       | 'tags'
-      | 'numPeopleMakingMoney'
     >
   >;
 };
@@ -677,6 +684,7 @@ export type GetPlatformQuery = {
       | 'website'
       | 'description'
       | 'founderMessage'
+      | 'platformPricing'
       | 'category'
       | 'tags'
       | 'numPeopleMakingMoney'
@@ -818,7 +826,6 @@ export const GetAllPlatformsHomeDocument = gql`
       platformType
       category
       tags
-      numPeopleMakingMoney
     }
   }
 `;
@@ -941,6 +948,7 @@ export const GetPlatformDocument = gql`
       website
       description
       founderMessage
+      platformPricing
       category
       tags
       numPeopleMakingMoney

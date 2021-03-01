@@ -20,6 +20,7 @@ export const query = gql`
       website
       description
       founderMessage
+      platformPricing
       category
       tags
       numPeopleMakingMoney
@@ -65,6 +66,7 @@ const PlatformScreen: React.FC = () => {
       typeOfWork,
       reviews,
       numPeopleMakingMoney,
+      platformPricing,
     },
   } = data;
 
@@ -100,6 +102,7 @@ const PlatformScreen: React.FC = () => {
             title="People Making Money on Platform"
             body={[numPeopleMakingMoney.toLocaleString()]}
           />
+          <InfoSection title="Platform Pricing" body={[platformPricing]} />
         </>
       </DefaultContainer>
       <ReviewSection id={id} platformName="StockX" reviews={reviews} />
