@@ -77,6 +77,7 @@ export type PlatformInput = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
+  founderName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   platformPricing?: Maybe<Scalars['String']>;
 };
@@ -111,6 +112,7 @@ export type UpdatePlatformInput = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
+  founderName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
@@ -157,6 +159,7 @@ export type PlatformMvc = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
+  founderName?: Maybe<Scalars['String']>;
   numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Scalars['String']>>;
@@ -550,6 +553,11 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
+  founderName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   numPeopleMakingMoney?: Resolver<
     Maybe<ResolversTypes['Int']>,
     ParentType,
@@ -689,6 +697,10 @@ export type GetPlatformQuery = {
       | 'tags'
       | 'numPeopleMakingMoney'
       | 'typeOfWork'
+      | 'requiresDigitalAudience'
+      | 'funding'
+      | 'founded'
+      | 'founderName'
     > & {
       reviews?: Maybe<Array<Pick<Review, 'rating' | 'description' | 'author'>>>;
     }
@@ -953,6 +965,10 @@ export const GetPlatformDocument = gql`
       tags
       numPeopleMakingMoney
       typeOfWork
+      requiresDigitalAudience
+      funding
+      founded
+      founderName
       reviews {
         rating
         description

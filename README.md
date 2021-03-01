@@ -57,6 +57,8 @@ mutation {
         affiliateLink: "google.com"
         founderMessage: "Test Message"
         founderTwitter: "@caelinsutch"
+        founderName: "Caelin Sutch"
+        platformPricing: "Platform pricing information here"
         email: "caelinsutch@gmail.com"
         platformType: PLATFORM
     }) {

@@ -209,7 +209,7 @@ const steps = [
     {
       name: 'requiresDigitalAudience',
       type: 'select',
-      title: 'Existing digital audience',
+      title: 'Requires existing audience',
       placeholder: 'Select',
       registerOptions: {
         required: true,
@@ -364,9 +364,19 @@ const steps = [
       },
     },
     {
+      name: 'founderName',
+      type: 'input',
+      title: 'Founder Name',
+      placeholder: 'Caelin Sutch',
+      registerOptions: {
+        required: true,
+      },
+    },
+    {
       name: 'founderTwitter',
       type: 'input',
       title: 'Founder Twitter',
+      placeholder: 'caelinsutch',
       registerOptions: {
         required: true,
       },
@@ -375,6 +385,7 @@ const steps = [
       name: 'email',
       type: 'input',
       title: 'Email',
+      placeholder: 'caelinsutch@gmail.com',
       registerOptions: {
         required: true,
       },

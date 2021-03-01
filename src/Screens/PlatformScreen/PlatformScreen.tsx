@@ -25,6 +25,10 @@ export const query = gql`
       tags
       numPeopleMakingMoney
       typeOfWork
+      requiresDigitalAudience
+      funding
+      founded
+      founderName
       reviews {
         rating
         description
@@ -67,6 +71,10 @@ const PlatformScreen: React.FC = () => {
       reviews,
       numPeopleMakingMoney,
       platformPricing,
+      requiresDigitalAudience,
+      funding,
+      founded,
+      founderName,
     },
   } = data;
 
@@ -86,8 +94,8 @@ const PlatformScreen: React.FC = () => {
           />
           <FounderQuoteSection
             quote={founderMessage}
-            quoteAuthor="Scott Cutler"
-            quoteAuthorPosition="CEO"
+            quoteAuthor={founderName}
+            quoteAuthorPosition="Founder"
             quoteAuthorLink="https://google.com"
           />
           <InfoSection
@@ -103,6 +111,12 @@ const PlatformScreen: React.FC = () => {
             body={[numPeopleMakingMoney.toLocaleString()]}
           />
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
+          <InfoSection
+            title="Requires Audience"
+            body={[snakeToStartCase(requiresDigitalAudience)]}
+          />
+          <InfoSection title="Funding" body={[snakeToStartCase(funding)]} />
+          <InfoSection title="Founded" body={[founded]} />
         </>
       </DefaultContainer>
       <ReviewSection id={id} platformName="StockX" reviews={reviews} />

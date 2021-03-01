@@ -33,6 +33,7 @@ input PlatformInput {
     affiliateLink: String
     founderMessage: String
     founderTwitter: String
+    founderName: String
     email: String
     platformPricing: String
 }
@@ -66,6 +67,7 @@ input UpdatePlatformInput {
     affiliateLink: String
     founderMessage: String
     founderTwitter: String
+    founderName: String
     email: String
     tags: [String!]
     reviews: [ReviewInput!]
@@ -112,6 +114,7 @@ type PlatformMVC @entity {
     affiliateLink: String @column
     founderMessage: String @column
     founderTwitter: String @column
+    founderName: String @column
     numPeopleMakingMoney: Int @column
     email: String @column
     tags: [String!] @column
