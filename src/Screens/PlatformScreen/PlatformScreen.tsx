@@ -11,12 +11,8 @@ import {
   ReviewSection,
 } from '@Screens/PlatformScreen/Components';
 import { DefaultContainer, LoadingSection } from '@Components';
-import { Alert, AlertIcon, AlertTitle } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react';
 import { snakeToStartCase } from '@Utils';
-
-export type PlatformScreenProps = {
-  platformId: string;
-};
 
 export const query = gql`
   query GetPlatform($platformId: ID!) {
@@ -28,11 +24,16 @@ export const query = gql`
       category
       tags
       typeOfWork
+      reviews {
+        rating
+        description
+        author
+      }
     }
   }
 `;
 
-const PlatformScreen: React.FC<PlatformScreenProps> = ({ platformId }) => {
+const PlatformScreen: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -55,53 +56,53 @@ const PlatformScreen: React.FC<PlatformScreenProps> = ({ platformId }) => {
     );
 
   const {
-    platform: { name, founderMessage, website, category, tags, typeOfWork },
+    platform: {
+      name,
+      founderMessage,
+      website,
+      category,
+      tags,
+      typeOfWork,
+      reviews,
+    },
   } = data;
 
   return (
-    <DefaultContainer as="section">
-      <>
-        <BreadcrumbSection platformId={platformId} platformName={name} />
-        <HeaderInfo
-          name={name}
-          tags={[
-            ...tags,
-            snakeToStartCase(typeOfWork),
-            snakeToStartCase(category),
-          ]}
-          signUpLink={website}
-        />
-        <FounderQuoteSection
-          quote={founderMessage}
-          quoteAuthor="Scott Cutler"
-          quoteAuthorPosition="CEO"
-          quoteAuthorLink="https://google.com"
-        />
-        <InfoSection
-          title="Requirements"
-          body={[
-            'Items to sell including unworn sneakers, trading cards, luxury goods, electronics, and more',
-            'A smartphone or similar device to access StockX with',
-            'The ability to ship items',
-          ]}
-        />
-        <InfoSection
-          title="People Making Money on Platform"
-          body={['100,000 (January 2021)']}
-        />
-        <ReviewSection
-          platformId={platformId}
-          platformName="StockX"
-          reviews={[
-            {
-              rating: 3,
-              author: 'Anonymous',
-              description: 'Test test test',
-            },
-          ]}
-        />
-      </>
-    </DefaultContainer>
+    <Box as="section">
+      <DefaultContainer>
+        <>
+          <BreadcrumbSection platformId={id as string} platformName={name} />
+          <HeaderInfo
+            name={name}
+            tags={[
+              ...tags,
+              snakeToStartCase(typeOfWork),
+              snakeToStartCase(category),
+            ]}
+            signUpLink={website}
+          />
+          <FounderQuoteSection
+            quote={founderMessage}
+            quoteAuthor="Scott Cutler"
+            quoteAuthorPosition="CEO"
+            quoteAuthorLink="https://google.com"
+          />
+          <InfoSection
+            title="Requirements"
+            body={[
+              'Items to sell including unworn sneakers, trading cards, luxury goods, electronics, and more',
+              'A smartphone or similar device to access StockX with',
+              'The ability to ship items',
+            ]}
+          />
+          <InfoSection
+            title="People Making Money on Platform"
+            body={['100,000 (January 2021)']}
+          />
+        </>
+      </DefaultContainer>
+      <ReviewSection platformId={id} platformName="StockX" reviews={reviews} />
+    </Box>
   );
 };
 

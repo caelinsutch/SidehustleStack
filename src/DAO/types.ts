@@ -28,6 +28,7 @@ export type QueryPlatformArgs = {
 export type Mutation = {
   createPlatform: PlatformMvc;
   updatePlatform?: Maybe<PlatformMvc>;
+  addReview?: Maybe<PlatformMvc>;
 };
 
 export type MutationCreatePlatformArgs = {
@@ -37,6 +38,11 @@ export type MutationCreatePlatformArgs = {
 export type MutationUpdatePlatformArgs = {
   platformId: Scalars['ID'];
   data: UpdatePlatformInput;
+};
+
+export type MutationAddReviewArgs = {
+  platformId: Scalars['ID'];
+  review?: Maybe<ReviewInput>;
 };
 
 export type PlatformInput = {
@@ -154,6 +160,7 @@ export type Review = {
   rating: Scalars['Int'];
   description: Scalars['String'];
   author: Scalars['String'];
+  status: Status;
 };
 
 export enum PlatformType {
@@ -282,4 +289,5 @@ export type ReviewDbObject = {
   rating: number;
   description: string;
   author: string;
+  status: string;
 };

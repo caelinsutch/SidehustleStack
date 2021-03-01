@@ -36,6 +36,7 @@ export type QueryPlatformArgs = {
 export type Mutation = {
   createPlatform: PlatformMvc;
   updatePlatform?: Maybe<PlatformMvc>;
+  addReview?: Maybe<PlatformMvc>;
 };
 
 export type MutationCreatePlatformArgs = {
@@ -45,6 +46,11 @@ export type MutationCreatePlatformArgs = {
 export type MutationUpdatePlatformArgs = {
   platformId: Scalars['ID'];
   data: UpdatePlatformInput;
+};
+
+export type MutationAddReviewArgs = {
+  platformId: Scalars['ID'];
+  review?: Maybe<ReviewInput>;
 };
 
 export type PlatformInput = {
@@ -162,6 +168,7 @@ export type Review = {
   rating: Scalars['Int'];
   description: Scalars['String'];
   author: Scalars['String'];
+  status: Status;
 };
 
 export enum PlatformType {
@@ -438,6 +445,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationUpdatePlatformArgs, 'platformId' | 'data'>
   >;
+  addReview?: Resolver<
+    Maybe<ResolversTypes['PlatformMVC']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddReviewArgs, 'platformId'>
+  >;
 };
 
 export type PlatformMvcResolvers<
@@ -562,6 +575,7 @@ export type ReviewResolvers<
   rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -626,6 +640,21 @@ export type GetAllPlatformsHomeQuery = {
   >;
 };
 
+export type AddReviewMutationVariables = Exact<{
+  platformId: Scalars['ID'];
+  rating: Scalars['Int'];
+  description: Scalars['String'];
+  author: Scalars['String'];
+}>;
+
+export type AddReviewMutation = {
+  addReview?: Maybe<
+    Pick<PlatformMvc, 'platformId'> & {
+      reviews?: Maybe<Array<Pick<Review, 'description' | 'author' | 'rating'>>>;
+    }
+  >;
+};
+
 export type GetPlatformQueryVariables = Exact<{
   platformId: Scalars['ID'];
 }>;
@@ -641,7 +670,9 @@ export type GetPlatformQuery = {
       | 'category'
       | 'tags'
       | 'typeOfWork'
-    >
+    > & {
+      reviews?: Maybe<Array<Pick<Review, 'rating' | 'description' | 'author'>>>;
+    }
   >;
 };
 
@@ -824,6 +855,70 @@ export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
   GetAllPlatformsHomeQuery,
   GetAllPlatformsHomeQueryVariables
 >;
+export const AddReviewDocument = gql`
+  mutation AddReview(
+    $platformId: ID!
+    $rating: Int!
+    $description: String!
+    $author: String!
+  ) {
+    addReview(
+      platformId: $platformId
+      review: { rating: $rating, description: $description, author: $author }
+    ) {
+      platformId
+      reviews {
+        description
+        author
+        rating
+      }
+    }
+  }
+`;
+export type AddReviewMutationFn = ApolloReactCommon.MutationFunction<
+  AddReviewMutation,
+  AddReviewMutationVariables
+>;
+
+/**
+ * __useAddReviewMutation__
+ *
+ * To run a mutation, you first call `useAddReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addReviewMutation, { data, loading, error }] = useAddReviewMutation({
+ *   variables: {
+ *      platformId: // value for 'platformId'
+ *      rating: // value for 'rating'
+ *      description: // value for 'description'
+ *      author: // value for 'author'
+ *   },
+ * });
+ */
+export function useAddReviewMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    AddReviewMutation,
+    AddReviewMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    AddReviewMutation,
+    AddReviewMutationVariables
+  >(AddReviewDocument, baseOptions);
+}
+export type AddReviewMutationHookResult = ReturnType<
+  typeof useAddReviewMutation
+>;
+export type AddReviewMutationResult = ApolloReactCommon.MutationResult<AddReviewMutation>;
+export type AddReviewMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  AddReviewMutation,
+  AddReviewMutationVariables
+>;
 export const GetPlatformDocument = gql`
   query GetPlatform($platformId: ID!) {
     platform(platformId: $platformId) {
@@ -834,6 +929,11 @@ export const GetPlatformDocument = gql`
       category
       tags
       typeOfWork
+      reviews {
+        rating
+        description
+        author
+      }
     }
   }
 `;

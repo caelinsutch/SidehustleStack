@@ -13,7 +13,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   description,
   rating,
 }) => (
-  <Box boxShadow="base" borderRadius="md" p={4} backgroundColor="white">
+  <Box boxShadow="base" borderRadius="md" p={4} backgroundColor="white" mt={2}>
     <StarInput numStarsFilled={rating} />
     <Text fontWeight="semibold" mt={4}>
       {description}

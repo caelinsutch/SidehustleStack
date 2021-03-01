@@ -5,7 +5,7 @@ import { ReviewCard, ReviewInput } from '@Screens/PlatformScreen/Components';
 import { Review } from '@GraphQL/types';
 
 export type ReviewSectionProps = {
-  reviews: Review[];
+  reviews: Omit<Review, 'status'>[];
   platformId;
   platformName;
 };
@@ -44,8 +44,11 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
         </Flex>
         <Box mt={15}>
           <ReviewInput platformId={platformId} platformName={platformName} />
-          {reviews.map((review) => (
-            <ReviewCard key={review.description} {...review} />
+          {reviews.map((review, i) => (
+            <ReviewCard
+              key={review.description + review.author + review.rating + i}
+              {...review}
+            />
           ))}
         </Box>
       </DefaultContainer>

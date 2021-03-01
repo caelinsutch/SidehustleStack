@@ -6,6 +6,7 @@ type Query {
 type Mutation {
     createPlatform(platform: PlatformInput): PlatformMVC!
     updatePlatform(platformId: ID!, data: UpdatePlatformInput!): PlatformMVC
+    addReview(platformId: ID!, review: ReviewInput): PlatformMVC
 }
 
 input PlatformInput {
@@ -122,6 +123,7 @@ type Review @entity(embedded: true) {
     rating: Int! @column
     description: String! @column
     author: String! @column
+    status: Status! @column
 }
 
 enum PlatformType {
