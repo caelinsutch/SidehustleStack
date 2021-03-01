@@ -30,7 +30,7 @@ export type Query = {
 };
 
 export type QueryPlatformArgs = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type Mutation = {
@@ -44,12 +44,12 @@ export type MutationCreatePlatformArgs = {
 };
 
 export type MutationUpdatePlatformArgs = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   data: UpdatePlatformInput;
 };
 
 export type MutationAddReviewArgs = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
 };
 
@@ -130,7 +130,7 @@ export type ReviewInput = {
 };
 
 export type PlatformMvc = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   status: Status;
   platformType: PlatformType;
   name: Scalars['String'];
@@ -425,7 +425,7 @@ export type QueryResolvers<
     Maybe<ResolversTypes['PlatformMVC']>,
     ParentType,
     ContextType,
-    RequireFields<QueryPlatformArgs, 'platformId'>
+    RequireFields<QueryPlatformArgs, 'id'>
   >;
 };
 
@@ -443,13 +443,13 @@ export type MutationResolvers<
     Maybe<ResolversTypes['PlatformMVC']>,
     ParentType,
     ContextType,
-    RequireFields<MutationUpdatePlatformArgs, 'platformId' | 'data'>
+    RequireFields<MutationUpdatePlatformArgs, 'id' | 'data'>
   >;
   addReview?: Resolver<
     Maybe<ResolversTypes['PlatformMVC']>,
     ParentType,
     ContextType,
-    RequireFields<MutationAddReviewArgs, 'platformId'>
+    RequireFields<MutationAddReviewArgs, 'id'>
   >;
 };
 
@@ -457,7 +457,7 @@ export type PlatformMvcResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
 > = {
-  platformId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   platformType?: Resolver<
     ResolversTypes['PlatformType'],
@@ -619,7 +619,7 @@ export type CreatePlatformMutationVariables = Exact<{
 }>;
 
 export type CreatePlatformMutation = {
-  createPlatform: Pick<PlatformMvc, 'platformId'>;
+  createPlatform: Pick<PlatformMvc, 'id'>;
 };
 
 export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
@@ -628,7 +628,7 @@ export type GetAllPlatformsHomeQuery = {
   allPlatforms: Array<
     Pick<
       PlatformMvc,
-      | 'platformId'
+      | 'id'
       | 'score'
       | 'name'
       | 'description'
@@ -641,7 +641,7 @@ export type GetAllPlatformsHomeQuery = {
 };
 
 export type AddReviewMutationVariables = Exact<{
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   rating: Scalars['Int'];
   description: Scalars['String'];
   author: Scalars['String'];
@@ -649,14 +649,14 @@ export type AddReviewMutationVariables = Exact<{
 
 export type AddReviewMutation = {
   addReview?: Maybe<
-    Pick<PlatformMvc, 'platformId'> & {
+    Pick<PlatformMvc, 'id'> & {
       reviews?: Maybe<Array<Pick<Review, 'description' | 'author' | 'rating'>>>;
     }
   >;
 };
 
 export type GetPlatformQueryVariables = Exact<{
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
 }>;
 
 export type GetPlatformQuery = {
@@ -727,7 +727,7 @@ export const CreatePlatformDocument = gql`
         platformType: $platformType
       }
     ) {
-      platformId
+      id
     }
   }
 `;
@@ -796,7 +796,7 @@ export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOption
 export const GetAllPlatformsHomeDocument = gql`
   query GetAllPlatformsHome {
     allPlatforms {
-      platformId
+      id
       score
       name
       description
@@ -857,16 +857,16 @@ export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
 >;
 export const AddReviewDocument = gql`
   mutation AddReview(
-    $platformId: ID!
+    $id: ID!
     $rating: Int!
     $description: String!
     $author: String!
   ) {
     addReview(
-      platformId: $platformId
+      id: $id
       review: { rating: $rating, description: $description, author: $author }
     ) {
-      platformId
+      id
       reviews {
         description
         author
@@ -893,7 +893,7 @@ export type AddReviewMutationFn = ApolloReactCommon.MutationFunction<
  * @example
  * const [addReviewMutation, { data, loading, error }] = useAddReviewMutation({
  *   variables: {
- *      platformId: // value for 'platformId'
+ *      id: // value for 'id'
  *      rating: // value for 'rating'
  *      description: // value for 'description'
  *      author: // value for 'author'
@@ -920,8 +920,8 @@ export type AddReviewMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddReviewMutationVariables
 >;
 export const GetPlatformDocument = gql`
-  query GetPlatform($platformId: ID!) {
-    platform(platformId: $platformId) {
+  query GetPlatform($id: ID!) {
+    platform(id: $id) {
       name
       website
       description
@@ -950,7 +950,7 @@ export const GetPlatformDocument = gql`
  * @example
  * const { data, loading, error } = useGetPlatformQuery({
  *   variables: {
- *      platformId: // value for 'platformId'
+ *      id: // value for 'id'
  *   },
  * });
  */

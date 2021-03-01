@@ -1,12 +1,12 @@
 type Query {
     allPlatforms: [PlatformMVC!]!
-    platform(platformId: ID!): PlatformMVC
+    platform(id: ID!): PlatformMVC
 }
 
 type Mutation {
     createPlatform(platform: PlatformInput): PlatformMVC!
-    updatePlatform(platformId: ID!, data: UpdatePlatformInput!): PlatformMVC
-    addReview(platformId: ID!, review: ReviewInput): PlatformMVC
+    updatePlatform(id: ID!, data: UpdatePlatformInput!): PlatformMVC
+    addReview(id: ID!, review: ReviewInput): PlatformMVC
 }
 
 input PlatformInput {
@@ -85,7 +85,7 @@ input ReviewInput {
 }
 
 type PlatformMVC @entity {
-    platformId: ID! @id
+    id: ID! @id
     status: Status! @column
     platformType: PlatformType! @column
     name: String! @column

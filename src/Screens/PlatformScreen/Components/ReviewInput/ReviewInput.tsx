@@ -5,22 +5,22 @@ import { gql } from '@apollo/client';
 import { useAddReviewMutation } from '@GraphQL/types';
 
 export type ReviewInputProps = {
-  platformId: string;
+  id: string;
   platformName: string;
 };
 
 export const query = gql`
   mutation AddReview(
-    $platformId: ID!
+    $id: ID!
     $rating: Int!
     $description: String!
     $author: String!
   ) {
     addReview(
-      platformId: $platformId
+      id: $id
       review: { rating: $rating, description: $description, author: $author }
     ) {
-      platformId
+      id
       reviews {
         description
         author
@@ -30,10 +30,7 @@ export const query = gql`
   }
 `;
 
-const ReviewInput: React.FC<ReviewInputProps> = ({
-  platformId,
-  platformName,
-}) => {
+const ReviewInput: React.FC<ReviewInputProps> = ({ id, platformName }) => {
   const [stars, setStars] = useState<number>();
   const [text, setText] = useState<string>();
   const toast = useToast();
@@ -45,7 +42,7 @@ const ReviewInput: React.FC<ReviewInputProps> = ({
         description: text,
         rating: stars,
         author: 'Anonymous',
-        platformId,
+        id,
       },
     })
       .then(() => {

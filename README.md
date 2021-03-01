@@ -60,7 +60,7 @@ mutation {
         email: "caelinsutch@gmail.com"
         platformType: PLATFORM
     }) {
-        platformId
+        id
     }
 }
 ```

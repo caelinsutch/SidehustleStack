@@ -11,7 +11,7 @@ export type HomeView = 'platforms' | 'tools';
 export const query = gql`
   query GetAllPlatformsHome {
     allPlatforms {
-      platformId
+      id
       score
       name
       description

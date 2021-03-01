@@ -4,10 +4,10 @@ import {
   getPlatformMvcFromDbObject,
 } from '@GraphQL/Platform';
 
-const platform = async (_: any, { platformId }) => {
+const platform = async (_: any, { id }) => {
   const collection = await getPlatformCollection();
   const dbObject = await collection.findOne({
-    _id: ObjectID.createFromHexString(platformId),
+    _id: ObjectID.createFromHexString(id),
   });
   return getPlatformMvcFromDbObject(dbObject);
 };

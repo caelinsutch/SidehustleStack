@@ -23,7 +23,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
   };
 
   const handleCardClick = () => {
-    router.push(`/platform/${platform.platformId}`);
+    router.push(`/platform/${platform.id}`);
   };
 
   return (

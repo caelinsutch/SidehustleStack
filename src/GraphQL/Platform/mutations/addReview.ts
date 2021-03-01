@@ -5,7 +5,7 @@ import {
 } from '@GraphQL/Platform';
 import { Review, Status } from '@GraphQL/types';
 
-const addReview = async (_: any, { platformId, review }) => {
+const addReview = async (_: any, { id, review }) => {
   const collection = await getPlatformCollection();
   const data: Review = {
     ...review,
@@ -13,7 +13,7 @@ const addReview = async (_: any, { platformId, review }) => {
   };
   const result = await collection.findOneAndUpdate(
     {
-      _id: ObjectID.createFromHexString(platformId),
+      _id: ObjectID.createFromHexString(id),
     },
     {
       $push: {

@@ -6,14 +6,14 @@ import { Review } from '@GraphQL/types';
 
 export type ReviewSectionProps = {
   reviews: Omit<Review, 'status'>[];
-  platformId;
+  id;
   platformName;
 };
 
 const ReviewSection: React.FC<ReviewSectionProps> = ({
   reviews,
   platformName,
-  platformId,
+  id,
 }) => {
   const reviewAverage =
     reviews.reduce((sum, curr) => sum + curr.rating, 0) / reviews.length;
@@ -43,7 +43,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
           </Box>
         </Flex>
         <Box mt={15}>
-          <ReviewInput platformId={platformId} platformName={platformName} />
+          <ReviewInput id={id} platformName={platformName} />
           {reviews.map((review, i) => (
             <ReviewCard
               key={review.description + review.author + review.rating + i}

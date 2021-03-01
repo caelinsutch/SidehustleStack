@@ -56,7 +56,7 @@ export const query = gql`
         platformType: $platformType
       }
     ) {
-      platformId
+      id
     }
   }
 `;

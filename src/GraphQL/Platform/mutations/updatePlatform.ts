@@ -4,11 +4,11 @@ import {
 } from '@GraphQL/Platform';
 import { ObjectID } from 'mongodb';
 
-const updatePlatform = async (_: any, { platformId, data }) => {
+const updatePlatform = async (_: any, { id, data }) => {
   const collection = await getPlatformCollection();
   const result = await collection.findOneAndUpdate(
     {
-      _id: ObjectID.createFromHexString(platformId),
+      _id: ObjectID.createFromHexString(id),
     },
     {
       $set: data,

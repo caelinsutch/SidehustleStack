@@ -9,7 +9,7 @@ export const getPlatformMvcFromDbObject = ({
   ...object
 }: PlatformMvcDbObject): PlatformMvc =>
   ({
-    platformId: _id.toHexString(),
+    id: _id.toHexString(),
     ...object,
   } as PlatformMvc);
 

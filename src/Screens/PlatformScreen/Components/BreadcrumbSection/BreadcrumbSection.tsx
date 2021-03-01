@@ -11,12 +11,12 @@ import { HiChevronLeft } from 'react-icons/hi';
 
 export type BreadcrumbSectionProps = {
   platformName: string;
-  platformId: string;
+  id: string;
 };
 
 const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
   platformName,
-  platformId,
+  id,
 }) => (
   <Flex alignItems="center">
     <Icon color="orange.400" as={HiChevronLeft} />
@@ -25,9 +25,7 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
         <BreadcrumbLink href="/">All Platforms</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <BreadcrumbLink href={`/platform/${platformId}`}>
-          {platformName}
-        </BreadcrumbLink>
+        <BreadcrumbLink href={`/platform/${id}`}>{platformName}</BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
   </Flex>

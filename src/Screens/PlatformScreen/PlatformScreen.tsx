@@ -15,8 +15,8 @@ import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react';
 import { snakeToStartCase } from '@Utils';
 
 export const query = gql`
-  query GetPlatform($platformId: ID!) {
-    platform(platformId: $platformId) {
+  query GetPlatform($id: ID!) {
+    platform(id: $id) {
       name
       website
       description
@@ -39,7 +39,7 @@ const PlatformScreen: React.FC = () => {
 
   const { data, loading } = useGetPlatformQuery({
     variables: {
-      platformId: id as string,
+      id: id as string,
     },
   });
 
@@ -71,7 +71,7 @@ const PlatformScreen: React.FC = () => {
     <Box as="section">
       <DefaultContainer>
         <>
-          <BreadcrumbSection platformId={id as string} platformName={name} />
+          <BreadcrumbSection id={id as string} platformName={name} />
           <HeaderInfo
             name={name}
             tags={[
@@ -101,7 +101,7 @@ const PlatformScreen: React.FC = () => {
           />
         </>
       </DefaultContainer>
-      <ReviewSection platformId={id} platformName="StockX" reviews={reviews} />
+      <ReviewSection id={id} platformName="StockX" reviews={reviews} />
     </Box>
   );
 };

@@ -22,7 +22,7 @@ export type Query = {
 };
 
 export type QueryPlatformArgs = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type Mutation = {
@@ -36,12 +36,12 @@ export type MutationCreatePlatformArgs = {
 };
 
 export type MutationUpdatePlatformArgs = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   data: UpdatePlatformInput;
 };
 
 export type MutationAddReviewArgs = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
 };
 
@@ -122,7 +122,7 @@ export type ReviewInput = {
 };
 
 export type PlatformMvc = {
-  platformId: Scalars['ID'];
+  id: Scalars['ID'];
   status: Status;
   platformType: PlatformType;
   name: Scalars['String'];
