@@ -29,6 +29,7 @@ export const query = gql`
       funding
       founded
       founderName
+      requirements
       reviews {
         rating
         description
@@ -75,6 +76,7 @@ const PlatformScreen: React.FC = () => {
       funding,
       founded,
       founderName,
+      requirements,
     },
   } = data;
 
@@ -98,14 +100,7 @@ const PlatformScreen: React.FC = () => {
             quoteAuthorPosition="Founder"
             quoteAuthorLink="https://google.com"
           />
-          <InfoSection
-            title="Requirements"
-            body={[
-              'Items to sell including unworn sneakers, trading cards, luxury goods, electronics, and more',
-              'A smartphone or similar device to access StockX with',
-              'The ability to ship items',
-            ]}
-          />
+          <InfoSection title="Requirements" body={requirements} />
           <InfoSection
             title="People Making Money on Platform"
             body={[numPeopleMakingMoney.toLocaleString()]}

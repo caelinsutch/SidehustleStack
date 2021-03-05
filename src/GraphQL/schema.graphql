@@ -36,6 +36,7 @@ input PlatformInput {
     founderName: String
     email: String
     platformPricing: String
+    requirements: [String!]
 }
 input PlatformRecommendationInput {
     name: String!
@@ -72,6 +73,7 @@ input UpdatePlatformInput {
     tags: [String!]
     reviews: [ReviewInput!]
     platformPricing: String
+    requirements: [String!]
 }
 
 input LinkInput {
@@ -121,6 +123,7 @@ type PlatformMVC @entity {
     reviews: [Review!] @embedded
     score: Int @column
     platformPricing: String @column
+    requirements: [String!] @column
 }
 
 type AmountPer @entity(embedded: true) {

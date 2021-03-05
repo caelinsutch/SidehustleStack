@@ -24,3 +24,5 @@ export type { FilterDropdownProps } from './FilterDropdown';
 export { default as Fonts } from './Fonts';
 export { default as LoadingSection } from './LoadingSection';
 export type { LoadingSectionProps } from './LoadingSection';
+export { default as MultiItemInput } from './MultiItemInput';
+export type { MultiItemInputProps } from './MultiItemInput';

@@ -287,6 +287,16 @@ const steps = [
         required: true,
       },
     },
+    {
+      name: 'requirements',
+      type: 'multiItemInput',
+      title: 'User Requirements',
+      placeholder:
+        'A smartphone or similar device, The ability to ship items, ...',
+      registerOptions: {
+        required: true,
+      },
+    },
   ],
   [
     {

@@ -10,7 +10,8 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { RegisterOptions, useForm, Controller } from 'react-hook-form';
+import MultiItemInput from '@Components/MultiItemInput';
 
 export type FormItemBase = {
   name: string;
@@ -34,12 +35,20 @@ export type FormItemRadio = {
   values: SelectItem[];
 } & FormItemBase;
 
+export type FormMultiItemInput = {
+  type: 'multiItemInput';
+} & FormItemBase;
+
 export type SelectItem = {
   label: string;
   value: string;
 };
 
-export type FormItem = FormItemSelect | FormItemInput | FormItemRadio;
+export type FormItem =
+  | FormItemSelect
+  | FormItemInput
+  | FormItemRadio
+  | FormMultiItemInput;
 
 export type FormSectionProps = {
   items: FormItem[];
@@ -54,7 +63,7 @@ const FormSection: React.FC<FormSectionProps> = ({
   onError,
   buttonText = 'Next',
 }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, control } = useForm();
   const toast = useToast();
 
   const handleError = () => {
@@ -118,6 +127,23 @@ const FormSection: React.FC<FormSectionProps> = ({
                 ))}
               </Stack>
             </RadioGroup>
+          );
+        }
+
+        if (props.type === 'multiItemInput') {
+          formElement = (
+            <Controller
+              control={control}
+              name={name}
+              defaultValue={[]}
+              render={({ onChange, value, onBlur }) => (
+                <MultiItemInput
+                  onInput={onChange}
+                  onBlur={onBlur}
+                  values={value}
+                />
+              )}
+            />
           );
         }
 

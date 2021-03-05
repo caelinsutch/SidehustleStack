@@ -80,6 +80,7 @@ export type PlatformInput = {
   founderName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   platformPricing?: Maybe<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type PlatformRecommendationInput = {
@@ -117,6 +118,7 @@ export type UpdatePlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
   platformPricing?: Maybe<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type LinkInput = {
@@ -166,6 +168,7 @@ export type PlatformMvc = {
   reviews?: Maybe<Array<Review>>;
   score?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type AmountPer = {
@@ -580,6 +583,11 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
+  requirements?: Resolver<
+    Maybe<Array<ResolversTypes['String']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -701,6 +709,7 @@ export type GetPlatformQuery = {
       | 'funding'
       | 'founded'
       | 'founderName'
+      | 'requirements'
     > & {
       reviews?: Maybe<Array<Pick<Review, 'rating' | 'description' | 'author'>>>;
     }
@@ -969,6 +978,7 @@ export const GetPlatformDocument = gql`
       funding
       founded
       founderName
+      requirements
       reviews {
         rating
         description

@@ -7,6 +7,7 @@ const createPlatform = async (_: any, { platform }) => {
     ...platform,
     status: Status.InReview,
     reviews: [],
+    requirements: [],
     score: 0,
   };
 

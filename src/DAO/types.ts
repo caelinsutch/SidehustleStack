@@ -72,6 +72,7 @@ export type PlatformInput = {
   founderName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   platformPricing?: Maybe<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type PlatformRecommendationInput = {
@@ -109,6 +110,7 @@ export type UpdatePlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
   platformPricing?: Maybe<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type LinkInput = {
@@ -158,6 +160,7 @@ export type PlatformMvc = {
   reviews?: Maybe<Array<Review>>;
   score?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type AmountPer = {
@@ -290,6 +293,7 @@ export type PlatformMvcDbObject = {
   reviews?: Maybe<Array<ReviewDbObject>>;
   score?: Maybe<number>;
   platformPricing?: Maybe<string>;
+  requirements?: Maybe<Array<string>>;
 };
 
 export type AmountPerDbObject = {
