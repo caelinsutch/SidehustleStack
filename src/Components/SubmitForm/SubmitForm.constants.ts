@@ -8,6 +8,8 @@ import {
   TypeOfWork,
 } from '@GraphQL/types';
 
+const numberValidation = (value: any): boolean => Boolean(parseInt(value, 10));
+
 const steps = [
   [
     {
@@ -18,7 +20,7 @@ const steps = [
       registerOptions: {
         required: true,
       },
-      values: [
+      options: [
         {
           value: PlatformType.Platform,
           label: 'Platform',
@@ -40,7 +42,7 @@ const steps = [
       registerOptions: {
         required: true,
       },
-      values: [
+      options: [
         {
           value: true,
           label: 'Founder',
@@ -83,7 +85,7 @@ const steps = [
         '2) Currently Raising\n' +
         '3) Undisclosed\n' +
         '4) Public Company - list ticker',
-      values: [
+      options: [
         {
           value: Funding.Zero,
           label: '0',
@@ -143,7 +145,7 @@ const steps = [
       type: 'select',
       title: 'Type of Work',
       placeholder: 'Select',
-      values: [
+      options: [
         {
           label: 'Adult Content Creator',
           value: TypeOfWork.AdultContentCreator,
@@ -185,7 +187,7 @@ const steps = [
       type: 'select',
       placeholder: 'Select',
       title: 'Work Category',
-      values: [
+      options: [
         { label: 'Gig work (Uber, Doordash)', value: CategoryOfWork.Gig },
         {
           label: 'Creator / Monetize audience/fans',
@@ -214,7 +216,7 @@ const steps = [
       registerOptions: {
         required: true,
       },
-      values: [
+      options: [
         { label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
         { label: 'No', value: ExistingDigitalAudienceRequired.No },
         {
@@ -231,7 +233,7 @@ const steps = [
       registerOptions: {
         required: true,
       },
-      values: [
+      options: [
         { label: 'Yes', value: ApplicationRequired.Yes },
         { label: 'Yes, selective', value: ApplicationRequired.YesSelective },
         { label: 'No', value: ApplicationRequired.No },
@@ -245,7 +247,7 @@ const steps = [
       registerOptions: {
         required: true,
       },
-      values: [
+      options: [
         { label: 'Yes', value: true },
         { label: 'No', value: false },
       ],
@@ -258,7 +260,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: (value) => typeof parseInt(value, 10) === 'number',
+          number: numberValidation,
         },
         valueAsNumber: true,
       },
@@ -267,9 +269,9 @@ const steps = [
   [
     {
       name: 'equipmentQualSkills',
-      type: 'select',
+      type: 'multiSelect',
       title: 'Equipment, Qualification, and Skills',
-      values: [
+      options: [
         { label: 'Computer', value: 'COMPUTER' },
         { label: 'Smartphone', value: 'SMARTPHONE' },
         { label: 'Car', value: 'CAR' },
@@ -308,7 +310,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: (value) => typeof parseInt(value, 10) === 'number',
+          number: numberValidation,
         },
         valueAsNumber: true,
       },
@@ -322,7 +324,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: (value) => typeof parseInt(value, 10) === 'number',
+          number: numberValidation,
         },
         valueAsNumber: true,
       },
@@ -335,7 +337,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: (value) => typeof parseInt(value, 10) === 'number',
+          number: numberValidation,
         },
         valueAsNumber: true,
       },

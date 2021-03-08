@@ -26,6 +26,7 @@ export const query = gql`
       numPeopleMakingMoney
       typeOfWork
       requiresDigitalAudience
+      equipmentQualSkills
       funding
       founded
       founderName
@@ -77,8 +78,11 @@ const PlatformScreen: React.FC = () => {
       founded,
       founderName,
       requirements,
+      equipmentQualSkills,
     },
   } = data;
+
+  console.log(data);
 
   return (
     <Box as="section">
@@ -88,7 +92,7 @@ const PlatformScreen: React.FC = () => {
           <HeaderInfo
             name={name}
             tags={[
-              ...tags,
+              ...(tags || []),
               snakeToStartCase(typeOfWork),
               snakeToStartCase(category),
             ]}
@@ -109,6 +113,10 @@ const PlatformScreen: React.FC = () => {
           <InfoSection
             title="Requires Audience"
             body={[snakeToStartCase(requiresDigitalAudience)]}
+          />
+          <InfoSection
+            title="Equipment, Qualifications, & Skills"
+            body={equipmentQualSkills.map(snakeToStartCase)}
           />
           <InfoSection title="Funding" body={[snakeToStartCase(funding)]} />
           <InfoSection title="Founded" body={[founded]} />

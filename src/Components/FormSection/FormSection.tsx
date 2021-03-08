@@ -5,11 +5,12 @@ import {
   Input,
   Radio,
   RadioGroup,
-  Select,
+  Select as ChakraSelect,
   Stack,
   Text,
   useToast,
 } from '@chakra-ui/react';
+import Select from 'react-select';
 import { RegisterOptions, useForm, Controller } from 'react-hook-form';
 import MultiItemInput from '@Components/MultiItemInput';
 
@@ -27,16 +28,21 @@ export type FormItemInput = {
 
 export type FormItemSelect = {
   type: 'select';
-  values: SelectItem[];
+  options: SelectItem[];
 } & FormItemBase;
 
 export type FormItemRadio = {
   type: 'radio';
-  values: SelectItem[];
+  options: SelectItem[];
 } & FormItemBase;
 
 export type FormMultiItemInput = {
   type: 'multiItemInput';
+} & FormItemBase;
+
+export type FormMultiSelect = {
+  type: 'multiSelect';
+  options?: SelectItem[];
 } & FormItemBase;
 
 export type SelectItem = {
@@ -48,7 +54,8 @@ export type FormItem =
   | FormItemSelect
   | FormItemInput
   | FormItemRadio
-  | FormMultiItemInput;
+  | FormMultiItemInput
+  | FormMultiSelect;
 
 export type FormSectionProps = {
   items: FormItem[];
@@ -63,7 +70,10 @@ const FormSection: React.FC<FormSectionProps> = ({
   onError,
   buttonText = 'Next',
 }) => {
-  const { register, handleSubmit, errors, control } = useForm();
+  const { register, getValues, errors, control, trigger } = useForm({
+    mode: 'onChange',
+  });
+
   const toast = useToast();
 
   const handleError = () => {
@@ -74,8 +84,19 @@ const FormSection: React.FC<FormSectionProps> = ({
     });
   };
 
+  const onSubmitClick = () => {
+    const vals = getValues();
+    trigger().then(() => {
+      if (Object.keys(errors).length === 0) {
+        onSubmit(vals);
+      } else {
+        handleError();
+      }
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit, handleError)}>
+    <form>
       {items.map((props) => {
         const { placeholder, name, registerOptions } = props;
         let formElement = (
@@ -93,28 +114,28 @@ const FormSection: React.FC<FormSectionProps> = ({
           />
         );
         if (props.type === 'select') {
-          const { values } = props;
+          const { options } = props;
           formElement = (
-            <Select
+            <ChakraSelect
               placeholder={placeholder}
               ref={register(registerOptions)}
               name={name}
             >
-              {values.map(({ value, label }) => (
+              {options.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
               ))}
-            </Select>
+            </ChakraSelect>
           );
         }
 
         if (props.type === 'radio') {
-          const { values } = props;
+          const { options } = props;
           formElement = (
             <RadioGroup name={name}>
               <Stack direction="column">
-                {values.map(({ value, label }) => (
+                {options.map(({ value, label }) => (
                   <Radio
                     name={name}
                     key={value}
@@ -147,6 +168,26 @@ const FormSection: React.FC<FormSectionProps> = ({
           );
         }
 
+        if (props.type === 'multiSelect') {
+          const { options } = props;
+          formElement = (
+            <Controller
+              control={control}
+              name={name}
+              defaultValue={[]}
+              render={({ onChange, value }) => (
+                <Select
+                  options={options}
+                  onChange={(a) => onChange(a.map((i) => i.value))}
+                  menuIsOpen={options ? undefined : false}
+                  isMulti
+                  value={options.filter((a) => value.includes(a.value))}
+                />
+              )}
+            />
+          );
+        }
+
         const { title, description } = props;
         return (
           <Box key={`box${props.name}${props.title}`} mb={4}>
@@ -169,9 +210,9 @@ const FormSection: React.FC<FormSectionProps> = ({
         );
       })}
       <Button
-        type="submit"
         borderRadius={1000}
-        isDisabled={Object.keys(errors).length !== 0}
+        // isDisabled={Object.keys(errors).length !== 0}
+        onClick={onSubmitClick}
       >
         {buttonText}
       </Button>

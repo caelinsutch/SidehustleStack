@@ -30,6 +30,8 @@ export const query = gql`
     $email: String!
     $platformType: PlatformType!
     $numPeopleMakingMoney: Int!
+    $requirements: [String!]!
+    $platformPricing: String!
   ) {
     createPlatform(
       platform: {
@@ -56,6 +58,8 @@ export const query = gql`
         founderTwitter: $founderTwitter
         email: $email
         platformType: $platformType
+        platformPricing: $platformPricing
+        requirements: $requirements
       }
     ) {
       id
@@ -105,6 +109,7 @@ const SubmitForm: React.FC = () => {
   };
 
   const handleNext = (i) => (stepData) => {
+    console.log(stepData);
     if (i === 1) {
       if (stepData.isFounder === 'false') {
         setMaxSteps(3);

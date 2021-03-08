@@ -30,17 +30,24 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
           <Text fontSize="2xl" fontWeight="bold">
             Community Reviews
           </Text>
-          <Box textAlign="center">
-            <Text color="orange.400" fontWeight="bold" fontSize="4xl" mx="auto">
-              {reviewAverage.toFixed(1)}{' '}
-              <Text color="gray.700" fontSize="lg" display="inline-block">
-                /5
+          {reviews.length > 0 && (
+            <Box textAlign="center">
+              <Text
+                color="orange.400"
+                fontWeight="bold"
+                fontSize="4xl"
+                mx="auto"
+              >
+                {reviewAverage.toFixed(1)}{' '}
+                <Text color="gray.700" fontSize="lg" display="inline-block">
+                  /5
+                </Text>
               </Text>
-            </Text>
-            <Text color="gray.500" fontWeight="semibold" fontSize="sm">
-              of {reviews.length} review(s)
-            </Text>
-          </Box>
+              <Text color="gray.500" fontWeight="semibold" fontSize="sm">
+                of {reviews.length} review(s)
+              </Text>
+            </Box>
+          )}
         </Flex>
         <Box mt={15}>
           <ReviewInput id={id} platformName={platformName} />

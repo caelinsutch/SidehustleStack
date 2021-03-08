@@ -649,6 +649,8 @@ export type CreatePlatformMutationVariables = Exact<{
   email: Scalars['String'];
   platformType: PlatformType;
   numPeopleMakingMoney: Scalars['Int'];
+  requirements: Array<Scalars['String']> | Scalars['String'];
+  platformPricing: Scalars['String'];
 }>;
 
 export type CreatePlatformMutation = {
@@ -707,6 +709,7 @@ export type GetPlatformQuery = {
       | 'numPeopleMakingMoney'
       | 'typeOfWork'
       | 'requiresDigitalAudience'
+      | 'equipmentQualSkills'
       | 'funding'
       | 'founded'
       | 'founderName'
@@ -742,6 +745,8 @@ export const CreatePlatformDocument = gql`
     $email: String!
     $platformType: PlatformType!
     $numPeopleMakingMoney: Int!
+    $requirements: [String!]!
+    $platformPricing: String!
   ) {
     createPlatform(
       platform: {
@@ -768,6 +773,8 @@ export const CreatePlatformDocument = gql`
         founderTwitter: $founderTwitter
         email: $email
         platformType: $platformType
+        platformPricing: $platformPricing
+        requirements: $requirements
       }
     ) {
       id
@@ -815,6 +822,8 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      email: // value for 'email'
  *      platformType: // value for 'platformType'
  *      numPeopleMakingMoney: // value for 'numPeopleMakingMoney'
+ *      requirements: // value for 'requirements'
+ *      platformPricing: // value for 'platformPricing'
  *   },
  * });
  */
@@ -977,6 +986,7 @@ export const GetPlatformDocument = gql`
       numPeopleMakingMoney
       typeOfWork
       requiresDigitalAudience
+      equipmentQualSkills
       funding
       founded
       founderName
