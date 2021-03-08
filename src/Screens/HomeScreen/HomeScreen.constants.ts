@@ -1,29 +1,31 @@
+import { CategoryOfWork, PlatformMvc, TypeOfWork } from '@GraphQL/types';
+import { snakeToStartCase } from '@Utils';
+
+const workTypes: string[] = Object.values(TypeOfWork).map((a: string) =>
+  snakeToStartCase(a)
+);
+
+const categoryTypes: string[] = Object.values(CategoryOfWork).map((a) =>
+  snakeToStartCase(a)
+);
+
 export type PlatformFilter = {
   name: string;
+  key: keyof PlatformMvc;
   options: string[];
 };
 
-const workType: PlatformFilter = {
+const categoryFilter: PlatformFilter = {
+  name: 'Category',
+  key: 'category',
+  options: ['All', ...categoryTypes],
+};
+const workTypeFilter: PlatformFilter = {
   name: 'Work Type',
-  options: [
-    'Small Business',
-    'Large Business',
-    'None of Your Business',
-    'Monkey Business',
-    'WFH',
-  ],
+  key: 'typeOfWork',
+  options: ['All', ...workTypes],
 };
 
-const age: PlatformFilter = {
-  name: 'Age',
-  options: ['Like Milk', '18+', '21+'],
-};
-
-const potentialEarnings: PlatformFilter = {
-  name: 'Potential Earnings',
-  options: ['$', '$$', '$$$', '$$$$'],
-};
-
-const filters: PlatformFilter[] = [workType, age, potentialEarnings];
+const filters: PlatformFilter[] = [categoryFilter, workTypeFilter];
 
 export { filters };

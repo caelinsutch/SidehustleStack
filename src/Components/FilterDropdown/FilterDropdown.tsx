@@ -7,7 +7,7 @@ import {
   MenuItem,
   Button,
 } from '@chakra-ui/react';
-import { IoTriangle } from 'react-icons/io5';
+import { BiChevronDown } from 'react-icons/bi';
 
 export type FilterDropdownProps = {
   name: string;
@@ -24,13 +24,15 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
   ...props
 }) => (
   <Menu {...props}>
-    <MenuButton as={Button} rightIcon={IoTriangle} h="44px" mr="10px">
-      <b>{name}</b>
-      {selected === '' ? '' : ` - ${selected}`}
+    <MenuButton as={Button} rightIcon={<BiChevronDown size={20} />}>
+      {selected || name}
     </MenuButton>
     <MenuList>
       {items.map((item, index) => (
-        <MenuItem key={`${name}-${item}-${index}`}>
+        <MenuItem
+          key={`${name}-${item}-${index}`}
+          onClick={() => onSelect(item)}
+        >
           {selected === item ? <b>{item}</b> : item}
         </MenuItem>
       ))}

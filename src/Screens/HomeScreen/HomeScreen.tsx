@@ -19,6 +19,7 @@ export const query = gql`
       platformType
       category
       tags
+      typeOfWork
     }
   }
 `;

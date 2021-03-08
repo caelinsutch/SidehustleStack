@@ -669,6 +669,7 @@ export type GetAllPlatformsHomeQuery = {
       | 'platformType'
       | 'category'
       | 'tags'
+      | 'typeOfWork'
     >
   >;
 };
@@ -847,6 +848,7 @@ export const GetAllPlatformsHomeDocument = gql`
       platformType
       category
       tags
+      typeOfWork
     }
   }
 `;
