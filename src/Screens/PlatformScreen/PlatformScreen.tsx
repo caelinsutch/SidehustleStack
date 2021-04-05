@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { gql } from '@apollo/client';
+import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react';
 import { useGetPlatformQuery } from '@GraphQL/types';
 import {
   FounderQuoteSection,
@@ -10,7 +11,6 @@ import {
   ReviewSection,
 } from '@Screens/PlatformScreen/Components';
 import { DefaultContainer, LoadingSection } from '@Components';
-import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react';
 import { snakeToStartCase } from '@Utils';
 
 export const query = gql`
@@ -85,7 +85,7 @@ const PlatformScreen: React.FC = () => {
   console.log(data);
 
   return (
-    <Box as="section">
+    <Box as="section" pt={100}>
       <DefaultContainer>
         <>
           <BreadcrumbSection id={id as string} platformName={name} />

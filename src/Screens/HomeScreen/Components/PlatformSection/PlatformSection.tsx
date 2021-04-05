@@ -56,11 +56,11 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
       <Text fontSize="40px">Sponsored Platforms</Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
       <Text fontSize="40px" mt={16}>
-        Sponsored Platforms
+        Trending Platforms: February 2021
       </Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
       <Box mt={16}>
-        <Text fontSize="40px">Sponsored Platforms</Text>
+        <Text fontSize="40px">All Platforms</Text>
         <Flex flex={1} justifyContent="space-between" alignItems="center">
           <Wrap>
             {filters.map((filter) => (

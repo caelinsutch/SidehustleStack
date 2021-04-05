@@ -19,8 +19,8 @@ module.exports = (plop: NodePlopAPI) => {
       },
       {
         type: 'add',
-        path: '../src/Components/{{pascalCase name}}/index.tsx',
-        templateFile: 'templates/index.tsx.hbs',
+        path: '../src/Components/{{pascalCase name}}/index.ts',
+        templateFile: 'templates/index.ts.hbs',
       },
       {
         type: 'modify',
@@ -59,8 +59,8 @@ module.exports = (plop: NodePlopAPI) => {
       {
         type: 'add',
         path:
-          '../src/Screens/{{pascalCase screen}}/Components/{{pascalCase name}}/index.tsx',
-        templateFile: 'templates/index.tsx.hbs',
+          '../src/Screens/{{pascalCase screen}}/Components/{{pascalCase name}}/index.ts',
+        templateFile: 'templates/index.ts.hbs',
       },
       {
         type: 'modify',
@@ -96,7 +96,7 @@ module.exports = (plop: NodePlopAPI) => {
       },
       {
         type: 'add',
-        path: '../src/Screens/{{pascalCase name}}Screen/index.tsx',
+        path: '../src/Screens/{{pascalCase name}}Screen/index.ts',
         templateFile: 'templates/index-screen.tsx.hbs',
       },
       {

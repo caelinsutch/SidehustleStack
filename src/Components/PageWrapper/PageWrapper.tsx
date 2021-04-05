@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, BoxProps } from '@chakra-ui/react';
-import { Navbar } from '@Components';
+import { Footer, Navbar } from '@Components';
 
 export type PageWrapperProps = {
   backgroundImage?: BoxProps['backgroundImage'];
@@ -18,6 +18,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children, ...props }) => (
   >
     <Navbar />
     <Box mx="auto">{children}</Box>
+    <Footer />
   </Box>
 );
 

@@ -646,6 +646,14 @@ export type UpvotePlatformMutation = {
   vote?: Maybe<Pick<PlatformMvc, 'score'>>;
 };
 
+export type GetPlatformScoreQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetPlatformScoreQuery = {
+  platform?: Maybe<Pick<PlatformMvc, 'score'>>;
+};
+
 export type CreatePlatformMutationVariables = Exact<{
   name: Scalars['String'];
   companyLogo: Scalars['String'];
@@ -789,6 +797,62 @@ export type UpvotePlatformMutationResult = ApolloReactCommon.MutationResult<Upvo
 export type UpvotePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
   UpvotePlatformMutation,
   UpvotePlatformMutationVariables
+>;
+export const GetPlatformScoreDocument = gql`
+  query GetPlatformScore($id: ID!) {
+    platform(id: $id) {
+      score
+    }
+  }
+`;
+
+/**
+ * __useGetPlatformScoreQuery__
+ *
+ * To run a query within a React component, call `useGetPlatformScoreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPlatformScoreQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPlatformScoreQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPlatformScoreQuery(
+  baseOptions: ApolloReactHooks.QueryHookOptions<
+    GetPlatformScoreQuery,
+    GetPlatformScoreQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    GetPlatformScoreQuery,
+    GetPlatformScoreQueryVariables
+  >(GetPlatformScoreDocument, baseOptions);
+}
+export function useGetPlatformScoreLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetPlatformScoreQuery,
+    GetPlatformScoreQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetPlatformScoreQuery,
+    GetPlatformScoreQueryVariables
+  >(GetPlatformScoreDocument, baseOptions);
+}
+export type GetPlatformScoreQueryHookResult = ReturnType<
+  typeof useGetPlatformScoreQuery
+>;
+export type GetPlatformScoreLazyQueryHookResult = ReturnType<
+  typeof useGetPlatformScoreLazyQuery
+>;
+export type GetPlatformScoreQueryResult = ApolloReactCommon.QueryResult<
+  GetPlatformScoreQuery,
+  GetPlatformScoreQueryVariables
 >;
 export const CreatePlatformDocument = gql`
   mutation CreatePlatform(

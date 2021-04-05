@@ -13,13 +13,15 @@ const PlatformCardList: React.FC<PlatformCardListProps> = ({
   ...props
 }) => (
   <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} {...props}>
-    {cards.map((card, index) => (
-      <PlatformCard
-        platform={card}
-        order={card.score}
-        key={card.name + index}
-      />
-    ))}
+    {cards.length > 0
+      ? cards.map((card, index) => (
+          <PlatformCard
+            platform={card}
+            order={card.score}
+            key={card.name + index}
+          />
+        ))
+      : 'No Platforms :('}
   </SimpleGrid>
 );
 
