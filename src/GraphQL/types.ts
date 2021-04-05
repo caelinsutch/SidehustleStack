@@ -37,6 +37,7 @@ export type Mutation = {
   createPlatform: PlatformMvc;
   updatePlatform?: Maybe<PlatformMvc>;
   addReview?: Maybe<PlatformMvc>;
+  vote?: Maybe<PlatformMvc>;
 };
 
 export type MutationCreatePlatformArgs = {
@@ -51,6 +52,11 @@ export type MutationUpdatePlatformArgs = {
 export type MutationAddReviewArgs = {
   id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
+};
+
+export type MutationVoteArgs = {
+  id: Scalars['ID'];
+  down?: Maybe<Scalars['Boolean']>;
 };
 
 export type PlatformInput = {
@@ -383,9 +389,9 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   PlatformInput: PlatformInput;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
@@ -410,9 +416,9 @@ export type ResolversParentTypes = {
   Query: {};
   ID: Scalars['ID'];
   Mutation: {};
+  Boolean: Scalars['Boolean'];
   PlatformInput: PlatformInput;
   String: Scalars['String'];
-  Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
@@ -462,6 +468,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationAddReviewArgs, 'id'>
+  >;
+  vote?: Resolver<
+    Maybe<ResolversTypes['PlatformMVC']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationVoteArgs, 'id'>
   >;
 };
 
@@ -625,6 +637,15 @@ export type Resolvers<ContextType = any> = {
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
+export type UpvotePlatformMutationVariables = Exact<{
+  id: Scalars['ID'];
+  down?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type UpvotePlatformMutation = {
+  vote?: Maybe<Pick<PlatformMvc, 'score'>>;
+};
+
 export type CreatePlatformMutationVariables = Exact<{
   name: Scalars['String'];
   companyLogo: Scalars['String'];
@@ -720,6 +741,55 @@ export type GetPlatformQuery = {
   >;
 };
 
+export const UpvotePlatformDocument = gql`
+  mutation UpvotePlatform($id: ID!, $down: Boolean) {
+    vote(id: $id, down: $down) {
+      score
+    }
+  }
+`;
+export type UpvotePlatformMutationFn = ApolloReactCommon.MutationFunction<
+  UpvotePlatformMutation,
+  UpvotePlatformMutationVariables
+>;
+
+/**
+ * __useUpvotePlatformMutation__
+ *
+ * To run a mutation, you first call `useUpvotePlatformMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpvotePlatformMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upvotePlatformMutation, { data, loading, error }] = useUpvotePlatformMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      down: // value for 'down'
+ *   },
+ * });
+ */
+export function useUpvotePlatformMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpvotePlatformMutation,
+    UpvotePlatformMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    UpvotePlatformMutation,
+    UpvotePlatformMutationVariables
+  >(UpvotePlatformDocument, baseOptions);
+}
+export type UpvotePlatformMutationHookResult = ReturnType<
+  typeof useUpvotePlatformMutation
+>;
+export type UpvotePlatformMutationResult = ApolloReactCommon.MutationResult<UpvotePlatformMutation>;
+export type UpvotePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpvotePlatformMutation,
+  UpvotePlatformMutationVariables
+>;
 export const CreatePlatformDocument = gql`
   mutation CreatePlatform(
     $name: String!

@@ -5,7 +5,7 @@ import { DefaultContainer, Logo, TextLink } from '@Components';
 import { navbarItems } from './Navbar.constants';
 
 const Navbar: React.FC = () => (
-  <DefaultContainer py={6}>
+  <DefaultContainer py={6} position="absolute" w="100vw">
     <Flex alignItems="center" justifyContent="space-between">
       <Box flex={1}>
         <NextLink href="/">

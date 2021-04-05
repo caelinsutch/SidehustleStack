@@ -22,6 +22,7 @@
       "@Screens/*": ["./src/Screens/*"],
       "@Screens": ["./src/Screens"],
       "@Hooks/*": ["./src/Hooks/*"],
+      "@Hooks": ["./src/Hooks"],
       "@Constants/*": ["./src/Constants/*"],
       "@Utils/*": ["./src/Utils/*"],
       "@Utils": ["./src/Utils"],

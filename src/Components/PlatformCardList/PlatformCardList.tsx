@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoxProps, Flex } from '@chakra-ui/react';
+import { BoxProps, SimpleGrid } from '@chakra-ui/react';
 import { PlatformCard } from '@Components/index';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 
@@ -12,25 +12,15 @@ const PlatformCardList: React.FC<PlatformCardListProps> = ({
   children,
   ...props
 }) => (
-  <Flex
-    flexDir="row"
-    justifyContent="space-between"
-    justifyItems="space-between"
-    wrap="wrap"
-    {...props}
-  >
+  <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} {...props}>
     {cards.map((card, index) => (
       <PlatformCard
         platform={card}
         order={card.score}
         key={card.name + index}
-        w="30%"
-        minWidth="130px"
-        h="auto"
-        mt="20px"
       />
     ))}
-  </Flex>
+  </SimpleGrid>
 );
 
 export default PlatformCardList;

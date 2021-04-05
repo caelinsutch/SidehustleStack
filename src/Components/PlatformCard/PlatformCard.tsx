@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Image,
@@ -7,19 +7,91 @@ import {
   Text,
   Button,
   BoxProps,
+  useToast,
 } from '@chakra-ui/react';
-import { VoteIcons } from '@Components/index';
-import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
+import {
+  GetAllPlatformsHomeQuery,
+  useUpvotePlatformMutation,
+} from '@GraphQL/types';
 import { useRouter } from 'next/router';
+import { gql } from '@apollo/client';
+import { VoteIcons } from '@Components';
+import { useLocalStorage } from '@Hooks';
+import { VoteStatus } from '@Components/VoteIcons';
 
 export type PlatformCardProps = {
   platform: GetAllPlatformsHomeQuery['allPlatforms'][0];
 } & BoxProps;
 
+export const query = gql`
+  mutation UpvotePlatform($id: ID!, $down: Boolean) {
+    vote(id: $id, down: $down) {
+      score
+    }
+  }
+`;
+
+const platformScoreQuery = gql`
+  query GetPlatform($id: ID!) {
+    getPlatform(id: $id) {
+      score
+    }
+  }
+`;
+
 const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
   const router = useRouter();
-  const onUpvote = (action: 'up' | 'down') => {
-    console.log(action);
+  const toast = useToast();
+  const [upvotePlatform] = useUpvotePlatformMutation({
+    update: (
+      store,
+      {
+        data: {
+          vote: { score },
+        },
+      }
+    ) => {
+      store.writeQuery({
+        query: platformScoreQuery,
+        data: { score },
+        variables: { score },
+      });
+    },
+  });
+  const [scoreToDisplay, setScoreToDisplay] = useState(platform.score);
+  const [vote, setVote] = useLocalStorage<VoteStatus>(platform.id, null);
+
+  const onUpvote = (action: VoteStatus) => {
+    if (vote === action) {
+      return;
+    }
+    setVote(action);
+    upvotePlatform({
+      variables: {
+        id: platform.id,
+        down: action === 'down',
+      },
+    })
+      .then(
+        ({
+          data: {
+            vote: { score },
+          },
+        }) => {
+          toast({
+            status: 'success',
+            title: 'Platform upvoted!',
+          });
+          setScoreToDisplay(score);
+        }
+      )
+      .catch((e) => {
+        toast({
+          status: 'error',
+          title: 'Error upvoting platform',
+        });
+        console.error(e);
+      });
   };
 
   const handleCardClick = () => {
@@ -28,7 +100,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
 
   return (
     <VStack
-      p="40px"
+      p={8}
       bg="white"
       borderRadius="md"
       boxShadow="md"
@@ -39,8 +111,8 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
       <Image
         src={platform.companyLogo}
         alt="logo"
-        width="80%"
-        height="auto"
+        width="100%"
+        height="250px"
         alignSelf="center"
         cursor="pointer"
         onClick={handleCardClick}
@@ -54,9 +126,9 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
       >
         <div className="vote">
           <VoteIcons
-            status="down"
+            status={vote}
             onClick={onUpvote}
-            upvotes={platform.score}
+            upvotes={scoreToDisplay}
           />
         </div>
         <VStack alignItems="flex-start" spacing="15px">

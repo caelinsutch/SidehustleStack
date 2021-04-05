@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Flex, Input, Text, useToast } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { PageWrapper } from '@Components';
 
 export type HomeBannerProps = {
   onEmailSubmit: (email: string) => void;

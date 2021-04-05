@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { gql } from '@apollo/client';
 import { PlatformType, useGetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { DefaultContainer, LoadingSection } from '@Components';
@@ -37,37 +37,49 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <DefaultContainer as="section">
-      <HomeBanner onEmailSubmit={(email) => console.log(email)} />
-      <Flex justifyContent="space-around" mt="115px" mb="240px">
-        <ViewSelector
-          view={view}
-          self="platforms"
-          onClick={() => setView('platforms')}
-        />
-        <ViewSelector
-          view={view}
-          self="tools"
-          onClick={() => setView('tools')}
-        />
-      </Flex>
-      {data?.allPlatforms ? (
-        <>
-          <PlatformSection
-            platforms={platforms}
-            filters={filters}
-            display={view === 'platforms' ? 'initial' : 'none'}
-          />
-          <PlatformSection
-            platforms={tools}
-            filters={filters}
-            display={view === 'tools' ? 'initial' : 'none'}
-          />
-        </>
-      ) : (
-        <LoadingSection />
-      )}
-    </DefaultContainer>
+    <Box as="section">
+      <Box
+        backgroundImage="url('home-top-background.png')"
+        backgroundSize="cover"
+        backgroundPosition="bottom"
+        pb={200}
+        pt={200}
+      >
+        <DefaultContainer>
+          <HomeBanner onEmailSubmit={(email) => console.log(email)} />
+          <Flex justifyContent="space-around" mt={100}>
+            <ViewSelector
+              view={view}
+              self="platforms"
+              onClick={() => setView('platforms')}
+            />
+            <ViewSelector
+              view={view}
+              self="tools"
+              onClick={() => setView('tools')}
+            />
+          </Flex>
+        </DefaultContainer>
+      </Box>
+      <DefaultContainer>
+        {data?.allPlatforms ? (
+          <>
+            <PlatformSection
+              platforms={platforms}
+              filters={filters}
+              display={view === 'platforms' ? 'initial' : 'none'}
+            />
+            <PlatformSection
+              platforms={tools}
+              filters={filters}
+              display={view === 'tools' ? 'initial' : 'none'}
+            />
+          </>
+        ) : (
+          <LoadingSection />
+        )}
+      </DefaultContainer>
+    </Box>
   );
 };
 

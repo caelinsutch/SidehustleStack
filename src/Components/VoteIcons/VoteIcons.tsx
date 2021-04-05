@@ -2,10 +2,12 @@ import React from 'react';
 import { Icon, Text, VStack } from '@chakra-ui/react';
 import { IoTriangle } from 'react-icons/io5';
 
+export type VoteStatus = 'up' | 'neutral' | 'down';
+
 export type VoteIconsProps = {
-  status?: 'up' | 'neutral' | 'down';
+  status?: VoteStatus;
   upvotes: number;
-  onClick: (action: 'up' | 'down') => void;
+  onClick: (status: VoteStatus) => void;
 };
 
 const VoteIcons: React.FC<VoteIconsProps> = ({
@@ -22,10 +24,11 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
   >
     <Icon
       as={IoTriangle}
-      color={status === 'up' ? 'orange.300' : '#ababab'}
+      color={status === 'up' ? 'orange.300' : 'gray.200'}
       onClick={() => onClick('up')}
+      cursor="pointer"
       _hover={{
-        color: status === 'up' ? 'orange.400' : '#919191',
+        color: status === 'up' ? 'orange.400' : 'gray.300',
       }}
     />
     <Text
@@ -33,14 +36,17 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
       color="black"
       fontSize="16px"
       lineHeight="80%"
+      cursor="pointer"
+      onClick={() => onClick('neutral')}
     >{`${upvotes}`}</Text>
     <Icon
       as={IoTriangle}
-      color={status === 'down' ? 'red.300' : '#ababab'}
+      color={status === 'down' ? 'red.300' : 'gray.200'}
       onClick={() => onClick('down')}
       transform="rotate(180deg)"
+      cursor="pointer"
       _hover={{
-        color: status === 'down' ? 'red.400' : '#919191',
+        color: status === 'down' ? 'red.400' : 'gray.300',
       }}
     />
   </VStack>

@@ -29,6 +29,7 @@ export type Mutation = {
   createPlatform: PlatformMvc;
   updatePlatform?: Maybe<PlatformMvc>;
   addReview?: Maybe<PlatformMvc>;
+  vote?: Maybe<PlatformMvc>;
 };
 
 export type MutationCreatePlatformArgs = {
@@ -43,6 +44,11 @@ export type MutationUpdatePlatformArgs = {
 export type MutationAddReviewArgs = {
   id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
+};
+
+export type MutationVoteArgs = {
+  id: Scalars['ID'];
+  down?: Maybe<Scalars['Boolean']>;
 };
 
 export type PlatformInput = {
