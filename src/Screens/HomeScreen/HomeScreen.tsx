@@ -6,7 +6,7 @@ import { DefaultContainer, LoadingSection } from '@Components';
 import { HomeBanner, PlatformSection, ViewSelector } from './Components';
 import { filters } from './HomeScreen.constants';
 
-export type HomeView = 'platforms' | 'tools';
+export type HomeView = 'Platforms' | 'Tools';
 
 export const query = gql`
   query GetAllPlatformsHome {
@@ -27,7 +27,7 @@ export const query = gql`
 const HomeScreen: React.FC = () => {
   const { data } = useGetAllPlatformsHomeQuery();
 
-  const [view, setView] = useState<HomeView>('platforms');
+  const [view, setView] = useState<HomeView>('Platforms');
 
   const platforms = data?.allPlatforms.filter(
     (platform) => platform.platformType === PlatformType.Platform
@@ -50,13 +50,13 @@ const HomeScreen: React.FC = () => {
           <Flex justifyContent="space-around" mt={100}>
             <ViewSelector
               view={view}
-              self="platforms"
-              onClick={() => setView('platforms')}
+              self="Platforms"
+              onClick={() => setView('Platforms')}
             />
             <ViewSelector
               view={view}
-              self="tools"
-              onClick={() => setView('tools')}
+              self="Tools"
+              onClick={() => setView('Tools')}
             />
           </Flex>
         </DefaultContainer>
@@ -65,14 +65,16 @@ const HomeScreen: React.FC = () => {
         {data?.allPlatforms ? (
           <>
             <PlatformSection
+              type={view}
               platforms={platforms}
               filters={filters}
-              display={view === 'platforms' ? 'initial' : 'none'}
+              display={view === 'Platforms' ? 'initial' : 'none'}
             />
             <PlatformSection
+              type={view}
               platforms={tools}
               filters={filters}
-              display={view === 'tools' ? 'initial' : 'none'}
+              display={view === 'Tools' ? 'initial' : 'none'}
             />
           </>
         ) : (

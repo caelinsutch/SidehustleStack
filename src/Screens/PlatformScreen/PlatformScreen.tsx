@@ -82,8 +82,6 @@ const PlatformScreen: React.FC = () => {
     },
   } = data;
 
-  console.log(data);
-
   return (
     <Box as="section" pt={100}>
       <DefaultContainer>
@@ -107,7 +105,7 @@ const PlatformScreen: React.FC = () => {
           <InfoSection title="Requirements" body={requirements} />
           <InfoSection
             title="People Making Money on Platform"
-            body={[numPeopleMakingMoney.toLocaleString()]}
+            body={[numPeopleMakingMoney?.toLocaleString()]}
           />
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
           <InfoSection

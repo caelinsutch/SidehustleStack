@@ -12,15 +12,18 @@ import { FilterDropdown, PlatformCardList } from '@Components';
 import { PlatformFilter } from '@Screens/HomeScreen';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
+import { HomeView } from '@Screens/HomeScreen/HomeScreen';
 
 export type PlatformSectionProps = {
   platforms: GetAllPlatformsHomeQuery['allPlatforms'];
   filters: PlatformFilter[];
+  type: HomeView;
 } & BoxProps;
 
 const PlatformSection: React.FC<PlatformSectionProps> = ({
   platforms,
   filters,
+  type,
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
@@ -53,14 +56,14 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
 
   return (
     <Box {...props}>
-      <Text fontSize="40px">Sponsored Platforms</Text>
+      <Text fontSize="40px">Sponsored {type}</Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
       <Text fontSize="40px" mt={16}>
-        Trending Platforms: February 2021
+        Trending {type}: February 2021
       </Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
       <Box mt={16}>
-        <Text fontSize="40px">All Platforms</Text>
+        <Text fontSize="40px">All {type}</Text>
         <Flex flex={1} justifyContent="space-between" alignItems="center">
           <Wrap>
             {filters.map((filter) => (
