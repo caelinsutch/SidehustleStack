@@ -83,7 +83,7 @@ const PlatformScreen: React.FC = () => {
   } = data;
 
   return (
-    <Box as="section" pt={100}>
+    <Box as="section" pt={150}>
       <DefaultContainer>
         <>
           <BreadcrumbSection id={id as string} platformName={name} />

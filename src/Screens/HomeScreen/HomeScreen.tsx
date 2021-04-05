@@ -42,7 +42,7 @@ const HomeScreen: React.FC = () => {
         backgroundImage="url('home-top-background.png')"
         backgroundSize="cover"
         backgroundPosition="bottom"
-        pb={200}
+        pb={75}
         pt={200}
       >
         <DefaultContainer>
