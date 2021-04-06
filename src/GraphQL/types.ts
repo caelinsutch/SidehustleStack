@@ -25,17 +25,25 @@ export type Scalars = {
 };
 
 export type Query = {
-  allPlatforms: Array<PlatformMvc>;
+  allPlatforms: Array<Maybe<PlatformMvc>>;
   platform?: Maybe<PlatformMvc>;
+  allSuggestions: Array<Maybe<SuggestionMvc>>;
+  suggestion?: Maybe<SuggestionMvc>;
 };
 
 export type QueryPlatformArgs = {
   id: Scalars['ID'];
 };
 
+export type QuerySuggestionArgs = {
+  id: Scalars['ID'];
+};
+
 export type Mutation = {
   createPlatform: PlatformMvc;
-  updatePlatform?: Maybe<PlatformMvc>;
+  updatePlatform: PlatformMvc;
+  createSuggestion: SuggestionMvc;
+  updateSuggestion: SuggestionMvc;
   addReview?: Maybe<PlatformMvc>;
   vote?: Maybe<PlatformMvc>;
 };
@@ -49,6 +57,15 @@ export type MutationUpdatePlatformArgs = {
   data: UpdatePlatformInput;
 };
 
+export type MutationCreateSuggestionArgs = {
+  suggestion?: Maybe<SuggestionInput>;
+};
+
+export type MutationUpdateSuggestionArgs = {
+  id: Scalars['ID'];
+  data: UpdateSuggestionInput;
+};
+
 export type MutationAddReviewArgs = {
   id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
@@ -57,6 +74,18 @@ export type MutationAddReviewArgs = {
 export type MutationVoteArgs = {
   id: Scalars['ID'];
   down?: Maybe<Scalars['Boolean']>;
+};
+
+export type SuggestionInput = {
+  name: Scalars['String'];
+  website: Scalars['String'];
+  platformType: PlatformType;
+};
+
+export type UpdateSuggestionInput = {
+  name?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  platformType?: Maybe<PlatformType>;
 };
 
 export type PlatformInput = {
@@ -141,6 +170,14 @@ export type ReviewInput = {
   rating: Scalars['Int'];
   description: Scalars['String'];
   author?: Maybe<Scalars['String']>;
+};
+
+export type SuggestionMvc = {
+  id: Scalars['ID'];
+  status: Status;
+  platformType: PlatformType;
+  name: Scalars['String'];
+  website: Scalars['String'];
 };
 
 export type PlatformMvc = {
@@ -390,14 +427,17 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  PlatformInput: PlatformInput;
+  SuggestionInput: SuggestionInput;
   String: ResolverTypeWrapper<Scalars['String']>;
+  UpdateSuggestionInput: UpdateSuggestionInput;
+  PlatformInput: PlatformInput;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
   LinkInput: LinkInput;
   AmountPerInput: AmountPerInput;
   ReviewInput: ReviewInput;
+  SuggestionMVC: ResolverTypeWrapper<SuggestionMvc>;
   PlatformMVC: ResolverTypeWrapper<PlatformMvc>;
   AmountPer: ResolverTypeWrapper<AmountPer>;
   Review: ResolverTypeWrapper<Review>;
@@ -417,14 +457,17 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Mutation: {};
   Boolean: Scalars['Boolean'];
-  PlatformInput: PlatformInput;
+  SuggestionInput: SuggestionInput;
   String: Scalars['String'];
+  UpdateSuggestionInput: UpdateSuggestionInput;
+  PlatformInput: PlatformInput;
   Int: Scalars['Int'];
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
   LinkInput: LinkInput;
   AmountPerInput: AmountPerInput;
   ReviewInput: ReviewInput;
+  SuggestionMVC: SuggestionMvc;
   PlatformMVC: PlatformMvc;
   AmountPer: AmountPer;
   Review: Review;
@@ -435,7 +478,7 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   allPlatforms?: Resolver<
-    Array<ResolversTypes['PlatformMVC']>,
+    Array<Maybe<ResolversTypes['PlatformMVC']>>,
     ParentType,
     ContextType
   >;
@@ -444,6 +487,17 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryPlatformArgs, 'id'>
+  >;
+  allSuggestions?: Resolver<
+    Array<Maybe<ResolversTypes['SuggestionMVC']>>,
+    ParentType,
+    ContextType
+  >;
+  suggestion?: Resolver<
+    Maybe<ResolversTypes['SuggestionMVC']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySuggestionArgs, 'id'>
   >;
 };
 
@@ -458,10 +512,22 @@ export type MutationResolvers<
     RequireFields<MutationCreatePlatformArgs, never>
   >;
   updatePlatform?: Resolver<
-    Maybe<ResolversTypes['PlatformMVC']>,
+    ResolversTypes['PlatformMVC'],
     ParentType,
     ContextType,
     RequireFields<MutationUpdatePlatformArgs, 'id' | 'data'>
+  >;
+  createSuggestion?: Resolver<
+    ResolversTypes['SuggestionMVC'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateSuggestionArgs, never>
+  >;
+  updateSuggestion?: Resolver<
+    ResolversTypes['SuggestionMVC'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateSuggestionArgs, 'id' | 'data'>
   >;
   addReview?: Resolver<
     Maybe<ResolversTypes['PlatformMVC']>,
@@ -475,6 +541,22 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationVoteArgs, 'id'>
   >;
+};
+
+export type SuggestionMvcResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SuggestionMVC'] = ResolversParentTypes['SuggestionMVC']
+> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
+  platformType?: Resolver<
+    ResolversTypes['PlatformType'],
+    ParentType,
+    ContextType
+  >;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PlatformMvcResolvers<
@@ -626,6 +708,7 @@ export type ReviewResolvers<
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  SuggestionMVC?: SuggestionMvcResolvers<ContextType>;
   PlatformMVC?: PlatformMvcResolvers<ContextType>;
   AmountPer?: AmountPerResolvers<ContextType>;
   Review?: ReviewResolvers<ContextType>;
@@ -686,21 +769,33 @@ export type CreatePlatformMutation = {
   createPlatform: Pick<PlatformMvc, 'id'>;
 };
 
+export type CreateSuggestionMutationVariables = Exact<{
+  name: Scalars['String'];
+  website: Scalars['String'];
+  platformType: PlatformType;
+}>;
+
+export type CreateSuggestionMutation = {
+  createSuggestion: Pick<SuggestionMvc, 'id'>;
+};
+
 export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllPlatformsHomeQuery = {
   allPlatforms: Array<
-    Pick<
-      PlatformMvc,
-      | 'id'
-      | 'score'
-      | 'name'
-      | 'description'
-      | 'companyLogo'
-      | 'platformType'
-      | 'category'
-      | 'tags'
-      | 'typeOfWork'
+    Maybe<
+      Pick<
+        PlatformMvc,
+        | 'id'
+        | 'score'
+        | 'name'
+        | 'description'
+        | 'companyLogo'
+        | 'platformType'
+        | 'category'
+        | 'tags'
+        | 'typeOfWork'
+      >
     >
   >;
 };
@@ -979,6 +1074,66 @@ export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<Crea
 export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
   CreatePlatformMutation,
   CreatePlatformMutationVariables
+>;
+export const CreateSuggestionDocument = gql`
+  mutation createSuggestion(
+    $name: String!
+    $website: String!
+    $platformType: PlatformType!
+  ) {
+    createSuggestion(
+      suggestion: {
+        name: $name
+        website: $website
+        platformType: $platformType
+      }
+    ) {
+      id
+    }
+  }
+`;
+export type CreateSuggestionMutationFn = ApolloReactCommon.MutationFunction<
+  CreateSuggestionMutation,
+  CreateSuggestionMutationVariables
+>;
+
+/**
+ * __useCreateSuggestionMutation__
+ *
+ * To run a mutation, you first call `useCreateSuggestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSuggestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSuggestionMutation, { data, loading, error }] = useCreateSuggestionMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      website: // value for 'website'
+ *      platformType: // value for 'platformType'
+ *   },
+ * });
+ */
+export function useCreateSuggestionMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreateSuggestionMutation,
+    CreateSuggestionMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    CreateSuggestionMutation,
+    CreateSuggestionMutationVariables
+  >(CreateSuggestionDocument, baseOptions);
+}
+export type CreateSuggestionMutationHookResult = ReturnType<
+  typeof useCreateSuggestionMutation
+>;
+export type CreateSuggestionMutationResult = ApolloReactCommon.MutationResult<CreateSuggestionMutation>;
+export type CreateSuggestionMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateSuggestionMutation,
+  CreateSuggestionMutationVariables
 >;
 export const GetAllPlatformsHomeDocument = gql`
   query GetAllPlatformsHome {

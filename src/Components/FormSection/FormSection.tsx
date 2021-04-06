@@ -70,8 +70,8 @@ const FormSection: React.FC<FormSectionProps> = ({
   onError,
   buttonText = 'Next',
 }) => {
-  const { register, getValues, errors, control, trigger } = useForm({
-    mode: 'onChange',
+  const { register, handleSubmit, errors, control } = useForm({
+    mode: 'all',
   });
 
   const toast = useToast();
@@ -84,19 +84,19 @@ const FormSection: React.FC<FormSectionProps> = ({
     });
   };
 
-  const onSubmitClick = () => {
-    const vals = getValues();
-    trigger().then(() => {
-      if (Object.keys(errors).length === 0) {
-        onSubmit(vals);
-      } else {
-        handleError();
-      }
-    });
-  };
+  // const onSubmitClick = () => {
+  //   const vals = getValues();
+  //   trigger().then(() => {
+  //     if (Object.keys(errors).length === 0) {
+  //       onSubmit(vals);
+  //     } else {
+  //       handleError();
+  //     }
+  //   });
+  // };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       {items.map((props) => {
         const { placeholder, name, registerOptions } = props;
         let formElement = (
@@ -108,11 +108,13 @@ const FormSection: React.FC<FormSectionProps> = ({
             name={name}
             placeholder={placeholder}
             ref={register(registerOptions)}
+            bgColor="white"
             _focus={{
               boxShadow: 'md',
             }}
           />
         );
+
         if (props.type === 'select') {
           const { options } = props;
           formElement = (
@@ -120,6 +122,7 @@ const FormSection: React.FC<FormSectionProps> = ({
               placeholder={placeholder}
               ref={register(registerOptions)}
               name={name}
+              bgColor="white"
             >
               {options.map(({ value, label }) => (
                 <option key={value} value={value}>
@@ -211,8 +214,9 @@ const FormSection: React.FC<FormSectionProps> = ({
       })}
       <Button
         borderRadius={1000}
-        // isDisabled={Object.keys(errors).length !== 0}
-        onClick={onSubmitClick}
+        type="submit"
+        isDisabled={Object.keys(errors).length !== 0}
+        // onClick={onSubmitClick}
       >
         {buttonText}
       </Button>

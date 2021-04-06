@@ -10,7 +10,6 @@ const SubmitScreen: React.FC = () => (
         Side Hustle Stack Submission
       </Text>
     </Box>
-    <TopSection />
     <SubmitForm />
   </DefaultContainer>
 );

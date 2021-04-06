@@ -17,17 +17,25 @@ export type Scalars = {
 };
 
 export type Query = {
-  allPlatforms: Array<PlatformMvc>;
+  allPlatforms: Array<Maybe<PlatformMvc>>;
   platform?: Maybe<PlatformMvc>;
+  allSuggestions: Array<Maybe<SuggestionMvc>>;
+  suggestion?: Maybe<SuggestionMvc>;
 };
 
 export type QueryPlatformArgs = {
   id: Scalars['ID'];
 };
 
+export type QuerySuggestionArgs = {
+  id: Scalars['ID'];
+};
+
 export type Mutation = {
   createPlatform: PlatformMvc;
-  updatePlatform?: Maybe<PlatformMvc>;
+  updatePlatform: PlatformMvc;
+  createSuggestion: SuggestionMvc;
+  updateSuggestion: SuggestionMvc;
   addReview?: Maybe<PlatformMvc>;
   vote?: Maybe<PlatformMvc>;
 };
@@ -41,6 +49,15 @@ export type MutationUpdatePlatformArgs = {
   data: UpdatePlatformInput;
 };
 
+export type MutationCreateSuggestionArgs = {
+  suggestion?: Maybe<SuggestionInput>;
+};
+
+export type MutationUpdateSuggestionArgs = {
+  id: Scalars['ID'];
+  data: UpdateSuggestionInput;
+};
+
 export type MutationAddReviewArgs = {
   id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
@@ -49,6 +66,18 @@ export type MutationAddReviewArgs = {
 export type MutationVoteArgs = {
   id: Scalars['ID'];
   down?: Maybe<Scalars['Boolean']>;
+};
+
+export type SuggestionInput = {
+  name: Scalars['String'];
+  website: Scalars['String'];
+  platformType: PlatformType;
+};
+
+export type UpdateSuggestionInput = {
+  name?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  platformType?: Maybe<PlatformType>;
 };
 
 export type PlatformInput = {
@@ -133,6 +162,14 @@ export type ReviewInput = {
   rating: Scalars['Int'];
   description: Scalars['String'];
   author?: Maybe<Scalars['String']>;
+};
+
+export type SuggestionMvc = {
+  id: Scalars['ID'];
+  status: Status;
+  platformType: PlatformType;
+  name: Scalars['String'];
+  website: Scalars['String'];
 };
 
 export type PlatformMvc = {
@@ -268,6 +305,14 @@ export type AdditionalEntityFields = {
 };
 
 import { ObjectID } from 'mongodb';
+export type SuggestionMvcDbObject = {
+  _id: ObjectID;
+  status: string;
+  platformType: string;
+  name: string;
+  website: string;
+};
+
 export type PlatformMvcDbObject = {
   _id: ObjectID;
   status: string;

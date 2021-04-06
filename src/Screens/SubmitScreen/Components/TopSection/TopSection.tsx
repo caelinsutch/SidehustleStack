@@ -1,10 +1,12 @@
 import React from 'react';
 import { SubmissionInfoText } from '@Screens/SubmitScreen/Components';
 import { TextLink } from '@Components';
-import { Box } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 
-const TopSection: React.FC = () => (
-  <Box mt={100}>
+type TopSectionProps = BoxProps;
+
+const TopSection: React.FC<TopSectionProps> = (props) => (
+  <Box mt={100} {...props}>
     <SubmissionInfoText fontSize="3xl">
       Thank you for adding to the Stack! Are you submitting a platform or tool?
     </SubmissionInfoText>

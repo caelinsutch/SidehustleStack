@@ -1,13 +1,29 @@
 type Query {
-    allPlatforms: [PlatformMVC!]!
+    allPlatforms: [PlatformMVC]!
     platform(id: ID!): PlatformMVC
+    allSuggestions: [SuggestionMVC]!
+    suggestion(id: ID!): SuggestionMVC
 }
 
 type Mutation {
     createPlatform(platform: PlatformInput): PlatformMVC!
-    updatePlatform(id: ID!, data: UpdatePlatformInput!): PlatformMVC
+    updatePlatform(id: ID!, data: UpdatePlatformInput!): PlatformMVC!
+    createSuggestion(suggestion: SuggestionInput): SuggestionMVC!
+    updateSuggestion(id: ID!, data: UpdateSuggestionInput!): SuggestionMVC!
     addReview(id: ID!, review: ReviewInput): PlatformMVC
     vote(id: ID!, down: Boolean): PlatformMVC
+}
+
+input SuggestionInput {
+    name: String!
+    website: String!
+    platformType: PlatformType!
+}
+
+input UpdateSuggestionInput {
+    name: String
+    website: String
+    platformType: PlatformType
 }
 
 input PlatformInput {
@@ -91,6 +107,14 @@ input ReviewInput {
     rating: Int!
     description: String!
     author: String
+}
+
+type SuggestionMVC @entity {
+    id: ID! @id
+    status: Status! @column
+    platformType: PlatformType! @column
+    name: String! @column
+    website: String! @column
 }
 
 type PlatformMVC @entity {
