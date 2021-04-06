@@ -6,10 +6,13 @@ export * from './types';
 let client: MongoClient;
 let database: Db;
 
-// const dbName = `sidehustlestack-${process.env.NODE_ENV}`;
-const dbName = 'sidehustlestack-production';
+let dbName = 'sidehustlestack-development';
 
-const url = `mongodb+srv://admin:adminpassword@sidehustlestackmain.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+let url = `mongodb+srv://admin:adminpassword@main.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+
+if (process.env.VERCEL !== undefined || process.env.NODE_ENV === 'production') {
+  dbName = 'sidehustlestack-production';
+}
 
 export const connect = async (): Promise<Db> => {
   if (!database) {

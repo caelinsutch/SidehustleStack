@@ -37,6 +37,7 @@ mutation {
         headquarteredIn: "Test"
         funding: ZERO
         tags: ["Tag 1", "Tag 2"]
+        requirements: ["Requirements 1", "Requirements 2"]
         description: "Test"
         typeOfWork: AUDIO_CONTENT_CREATOR
         category: CREATOR

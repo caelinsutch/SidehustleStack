@@ -3,6 +3,7 @@ import 'graphql-import-node';
 import { DIRECTIVES } from '@graphql-codegen/typescript-mongodb';
 import typeDefs from '@GraphQL/schema.graphql';
 import resolvers from '@GraphQL/resolvers';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const apolloServer = new ApolloServer({
   typeDefs: [DIRECTIVES, typeDefs],
@@ -15,8 +16,20 @@ export const config = {
   },
 };
 
-async function start(req: any, res: any) {
-  return apolloServer.createHandler({ path: '/api/graphql' })(req, res);
-}
+const GraphQl = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  if (
+    process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview' ||
+    process.env.VERCEL_ENV === 'preview'
+  ) {
+    return res
+      .status(400)
+      .json({ status: 'Backend only runs on production deployments' });
+  }
 
-export default start;
+  return apolloServer.createHandler({ path: '/api/graphql' })(req, res);
+};
+
+export default GraphQl;
