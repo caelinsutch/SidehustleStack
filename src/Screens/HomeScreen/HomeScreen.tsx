@@ -40,8 +40,9 @@ const HomeScreen: React.FC = () => {
     <Box as="section">
       <Box
         backgroundImage="url('home-top-background.png')"
-        backgroundSize="cover"
-        backgroundPosition="bottom"
+        backgroundSize={{ base: 'contain', md: 'cover' }}
+        backgroundPosition={{ base: 'top', md: 'bottom' }}
+        backgroundRepeat="no-repeat"
         pb={75}
         pt={200}
       >

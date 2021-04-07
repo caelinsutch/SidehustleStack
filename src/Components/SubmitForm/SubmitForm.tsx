@@ -81,28 +81,32 @@ const SubmitForm: React.FC = () => {
 
   const step = steps[stepI];
 
+  let body = (
+    <FormSection
+      key={step.map((a) => a.name).join('')}
+      items={step.map((s) => ({ ...s, defaultValue: data[s.name] }))}
+      onSubmit={handleNext(stepI)}
+      buttonText={stepI + 1 === maxSteps ? 'Submit' : undefined}
+      onBack={handleBack}
+      showBack={stepI > 0}
+    />
+  );
+
+  if (stepI >= maxSteps) {
+    body = loading ? (
+      <LoadingSection />
+    ) : (
+      <Alert status={error ? 'error' : 'success'}>
+        <AlertIcon />
+        {error || 'Submitted!'}
+      </Alert>
+    );
+  }
+
   return (
     <>
       <TopSection display={stepI > 0 ? 'none' : 'inherit'} />
-      <Box my={8}>
-        {stepI < maxSteps ? (
-          <FormSection
-            key={step.map((a) => a.name).join('')}
-            items={step.map((s) => ({ ...s, defaultValue: data[s.name] }))}
-            onSubmit={handleNext(stepI)}
-            buttonText={stepI + 1 === maxSteps ? 'Submit' : undefined}
-            onBack={handleBack}
-            showBack={stepI > 0}
-          />
-        ) : loading ? (
-          <LoadingSection />
-        ) : (
-          <Alert status={error ? 'error' : 'success'}>
-            <AlertIcon />
-            {error || 'Submitted!'}
-          </Alert>
-        )}
-      </Box>
+      <Box my={8}>{body}</Box>
     </>
   );
 };
