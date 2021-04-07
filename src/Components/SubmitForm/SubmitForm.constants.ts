@@ -13,6 +13,10 @@ const numberValidation = (value: any): boolean => Boolean(parseInt(value, 10));
 const steps = [
   [
     {
+      name: 'File Test',
+      type: 'file',
+    },
+    {
       name: 'platformType',
       placeholder: 'Select',
       type: 'select',

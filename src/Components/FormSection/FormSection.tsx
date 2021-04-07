@@ -13,6 +13,7 @@ import {
 import Select from 'react-select';
 import { RegisterOptions, useForm, Controller } from 'react-hook-form';
 import MultiItemInput from '@Components/MultiItemInput';
+import ImageUploader from '@Components/ImageUploader';
 
 export type FormItemBase = {
   name: string;
@@ -45,6 +46,10 @@ export type FormMultiSelect = {
   options?: SelectItem[];
 } & FormItemBase;
 
+export type FormFileUpload = {
+  type: 'file';
+} & FormItemBase;
+
 export type SelectItem = {
   label: string;
   value: string;
@@ -55,7 +60,8 @@ export type FormItem =
   | FormItemInput
   | FormItemRadio
   | FormMultiItemInput
-  | FormMultiSelect;
+  | FormMultiSelect
+  | FormFileUpload;
 
 export type FormSectionProps = {
   items: FormItem[];
@@ -191,6 +197,18 @@ const FormSection: React.FC<FormSectionProps> = ({
           );
         }
 
+        if (props.type === 'file') {
+          formElement = (
+            <Controller
+              name={name}
+              control={control}
+              defaultValue={undefined}
+              render={({ onChange }) => (
+                <ImageUploader onUploadFinish={onChange} />
+              )}
+            />
+          );
+        }
         const { title, description } = props;
         return (
           <Box key={`box${props.name}${props.title}`} mb={4}>

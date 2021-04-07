@@ -24,6 +24,7 @@
     "@graphql-codegen/typescript-mongodb": "^1.18.0",
     "@graphql-codegen/typescript-resolvers": "^1.18.2",
     "apollo-server-micro": "^2.21.0",
+    "firebase": "^8.3.2",
     "framer-motion": "^3.3.0",
     "graphql": "^15.5.0",
     "graphql-import-node": "^0.0.4",
