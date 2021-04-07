@@ -2,13 +2,13 @@ import React from 'react';
 import {
   Box,
   Button,
+  Flex,
   Input,
   Radio,
   RadioGroup,
   Select as ChakraSelect,
   Stack,
   Text,
-  useToast,
 } from '@chakra-ui/react';
 import Select from 'react-select';
 import { RegisterOptions, useForm, Controller } from 'react-hook-form';
@@ -21,6 +21,7 @@ export type FormItemBase = {
   description?: string;
   placeholder?: string;
   registerOptions?: RegisterOptions;
+  defaultValue?: any;
 };
 
 export type FormItemInput = {
@@ -68,6 +69,8 @@ export type FormSectionProps = {
   onSubmit: (data: any) => void;
   onError?: (errors: any) => void;
   buttonText?: string;
+  onBack: () => void;
+  showBack: boolean;
 };
 
 const FormSection: React.FC<FormSectionProps> = ({
@@ -75,36 +78,17 @@ const FormSection: React.FC<FormSectionProps> = ({
   onSubmit,
   onError,
   buttonText = 'Next',
+  onBack,
+  showBack,
 }) => {
   const { register, handleSubmit, errors, control } = useForm({
     mode: 'all',
   });
 
-  const toast = useToast();
-
-  // const handleError = () => {
-  //   if (onError) onError(errors);
-  //   toast({
-  //     title: 'Form Errors',
-  //     status: 'error',
-  //   });
-  // };
-
-  // const onSubmitClick = () => {
-  //   const vals = getValues();
-  //   trigger().then(() => {
-  //     if (Object.keys(errors).length === 0) {
-  //       onSubmit(vals);
-  //     } else {
-  //       handleError();
-  //     }
-  //   });
-  // };
-
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
       {items.map((props) => {
-        const { placeholder, name, registerOptions } = props;
+        const { placeholder, name, registerOptions, defaultValue } = props;
         let formElement = (
           <Input
             key={name}
@@ -112,6 +96,7 @@ const FormSection: React.FC<FormSectionProps> = ({
             borderRadius="2xl"
             boxShadow="md"
             name={name}
+            defaultValue={defaultValue}
             placeholder={placeholder}
             ref={register(registerOptions)}
             bgColor="white"
@@ -129,6 +114,7 @@ const FormSection: React.FC<FormSectionProps> = ({
               ref={register(registerOptions)}
               name={name}
               bgColor="white"
+              defaultValue={defaultValue}
             >
               {options.map(({ value, label }) => (
                 <option key={value} value={value}>
@@ -165,7 +151,7 @@ const FormSection: React.FC<FormSectionProps> = ({
             <Controller
               control={control}
               name={name}
-              defaultValue={[]}
+              defaultValue={defaultValue ?? []}
               render={({ onChange, value, onBlur }) => (
                 <MultiItemInput
                   onInput={onChange}
@@ -183,7 +169,7 @@ const FormSection: React.FC<FormSectionProps> = ({
             <Controller
               control={control}
               name={name}
-              defaultValue={[]}
+              defaultValue={defaultValue ?? []}
               rules={registerOptions}
               render={({ onChange, value }) => (
                 <Select
@@ -203,7 +189,7 @@ const FormSection: React.FC<FormSectionProps> = ({
             <Controller
               name={name}
               control={control}
-              defaultValue=""
+              defaultValue={defaultValue ?? ''}
               rules={registerOptions}
               render={({ onChange }) => (
                 <FileUploader onUploadFinish={onChange} />
@@ -232,13 +218,20 @@ const FormSection: React.FC<FormSectionProps> = ({
           </Box>
         );
       })}
-      <Button
-        borderRadius={1000}
-        type="submit"
-        isDisabled={Object.keys(errors).length !== 0}
-      >
-        {buttonText}
-      </Button>
+      <Flex>
+        {showBack && (
+          <Button mr={4} onClick={onBack}>
+            Back
+          </Button>
+        )}
+        <Button
+          borderRadius={1000}
+          type="submit"
+          isDisabled={Object.keys(errors).length !== 0}
+        >
+          {buttonText}
+        </Button>
+      </Flex>
     </form>
   );
 };

@@ -13,14 +13,6 @@ const numberValidation = (value: any): boolean => Boolean(parseInt(value, 10));
 const steps = [
   [
     {
-      name: 'File Test',
-      type: 'file',
-      registerOptions: {
-        required: true,
-        validate: { file: (value: any) => value !== '' },
-      },
-    },
-    {
       name: 'platformType',
       placeholder: 'Select',
       type: 'select',
@@ -77,6 +69,15 @@ const steps = [
       placeholder: 'sidehustlestack.co',
       type: 'input',
       title: 'Company Website',
+    },
+    {
+      title: 'Company Logo',
+      name: 'companyLogo',
+      type: 'file',
+      registerOptions: {
+        required: true,
+        validate: { file: (value: any) => value !== '' },
+      },
     },
   ],
   [
@@ -295,6 +296,7 @@ const steps = [
       placeholder: 'Select',
       registerOptions: {
         required: true,
+        validate: { empty: (value: any) => value !== [] },
       },
     },
     {
@@ -305,6 +307,7 @@ const steps = [
         'A smartphone or similar device, The ability to ship items, ...',
       registerOptions: {
         required: true,
+        validate: { empty: (value: any) => value !== [] },
       },
     },
   ],
@@ -371,9 +374,6 @@ const steps = [
       name: 'affiliateLink',
       type: 'input',
       title: 'Affiliate Link',
-      registerOptions: {
-        required: true,
-      },
     },
     {
       name: 'founderMessage',
@@ -397,9 +397,6 @@ const steps = [
       type: 'input',
       title: 'Founder Twitter',
       placeholder: 'caelinsutch',
-      registerOptions: {
-        required: true,
-      },
     },
     {
       name: 'email',

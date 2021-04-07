@@ -28,32 +28,32 @@ input UpdateSuggestionInput {
 
 input PlatformInput {
     name: String!
-    companyLogo: String
+    companyLogo: String!
     website: String!
     platformType: PlatformType!
     tags: [String!]
-    founded: String
-    headquarteredIn: String
-    funding: Funding
-    description: String
-    typeOfWork: TypeOfWork
-    category: CategoryOfWork
-    requiresDigitalAudience: ExistingDigitalAudienceRequired
-    applicationRequired: ApplicationRequired
-    remoteWork: Boolean
-    minimumAge: Int
-    equipmentQualSkills: [EquipmentQualSkills!]
-    averageEarnings: AmountPerInput
-    timeToFirstDollar: AmountPerInput
-    numPeopleMakingMoney: Int
-    geographicalFocus: String
-    affiliateLink: String
-    founderMessage: String
+    founded: String!
+    headquarteredIn: String!
+    funding: Funding!
+    description: String!
+    typeOfWork: TypeOfWork!
+    category: CategoryOfWork!
+    requiresDigitalAudience: ExistingDigitalAudienceRequired!
+    applicationRequired: ApplicationRequired!
+    remoteWork: Boolean!
+    minimumAge: Int!
+    equipmentQualSkills: [EquipmentQualSkills!]!
+    averageEarnings: AmountPerInput!
+    timeToFirstDollar: AmountPerInput!
+    numPeopleMakingMoney: Int!
+    geographicalFocus: String!
+    founderMessage: String!
     founderTwitter: String
-    founderName: String
-    email: String
-    platformPricing: String
-    requirements: [String!]
+    affiliateLink: String
+    founderName: String!
+    email: String!
+    platformPricing: String!
+    requirements: [String!]!
 }
 input PlatformRecommendationInput {
     name: String!

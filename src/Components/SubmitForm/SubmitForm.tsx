@@ -8,6 +8,7 @@ import {
 } from '@GraphQL/types';
 import { TopSection } from '@Screens/SubmitScreen/Components';
 import { promiseToastFeedback } from '@Utils';
+import { LoadingSection } from '@Components/index';
 
 const SubmitForm: React.FC = () => {
   const [data, setData] = useState({});
@@ -15,7 +16,7 @@ const SubmitForm: React.FC = () => {
   const [error, setError] = useState();
   const [maxSteps, setMaxSteps] = useState(steps.length);
   const [createPlatform] = useCreatePlatformMutation();
-  const [createSuggestion] = useCreateSuggestionMutation();
+  const [createSuggestion, { loading }] = useCreateSuggestionMutation();
   const toast = useToast();
 
   const handleSubmit = (formData) => {
@@ -35,7 +36,6 @@ const SubmitForm: React.FC = () => {
           variables: {
             ...formData,
             remoteWork: Boolean(formData.remoteWork),
-            companyLogo: '',
             minimumAge: parseInt(formData.minimumAge, 10),
             averageEarnings: {
               amount: formData.averageEarnings,
@@ -57,13 +57,13 @@ const SubmitForm: React.FC = () => {
   };
 
   const handleNext = (i) => (stepData) => {
+    console.log(i);
+    console.log(stepData);
     if (i === 1) {
       if (stepData.isFounder === 'false') {
         setMaxSteps(3);
       }
     }
-
-    console.log(stepData);
 
     const newStepData = { ...data, ...stepData };
     setData(newStepData);
@@ -75,6 +75,10 @@ const SubmitForm: React.FC = () => {
     setStepI((p) => p + 1);
   };
 
+  const handleBack = () => {
+    setStepI((p) => p - 1);
+  };
+
   const step = steps[stepI];
 
   return (
@@ -84,10 +88,14 @@ const SubmitForm: React.FC = () => {
         {stepI < maxSteps ? (
           <FormSection
             key={step.map((a) => a.name).join('')}
-            items={step}
+            items={step.map((s) => ({ ...s, defaultValue: data[s.name] }))}
             onSubmit={handleNext(stepI)}
             buttonText={stepI + 1 === maxSteps ? 'Submit' : undefined}
+            onBack={handleBack}
+            showBack={stepI > 0}
           />
+        ) : loading ? (
+          <LoadingSection />
         ) : (
           <Alert status={error ? 'error' : 'success'}>
             <AlertIcon />

@@ -27,6 +27,8 @@ export const createPlatform = gql`
     $numPeopleMakingMoney: Int!
     $requirements: [String!]!
     $platformPricing: String!
+    $tags: [String]!
+    $founderName: String!
   ) {
     createPlatform(
       platform: {
@@ -55,6 +57,7 @@ export const createPlatform = gql`
         platformType: $platformType
         platformPricing: $platformPricing
         requirements: $requirements
+        founderName: $founderName
       }
     ) {
       id

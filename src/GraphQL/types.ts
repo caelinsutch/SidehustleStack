@@ -90,32 +90,32 @@ export type UpdateSuggestionInput = {
 
 export type PlatformInput = {
   name: Scalars['String'];
-  companyLogo?: Maybe<Scalars['String']>;
+  companyLogo: Scalars['String'];
   website: Scalars['String'];
   platformType: PlatformType;
   tags?: Maybe<Array<Scalars['String']>>;
-  founded?: Maybe<Scalars['String']>;
-  headquarteredIn?: Maybe<Scalars['String']>;
-  funding?: Maybe<Funding>;
-  description?: Maybe<Scalars['String']>;
-  typeOfWork?: Maybe<TypeOfWork>;
-  category?: Maybe<CategoryOfWork>;
-  requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
-  applicationRequired?: Maybe<ApplicationRequired>;
-  remoteWork?: Maybe<Scalars['Boolean']>;
-  minimumAge?: Maybe<Scalars['Int']>;
-  equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
-  averageEarnings?: Maybe<AmountPerInput>;
-  timeToFirstDollar?: Maybe<AmountPerInput>;
-  numPeopleMakingMoney?: Maybe<Scalars['Int']>;
-  geographicalFocus?: Maybe<Scalars['String']>;
-  affiliateLink?: Maybe<Scalars['String']>;
-  founderMessage?: Maybe<Scalars['String']>;
+  founded: Scalars['String'];
+  headquarteredIn: Scalars['String'];
+  funding: Funding;
+  description: Scalars['String'];
+  typeOfWork: TypeOfWork;
+  category: CategoryOfWork;
+  requiresDigitalAudience: ExistingDigitalAudienceRequired;
+  applicationRequired: ApplicationRequired;
+  remoteWork: Scalars['Boolean'];
+  minimumAge: Scalars['Int'];
+  equipmentQualSkills: Array<EquipmentQualSkills>;
+  averageEarnings: AmountPerInput;
+  timeToFirstDollar: AmountPerInput;
+  numPeopleMakingMoney: Scalars['Int'];
+  geographicalFocus: Scalars['String'];
+  founderMessage: Scalars['String'];
   founderTwitter?: Maybe<Scalars['String']>;
-  founderName?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  platformPricing?: Maybe<Scalars['String']>;
-  requirements?: Maybe<Array<Scalars['String']>>;
+  affiliateLink?: Maybe<Scalars['String']>;
+  founderName: Scalars['String'];
+  email: Scalars['String'];
+  platformPricing: Scalars['String'];
+  requirements: Array<Scalars['String']>;
 };
 
 export type PlatformRecommendationInput = {
@@ -763,6 +763,8 @@ export type CreatePlatformMutationVariables = Exact<{
   numPeopleMakingMoney: Scalars['Int'];
   requirements: Array<Scalars['String']> | Scalars['String'];
   platformPricing: Scalars['String'];
+  tags: Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>;
+  founderName: Scalars['String'];
 }>;
 
 export type CreatePlatformMutation = {
@@ -976,6 +978,8 @@ export const CreatePlatformDocument = gql`
     $numPeopleMakingMoney: Int!
     $requirements: [String!]!
     $platformPricing: String!
+    $tags: [String]!
+    $founderName: String!
   ) {
     createPlatform(
       platform: {
@@ -1004,6 +1008,7 @@ export const CreatePlatformDocument = gql`
         platformType: $platformType
         platformPricing: $platformPricing
         requirements: $requirements
+        founderName: $founderName
       }
     ) {
       id
@@ -1053,6 +1058,8 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      numPeopleMakingMoney: // value for 'numPeopleMakingMoney'
  *      requirements: // value for 'requirements'
  *      platformPricing: // value for 'platformPricing'
+ *      tags: // value for 'tags'
+ *      founderName: // value for 'founderName'
  *   },
  * });
  */

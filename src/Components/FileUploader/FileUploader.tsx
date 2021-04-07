@@ -4,6 +4,7 @@ import { storage } from '@Config';
 
 export type FileUploaderProps = {
   onUploadFinish: (urL: string) => void;
+  defaultUrl?: string;
 };
 
 type FileUploaderState = {
@@ -12,12 +13,15 @@ type FileUploaderState = {
   fileBlob?: File;
 };
 
-const FileUploader: React.FC<FileUploaderProps> = ({ onUploadFinish }) => {
+const FileUploader: React.FC<FileUploaderProps> = ({
+  onUploadFinish,
+  defaultUrl,
+}) => {
   const toast = useToast();
 
   const [state, setState] = useState<FileUploaderState>({
     progress: 0,
-    fileUrl: null,
+    fileUrl: defaultUrl,
     fileBlob: null,
   });
 
