@@ -13,7 +13,7 @@ import {
 import Select from 'react-select';
 import { RegisterOptions, useForm, Controller } from 'react-hook-form';
 import MultiItemInput from '@Components/MultiItemInput';
-import ImageUploader from '@Components/ImageUploader';
+import FileUploader from '@Components/FileUploader';
 
 export type FormItemBase = {
   name: string;
@@ -82,13 +82,13 @@ const FormSection: React.FC<FormSectionProps> = ({
 
   const toast = useToast();
 
-  const handleError = () => {
-    if (onError) onError(errors);
-    toast({
-      title: 'Form Errors',
-      status: 'error',
-    });
-  };
+  // const handleError = () => {
+  //   if (onError) onError(errors);
+  //   toast({
+  //     title: 'Form Errors',
+  //     status: 'error',
+  //   });
+  // };
 
   // const onSubmitClick = () => {
   //   const vals = getValues();
@@ -184,6 +184,7 @@ const FormSection: React.FC<FormSectionProps> = ({
               control={control}
               name={name}
               defaultValue={[]}
+              rules={registerOptions}
               render={({ onChange, value }) => (
                 <Select
                   options={options}
@@ -202,9 +203,10 @@ const FormSection: React.FC<FormSectionProps> = ({
             <Controller
               name={name}
               control={control}
-              defaultValue={undefined}
+              defaultValue=""
+              rules={registerOptions}
               render={({ onChange }) => (
-                <ImageUploader onUploadFinish={onChange} />
+                <FileUploader onUploadFinish={onChange} />
               )}
             />
           );
@@ -234,7 +236,6 @@ const FormSection: React.FC<FormSectionProps> = ({
         borderRadius={1000}
         type="submit"
         isDisabled={Object.keys(errors).length !== 0}
-        // onClick={onSubmitClick}
       >
         {buttonText}
       </Button>

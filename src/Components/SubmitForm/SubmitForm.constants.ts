@@ -15,6 +15,10 @@ const steps = [
     {
       name: 'File Test',
       type: 'file',
+      registerOptions: {
+        required: true,
+        validate: { file: (value: any) => value !== '' },
+      },
     },
     {
       name: 'platformType',

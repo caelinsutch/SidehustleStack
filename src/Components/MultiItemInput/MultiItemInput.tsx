@@ -37,7 +37,6 @@ const MultiItemInput: React.FC<MultiItemInputProps> = ({
 
   const onInputKeyDown = (e: any): void => {
     const val = e.target.value;
-    console.log(e.key);
     if (e.key === ',' && val) {
       if (state.tags.find((tag) => tag.toLowerCase() === val.toLowerCase())) {
         return;

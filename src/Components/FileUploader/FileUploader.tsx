@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Text, Box, useToast, Progress, Button } from '@chakra-ui/react';
+import React, { useState, ChangeEvent } from 'react';
+import { Text, Image, Box, useToast, Progress, Button } from '@chakra-ui/react';
 import { storage } from '@Config';
 
-export type ImageUploaderProps = {
+export type FileUploaderProps = {
   onUploadFinish: (urL: string) => void;
 };
 
 type FileUploaderState = {
   progress?: number;
   fileUrl?: string;
-  fileBlob?: any;
+  fileBlob?: File;
 };
 
-const FileUploader: React.FC<ImageUploaderProps> = ({ onUploadFinish }) => {
+const FileUploader: React.FC<FileUploaderProps> = ({ onUploadFinish }) => {
   const toast = useToast();
 
   const [state, setState] = useState<FileUploaderState>({
@@ -21,7 +21,7 @@ const FileUploader: React.FC<ImageUploaderProps> = ({ onUploadFinish }) => {
     fileBlob: null,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files[0]) {
       const fileBlob = e.target.files[0];
       setState(() => ({ fileBlob }));
@@ -68,26 +68,39 @@ const FileUploader: React.FC<ImageUploaderProps> = ({ onUploadFinish }) => {
 
   return (
     <Box textAlign="center">
-      <Text as="h2" className="green-text">
-        React Firebase Image Uploader
-      </Text>
-      {state.progress && <Progress value={state.progress} />}
-      <Box>
-        <Button className="btn">
-          <span>File</span>
-          <input type="file" onChange={handleChange} />
+      {state.progress > 0 && <Progress value={state.progress} />}
+      <Box position="relative" overflow="hidden" my={8}>
+        <Button colorScheme="blue" size="xs">
+          {state.fileBlob ? state.fileBlob.name : 'Choose Image'}
         </Button>
-        <div className="file-path-wrapper">
-          <input className="file-path validate" type="text" />
-        </div>
+        <input
+          type="file"
+          onChange={handleChange}
+          style={{
+            fontSize: '100px',
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            opacity: 0,
+          }}
+        />
       </Box>
-      <Button onClick={handleUpload}>Upload</Button>
-      <img
-        src={state.fileUrl || 'https://via.placeholder.com/400x300'}
-        alt="Uploaded Images"
-        height="300"
-        width="400"
-      />
+      {state.fileUrl && (
+        <Box px={2}>
+          <Text>Image Preview:</Text>
+          <Image
+            mb={4}
+            mx="auto"
+            maxW="500px"
+            borderRadius="md"
+            src={state.fileUrl || 'https://via.placeholder.com/400x300'}
+            alt="Uploaded Image"
+          />
+        </Box>
+      )}
+      <Button onClick={handleUpload} disabled={!state.fileBlob}>
+        Upload
+      </Button>
     </Box>
   );
 };

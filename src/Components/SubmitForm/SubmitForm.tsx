@@ -62,6 +62,9 @@ const SubmitForm: React.FC = () => {
         setMaxSteps(3);
       }
     }
+
+    console.log(stepData);
+
     const newStepData = { ...data, ...stepData };
     setData(newStepData);
 

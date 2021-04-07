@@ -1,2 +1,2 @@
-export { default } from './ImageUploader';
-export type { ImageUploaderProps } from './ImageUploader';
+export { default } from './FileUploader';
+export type { FileUploaderProps } from './FileUploader';

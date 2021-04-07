@@ -54,7 +54,7 @@ const PlatformScreen: React.FC = () => {
 
   if (!data?.platform)
     return (
-      <DefaultContainer as="section">
+      <DefaultContainer as="section" pt={200}>
         <Alert status="error">
           <AlertIcon />
           <AlertTitle mr={2}>Platform not found, check your link?</AlertTitle>
