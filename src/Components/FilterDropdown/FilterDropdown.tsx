@@ -25,7 +25,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 }) => (
   <Menu {...props}>
     <MenuButton as={Button} rightIcon={<BiChevronDown size={20} />}>
-      {selected || name}
+      {selected === 'All' ? name : selected}
     </MenuButton>
     <MenuList>
       {items.map((item, index) => (

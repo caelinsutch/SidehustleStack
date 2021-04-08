@@ -8,11 +8,13 @@ import {
   WrapItem,
   Wrap,
 } from '@chakra-ui/react';
+import { useRecoilValue } from 'recoil';
 import { FilterDropdown, PlatformCardList } from '@Components';
-import { PlatformFilter } from '@Screens/HomeScreen';
+import { HomeView, PlatformFilter } from '@Screens/HomeScreen';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
-import { HomeView } from '@Screens/HomeScreen/HomeScreen';
+import { useUpdateFilterQueryParam } from '@Hooks';
+import { activeFiltersAtom } from '@Recoil';
 
 export type PlatformSectionProps = {
   platforms: GetAllPlatformsHomeQuery['allPlatforms'];
@@ -27,20 +29,19 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
-  const [activeFilters, setActiveFilters] = useState({});
+
+  const activeFilters = useRecoilValue(activeFiltersAtom);
+  const updateFilterQueryParam = useUpdateFilterQueryParam();
 
   const handleDropdownSelect = (key: string, selectedItem: string) => {
-    setActiveFilters((prev) => ({
-      ...prev,
-      [key]: selectedItem === 'All' ? undefined : selectedItem,
-    }));
+    updateFilterQueryParam(key, selectedItem);
   };
 
   const filteredPlatforms = platforms
     .filter((platform) => {
       if (Object.keys(activeFilters).length === 0) return true;
       return Object.keys(activeFilters).every((filterKey) => {
-        if (platform[filterKey] && activeFilters[filterKey]) {
+        if (platform[filterKey] && activeFilters[filterKey] !== 'All') {
           return (
             snakeToStartCase(platform[filterKey]) === activeFilters[filterKey]
           );

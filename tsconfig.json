@@ -28,6 +28,8 @@
       "@Utils": ["./src/Utils"],
       "@GraphQL/*": ["./src/GraphQL/*"],
       "@Config": ["./src/Config"],
+      "@Providers": ["./src/Providers"],
+      "@Recoil": ["./src/Recoil"],
       "@DAO": ["./src/DAO"],
       "@Cache": ["./src/Cache"],
       "@Public/*": ["./public/*"]

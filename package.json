@@ -32,11 +32,14 @@
     "mongodb": "^3.6.4",
     "next": "10.0.6",
     "node-fetch": "^2.6.1",
+    "query-string": "^7.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^6.15.1",
     "react-icons": "^4.2.0",
-    "react-select": "^4.2.1"
+    "react-select": "^4.2.1",
+    "recoil": "^0.2.0",
+    "use-query-params": "^1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",

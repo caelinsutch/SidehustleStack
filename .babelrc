@@ -12,6 +12,8 @@
           "@Screens": "./src/Screens",
           "@Hooks": "./src/Hooks",
           "@Constants": "./src/Constants",
+          "@Providers": "./src/Providers",
+          "@Recoil": "./src/Recoil",
           "@Utils": "./src/Utils",
           "@GraphQL": "./src/GraphQL",
           "@DAO": "./src/DAO",

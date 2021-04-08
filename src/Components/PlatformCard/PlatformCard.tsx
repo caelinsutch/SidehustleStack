@@ -8,12 +8,14 @@ import {
   BoxProps,
   WrapItem,
   Wrap,
+  Flex,
 } from '@chakra-ui/react';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { useRouter } from 'next/router';
 import { VoteIcons } from '@Components';
 import useOnUpvote from '@Components/PlatformCard/useOnUpvote';
 import { snakeToStartCase } from '@Utils';
+import { useUpdateFilterQueryParam } from '@Hooks';
 
 export type PlatformCardProps = {
   platform: GetAllPlatformsHomeQuery['allPlatforms'][0];
@@ -22,6 +24,7 @@ export type PlatformCardProps = {
 const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
   const router = useRouter();
   const [score, vote, onVote] = useOnUpvote(platform.id, platform.score);
+  const updateFilterQueryParam = useUpdateFilterQueryParam();
 
   const handleCardClick = () => {
     router.push(`/platform/${platform.id}`);
@@ -67,10 +70,40 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
             >
               {platform.name}
             </Text>
-            <Text color="orange.400" fontSize="large" isTruncated>
-              {snakeToStartCase(platform.category)} |{' '}
-              {snakeToStartCase(platform.typeOfWork)}
-            </Text>
+            <Flex>
+              <Text
+                color="orange.400"
+                _hover={{
+                  color: 'orange.300',
+                }}
+                cursor="pointer"
+                onClick={() =>
+                  updateFilterQueryParam('category', platform.category)
+                }
+                fontSize="large"
+                isTruncated
+              >
+                {snakeToStartCase(platform.category)}
+              </Text>
+              <Text color="orange.400" mx={2} fontSize="large">
+                |
+              </Text>
+              <Text
+                color="orange.400"
+                _hover={{
+                  color: 'orange.300',
+                }}
+                cursor="pointer"
+                mr={4}
+                onClick={() =>
+                  updateFilterQueryParam('typeOfWork', platform.typeOfWork)
+                }
+                fontSize="large"
+                isTruncated
+              >
+                {snakeToStartCase(platform.typeOfWork)}
+              </Text>
+            </Flex>
           </Box>
         </HStack>
         <Wrap mt={4}>

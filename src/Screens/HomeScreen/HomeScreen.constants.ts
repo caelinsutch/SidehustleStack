@@ -1,5 +1,6 @@
 import { CategoryOfWork, PlatformMvc, TypeOfWork } from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
+import { StringParam } from 'use-query-params';
 
 const workTypes: string[] = Object.values(TypeOfWork).map((a: string) =>
   snakeToStartCase(a)
@@ -28,4 +29,10 @@ const workTypeFilter: PlatformFilter = {
 
 const filters: PlatformFilter[] = [categoryFilter, workTypeFilter];
 
-export { filters };
+const useQueryParamsSettings = {};
+
+filters.forEach((filter) => {
+  useQueryParamsSettings[filter.key] = StringParam;
+});
+
+export { filters, useQueryParamsSettings };
