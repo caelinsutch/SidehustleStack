@@ -19,14 +19,14 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
     alignContent="center"
     justifyContent="space-between"
     spacing="8px"
-    w="17px"
     mr="5px"
+    cursor="pointer"
   >
     <Icon
+      transition="all 0.2s ease"
       as={IoTriangle}
       color={status === 'up' ? 'orange.300' : 'gray.200'}
       onClick={() => onClick('up')}
-      cursor="pointer"
       _hover={{
         color: status === 'up' ? 'orange.400' : 'gray.300',
       }}
@@ -36,15 +36,14 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
       color="black"
       fontSize="16px"
       lineHeight="80%"
-      cursor="pointer"
       onClick={() => onClick('neutral')}
     >{`${upvotes}`}</Text>
     <Icon
+      transition="all 0.2s ease"
       as={IoTriangle}
       color={status === 'down' ? 'red.300' : 'gray.200'}
       onClick={() => onClick('down')}
       transform="rotate(180deg)"
-      cursor="pointer"
       _hover={{
         color: status === 'down' ? 'red.400' : 'gray.300',
       }}

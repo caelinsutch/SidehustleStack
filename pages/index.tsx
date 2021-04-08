@@ -3,7 +3,6 @@ import { HomeScreen } from '@Screens';
 import { PageWrapper } from '@Components';
 import { client } from '@Config';
 import { gql } from '@apollo/client';
-import { NextPage } from 'next';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 
 const getAllPlatformsHomeQuery = gql`
@@ -18,14 +17,22 @@ const getAllPlatformsHomeQuery = gql`
       category
       tags
       typeOfWork
+      status
     }
   }
 `;
 
 export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: getAllPlatformsHomeQuery,
-  });
+  let data: GetAllPlatformsHomeQuery = null;
+  try {
+    data = (
+      await client.query<GetAllPlatformsHomeQuery>({
+        query: getAllPlatformsHomeQuery,
+      })
+    ).data;
+  } catch (e) {
+    console.log(e.networkError.result.errors);
+  }
 
   return {
     props: {

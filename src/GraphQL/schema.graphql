@@ -1,4 +1,5 @@
 type Query {
+    publishedPlatforms: [PlatformMVC]!
     allPlatforms: [PlatformMVC]!
     platform(id: ID!): PlatformMVC
     allSuggestions: [SuggestionMVC]!

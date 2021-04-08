@@ -32,6 +32,10 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
 
   return (
     <Box
+      _hover={{
+        transform: 'scale(1.03)',
+      }}
+      transition="all 0.4s ease"
       bg="white"
       borderRadius="md"
       boxShadow="md"
@@ -73,6 +77,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
             <Flex>
               <Text
                 color="orange.400"
+                transition="all 0.2s ease"
                 _hover={{
                   color: 'orange.300',
                 }}
@@ -90,6 +95,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               </Text>
               <Text
                 color="orange.400"
+                transition="all 0.2s ease"
                 _hover={{
                   color: 'orange.300',
                 }}

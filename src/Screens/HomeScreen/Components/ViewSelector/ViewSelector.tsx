@@ -17,10 +17,11 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({
   <Text
     fontStyle="bold"
     fontSize="60px"
-    color={view === self ? 'orange.400' : 'grey.200'}
+    color={view === self ? 'orange.400' : 'gray.200'}
     _hover={{
-      color: view === self ? 'orange.300' : 'grey.100',
+      color: view === self ? 'orange.300' : 'gray.100',
     }}
+    transition="all 0.2s ease"
     onClick={() => onClick()}
     userSelect="none"
     cursor="pointer"

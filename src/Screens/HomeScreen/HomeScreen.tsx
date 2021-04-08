@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
-import { GetAllPlatformsHomeQuery, PlatformType } from '@GraphQL/types';
+import { GetAllPlatformsHomeQuery, PlatformType, Status } from '@GraphQL/types';
 import { DefaultContainer, LoadingSection } from '@Components';
 import _ from 'lodash';
 import { useSetRecoilState } from 'recoil';
@@ -35,10 +35,14 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
 
   const [view, setView] = useState<HomeView>('Platforms');
 
-  const platforms = data?.allPlatforms.filter(
+  const published = data.allPlatforms.filter(
+    (p) => p.status === Status.Published
+  );
+
+  const platforms = published.filter(
     (platform) => platform.platformType === PlatformType.Platform
   );
-  const tools = data?.allPlatforms.filter(
+  const tools = published.filter(
     (platform) => platform.platformType === PlatformType.Tool
   );
 
