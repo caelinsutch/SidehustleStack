@@ -54,7 +54,7 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
         backgroundPosition={{ base: 'top', md: 'bottom' }}
         backgroundRepeat="no-repeat"
         pb={75}
-        pt={200}
+        pt={{ base: 150, md: 200 }}
       >
         <DefaultContainer>
           <HomeBanner onEmailSubmit={(email) => console.log(email)} />

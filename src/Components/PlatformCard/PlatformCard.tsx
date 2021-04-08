@@ -46,6 +46,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
     >
       <Image
         src={platform.companyLogo}
+        objectFit="cover"
         alt="logo"
         width="100%"
         height="250px"
@@ -54,7 +55,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
         onClick={handleCardClick}
         borderRadius="md"
       />
-      <Box p={8}>
+      <Box p={{ base: 4, xl: 8 }}>
         <HStack
           justifyContent="flex-start"
           alignContent="center"
@@ -64,7 +65,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
           <Box>
             <Text
               color="black"
-              fontSize="3xl"
+              fontSize={{ base: '2xl', md: '3xl' }}
               cursor="pointer"
               transition="all 0.2s ease"
               _hover={{
@@ -85,16 +86,21 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 onClick={() =>
                   updateFilterQueryParam('category', platform.category)
                 }
-                fontSize="large"
+                fontSize={{ base: 'xs', md: 'md' }}
                 isTruncated
               >
                 {snakeToStartCase(platform.category)}
               </Text>
-              <Text color="orange.400" mx={2} fontSize="large">
+              <Text
+                color="orange.400"
+                mx={2}
+                fontSize={{ base: 'xs', md: 'md' }}
+              >
                 |
               </Text>
               <Text
                 color="orange.400"
+                fontSize={{ base: 'xs', md: 'md' }}
                 transition="all 0.2s ease"
                 _hover={{
                   color: 'orange.300',
@@ -104,7 +110,6 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 onClick={() =>
                   updateFilterQueryParam('typeOfWork', platform.typeOfWork)
                 }
-                fontSize="large"
                 isTruncated
               >
                 {snakeToStartCase(platform.typeOfWork)}
@@ -118,13 +123,11 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               <WrapItem key={platform.name + index}>
                 <Button
                   bg="orange.400"
-                  fontSize="16px"
-                  h="30px"
-                  pr="9px"
-                  pl="9px"
                   borderRadius="md"
-                  mb="6px"
-                  mr="6px"
+                  fontSize={{ base: 'sm', md: 'md' }}
+                  px={{ base: 2, md: 3 }}
+                  py={{ base: 1, md: 2 }}
+                  h={{ base: 26, md: '36px' }}
                   style={{
                     marginInlineStart: '0px',
                   }}

@@ -57,15 +57,24 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
 
   return (
     <Box {...props}>
-      <Text fontSize="40px">Sponsored {type}</Text>
+      <Text fontSize="3xl" textAlign={{ base: 'center', sm: 'left' }}>
+        Sponsored {type}
+      </Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
-      <Text fontSize="40px" mt={16}>
+      <Text fontSize="3xl" mt={16} textAlign={{ base: 'center', sm: 'left' }}>
         Trending {type}: February 2021
       </Text>
       <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
       <Box mt={16}>
-        <Text fontSize="40px">All {type}</Text>
-        <Flex flex={1} justifyContent="space-between" alignItems="center">
+        <Text fontSize="3xl" textAlign={{ base: 'center', sm: 'left' }}>
+          All {type}
+        </Text>
+        <Flex
+          flex={1}
+          justifyContent="space-between"
+          alignItems="center"
+          mt={4}
+        >
           <Wrap>
             {filters.map((filter) => (
               <WrapItem key={filter.name}>

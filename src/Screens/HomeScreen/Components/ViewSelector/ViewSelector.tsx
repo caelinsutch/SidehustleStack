@@ -16,7 +16,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({
 }) => (
   <Text
     fontStyle="bold"
-    fontSize="60px"
+    fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
     color={view === self ? 'orange.400' : 'gray.200'}
     _hover={{
       color: view === self ? 'orange.300' : 'gray.100',
