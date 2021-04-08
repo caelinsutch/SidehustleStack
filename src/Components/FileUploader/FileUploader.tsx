@@ -57,7 +57,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         });
       },
       () => {
-        // complete function ...
         storage
           .ref('images')
           .child(image.name)

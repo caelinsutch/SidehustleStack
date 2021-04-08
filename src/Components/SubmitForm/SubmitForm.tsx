@@ -57,11 +57,9 @@ const SubmitForm: React.FC = () => {
   };
 
   const handleNext = (i) => (stepData) => {
-    console.log(i);
-    console.log(stepData);
-    if (i === 1) {
+    if (i === 0) {
       if (stepData.isFounder === 'false') {
-        setMaxSteps(3);
+        setMaxSteps(2);
       }
     }
 

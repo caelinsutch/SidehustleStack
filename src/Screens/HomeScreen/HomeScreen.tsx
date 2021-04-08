@@ -1,32 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
-import { gql } from '@apollo/client';
-import { PlatformType, useGetAllPlatformsHomeQuery } from '@GraphQL/types';
+import { GetAllPlatformsHomeQuery, PlatformType } from '@GraphQL/types';
 import { DefaultContainer, LoadingSection } from '@Components';
 import { HomeBanner, PlatformSection, ViewSelector } from './Components';
 import { filters } from './HomeScreen.constants';
 
 export type HomeView = 'Platforms' | 'Tools';
 
-export const query = gql`
-  query GetAllPlatformsHome {
-    allPlatforms {
-      id
-      score
-      name
-      description
-      companyLogo
-      platformType
-      category
-      tags
-      typeOfWork
-    }
-  }
-`;
-
-const HomeScreen: React.FC = () => {
-  const { data } = useGetAllPlatformsHomeQuery();
-
+const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
   const [view, setView] = useState<HomeView>('Platforms');
 
   const platforms = data?.allPlatforms.filter(

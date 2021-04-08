@@ -31,8 +31,6 @@ const steps = [
         },
       ],
     },
-  ],
-  [
     {
       name: 'isFounder',
       placeholder: 'Select',
@@ -70,6 +68,8 @@ const steps = [
       type: 'input',
       title: 'Company Website',
     },
+  ],
+  [
     {
       title: 'Company Logo',
       name: 'companyLogo',
@@ -79,8 +79,6 @@ const steps = [
         validate: { file: (value: any) => value !== '' },
       },
     },
-  ],
-  [
     {
       name: 'funding',
       placeholder: 'xxxxx',
@@ -147,8 +145,6 @@ const steps = [
         required: true,
       },
     },
-  ],
-  [
     {
       name: 'typeOfWork',
       type: 'select',
@@ -274,8 +270,6 @@ const steps = [
         valueAsNumber: true,
       },
     },
-  ],
-  [
     {
       name: 'equipmentQualSkills',
       type: 'multiSelect',
@@ -310,8 +304,6 @@ const steps = [
         validate: { empty: (value: any) => value !== [] },
       },
     },
-  ],
-  [
     {
       name: 'averageEarnings',
       type: 'input',

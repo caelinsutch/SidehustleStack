@@ -1,5 +1,6 @@
 /* eslint-disable import/no-mutable-exports */
 import { Db, MongoClient } from 'mongodb';
+import { isProduction } from '@Utils';
 
 export * from './types';
 
@@ -10,7 +11,7 @@ let dbName = 'sidehustlestack-development';
 
 let url = `mongodb+srv://admin:adminpassword@main.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
-if (process.env.VERCEL !== undefined || process.env.NODE_ENV === 'production') {
+if (isProduction) {
   dbName = 'sidehustlestack-production';
 }
 

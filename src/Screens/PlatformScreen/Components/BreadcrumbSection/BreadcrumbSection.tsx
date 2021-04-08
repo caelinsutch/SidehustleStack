@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   Flex,
   Icon,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { HiChevronLeft } from 'react-icons/hi';
 
 export type BreadcrumbSectionProps = {
@@ -22,10 +22,14 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
     <Icon color="orange.400" as={HiChevronLeft} />
     <Breadcrumb color="orange.400">
       <BreadcrumbItem>
-        <BreadcrumbLink href="/">All Platforms</BreadcrumbLink>
+        <BreadcrumbLink as={NextLink} href="/">
+          All Platforms
+        </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <BreadcrumbLink href={`/platform/${id}`}>{platformName}</BreadcrumbLink>
+        <BreadcrumbLink as={NextLink} href={`/platform/${id}`}>
+          {platformName}
+        </BreadcrumbLink>
       </BreadcrumbItem>
     </Breadcrumb>
   </Flex>
