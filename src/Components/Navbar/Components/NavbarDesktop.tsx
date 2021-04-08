@@ -5,7 +5,12 @@ import { navbarItems } from '@Components/Navbar/Navbar.constants';
 import React from 'react';
 
 const NavbarDesktop: React.FC = () => (
-  <Box position="absolute" w="100vw" display={{ base: 'none', md: 'inherit' }}>
+  <Box
+    position="absolute"
+    w="100vw"
+    display={{ base: 'none', md: 'inherit' }}
+    as="nav"
+  >
     <DefaultContainer py={6}>
       <Flex alignItems="center" justifyContent="space-between" w="100%">
         <Box flex={1}>

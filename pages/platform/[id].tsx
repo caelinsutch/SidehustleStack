@@ -59,6 +59,7 @@ const Platform: React.FC<{ data: GetPlatformQuery }> = ({ data, id }) => (
   <PageWrapper
     backgroundImage="url('../platform-profile-background.png')"
     backgroundSize="contain"
+    title={`${data.platform.name} - Sidehustle Stack`}
   >
     <PlatformScreen data={data} id={id} />
   </PageWrapper>

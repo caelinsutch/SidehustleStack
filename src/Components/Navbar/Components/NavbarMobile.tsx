@@ -5,7 +5,12 @@ import NextLink from 'next/link';
 import { navbarItems } from '@Components/Navbar/Navbar.constants';
 
 const NavbarMobile: React.FC = () => (
-  <Box position="absolute" w="100vw" display={{ base: 'inherit', md: 'none' }}>
+  <Box
+    position="absolute"
+    w="100vw"
+    display={{ base: 'inherit', md: 'none' }}
+    as="nav"
+  >
     <DefaultContainer py={6}>
       <Flex alignItems="center" justifyContent="space-between" w="100%">
         <Box flex={1}>

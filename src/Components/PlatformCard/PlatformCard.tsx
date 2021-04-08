@@ -72,6 +72,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 color: 'orange.400',
               }}
               onClick={handleCardClick}
+              as="h4"
             >
               {platform.name}
             </Text>
@@ -88,6 +89,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 }
                 fontSize={{ base: 'xs', md: 'md' }}
                 isTruncated
+                as="h5"
               >
                 {snakeToStartCase(platform.category)}
               </Text>
@@ -111,6 +113,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                   updateFilterQueryParam('typeOfWork', platform.typeOfWork)
                 }
                 isTruncated
+                as="h5"
               >
                 {snakeToStartCase(platform.typeOfWork)}
               </Text>
@@ -131,6 +134,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                   style={{
                     marginInlineStart: '0px',
                   }}
+                  as="h5"
                 >
                   {item}
                 </Button>

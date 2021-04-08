@@ -61,11 +61,13 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
           <Flex justifyContent="space-around" mt={100}>
             <ViewSelector
               view={view}
+              as="h3"
               self="Platforms"
               onClick={() => setView('Platforms')}
             />
             <ViewSelector
               view={view}
+              as="h3"
               self="Tools"
               onClick={() => setView('Tools')}
             />

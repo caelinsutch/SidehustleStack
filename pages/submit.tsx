@@ -6,6 +6,7 @@ const Submit: React.FC = () => (
   <PageWrapper
     backgroundImage="url('submit-top-background.png')"
     backgroundPosition="top"
+    title="Submit - Sidehustle Stack"
   >
     <SubmitScreen />
   </PageWrapper>

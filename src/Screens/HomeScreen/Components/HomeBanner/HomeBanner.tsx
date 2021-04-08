@@ -26,13 +26,13 @@ const HomeBanner: React.FC<HomeBannerProps> = ({ onEmailSubmit }) => {
 
   return (
     <Box textAlign="center" mt={12}>
-      <Text fontSize="3xl" fontWeight="bold">
+      <Text fontSize="3xl" fontWeight="bold" as="h1">
         Side Hustle Stack is a completely free resource to find platform-based
         work, ranging from gig work and side hustles to platforms that help you
         start a small business that can grow
       </Text>
       <Box mt={8}>
-        <Text fontSize="xl" fontWeight="bold">
+        <Text fontSize="xl" fontWeight="bold" as="h4">
           Invite us into your inbox
         </Text>
         <Flex
