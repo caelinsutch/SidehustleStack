@@ -55,7 +55,10 @@ export const getServerSideProps = async (context: NextPageContext) => {
   };
 };
 
-const Platform: React.FC<{ data: GetPlatformQuery }> = ({ data, id }) => (
+const Platform: React.FC<{ data: GetPlatformQuery; id: string }> = ({
+  data,
+  id,
+}) => (
   <PageWrapper
     backgroundImage="url('../platform-profile-background.png')"
     backgroundSize="contain"

@@ -44,4 +44,6 @@ export const QueryParamProviderComponent = ({ children, ...rest }) => {
   );
 };
 
-export const QueryParamProvider = memo(QueryParamProviderComponent);
+const QueryParamProvider = memo(QueryParamProviderComponent);
+
+export default QueryParamProvider;

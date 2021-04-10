@@ -6,7 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { Fonts } from '@Components';
 import { theme, client } from '@Config';
 import { RecoilRoot } from 'recoil';
-import { QueryParamProvider } from '../src/Providers/QueryParamProvider';
+import { QueryParamProvider } from '../src/Providers';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <ApolloProvider client={client}>
