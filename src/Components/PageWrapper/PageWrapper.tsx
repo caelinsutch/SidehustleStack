@@ -16,7 +16,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
   children,
   title = 'Sidehustle Stack',
   description = 'Side Hustle Stack is a completely free resource to find platform-based work, ranging from gig work and side hustles to platforms that help you start a small business that can grow',
-  metaImage = '',
+  metaImage = 'https://sidehustlestack-web.vercel.app/og-preview.png',
   ...props
 }) => (
   <Box

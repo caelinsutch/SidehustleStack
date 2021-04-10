@@ -49,9 +49,9 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
   return (
     <Box as="section">
       <Box
-        backgroundImage="url('home-top-background.png')"
-        backgroundSize={{ base: 'contain', md: 'cover' }}
-        backgroundPosition={{ base: 'top', md: 'bottom' }}
+        backgroundImage="url('home-banner-background.svg')"
+        backgroundSize="cover"
+        backgroundPosition={{ base: 'bottom', md: 'bottom' }}
         backgroundRepeat="no-repeat"
         pb={75}
         pt={{ base: 150, md: 200 }}
