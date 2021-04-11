@@ -4,7 +4,7 @@ import { Text, Box, Link } from '@chakra-ui/react';
 const Footer: React.FC = () => (
   <Box my={100}>
     <Text textAlign="center">
-      Created by{' '}
+      Site programmed by{' '}
       <Link href="https://caelinsutch.com" color="blue.400">
         Caelin Sutch
       </Link>{' '}

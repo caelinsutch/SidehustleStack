@@ -32,7 +32,7 @@ const AboutScreen: React.FC = () => (
           as="h2"
           mt={4}
           mx="auto"
-          textAlign={{ base: 'center', md: 'left' }}
+          textAlign={{ base: 'center', md: 'right' }}
         >
           Side Hustle Stack is a labor of 💛 built by
         </Text>

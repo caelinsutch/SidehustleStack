@@ -33,7 +33,15 @@ const leftScreenText: AboutScreenText[] = [
         A side hustle is generally freelance or piecework in nature, providing a
         supplemental income. Side hustles are often things a person is
         passionate about, rather day a typical day job worked in order to make
-        ends meet (source).
+        ends meet (
+        <TextLink
+          href="https://www.wonolo.com/blog/what-is-a-side-hustle/#:~:text=A%20side%20hustle%20is%20any,to%20one's%20full%2Dtime%20job.&text=While%20a%20part%2Dtime%20job,want%20to%20work%20and%20earn"
+          display="inline-block"
+          textDecoration="underline"
+        >
+          source
+        </TextLink>
+        ).
       </Text>
     ),
   },
@@ -43,7 +51,12 @@ const leftScreenText: AboutScreenText[] = [
     body: (
       <Text color="gray.700">
         Submit new platforms or data corrections to our data{' '}
-        <TextLink href="/submit" next>
+        <TextLink
+          href="/submit"
+          next
+          display="inline-block"
+          textDecoration="underline"
+        >
           here
         </TextLink>
         .
@@ -52,7 +65,7 @@ const leftScreenText: AboutScreenText[] = [
   },
   {
     title: "How do I review a platform that I've worked on?",
-    body: <Text color="gray.700">Submit a review on each platform page!.</Text>,
+    body: <Text color="gray.700">Submit a review on each platform page!</Text>,
   },
   {
     title: 'How do I get in touch with you?',
@@ -111,6 +124,14 @@ const team: AboutScreenText[] = [
     body: (
       <Text color="gray.700">
         Berkeley MET. Passionate about product development and good software{' '}
+      </Text>
+    ),
+  },
+  {
+    title: 'Stephen Krider',
+    body: (
+      <Text color="gray.700">
+        Berkeley MET. Passionate about building things{' '}
       </Text>
     ),
   },
