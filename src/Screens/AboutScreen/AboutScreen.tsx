@@ -11,14 +11,14 @@ const AboutScreen: React.FC = () => (
     <Grid templateColumns="repeat(3, 1fr)">
       <GridItem colSpan={{ base: 3, md: 2 }}>
         {leftScreenText.map(({ title, body }) => (
-          <>
+          <Box key={title + body}>
             <Text as="h2" fontSize="2xl" color="orange.400" mt={4}>
               {title}
             </Text>
             <Box color="gray.800" fontSize="lg" mt={2}>
               {body}
             </Box>
-          </>
+          </Box>
         ))}
       </GridItem>
       <GridItem
@@ -37,14 +37,14 @@ const AboutScreen: React.FC = () => (
           Side Hustle Stack is a labor of 💛 built by
         </Text>
         {team.map(({ title, body }) => (
-          <>
+          <Box key={title + body}>
             <Text as="h2" fontSize="2xl" color="orange.400" mt={4}>
               {title}
             </Text>
             <Box color="gray.800" mt={2}>
               {body}
             </Box>
-          </>
+          </Box>
         ))}
       </GridItem>
     </Grid>

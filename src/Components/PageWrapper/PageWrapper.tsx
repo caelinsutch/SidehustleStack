@@ -27,7 +27,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({
     {...props}
   >
     <Head>
-      <title>Sidehustle Stack</title>
+      <title>{title}</title>
       <meta name="title" content={title} />
       <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 

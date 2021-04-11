@@ -3,8 +3,9 @@ import React from 'react';
 import { DefaultContainer, Logo, TextLink } from '@Components';
 import NextLink from 'next/link';
 import { navbarItems } from '@Components/Navbar/Navbar.constants';
+import { withRouter } from 'next/router';
 
-const NavbarMobile: React.FC = () => (
+const NavbarMobile = withRouter(({ router }) => (
   <Box
     position="absolute"
     w="100vw"
@@ -33,8 +34,10 @@ const NavbarMobile: React.FC = () => (
           <Box key={label} px={2}>
             <TextLink
               whiteSpace="nowrap"
+              next
               href={href}
               fontSize={{ base: 'xs', sm: 'sm', md: 'md' }}
+              color={router.pathname === href ? 'orange.400' : 'gray.700'}
             >
               {label}
             </TextLink>
@@ -43,6 +46,6 @@ const NavbarMobile: React.FC = () => (
       </Flex>
     </DefaultContainer>
   </Box>
-);
+));
 
 export default NavbarMobile;

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import NextLink from 'next/link';
 import { Link, Text } from '@chakra-ui/react';
+import { TextLink } from '@Components';
 
 type AboutScreenText = {
   title: string;
@@ -42,15 +43,9 @@ const leftScreenText: AboutScreenText[] = [
     body: (
       <Text color="gray.700">
         Submit new platforms or data corrections to our data{' '}
-        <Link
-          as={NextLink}
-          href="/submit"
-          _hover={{
-            textDecoration: 'underline',
-          }}
-        >
+        <TextLink href="/submit" next>
           here
-        </Link>
+        </TextLink>
         .
       </Text>
     ),
@@ -71,12 +66,12 @@ const leftScreenText: AboutScreenText[] = [
           @ljin18
         </Link>{' '}
         on Twitter, or email{' '}
-        <Link
+        <TextLink
           textDecoration="underline"
           href="mailto:partner@sidehustlestack.co"
         >
           partner@sidehustlestack.co
-        </Link>
+        </TextLink>
         .
       </Text>
     ),

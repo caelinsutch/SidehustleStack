@@ -3,8 +3,9 @@ import { DefaultContainer, Logo, TextLink } from '@Components';
 import NextLink from 'next/link';
 import { navbarItems } from '@Components/Navbar/Navbar.constants';
 import React from 'react';
+import { withRouter } from 'next/router';
 
-const NavbarDesktop: React.FC = () => (
+const NavbarDesktop = withRouter(({ router }) => (
   <Box
     position="absolute"
     w="100vw"
@@ -23,7 +24,13 @@ const NavbarDesktop: React.FC = () => (
         <Flex flex={3} justifyContent="center">
           {navbarItems.map(({ label, href }) => (
             <Box key={label} px={2}>
-              <TextLink href={href}>{label}</TextLink>
+              <TextLink
+                next
+                href={href}
+                color={router.pathname === href ? 'orange.400' : 'gray.700'}
+              >
+                {label}
+              </TextLink>
             </Box>
           ))}
         </Flex>
@@ -37,6 +44,6 @@ const NavbarDesktop: React.FC = () => (
       </Flex>
     </DefaultContainer>
   </Box>
-);
+));
 
 export default NavbarDesktop;
