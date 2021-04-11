@@ -4,8 +4,9 @@ import { PageWrapper } from '@Components';
 
 const Submit: React.FC = () => (
   <PageWrapper
-    backgroundImage="url('submit-top-background.png')"
-    backgroundPosition="top"
+    backgroundImage="url('static-background.svg')"
+    backgroundSize="cover"
+    backgroundPosition="bottom"
     title="Submit - Sidehustle Stack"
   >
     <SubmitScreen />
