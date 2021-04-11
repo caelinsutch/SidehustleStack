@@ -96,8 +96,25 @@ const team: AboutScreenText[] = [
     title: 'Li Jin',
     body: (
       <Text color="gray.700">
-        Investor at Atelier, author of Li’s Newsletter, podcaster & YouTuber.
-        Passionate about lowering the barriers to entrepreneurship
+        Investor at Atelier, author of{' '}
+        <TextLink 
+          textDecoration="underline" 
+          href="https://li.substack.com/">
+            Li's Newsletter
+          </TextLink>
+        , 
+        <TextLink
+          textDecoration="underline"
+          href="https://open.spotify.com/show/22A34FI1a2rrt3xUY4mSbh">
+            podcaster
+          </TextLink>
+        and 
+          <TextLink
+          textDecoration="underline"
+          href="https://www.youtube.com/channel/UCssD_lb5-VivYtAp07bQ-uQ">
+            YouTuber
+          </TextLink>
+        . Passionate about lowering the barriers to entrepreneurship
       </Text>
     ),
   },
