@@ -346,9 +346,29 @@ const steps = [
       },
     },
     {
+      name: 'isFreePlatform',
+      type: 'select',
+      title: 'Is your platform free for workers?',
+      registerOptions: {
+        required: true,
+      },
+      options: [
+        {
+          value: true,
+          label: 'Yes',
+        },
+        {
+          value: false,
+          label: 'No',
+        },
+      ],
+    },
+    {
       name: 'platformPricing',
       type: 'input',
       title: 'Platform Pricing',
+      description:
+        'If your platform is not free, do you charge a commission fee or subscription fee?',
       placeholder: 'The platform fee is dependent on...',
       registerOptions: {
         required: true,

@@ -1,4 +1,9 @@
-import { CategoryOfWork, PlatformMvc, TypeOfWork } from '@GraphQL/types';
+import {
+  CategoryOfWork,
+  PlatformMvc,
+  TypeOfWork,
+  IsFreePlatform,
+} from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
 import { StringParam } from 'use-query-params';
 
@@ -7,6 +12,10 @@ const workTypes: string[] = Object.values(TypeOfWork).map((a: string) =>
 );
 
 const categoryTypes: string[] = Object.values(CategoryOfWork).map((a) =>
+  snakeToStartCase(a)
+);
+
+const isFreePlatformTypes: string[] = Object.values(IsFreePlatform).map((a) =>
   snakeToStartCase(a)
 );
 
@@ -28,7 +37,17 @@ const workTypeFilter: PlatformFilter = {
   options: ['All', ...workTypes],
 };
 
-const filters: PlatformFilter[] = [categoryFilter, workTypeFilter];
+const freePlatformsFilter: PlatformFilter = {
+  name: 'Free Platform',
+  key: 'isFreePlatform',
+  options: ['All', ...isFreePlatformTypes],
+};
+
+const filters: PlatformFilter[] = [
+  categoryFilter,
+  workTypeFilter,
+  freePlatformsFilter,
+];
 
 const useQueryParamsSettings = {};
 

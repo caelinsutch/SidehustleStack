@@ -116,6 +116,7 @@ export type PlatformInput = {
   founderName: Scalars['String'];
   email: Scalars['String'];
   platformPricing: Scalars['String'];
+  isFreePlatform: IsFreePlatform;
   requirements: Array<Scalars['String']>;
 };
 
@@ -154,6 +155,7 @@ export type UpdatePlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
   platformPricing?: Maybe<Scalars['String']>;
+  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -217,6 +219,7 @@ export type PlatformMvc = {
   reviews?: Maybe<Array<Review>>;
   score?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
+  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -278,6 +281,11 @@ export enum ApplicationRequired {
   Yes = 'YES',
   YesSelective = 'YES_SELECTIVE',
   No = 'NO',
+}
+
+export enum IsFreePlatform {
+  Free = 'FREE',
+  Paid = 'PAID',
 }
 
 export enum TypeOfWork {
@@ -454,6 +462,7 @@ export type ResolversTypes = {
   CategoryOfWork: CategoryOfWork;
   ExistingDigitalAudienceRequired: ExistingDigitalAudienceRequired;
   ApplicationRequired: ApplicationRequired;
+  IsFreePlatform: IsFreePlatform;
   TypeOfWork: TypeOfWork;
   Status: Status;
 };
@@ -690,6 +699,11 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
+  isFreePlatform?: Resolver<
+    Maybe<ResolversTypes['IsFreePlatform']>,
+    ParentType,
+    ContextType
+  >;
   requirements?: Resolver<
     Maybe<Array<ResolversTypes['String']>>,
     ParentType,
@@ -736,7 +750,7 @@ export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAllPlatformsHomeQuery = {
-  allPlatforms: Array<
+  publishedPlatforms: Array<
     Maybe<
       Pick<
         PlatformMvc,
@@ -750,6 +764,7 @@ export type GetAllPlatformsHomeQuery = {
         | 'tags'
         | 'typeOfWork'
         | 'status'
+        | 'isFreePlatform'
       > & { averageEarnings?: Maybe<Pick<AmountPer, 'amount'>> }
     >
   >;
@@ -829,6 +844,7 @@ export type CreatePlatformMutationVariables = Exact<{
   platformPricing: Scalars['String'];
   tags: Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>;
   founderName: Scalars['String'];
+  isFreePlatform: IsFreePlatform;
 }>;
 
 export type CreatePlatformMutation = {
@@ -862,7 +878,7 @@ export type AddReviewMutation = {
 
 export const GetAllPlatformsHomeDocument = gql`
   query GetAllPlatformsHome {
-    allPlatforms {
+    publishedPlatforms {
       id
       score
       name
@@ -876,6 +892,7 @@ export const GetAllPlatformsHomeDocument = gql`
       averageEarnings {
         amount
       }
+      isFreePlatform
     }
   }
 `;
@@ -1134,6 +1151,7 @@ export const CreatePlatformDocument = gql`
     $platformPricing: String!
     $tags: [String]!
     $founderName: String!
+    $isFreePlatform: IsFreePlatform!
   ) {
     createPlatform(
       platform: {
@@ -1163,6 +1181,7 @@ export const CreatePlatformDocument = gql`
         platformPricing: $platformPricing
         requirements: $requirements
         founderName: $founderName
+        isFreePlatform: $isFreePlatform
       }
     ) {
       id
@@ -1214,6 +1233,7 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      platformPricing: // value for 'platformPricing'
  *      tags: // value for 'tags'
  *      founderName: // value for 'founderName'
+ *      isFreePlatform: // value for 'isFreePlatform'
  *   },
  * });
  */

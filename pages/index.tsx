@@ -29,7 +29,7 @@ export async function getServerSideProps() {
   let data: GetAllPlatformsHomeQuery = null;
   try {
     data = (
-      await client.query<GetAllPlatformsHomeQuery>({
+      await client.query({
         query: getAllPlatformsHomeQuery,
       })
     ).data;

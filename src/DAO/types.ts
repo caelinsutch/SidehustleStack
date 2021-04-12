@@ -108,6 +108,7 @@ export type PlatformInput = {
   founderName: Scalars['String'];
   email: Scalars['String'];
   platformPricing: Scalars['String'];
+  isFreePlatform: IsFreePlatform;
   requirements: Array<Scalars['String']>;
 };
 
@@ -146,6 +147,7 @@ export type UpdatePlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
   platformPricing?: Maybe<Scalars['String']>;
+  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -209,6 +211,7 @@ export type PlatformMvc = {
   reviews?: Maybe<Array<Review>>;
   score?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
+  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -270,6 +273,11 @@ export enum ApplicationRequired {
   Yes = 'YES',
   YesSelective = 'YES_SELECTIVE',
   No = 'NO',
+}
+
+export enum IsFreePlatform {
+  Free = 'FREE',
+  Paid = 'PAID',
 }
 
 export enum TypeOfWork {
@@ -350,6 +358,7 @@ export type PlatformMvcDbObject = {
   reviews?: Maybe<Array<ReviewDbObject>>;
   score?: Maybe<number>;
   platformPricing?: Maybe<string>;
+  isFreePlatform?: Maybe<string>;
   requirements?: Maybe<Array<string>>;
 };
 

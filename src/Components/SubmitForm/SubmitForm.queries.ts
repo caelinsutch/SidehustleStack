@@ -29,6 +29,7 @@ export const createPlatform = gql`
     $platformPricing: String!
     $tags: [String]!
     $founderName: String!
+    $isFreePlatform: IsFreePlatform!
   ) {
     createPlatform(
       platform: {
@@ -58,6 +59,7 @@ export const createPlatform = gql`
         platformPricing: $platformPricing
         requirements: $requirements
         founderName: $founderName
+        isFreePlatform: $isFreePlatform
       }
     ) {
       id

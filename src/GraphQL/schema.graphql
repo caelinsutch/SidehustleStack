@@ -54,6 +54,7 @@ input PlatformInput {
     founderName: String!
     email: String!
     platformPricing: String!
+    isFreePlatform: IsFreePlatform!
     requirements: [String!]!
 }
 input PlatformRecommendationInput {
@@ -91,6 +92,7 @@ input UpdatePlatformInput {
     tags: [String!]
     reviews: [ReviewInput!]
     platformPricing: String
+    isFreePlatform: IsFreePlatform
     requirements: [String!]
 }
 
@@ -154,6 +156,7 @@ type PlatformMVC @entity {
     reviews: [Review!] @embedded
     score: Int @column
     platformPricing: String @column
+    isFreePlatform: IsFreePlatform @column
     requirements: [String!] @column
 }
 
@@ -215,6 +218,11 @@ enum ApplicationRequired {
     YES
     YES_SELECTIVE
     NO
+}
+
+enum IsFreePlatform {
+    FREE,
+    PAID,
 }
 
 enum TypeOfWork {
