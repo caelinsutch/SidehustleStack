@@ -57,7 +57,7 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
         pt={{ base: 150, md: 200 }}
       >
         <DefaultContainer>
-          <HomeBanner onEmailSubmit={(email) => console.log(email)} />
+          <HomeBanner />
           <Flex justifyContent="space-around" mt={100}>
             <ViewSelector
               view={view}

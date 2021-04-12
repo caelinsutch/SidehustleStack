@@ -36,9 +36,15 @@ const AboutScreen: React.FC = () => (
         >
           Side Hustle Stack is a labor of 💛 built by
         </Text>
-        {team.map(({ title, body }) => (
+        {team.map(({ title, body, titleLink }) => (
           <Box key={title + body}>
-            <Text as="h2" fontSize="2xl" color="orange.400" mt={4}>
+            <Text
+              as="a"
+              href={titleLink}
+              fontSize="2xl"
+              color="orange.400"
+              mt={4}
+            >
               {title}
             </Text>
             <Box color="gray.800" mt={2}>

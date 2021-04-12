@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import NextLink from 'next/link';
 import { Link, Text } from '@chakra-ui/react';
 import { TextLink } from '@Components';
 
@@ -7,6 +6,10 @@ type AboutScreenText = {
   title: string;
   body: ReactElement;
 };
+
+type TeamText = {
+  titleLink: string;
+} & AboutScreenText;
 
 const leftScreenText: AboutScreenText[] = [
   {
@@ -91,35 +94,37 @@ const leftScreenText: AboutScreenText[] = [
   },
 ];
 
-const team: AboutScreenText[] = [
+const team: TeamText[] = [
   {
     title: 'Li Jin',
+    titleLink: 'https://twitter.com/ljin18',
     body: (
       <Text color="gray.700">
         Investor at Atelier, author of{' '}
-        <TextLink 
-          textDecoration="underline" 
-          href="https://li.substack.com/">
-            Li's Newsletter
-          </TextLink>
-        , 
+        <TextLink textDecoration="underline" href="https://li.substack.com/">
+          Li's Newsletter
+        </TextLink>
+        ,
         <TextLink
           textDecoration="underline"
-          href="https://open.spotify.com/show/22A34FI1a2rrt3xUY4mSbh">
-            podcaster
-          </TextLink>
-        and 
-          <TextLink
+          href="https://open.spotify.com/show/22A34FI1a2rrt3xUY4mSbh"
+        >
+          podcaster
+        </TextLink>
+        and
+        <TextLink
           textDecoration="underline"
-          href="https://www.youtube.com/channel/UCssD_lb5-VivYtAp07bQ-uQ">
-            YouTuber
-          </TextLink>
+          href="https://www.youtube.com/channel/UCssD_lb5-VivYtAp07bQ-uQ"
+        >
+          YouTuber
+        </TextLink>
         . Passionate about lowering the barriers to entrepreneurship
       </Text>
     ),
   },
   {
     title: 'Lila Schroff',
+    titleLink: 'https://twitter.com/lilashroff',
     body: (
       <Text color="gray.700">
         Stanford undergrad. Passionate about storytelling, audio and media
@@ -129,6 +134,7 @@ const team: AboutScreenText[] = [
   },
   {
     title: 'Brandon Handoko',
+    titleLink: 'https://twitter.com/brndnwll',
     body: (
       <Text color="gray.700">
         Berkeley CogSci. Passionate about design, communities and creators
@@ -138,6 +144,7 @@ const team: AboutScreenText[] = [
 
   {
     title: 'Caelin Sutch',
+    titleLink: 'https://www.caelinsutch.com/',
     body: (
       <Text color="gray.700">
         Berkeley MET. Passionate about product development and good software{' '}
@@ -146,6 +153,7 @@ const team: AboutScreenText[] = [
   },
   {
     title: 'Stephen Krider',
+    titleLink: 'https://github.com/skrider',
     body: (
       <Text color="gray.700">
         Berkeley MET. Passionate about building things{' '}

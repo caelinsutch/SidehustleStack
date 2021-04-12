@@ -79,7 +79,7 @@ input UpdatePlatformInput {
     remoteWork: Boolean
     minimumAge: Int
     equipmentQualSkills: [EquipmentQualSkills!]
-    averageEarnings: AmountPerInput
+    averageEarnings: AmountPerInputUpdate
     timeToFirstDollar: AmountPerInput
     numPeopleMakingMoney: Int
     geographicalFocus: String
@@ -102,6 +102,11 @@ input LinkInput {
 input AmountPerInput {
     amount: Int!
     per: String!
+}
+
+input AmountPerInputUpdate {
+    amount: Int
+    per: String
 }
 
 input ReviewInput {

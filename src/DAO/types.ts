@@ -134,7 +134,7 @@ export type UpdatePlatformInput = {
   remoteWork?: Maybe<Scalars['Boolean']>;
   minimumAge?: Maybe<Scalars['Int']>;
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
-  averageEarnings?: Maybe<AmountPerInput>;
+  averageEarnings?: Maybe<AmountPerInputUpdate>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
   numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<Scalars['String']>;
@@ -157,6 +157,11 @@ export type LinkInput = {
 export type AmountPerInput = {
   amount: Scalars['Int'];
   per: Scalars['String'];
+};
+
+export type AmountPerInputUpdate = {
+  amount?: Maybe<Scalars['Int']>;
+  per?: Maybe<Scalars['String']>;
 };
 
 export type ReviewInput = {

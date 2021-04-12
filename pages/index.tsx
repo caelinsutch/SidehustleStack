@@ -18,6 +18,9 @@ const getAllPlatformsHomeQuery = gql`
       tags
       typeOfWork
       status
+      averageEarnings {
+        amount
+      }
     }
   }
 `;

@@ -21,6 +21,7 @@ const categoryFilter: PlatformFilter = {
   key: 'category',
   options: ['All', ...categoryTypes],
 };
+
 const workTypeFilter: PlatformFilter = {
   name: 'Work Type',
   key: 'typeOfWork',

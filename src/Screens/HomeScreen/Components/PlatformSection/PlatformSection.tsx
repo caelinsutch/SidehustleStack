@@ -7,6 +7,7 @@ import {
   Input,
   WrapItem,
   Wrap,
+  Button,
 } from '@chakra-ui/react';
 import { useRecoilValue } from 'recoil';
 import { FilterDropdown, PlatformCardList } from '@Components';
@@ -15,6 +16,7 @@ import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
 import { useUpdateFilterQueryParam } from '@Hooks';
 import { activeFiltersAtom } from '@Recoil';
+import useSortByAverageEarnings from '@Screens/HomeScreen/Components/PlatformSection/useSortByAverageEarnings';
 
 export type PlatformSectionProps = {
   platforms: GetAllPlatformsHomeQuery['allPlatforms'];
@@ -29,6 +31,11 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
   ...props
 }) => {
   const [search, setSearch] = useState<string>('');
+  const {
+    handleClickSortByAverageEarnings,
+    averageEarningsRightIcon,
+    sortFunction,
+  } = useSortByAverageEarnings();
 
   const activeFilters = useRecoilValue(activeFiltersAtom);
   const updateFilterQueryParam = useUpdateFilterQueryParam();
@@ -53,7 +60,8 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
       if (search.length === 0) return true;
       const searchExp = new RegExp(`${[...search].join('*')}*`, 'i');
       return `${platform.name.match(searchExp)}`.length >= search.length;
-    });
+    })
+    .sort(sortFunction());
 
   return (
     <Box {...props}>
@@ -92,6 +100,15 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
                 />
               </WrapItem>
             ))}
+            <WrapItem>
+              <Button
+                variant="ghost"
+                onClick={handleClickSortByAverageEarnings}
+                rightIcon={averageEarningsRightIcon()}
+              >
+                Sort by Average Earnings
+              </Button>
+            </WrapItem>
           </Wrap>
           <Input
             key="platformsearch"
