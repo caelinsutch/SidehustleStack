@@ -5,6 +5,7 @@ import { gql } from '@apollo/client';
 import { client } from '@Config';
 import { NextPageContext } from 'next';
 import { GetPlatformQuery } from '@GraphQL/types';
+import { consoleLogger } from '@firebase/performance/dist/src/utils/console_logger';
 
 const getPlatformQuery = gql`
   query GetPlatform($id: ID!) {
@@ -45,7 +46,9 @@ export const getServerSideProps = async (context: NextPageContext) => {
         },
       })
     ).data;
-  } catch (e) {}
+  } catch (e) {
+    console.error(e);
+  }
 
   return {
     props: {

@@ -181,6 +181,8 @@ export type SuggestionMvc = {
 };
 
 export type PlatformMvc = {
+  isFreePlatform?: Maybe<IsFreePlatform>;
+  test?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   status: Status;
   platformType: PlatformType;
@@ -211,7 +213,6 @@ export type PlatformMvc = {
   reviews?: Maybe<Array<Review>>;
   score?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
-  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -328,6 +329,8 @@ export type SuggestionMvcDbObject = {
 };
 
 export type PlatformMvcDbObject = {
+  isFreePlatform?: Maybe<string>;
+  test?: Maybe<string>;
   _id: ObjectID;
   status: string;
   platformType: string;
@@ -358,7 +361,6 @@ export type PlatformMvcDbObject = {
   reviews?: Maybe<Array<ReviewDbObject>>;
   score?: Maybe<number>;
   platformPricing?: Maybe<string>;
-  isFreePlatform?: Maybe<string>;
   requirements?: Maybe<Array<string>>;
 };
 

@@ -4,17 +4,10 @@ import { gql } from '@apollo/client';
 import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
-export type RequireFields<T, K extends keyof T> = {
-  [X in Exclude<keyof T, K>]?: T[X];
-} &
-  { [P in K]-?: NonNullable<T[P]> };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -32,9 +25,11 @@ export type Query = {
   suggestion?: Maybe<SuggestionMvc>;
 };
 
+
 export type QueryPlatformArgs = {
   id: Scalars['ID'];
 };
+
 
 export type QuerySuggestionArgs = {
   id: Scalars['ID'];
@@ -49,28 +44,34 @@ export type Mutation = {
   vote?: Maybe<PlatformMvc>;
 };
 
+
 export type MutationCreatePlatformArgs = {
   platform?: Maybe<PlatformInput>;
 };
+
 
 export type MutationUpdatePlatformArgs = {
   id: Scalars['ID'];
   data: UpdatePlatformInput;
 };
 
+
 export type MutationCreateSuggestionArgs = {
   suggestion?: Maybe<SuggestionInput>;
 };
+
 
 export type MutationUpdateSuggestionArgs = {
   id: Scalars['ID'];
   data: UpdateSuggestionInput;
 };
 
+
 export type MutationAddReviewArgs = {
   id: Scalars['ID'];
   review?: Maybe<ReviewInput>;
 };
+
 
 export type MutationVoteArgs = {
   id: Scalars['ID'];
@@ -189,6 +190,8 @@ export type SuggestionMvc = {
 };
 
 export type PlatformMvc = {
+  isFreePlatform?: Maybe<IsFreePlatform>;
+  test?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   status: Status;
   platformType: PlatformType;
@@ -219,7 +222,6 @@ export type PlatformMvc = {
   reviews?: Maybe<Array<Review>>;
   score?: Maybe<Scalars['Int']>;
   platformPricing?: Maybe<Scalars['String']>;
-  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -237,7 +239,7 @@ export type Review = {
 
 export enum PlatformType {
   Tool = 'TOOL',
-  Platform = 'PLATFORM',
+  Platform = 'PLATFORM'
 }
 
 export enum Funding {
@@ -245,7 +247,7 @@ export enum Funding {
   LessFiveMil = 'LESS_FIVE_MIL',
   FiveToTenMil = 'FIVE_TO_TEN_MIL',
   TenPlusMil = 'TEN_PLUS_MIL',
-  PublicCompany = 'PUBLIC_COMPANY',
+  PublicCompany = 'PUBLIC_COMPANY'
 }
 
 export enum EquipmentQualSkills {
@@ -259,7 +261,7 @@ export enum EquipmentQualSkills {
   ChildCareExperience = 'CHILD_CARE_EXPERIENCE',
   AnimalCareExperience = 'ANIMAL_CARE_EXPERIENCE',
   BackgroundCheck = 'BACKGROUND_CHECK',
-  Other = 'OTHER',
+  Other = 'OTHER'
 }
 
 export enum CategoryOfWork {
@@ -268,24 +270,24 @@ export enum CategoryOfWork {
   ProjectBased = 'PROJECT_BASED',
   Smb = 'SMB',
   Rentals = 'RENTALS',
-  Other = 'OTHER',
+  Other = 'OTHER'
 }
 
 export enum ExistingDigitalAudienceRequired {
   Yes = 'YES',
   No = 'NO',
-  Recommended = 'RECOMMENDED',
+  Recommended = 'RECOMMENDED'
 }
 
 export enum ApplicationRequired {
   Yes = 'YES',
   YesSelective = 'YES_SELECTIVE',
-  No = 'NO',
+  No = 'NO'
 }
 
 export enum IsFreePlatform {
   Free = 'FREE',
-  Paid = 'PAID',
+  Paid = 'PAID'
 }
 
 export enum TypeOfWork {
@@ -313,15 +315,18 @@ export enum TypeOfWork {
   Teacher = 'TEACHER',
   Tech = 'TECH',
   VideoCourseCreator = 'VIDEO_COURSE_CREATOR',
-  Writer = 'WRITER',
+  Writer = 'WRITER'
 }
 
 export enum Status {
   InReview = 'IN_REVIEW',
-  Published = 'PUBLISHED',
+  Published = 'PUBLISHED'
 }
 
+
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
+
 
 export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
@@ -332,9 +337,7 @@ export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
   selectionSet: string;
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-export type StitchingResolver<TResult, TParent, TContext, TArgs> =
-  | LegacyStitchingResolver<TResult, TParent, TContext, TArgs>
-  | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
   | ResolverFn<TResult, TParent, TContext, TArgs>
   | StitchingResolver<TResult, TParent, TContext, TArgs>;
@@ -360,25 +363,9 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> {
-  subscribe: SubscriptionSubscribeFn<
-    { [key in TKey]: TResult },
-    TParent,
-    TContext,
-    TArgs
-  >;
-  resolve?: SubscriptionResolveFn<
-    TResult,
-    { [key in TKey]: TResult },
-    TContext,
-    TArgs
-  >;
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -386,26 +373,12 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> =
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> =
-  | ((
-      ...args: any[]
-    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -414,20 +387,11 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
-  obj: T,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<
-  TResult = {},
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> = (
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
@@ -490,241 +454,76 @@ export type ResolversParentTypes = {
   Review: Review;
 };
 
-export type QueryResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
-> = {
-  publishedPlatforms?: Resolver<
-    Array<Maybe<ResolversTypes['PlatformMVC']>>,
-    ParentType,
-    ContextType
-  >;
-  allPlatforms?: Resolver<
-    Array<Maybe<ResolversTypes['PlatformMVC']>>,
-    ParentType,
-    ContextType
-  >;
-  platform?: Resolver<
-    Maybe<ResolversTypes['PlatformMVC']>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryPlatformArgs, 'id'>
-  >;
-  allSuggestions?: Resolver<
-    Array<Maybe<ResolversTypes['SuggestionMVC']>>,
-    ParentType,
-    ContextType
-  >;
-  suggestion?: Resolver<
-    Maybe<ResolversTypes['SuggestionMVC']>,
-    ParentType,
-    ContextType,
-    RequireFields<QuerySuggestionArgs, 'id'>
-  >;
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  publishedPlatforms?: Resolver<Array<Maybe<ResolversTypes['PlatformMVC']>>, ParentType, ContextType>;
+  allPlatforms?: Resolver<Array<Maybe<ResolversTypes['PlatformMVC']>>, ParentType, ContextType>;
+  platform?: Resolver<Maybe<ResolversTypes['PlatformMVC']>, ParentType, ContextType, RequireFields<QueryPlatformArgs, 'id'>>;
+  allSuggestions?: Resolver<Array<Maybe<ResolversTypes['SuggestionMVC']>>, ParentType, ContextType>;
+  suggestion?: Resolver<Maybe<ResolversTypes['SuggestionMVC']>, ParentType, ContextType, RequireFields<QuerySuggestionArgs, 'id'>>;
 };
 
-export type MutationResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
-> = {
-  createPlatform?: Resolver<
-    ResolversTypes['PlatformMVC'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreatePlatformArgs, never>
-  >;
-  updatePlatform?: Resolver<
-    ResolversTypes['PlatformMVC'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdatePlatformArgs, 'id' | 'data'>
-  >;
-  createSuggestion?: Resolver<
-    ResolversTypes['SuggestionMVC'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateSuggestionArgs, never>
-  >;
-  updateSuggestion?: Resolver<
-    ResolversTypes['SuggestionMVC'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateSuggestionArgs, 'id' | 'data'>
-  >;
-  addReview?: Resolver<
-    Maybe<ResolversTypes['PlatformMVC']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationAddReviewArgs, 'id'>
-  >;
-  vote?: Resolver<
-    Maybe<ResolversTypes['PlatformMVC']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationVoteArgs, 'id'>
-  >;
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createPlatform?: Resolver<ResolversTypes['PlatformMVC'], ParentType, ContextType, RequireFields<MutationCreatePlatformArgs, never>>;
+  updatePlatform?: Resolver<ResolversTypes['PlatformMVC'], ParentType, ContextType, RequireFields<MutationUpdatePlatformArgs, 'id' | 'data'>>;
+  createSuggestion?: Resolver<ResolversTypes['SuggestionMVC'], ParentType, ContextType, RequireFields<MutationCreateSuggestionArgs, never>>;
+  updateSuggestion?: Resolver<ResolversTypes['SuggestionMVC'], ParentType, ContextType, RequireFields<MutationUpdateSuggestionArgs, 'id' | 'data'>>;
+  addReview?: Resolver<Maybe<ResolversTypes['PlatformMVC']>, ParentType, ContextType, RequireFields<MutationAddReviewArgs, 'id'>>;
+  vote?: Resolver<Maybe<ResolversTypes['PlatformMVC']>, ParentType, ContextType, RequireFields<MutationVoteArgs, 'id'>>;
 };
 
-export type SuggestionMvcResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['SuggestionMVC'] = ResolversParentTypes['SuggestionMVC']
-> = {
+export type SuggestionMvcResolvers<ContextType = any, ParentType extends ResolversParentTypes['SuggestionMVC'] = ResolversParentTypes['SuggestionMVC']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
-  platformType?: Resolver<
-    ResolversTypes['PlatformType'],
-    ParentType,
-    ContextType
-  >;
+  platformType?: Resolver<ResolversTypes['PlatformType'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PlatformMvcResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
-> = {
+export type PlatformMvcResolvers<ContextType = any, ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']> = {
+  isFreePlatform?: Resolver<Maybe<ResolversTypes['IsFreePlatform']>, ParentType, ContextType>;
+  test?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
-  platformType?: Resolver<
-    ResolversTypes['PlatformType'],
-    ParentType,
-    ContextType
-  >;
+  platformType?: Resolver<ResolversTypes['PlatformType'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   website?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  companyLogo?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
+  companyLogo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   founded?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  headquarteredIn?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
+  headquarteredIn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   funding?: Resolver<Maybe<ResolversTypes['Funding']>, ParentType, ContextType>;
-  description?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  typeOfWork?: Resolver<
-    Maybe<ResolversTypes['TypeOfWork']>,
-    ParentType,
-    ContextType
-  >;
-  category?: Resolver<
-    Maybe<ResolversTypes['CategoryOfWork']>,
-    ParentType,
-    ContextType
-  >;
-  requiresDigitalAudience?: Resolver<
-    Maybe<ResolversTypes['ExistingDigitalAudienceRequired']>,
-    ParentType,
-    ContextType
-  >;
-  applicationRequired?: Resolver<
-    Maybe<ResolversTypes['ApplicationRequired']>,
-    ParentType,
-    ContextType
-  >;
-  remoteWork?: Resolver<
-    Maybe<ResolversTypes['Boolean']>,
-    ParentType,
-    ContextType
-  >;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  typeOfWork?: Resolver<Maybe<ResolversTypes['TypeOfWork']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['CategoryOfWork']>, ParentType, ContextType>;
+  requiresDigitalAudience?: Resolver<Maybe<ResolversTypes['ExistingDigitalAudienceRequired']>, ParentType, ContextType>;
+  applicationRequired?: Resolver<Maybe<ResolversTypes['ApplicationRequired']>, ParentType, ContextType>;
+  remoteWork?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   minimumAge?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  equipmentQualSkills?: Resolver<
-    Maybe<Array<ResolversTypes['EquipmentQualSkills']>>,
-    ParentType,
-    ContextType
-  >;
-  averageEarnings?: Resolver<
-    Maybe<ResolversTypes['AmountPer']>,
-    ParentType,
-    ContextType
-  >;
-  timeToFirstDollar?: Resolver<
-    Maybe<ResolversTypes['AmountPer']>,
-    ParentType,
-    ContextType
-  >;
-  geographicalFocus?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  affiliateLink?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  founderMessage?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  founderTwitter?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  founderName?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  numPeopleMakingMoney?: Resolver<
-    Maybe<ResolversTypes['Int']>,
-    ParentType,
-    ContextType
-  >;
+  equipmentQualSkills?: Resolver<Maybe<Array<ResolversTypes['EquipmentQualSkills']>>, ParentType, ContextType>;
+  averageEarnings?: Resolver<Maybe<ResolversTypes['AmountPer']>, ParentType, ContextType>;
+  timeToFirstDollar?: Resolver<Maybe<ResolversTypes['AmountPer']>, ParentType, ContextType>;
+  geographicalFocus?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  affiliateLink?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  founderMessage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  founderTwitter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  founderName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  numPeopleMakingMoney?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  tags?: Resolver<
-    Maybe<Array<ResolversTypes['String']>>,
-    ParentType,
-    ContextType
-  >;
-  reviews?: Resolver<
-    Maybe<Array<ResolversTypes['Review']>>,
-    ParentType,
-    ContextType
-  >;
+  tags?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  reviews?: Resolver<Maybe<Array<ResolversTypes['Review']>>, ParentType, ContextType>;
   score?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  platformPricing?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
-  isFreePlatform?: Resolver<
-    Maybe<ResolversTypes['IsFreePlatform']>,
-    ParentType,
-    ContextType
-  >;
-  requirements?: Resolver<
-    Maybe<Array<ResolversTypes['String']>>,
-    ParentType,
-    ContextType
-  >;
+  platformPricing?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  requirements?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AmountPerResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['AmountPer'] = ResolversParentTypes['AmountPer']
-> = {
+export type AmountPerResolvers<ContextType = any, ParentType extends ResolversParentTypes['AmountPer'] = ResolversParentTypes['AmountPer']> = {
   amount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   per?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type ReviewResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']
-> = {
+export type ReviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
   rating?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -741,80 +540,45 @@ export type Resolvers<ContextType = any> = {
   Review?: ReviewResolvers<ContextType>;
 };
 
+
 /**
  * @deprecated
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
-export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
+export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type GetAllPlatformsHomeQuery = {
-  publishedPlatforms: Array<
-    Maybe<
-      Pick<
-        PlatformMvc,
-        | 'id'
-        | 'score'
-        | 'name'
-        | 'description'
-        | 'companyLogo'
-        | 'platformType'
-        | 'category'
-        | 'tags'
-        | 'typeOfWork'
-        | 'status'
-        | 'isFreePlatform'
-      > & { averageEarnings?: Maybe<Pick<AmountPer, 'amount'>> }
-    >
-  >;
-};
+
+export type GetAllPlatformsHomeQuery = { allPlatforms: Array<Maybe<(
+    Pick<PlatformMvc, 'id' | 'isFreePlatform' | 'score' | 'name' | 'description' | 'companyLogo' | 'platformType' | 'category' | 'tags' | 'typeOfWork' | 'status'>
+    & { averageEarnings?: Maybe<Pick<AmountPer, 'amount'>> }
+  )>> };
 
 export type GetPlatformQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
-export type GetPlatformQuery = {
-  platform?: Maybe<
-    Pick<
-      PlatformMvc,
-      | 'name'
-      | 'website'
-      | 'description'
-      | 'founderMessage'
-      | 'platformPricing'
-      | 'category'
-      | 'tags'
-      | 'numPeopleMakingMoney'
-      | 'typeOfWork'
-      | 'requiresDigitalAudience'
-      | 'equipmentQualSkills'
-      | 'funding'
-      | 'founded'
-      | 'founderName'
-      | 'requirements'
-    > & {
-      reviews?: Maybe<Array<Pick<Review, 'rating' | 'description' | 'author'>>>;
-    }
-  >;
-};
+
+export type GetPlatformQuery = { platform?: Maybe<(
+    Pick<PlatformMvc, 'name' | 'website' | 'description' | 'founderMessage' | 'platformPricing' | 'category' | 'tags' | 'numPeopleMakingMoney' | 'typeOfWork' | 'requiresDigitalAudience' | 'equipmentQualSkills' | 'funding' | 'founded' | 'founderName' | 'requirements'>
+    & { reviews?: Maybe<Array<Pick<Review, 'rating' | 'description' | 'author'>>> }
+  )> };
 
 export type UpvotePlatformMutationVariables = Exact<{
   id: Scalars['ID'];
   down?: Maybe<Scalars['Boolean']>;
 }>;
 
-export type UpvotePlatformMutation = {
-  vote?: Maybe<Pick<PlatformMvc, 'score'>>;
-};
+
+export type UpvotePlatformMutation = { vote?: Maybe<Pick<PlatformMvc, 'score'>> };
 
 export type GetPlatformScoreQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
-export type GetPlatformScoreQuery = {
-  platform?: Maybe<Pick<PlatformMvc, 'score'>>;
-};
+
+export type GetPlatformScoreQuery = { platform?: Maybe<Pick<PlatformMvc, 'score'>> };
 
 export type CreatePlatformMutationVariables = Exact<{
   name: Scalars['String'];
@@ -847,9 +611,8 @@ export type CreatePlatformMutationVariables = Exact<{
   isFreePlatform: IsFreePlatform;
 }>;
 
-export type CreatePlatformMutation = {
-  createPlatform: Pick<PlatformMvc, 'id'>;
-};
+
+export type CreatePlatformMutation = { createPlatform: Pick<PlatformMvc, 'id'> };
 
 export type CreateSuggestionMutationVariables = Exact<{
   name: Scalars['String'];
@@ -857,9 +620,8 @@ export type CreateSuggestionMutationVariables = Exact<{
   platformType: PlatformType;
 }>;
 
-export type CreateSuggestionMutation = {
-  createSuggestion: Pick<SuggestionMvc, 'id'>;
-};
+
+export type CreateSuggestionMutation = { createSuggestion: Pick<SuggestionMvc, 'id'> };
 
 export type AddReviewMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -868,34 +630,33 @@ export type AddReviewMutationVariables = Exact<{
   author: Scalars['String'];
 }>;
 
-export type AddReviewMutation = {
-  addReview?: Maybe<
-    Pick<PlatformMvc, 'id'> & {
-      reviews?: Maybe<Array<Pick<Review, 'description' | 'author' | 'rating'>>>;
-    }
-  >;
-};
+
+export type AddReviewMutation = { addReview?: Maybe<(
+    Pick<PlatformMvc, 'id'>
+    & { reviews?: Maybe<Array<Pick<Review, 'description' | 'author' | 'rating'>>> }
+  )> };
+
 
 export const GetAllPlatformsHomeDocument = gql`
-  query GetAllPlatformsHome {
-    publishedPlatforms {
-      id
-      score
-      name
-      description
-      companyLogo
-      platformType
-      category
-      tags
-      typeOfWork
-      status
-      averageEarnings {
-        amount
-      }
-      isFreePlatform
+    query GetAllPlatformsHome {
+  allPlatforms {
+    id
+    isFreePlatform
+    score
+    name
+    description
+    companyLogo
+    platformType
+    category
+    tags
+    typeOfWork
+    status
+    averageEarnings {
+      amount
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetAllPlatformsHomeQuery__
@@ -912,64 +673,41 @@ export const GetAllPlatformsHomeDocument = gql`
  *   },
  * });
  */
-export function useGetAllPlatformsHomeQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >(GetAllPlatformsHomeDocument, baseOptions);
-}
-export function useGetAllPlatformsHomeLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >(GetAllPlatformsHomeDocument, baseOptions);
-}
-export type GetAllPlatformsHomeQueryHookResult = ReturnType<
-  typeof useGetAllPlatformsHomeQuery
->;
-export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<
-  typeof useGetAllPlatformsHomeLazyQuery
->;
-export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
-  GetAllPlatformsHomeQuery,
-  GetAllPlatformsHomeQueryVariables
->;
-export const GetPlatformDocument = gql`
-  query GetPlatform($id: ID!) {
-    platform(id: $id) {
-      name
-      website
-      description
-      founderMessage
-      platformPricing
-      category
-      tags
-      numPeopleMakingMoney
-      typeOfWork
-      requiresDigitalAudience
-      equipmentQualSkills
-      funding
-      founded
-      founderName
-      requirements
-      reviews {
-        rating
-        description
-        author
+export function useGetAllPlatformsHomeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllPlatformsHomeQuery, GetAllPlatformsHomeQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetAllPlatformsHomeQuery, GetAllPlatformsHomeQueryVariables>(GetAllPlatformsHomeDocument, baseOptions);
       }
+export function useGetAllPlatformsHomeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllPlatformsHomeQuery, GetAllPlatformsHomeQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetAllPlatformsHomeQuery, GetAllPlatformsHomeQueryVariables>(GetAllPlatformsHomeDocument, baseOptions);
+        }
+export type GetAllPlatformsHomeQueryHookResult = ReturnType<typeof useGetAllPlatformsHomeQuery>;
+export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<typeof useGetAllPlatformsHomeLazyQuery>;
+export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<GetAllPlatformsHomeQuery, GetAllPlatformsHomeQueryVariables>;
+export const GetPlatformDocument = gql`
+    query GetPlatform($id: ID!) {
+  platform(id: $id) {
+    name
+    website
+    description
+    founderMessage
+    platformPricing
+    category
+    tags
+    numPeopleMakingMoney
+    typeOfWork
+    requiresDigitalAudience
+    equipmentQualSkills
+    funding
+    founded
+    founderName
+    requirements
+    reviews {
+      rating
+      description
+      author
     }
   }
-`;
+}
+    `;
 
 /**
  * __useGetPlatformQuery__
@@ -987,47 +725,23 @@ export const GetPlatformDocument = gql`
  *   },
  * });
  */
-export function useGetPlatformQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<
-    GetPlatformQuery,
-    GetPlatformQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<GetPlatformQuery, GetPlatformQueryVariables>(
-    GetPlatformDocument,
-    baseOptions
-  );
-}
-export function useGetPlatformLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetPlatformQuery,
-    GetPlatformQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    GetPlatformQuery,
-    GetPlatformQueryVariables
-  >(GetPlatformDocument, baseOptions);
-}
+export function useGetPlatformQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetPlatformQuery, GetPlatformQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetPlatformQuery, GetPlatformQueryVariables>(GetPlatformDocument, baseOptions);
+      }
+export function useGetPlatformLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPlatformQuery, GetPlatformQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetPlatformQuery, GetPlatformQueryVariables>(GetPlatformDocument, baseOptions);
+        }
 export type GetPlatformQueryHookResult = ReturnType<typeof useGetPlatformQuery>;
-export type GetPlatformLazyQueryHookResult = ReturnType<
-  typeof useGetPlatformLazyQuery
->;
-export type GetPlatformQueryResult = ApolloReactCommon.QueryResult<
-  GetPlatformQuery,
-  GetPlatformQueryVariables
->;
+export type GetPlatformLazyQueryHookResult = ReturnType<typeof useGetPlatformLazyQuery>;
+export type GetPlatformQueryResult = ApolloReactCommon.QueryResult<GetPlatformQuery, GetPlatformQueryVariables>;
 export const UpvotePlatformDocument = gql`
-  mutation UpvotePlatform($id: ID!, $down: Boolean) {
-    vote(id: $id, down: $down) {
-      score
-    }
+    mutation UpvotePlatform($id: ID!, $down: Boolean) {
+  vote(id: $id, down: $down) {
+    score
   }
-`;
-export type UpvotePlatformMutationFn = ApolloReactCommon.MutationFunction<
-  UpvotePlatformMutation,
-  UpvotePlatformMutationVariables
->;
+}
+    `;
+export type UpvotePlatformMutationFn = ApolloReactCommon.MutationFunction<UpvotePlatformMutation, UpvotePlatformMutationVariables>;
 
 /**
  * __useUpvotePlatformMutation__
@@ -1047,32 +761,19 @@ export type UpvotePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useUpvotePlatformMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    UpvotePlatformMutation,
-    UpvotePlatformMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    UpvotePlatformMutation,
-    UpvotePlatformMutationVariables
-  >(UpvotePlatformDocument, baseOptions);
-}
-export type UpvotePlatformMutationHookResult = ReturnType<
-  typeof useUpvotePlatformMutation
->;
+export function useUpvotePlatformMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpvotePlatformMutation, UpvotePlatformMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpvotePlatformMutation, UpvotePlatformMutationVariables>(UpvotePlatformDocument, baseOptions);
+      }
+export type UpvotePlatformMutationHookResult = ReturnType<typeof useUpvotePlatformMutation>;
 export type UpvotePlatformMutationResult = ApolloReactCommon.MutationResult<UpvotePlatformMutation>;
-export type UpvotePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpvotePlatformMutation,
-  UpvotePlatformMutationVariables
->;
+export type UpvotePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<UpvotePlatformMutation, UpvotePlatformMutationVariables>;
 export const GetPlatformScoreDocument = gql`
-  query GetPlatformScore($id: ID!) {
-    platform(id: $id) {
-      score
-    }
+    query GetPlatformScore($id: ID!) {
+  platform(id: $id) {
+    score
   }
-`;
+}
+    `;
 
 /**
  * __useGetPlatformScoreQuery__
@@ -1090,108 +791,25 @@ export const GetPlatformScoreDocument = gql`
  *   },
  * });
  */
-export function useGetPlatformScoreQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >(GetPlatformScoreDocument, baseOptions);
-}
-export function useGetPlatformScoreLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >(GetPlatformScoreDocument, baseOptions);
-}
-export type GetPlatformScoreQueryHookResult = ReturnType<
-  typeof useGetPlatformScoreQuery
->;
-export type GetPlatformScoreLazyQueryHookResult = ReturnType<
-  typeof useGetPlatformScoreLazyQuery
->;
-export type GetPlatformScoreQueryResult = ApolloReactCommon.QueryResult<
-  GetPlatformScoreQuery,
-  GetPlatformScoreQueryVariables
->;
-export const CreatePlatformDocument = gql`
-  mutation CreatePlatform(
-    $name: String!
-    $companyLogo: String!
-    $website: String!
-    $founded: String!
-    $headquarteredIn: String!
-    $funding: Funding!
-    $description: String!
-    $typeOfWork: TypeOfWork!
-    $category: CategoryOfWork!
-    $requiresDigitalAudience: ExistingDigitalAudienceRequired!
-    $applicationRequired: ApplicationRequired!
-    $remoteWork: Boolean!
-    $minimumAge: Int!
-    $equipmentQualSkills: [EquipmentQualSkills!]!
-    $averageEarnings: AmountPerInput!
-    $timeToFirstDollar: AmountPerInput!
-    $geographicalFocus: String!
-    $affiliateLink: String!
-    $founderMessage: String!
-    $founderTwitter: String!
-    $email: String!
-    $platformType: PlatformType!
-    $numPeopleMakingMoney: Int!
-    $requirements: [String!]!
-    $platformPricing: String!
-    $tags: [String]!
-    $founderName: String!
-    $isFreePlatform: IsFreePlatform!
-  ) {
-    createPlatform(
-      platform: {
-        name: $name
-        companyLogo: $companyLogo
-        website: $website
-        founded: $founded
-        headquarteredIn: $headquarteredIn
-        funding: $funding
-        description: $description
-        typeOfWork: $typeOfWork
-        category: $category
-        requiresDigitalAudience: $requiresDigitalAudience
-        applicationRequired: $applicationRequired
-        remoteWork: $remoteWork
-        numPeopleMakingMoney: $numPeopleMakingMoney
-        minimumAge: $minimumAge
-        equipmentQualSkills: $equipmentQualSkills
-        averageEarnings: $averageEarnings
-        timeToFirstDollar: $timeToFirstDollar
-        geographicalFocus: $geographicalFocus
-        affiliateLink: $affiliateLink
-        founderMessage: $founderMessage
-        founderTwitter: $founderTwitter
-        email: $email
-        platformType: $platformType
-        platformPricing: $platformPricing
-        requirements: $requirements
-        founderName: $founderName
-        isFreePlatform: $isFreePlatform
+export function useGetPlatformScoreQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetPlatformScoreQuery, GetPlatformScoreQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetPlatformScoreQuery, GetPlatformScoreQueryVariables>(GetPlatformScoreDocument, baseOptions);
       }
-    ) {
-      id
-    }
+export function useGetPlatformScoreLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetPlatformScoreQuery, GetPlatformScoreQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetPlatformScoreQuery, GetPlatformScoreQueryVariables>(GetPlatformScoreDocument, baseOptions);
+        }
+export type GetPlatformScoreQueryHookResult = ReturnType<typeof useGetPlatformScoreQuery>;
+export type GetPlatformScoreLazyQueryHookResult = ReturnType<typeof useGetPlatformScoreLazyQuery>;
+export type GetPlatformScoreQueryResult = ApolloReactCommon.QueryResult<GetPlatformScoreQuery, GetPlatformScoreQueryVariables>;
+export const CreatePlatformDocument = gql`
+    mutation CreatePlatform($name: String!, $companyLogo: String!, $website: String!, $founded: String!, $headquarteredIn: String!, $funding: Funding!, $description: String!, $typeOfWork: TypeOfWork!, $category: CategoryOfWork!, $requiresDigitalAudience: ExistingDigitalAudienceRequired!, $applicationRequired: ApplicationRequired!, $remoteWork: Boolean!, $minimumAge: Int!, $equipmentQualSkills: [EquipmentQualSkills!]!, $averageEarnings: AmountPerInput!, $timeToFirstDollar: AmountPerInput!, $geographicalFocus: String!, $affiliateLink: String!, $founderMessage: String!, $founderTwitter: String!, $email: String!, $platformType: PlatformType!, $numPeopleMakingMoney: Int!, $requirements: [String!]!, $platformPricing: String!, $tags: [String]!, $founderName: String!, $isFreePlatform: IsFreePlatform!) {
+  createPlatform(
+    platform: {name: $name, companyLogo: $companyLogo, website: $website, founded: $founded, headquarteredIn: $headquarteredIn, funding: $funding, description: $description, typeOfWork: $typeOfWork, category: $category, requiresDigitalAudience: $requiresDigitalAudience, applicationRequired: $applicationRequired, remoteWork: $remoteWork, numPeopleMakingMoney: $numPeopleMakingMoney, minimumAge: $minimumAge, equipmentQualSkills: $equipmentQualSkills, averageEarnings: $averageEarnings, timeToFirstDollar: $timeToFirstDollar, geographicalFocus: $geographicalFocus, affiliateLink: $affiliateLink, founderMessage: $founderMessage, founderTwitter: $founderTwitter, email: $email, platformType: $platformType, platformPricing: $platformPricing, requirements: $requirements, founderName: $founderName, isFreePlatform: $isFreePlatform}
+  ) {
+    id
   }
-`;
-export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
-  CreatePlatformMutation,
-  CreatePlatformMutationVariables
->;
+}
+    `;
+export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<CreatePlatformMutation, CreatePlatformMutationVariables>;
 
 /**
  * __useCreatePlatformMutation__
@@ -1237,46 +855,22 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useCreatePlatformMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreatePlatformMutation,
-    CreatePlatformMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    CreatePlatformMutation,
-    CreatePlatformMutationVariables
-  >(CreatePlatformDocument, baseOptions);
-}
-export type CreatePlatformMutationHookResult = ReturnType<
-  typeof useCreatePlatformMutation
->;
-export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<CreatePlatformMutation>;
-export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreatePlatformMutation,
-  CreatePlatformMutationVariables
->;
-export const CreateSuggestionDocument = gql`
-  mutation createSuggestion(
-    $name: String!
-    $website: String!
-    $platformType: PlatformType!
-  ) {
-    createSuggestion(
-      suggestion: {
-        name: $name
-        website: $website
-        platformType: $platformType
+export function useCreatePlatformMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePlatformMutation, CreatePlatformMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreatePlatformMutation, CreatePlatformMutationVariables>(CreatePlatformDocument, baseOptions);
       }
-    ) {
-      id
-    }
+export type CreatePlatformMutationHookResult = ReturnType<typeof useCreatePlatformMutation>;
+export type CreatePlatformMutationResult = ApolloReactCommon.MutationResult<CreatePlatformMutation>;
+export type CreatePlatformMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePlatformMutation, CreatePlatformMutationVariables>;
+export const CreateSuggestionDocument = gql`
+    mutation createSuggestion($name: String!, $website: String!, $platformType: PlatformType!) {
+  createSuggestion(
+    suggestion: {name: $name, website: $website, platformType: $platformType}
+  ) {
+    id
   }
-`;
-export type CreateSuggestionMutationFn = ApolloReactCommon.MutationFunction<
-  CreateSuggestionMutation,
-  CreateSuggestionMutationVariables
->;
+}
+    `;
+export type CreateSuggestionMutationFn = ApolloReactCommon.MutationFunction<CreateSuggestionMutation, CreateSuggestionMutationVariables>;
 
 /**
  * __useCreateSuggestionMutation__
@@ -1297,49 +891,28 @@ export type CreateSuggestionMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useCreateSuggestionMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreateSuggestionMutation,
-    CreateSuggestionMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    CreateSuggestionMutation,
-    CreateSuggestionMutationVariables
-  >(CreateSuggestionDocument, baseOptions);
-}
-export type CreateSuggestionMutationHookResult = ReturnType<
-  typeof useCreateSuggestionMutation
->;
-export type CreateSuggestionMutationResult = ApolloReactCommon.MutationResult<CreateSuggestionMutation>;
-export type CreateSuggestionMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreateSuggestionMutation,
-  CreateSuggestionMutationVariables
->;
-export const AddReviewDocument = gql`
-  mutation AddReview(
-    $id: ID!
-    $rating: Int!
-    $description: String!
-    $author: String!
-  ) {
-    addReview(
-      id: $id
-      review: { rating: $rating, description: $description, author: $author }
-    ) {
-      id
-      reviews {
-        description
-        author
-        rating
+export function useCreateSuggestionMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateSuggestionMutation, CreateSuggestionMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateSuggestionMutation, CreateSuggestionMutationVariables>(CreateSuggestionDocument, baseOptions);
       }
+export type CreateSuggestionMutationHookResult = ReturnType<typeof useCreateSuggestionMutation>;
+export type CreateSuggestionMutationResult = ApolloReactCommon.MutationResult<CreateSuggestionMutation>;
+export type CreateSuggestionMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateSuggestionMutation, CreateSuggestionMutationVariables>;
+export const AddReviewDocument = gql`
+    mutation AddReview($id: ID!, $rating: Int!, $description: String!, $author: String!) {
+  addReview(
+    id: $id
+    review: {rating: $rating, description: $description, author: $author}
+  ) {
+    id
+    reviews {
+      description
+      author
+      rating
     }
   }
-`;
-export type AddReviewMutationFn = ApolloReactCommon.MutationFunction<
-  AddReviewMutation,
-  AddReviewMutationVariables
->;
+}
+    `;
+export type AddReviewMutationFn = ApolloReactCommon.MutationFunction<AddReviewMutation, AddReviewMutationVariables>;
 
 /**
  * __useAddReviewMutation__
@@ -1361,22 +934,9 @@ export type AddReviewMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useAddReviewMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    AddReviewMutation,
-    AddReviewMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    AddReviewMutation,
-    AddReviewMutationVariables
-  >(AddReviewDocument, baseOptions);
-}
-export type AddReviewMutationHookResult = ReturnType<
-  typeof useAddReviewMutation
->;
+export function useAddReviewMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddReviewMutation, AddReviewMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddReviewMutation, AddReviewMutationVariables>(AddReviewDocument, baseOptions);
+      }
+export type AddReviewMutationHookResult = ReturnType<typeof useAddReviewMutation>;
 export type AddReviewMutationResult = ApolloReactCommon.MutationResult<AddReviewMutation>;
-export type AddReviewMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddReviewMutation,
-  AddReviewMutationVariables
->;
+export type AddReviewMutationOptions = ApolloReactCommon.BaseMutationOptions<AddReviewMutation, AddReviewMutationVariables>;

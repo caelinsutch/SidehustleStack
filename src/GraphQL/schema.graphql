@@ -126,6 +126,7 @@ type SuggestionMVC @entity {
 }
 
 type PlatformMVC @entity {
+    isFreePlatform: IsFreePlatform @column
     id: ID! @id
     status: Status! @column
     platformType: PlatformType! @column
@@ -156,7 +157,6 @@ type PlatformMVC @entity {
     reviews: [Review!] @embedded
     score: Int @column
     platformPricing: String @column
-    isFreePlatform: IsFreePlatform @column
     requirements: [String!] @column
 }
 
