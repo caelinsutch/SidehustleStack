@@ -16,7 +16,7 @@ const promiseToastFeedback = ({
   successCallback,
   errorMessage = 'Error',
   errorCallback,
-}: PromiseToastFeedbackProps) => {
+}: PromiseToastFeedbackProps): Promise<void> =>
   promise
     .then((res) => {
       toast({
@@ -34,6 +34,5 @@ const promiseToastFeedback = ({
       console.error(e);
       if (errorCallback) errorCallback(e);
     });
-};
 
 export default promiseToastFeedback;
