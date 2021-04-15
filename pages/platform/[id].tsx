@@ -5,7 +5,6 @@ import { gql } from '@apollo/client';
 import { client } from '@Config';
 import { NextPageContext } from 'next';
 import { GetPlatformQuery } from '@GraphQL/types';
-import { consoleLogger } from '@firebase/performance/dist/src/utils/console_logger';
 
 const getPlatformQuery = gql`
   query GetPlatform($id: ID!) {
@@ -23,10 +22,12 @@ const getPlatformQuery = gql`
       equipmentQualSkills
       funding
       founded
+      companyLogo
       founderName
       requirements
       reviews {
         rating
+        status
         description
         author
       }

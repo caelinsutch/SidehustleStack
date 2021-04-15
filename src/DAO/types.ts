@@ -182,7 +182,6 @@ export type SuggestionMvc = {
 
 export type PlatformMvc = {
   isFreePlatform?: Maybe<IsFreePlatform>;
-  test?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   status: Status;
   platformType: PlatformType;
@@ -330,7 +329,6 @@ export type SuggestionMvcDbObject = {
 
 export type PlatformMvcDbObject = {
   isFreePlatform?: Maybe<string>;
-  test?: Maybe<string>;
   _id: ObjectID;
   status: string;
   platformType: string;

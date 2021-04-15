@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, useToast, Button, Textarea } from '@chakra-ui/react';
+import { Box, useToast, Button, Textarea, Input } from '@chakra-ui/react';
 import { StarInput } from '@Components';
 import { gql } from '@apollo/client';
 import { useAddReviewMutation } from '@GraphQL/types';
@@ -31,17 +31,18 @@ export const query = gql`
 `;
 
 const ReviewInput: React.FC<ReviewInputProps> = ({ id, platformName }) => {
-  const [stars, setStars] = useState<number>();
-  const [text, setText] = useState<string>();
+  const [rating, setRating] = useState<number>();
+  const [description, setDescription] = useState<string>();
+  const [author, setAuthor] = useState<string>();
   const toast = useToast();
   const [addReview] = useAddReviewMutation();
 
   const handleSubmit = () => {
     addReview({
       variables: {
-        description: text,
-        rating: stars,
-        author: 'Anonymous',
+        description,
+        rating,
+        author,
         id,
       },
     })
@@ -51,8 +52,8 @@ const ReviewInput: React.FC<ReviewInputProps> = ({ id, platformName }) => {
           title: 'Review Submitted!',
           description: 'Our team will review and publish in 2-3 days',
         });
-        setText('');
-        setStars(0);
+        setDescription('');
+        setRating(0);
       })
       .catch((e) => {
         console.error(e);
@@ -73,17 +74,27 @@ const ReviewInput: React.FC<ReviewInputProps> = ({ id, platformName }) => {
       my={4}
     >
       <StarInput
-        numStarsFilled={stars}
-        onStarClick={(i) => setStars((i || 0) + 1)}
+        numStarsFilled={rating}
+        onStarClick={(i) => setRating((i || 0) + 1)}
         isClickable
       />
+      <Input
+        mt={4}
+        placeholder="Your Name"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
       <Textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
         mt={4}
         placeholder={`Have you sold something recently on ${platformName}? How’d it go? Did you ever encounter any problems with their website? How did customer service treat you?`}
       />
-      <Button mt={4} onClick={handleSubmit} isDisabled={!(stars && text)}>
+      <Button
+        mt={4}
+        onClick={handleSubmit}
+        isDisabled={!(rating && description)}
+      >
         Submit
       </Button>
     </Box>

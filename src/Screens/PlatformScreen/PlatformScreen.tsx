@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AlertIcon, AlertTitle, Box } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, Image, Box } from '@chakra-ui/react';
 import { GetPlatformQuery } from '@GraphQL/types';
 import {
   FounderQuoteSection,
@@ -44,6 +44,8 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
       founderName,
       requirements,
       equipmentQualSkills,
+      description,
+      companyLogo,
     },
   } = data;
 
@@ -61,12 +63,14 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
             ]}
             signUpLink={website}
           />
+          <Image src={companyLogo} objectFit="cover" borderRadius="md" my={4} />
           <FounderQuoteSection
             quote={founderMessage}
             quoteAuthor={founderName}
             quoteAuthorPosition="Founder"
             quoteAuthorLink="https://google.com"
           />
+          <InfoSection title="Description" body={[description]} />
           <InfoSection title="Requirements" body={requirements} />
           <InfoSection
             title="People Making Money on Platform"
@@ -74,7 +78,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           />
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
           <InfoSection
-            title="Requires Audience"
+            title="Requires Initial Audience"
             body={[snakeToStartCase(requiresDigitalAudience)]}
           />
           <InfoSection

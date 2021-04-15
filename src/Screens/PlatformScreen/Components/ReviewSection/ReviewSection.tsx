@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Text, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { DefaultContainer } from '@Components';
 import { ReviewCard, ReviewInput } from '@Screens/PlatformScreen/Components';
-import { Review } from '@GraphQL/types';
+import { Review, Status } from '@GraphQL/types';
 
 export type ReviewSectionProps = {
-  reviews: Omit<Review, 'status'>[];
+  reviews: Review[];
   id;
   platformName;
 };
@@ -22,8 +22,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
     <Box
       as="section"
       backgroundImage="url('../platform-review-section-background.png')"
-      mt={4}
-      py={40}
+      py={12}
     >
       <DefaultContainer>
         <Flex justifyContent="space-between" alignItems="center">
@@ -51,12 +50,14 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
         </Flex>
         <Box mt={15}>
           <ReviewInput id={id} platformName={platformName} />
-          {reviews.map((review, i) => (
-            <ReviewCard
-              key={review.description + review.author + review.rating + i}
-              {...review}
-            />
-          ))}
+          {reviews
+            .filter((r) => r.status === Status.Published)
+            .map((review, i) => (
+              <ReviewCard
+                key={review.description + review.author + review.rating + i}
+                {...review}
+              />
+            ))}
         </Box>
       </DefaultContainer>
     </Box>
