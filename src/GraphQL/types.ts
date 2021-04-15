@@ -99,7 +99,7 @@ export type PlatformInput = {
   headquarteredIn: Scalars['String'];
   funding: Funding;
   description: Scalars['String'];
-  typeOfWork: TypeOfWork;
+  typeOfWork: Array<TypeOfWork>;
   category: CategoryOfWork;
   requiresDigitalAudience: ExistingDigitalAudienceRequired;
   applicationRequired: ApplicationRequired;
@@ -109,15 +109,15 @@ export type PlatformInput = {
   averageEarnings: AmountPerInput;
   timeToFirstDollar: AmountPerInput;
   numPeopleMakingMoney: Scalars['Int'];
-  geographicalFocus: Scalars['String'];
-  founderMessage: Scalars['String'];
+  geographicalFocus: GeographicalFocus;
+  founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderName: Scalars['String'];
   email: Scalars['String'];
+  profitModel?: Maybe<ProfitModel>;
   platformPricing: Scalars['String'];
-  isFreePlatform: IsFreePlatform;
-  requirements: Array<Scalars['String']>;
+  requirements?: Maybe<Array<Scalars['String']>>;
 };
 
 export type PlatformRecommendationInput = {
@@ -136,7 +136,7 @@ export type UpdatePlatformInput = {
   headquarteredIn?: Maybe<Scalars['String']>;
   funding?: Maybe<Funding>;
   description?: Maybe<Scalars['String']>;
-  typeOfWork?: Maybe<TypeOfWork>;
+  typeOfWork?: Maybe<Array<TypeOfWork>>;
   category?: Maybe<CategoryOfWork>;
   requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
   applicationRequired?: Maybe<ApplicationRequired>;
@@ -146,7 +146,8 @@ export type UpdatePlatformInput = {
   averageEarnings?: Maybe<AmountPerInputUpdate>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
   numPeopleMakingMoney?: Maybe<Scalars['Int']>;
-  geographicalFocus?: Maybe<Scalars['String']>;
+  geographicalFocus?: Maybe<GeographicalFocus>;
+  profitModel?: Maybe<ProfitModel>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
@@ -155,7 +156,6 @@ export type UpdatePlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   reviews?: Maybe<Array<ReviewInput>>;
   platformPricing?: Maybe<Scalars['String']>;
-  isFreePlatform?: Maybe<IsFreePlatform>;
   requirements?: Maybe<Array<Scalars['String']>>;
 };
 
@@ -189,7 +189,6 @@ export type SuggestionMvc = {
 };
 
 export type PlatformMvc = {
-  isFreePlatform?: Maybe<IsFreePlatform>;
   id: Scalars['ID'];
   status: Status;
   platformType: PlatformType;
@@ -200,7 +199,7 @@ export type PlatformMvc = {
   headquarteredIn?: Maybe<Scalars['String']>;
   funding?: Maybe<Funding>;
   description?: Maybe<Scalars['String']>;
-  typeOfWork?: Maybe<TypeOfWork>;
+  typeOfWork?: Maybe<Array<TypeOfWork>>;
   category?: Maybe<CategoryOfWork>;
   requiresDigitalAudience?: Maybe<ExistingDigitalAudienceRequired>;
   applicationRequired?: Maybe<ApplicationRequired>;
@@ -209,7 +208,8 @@ export type PlatformMvc = {
   equipmentQualSkills?: Maybe<Array<EquipmentQualSkills>>;
   averageEarnings?: Maybe<AmountPer>;
   timeToFirstDollar?: Maybe<AmountPer>;
-  geographicalFocus?: Maybe<Scalars['String']>;
+  profitModel?: Maybe<ProfitModel>;
+  geographicalFocus?: Maybe<GeographicalFocus>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
@@ -235,6 +235,23 @@ export type Review = {
   status: Status;
 };
 
+export enum ProfitModel {
+  Free = 'FREE',
+  Comission = 'COMISSION',
+  WorkerPays = 'WORKER_PAYS',
+}
+
+export enum GeographicalFocus {
+  Worldwide = 'WORLDWIDE',
+  NorthAmerica = 'NORTH_AMERICA',
+  SouthAmerica = 'SOUTH_AMERICA',
+  Europe = 'EUROPE',
+  Asia = 'ASIA',
+  Africa = 'AFRICA',
+  MiddleEast = 'MIDDLE_EAST',
+  Australia = 'AUSTRALIA',
+}
+
 export enum PlatformType {
   Tool = 'TOOL',
   Platform = 'PLATFORM',
@@ -246,6 +263,9 @@ export enum Funding {
   FiveToTenMil = 'FIVE_TO_TEN_MIL',
   TenPlusMil = 'TEN_PLUS_MIL',
   PublicCompany = 'PUBLIC_COMPANY',
+  Bootstrapped = 'BOOTSTRAPPED',
+  CurrentlyRaising = 'CURRENTLY_RAISING',
+  Undisclosed = 'UNDISCLOSED',
 }
 
 export enum EquipmentQualSkills {
@@ -281,11 +301,6 @@ export enum ApplicationRequired {
   Yes = 'YES',
   YesSelective = 'YES_SELECTIVE',
   No = 'NO',
-}
-
-export enum IsFreePlatform {
-  Free = 'FREE',
-  Paid = 'PAID',
 }
 
 export enum TypeOfWork {
@@ -456,13 +471,14 @@ export type ResolversTypes = {
   PlatformMVC: ResolverTypeWrapper<PlatformMvc>;
   AmountPer: ResolverTypeWrapper<AmountPer>;
   Review: ResolverTypeWrapper<Review>;
+  ProfitModel: ProfitModel;
+  GeographicalFocus: GeographicalFocus;
   PlatformType: PlatformType;
   Funding: Funding;
   EquipmentQualSkills: EquipmentQualSkills;
   CategoryOfWork: CategoryOfWork;
   ExistingDigitalAudienceRequired: ExistingDigitalAudienceRequired;
   ApplicationRequired: ApplicationRequired;
-  IsFreePlatform: IsFreePlatform;
   TypeOfWork: TypeOfWork;
   Status: Status;
 };
@@ -585,11 +601,6 @@ export type PlatformMvcResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['PlatformMVC'] = ResolversParentTypes['PlatformMVC']
 > = {
-  isFreePlatform?: Resolver<
-    Maybe<ResolversTypes['IsFreePlatform']>,
-    ParentType,
-    ContextType
-  >;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['Status'], ParentType, ContextType>;
   platformType?: Resolver<
@@ -617,7 +628,7 @@ export type PlatformMvcResolvers<
     ContextType
   >;
   typeOfWork?: Resolver<
-    Maybe<ResolversTypes['TypeOfWork']>,
+    Maybe<Array<ResolversTypes['TypeOfWork']>>,
     ParentType,
     ContextType
   >;
@@ -657,8 +668,13 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
+  profitModel?: Resolver<
+    Maybe<ResolversTypes['ProfitModel']>,
+    ParentType,
+    ContextType
+  >;
   geographicalFocus?: Resolver<
-    Maybe<ResolversTypes['String']>,
+    Maybe<ResolversTypes['GeographicalFocus']>,
     ParentType,
     ContextType
   >;
@@ -826,7 +842,7 @@ export type CreatePlatformMutationVariables = Exact<{
   headquarteredIn: Scalars['String'];
   funding: Funding;
   description: Scalars['String'];
-  typeOfWork: TypeOfWork;
+  typeOfWork: Array<TypeOfWork> | TypeOfWork;
   category: CategoryOfWork;
   requiresDigitalAudience: ExistingDigitalAudienceRequired;
   applicationRequired: ApplicationRequired;
@@ -835,7 +851,7 @@ export type CreatePlatformMutationVariables = Exact<{
   equipmentQualSkills: Array<EquipmentQualSkills> | EquipmentQualSkills;
   averageEarnings: AmountPerInput;
   timeToFirstDollar: AmountPerInput;
-  geographicalFocus: Scalars['String'];
+  geographicalFocus: GeographicalFocus;
   affiliateLink: Scalars['String'];
   founderMessage: Scalars['String'];
   founderTwitter: Scalars['String'];
@@ -846,7 +862,7 @@ export type CreatePlatformMutationVariables = Exact<{
   platformPricing: Scalars['String'];
   tags: Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>;
   founderName: Scalars['String'];
-  isFreePlatform: IsFreePlatform;
+  profitModel: ProfitModel;
 }>;
 
 export type CreatePlatformMutation = {
@@ -1134,7 +1150,7 @@ export const CreatePlatformDocument = gql`
     $headquarteredIn: String!
     $funding: Funding!
     $description: String!
-    $typeOfWork: TypeOfWork!
+    $typeOfWork: [TypeOfWork!]!
     $category: CategoryOfWork!
     $requiresDigitalAudience: ExistingDigitalAudienceRequired!
     $applicationRequired: ApplicationRequired!
@@ -1143,7 +1159,7 @@ export const CreatePlatformDocument = gql`
     $equipmentQualSkills: [EquipmentQualSkills!]!
     $averageEarnings: AmountPerInput!
     $timeToFirstDollar: AmountPerInput!
-    $geographicalFocus: String!
+    $geographicalFocus: GeographicalFocus!
     $affiliateLink: String!
     $founderMessage: String!
     $founderTwitter: String!
@@ -1154,7 +1170,7 @@ export const CreatePlatformDocument = gql`
     $platformPricing: String!
     $tags: [String]!
     $founderName: String!
-    $isFreePlatform: IsFreePlatform!
+    $profitModel: ProfitModel!
   ) {
     createPlatform(
       platform: {
@@ -1184,7 +1200,7 @@ export const CreatePlatformDocument = gql`
         platformPricing: $platformPricing
         requirements: $requirements
         founderName: $founderName
-        isFreePlatform: $isFreePlatform
+        profitModel: $profitModel
       }
     ) {
       id
@@ -1236,7 +1252,7 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      platformPricing: // value for 'platformPricing'
  *      tags: // value for 'tags'
  *      founderName: // value for 'founderName'
- *      isFreePlatform: // value for 'isFreePlatform'
+ *      profitModel: // value for 'profitModel'
  *   },
  * });
  */

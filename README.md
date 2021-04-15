@@ -33,7 +33,6 @@ mutation {
         name: "Test 5"
         companyLogo: "https://www.arborday.org/images/hero/medium/hero-aerial-forest-evergreen-trees.jpg"
         website: "Test"
-        isFreePlatform: FREE
         founded: "Test"
         headquarteredIn: "Test"
         funding: ZERO

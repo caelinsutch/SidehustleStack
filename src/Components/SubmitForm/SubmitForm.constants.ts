@@ -4,11 +4,24 @@ import {
   CategoryOfWork,
   ExistingDigitalAudienceRequired,
   Funding,
+  GeographicalFocus,
   PlatformType,
+  ProfitModel,
   TypeOfWork,
 } from '@GraphQL/types';
+import { snakeToStartCase } from '@Utils';
+
+const generateOptionsFromEnums = (e: any) =>
+  Object.values(e).map((value: string) => ({
+    value,
+    label: snakeToStartCase(value),
+  }));
 
 const numberValidation = (value: any): boolean => Boolean(parseInt(value, 10));
+
+const geographicalFocusOptions = generateOptionsFromEnums(GeographicalFocus);
+
+const profitModelOptions = generateOptionsFromEnums(ProfitModel);
 
 const steps = [
   [
@@ -73,6 +86,8 @@ const steps = [
     {
       title: 'Company Logo',
       name: 'companyLogo',
+      description:
+        'Company logo should be centered and fill approximately 1/3 of the space with whitespace on the top and bottom. Please submit a JPG file around 1000 x 800 pixels',
       type: 'file',
       registerOptions: {
         required: true,
@@ -80,18 +95,28 @@ const steps = [
       },
     },
     {
+      name: 'description',
+      placeholder: 'Description',
+      description:
+        'Describe what workers do on your platform to earn income. The simpler the better. (~2 sentences). Write it so that it ACTIVELY describes what people will do to earn.\n' +
+        '\n' +
+        'Examples:\n' +
+        '\n' +
+        '"Sell your knowledge about any subject matter to others in an all-in-one platform."\n' +
+        '\n' +
+        '"Get paid to walk other people\'s dogs."',
+      type: 'input',
+      title: 'Short Description',
+      registerOptions: {
+        required: true,
+        maxLength: 240,
+      },
+    },
+    {
       name: 'funding',
       placeholder: 'xxxxx',
       type: 'select',
       title: 'Total Funding',
-      description:
-        'Please round and suffix with "K" or "M" — eg. $50K, $500K, $3M, $35.5M, $120.2M. \n' +
-        '\n' +
-        "If this doesn't apply, please write:\n" +
-        '1) Bootstrapped\n' +
-        '2) Currently Raising\n' +
-        '3) Undisclosed\n' +
-        '4) Public Company - list ticker',
       options: [
         {
           value: Funding.Zero,
@@ -113,16 +138,19 @@ const steps = [
           value: Funding.PublicCompany,
           label: 'Public',
         },
+        {
+          value: Funding.Bootstrapped,
+          label: 'Bootstrapped',
+        },
+        {
+          value: Funding.CurrentlyRaising,
+          label: 'Currently Raising',
+        },
+        {
+          value: Funding.Undisclosed,
+          label: 'Undisclosed',
+        },
       ],
-      registerOptions: {
-        required: true,
-      },
-    },
-    {
-      name: 'description',
-      placeholder: 'Description',
-      type: 'input',
-      title: 'Short Description',
       registerOptions: {
         required: true,
       },
@@ -130,6 +158,7 @@ const steps = [
     {
       name: 'founded',
       placeholder: '02/2021',
+      description: 'Example, 02/2021',
       type: 'input',
       title: 'Date Founded',
       registerOptions: {
@@ -139,6 +168,10 @@ const steps = [
     {
       name: 'headquarteredIn',
       placeholder: 'Berkeley, CA',
+      description:
+        'If US, please list City, State. If international, please list City, Country.\n' +
+        '\n' +
+        'Example: Seattle, WA or Paris, France',
       type: 'input',
       title: 'Headquartered In',
       registerOptions: {
@@ -146,8 +179,17 @@ const steps = [
       },
     },
     {
+      name: 'geographicalFocus',
+      type: 'multiSelect',
+      title: 'Geographical Focus',
+      registerOptions: {
+        required: true,
+      },
+      options: geographicalFocusOptions,
+    },
+    {
       name: 'typeOfWork',
-      type: 'select',
+      type: 'multiSelect',
       title: 'Type of Work',
       placeholder: 'Select',
       options: [
@@ -216,7 +258,8 @@ const steps = [
     {
       name: 'requiresDigitalAudience',
       type: 'select',
-      title: 'Requires existing audience',
+      title:
+        'Does the platform require an existing digital audience to monetize? *\n',
       placeholder: 'Select',
       registerOptions: {
         required: true,
@@ -225,7 +268,7 @@ const steps = [
         { label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
         { label: 'No', value: ExistingDigitalAudienceRequired.No },
         {
-          label: 'Recommended',
+          label: 'No, but recommended',
           value: ExistingDigitalAudienceRequired.Recommended,
         },
       ],
@@ -296,11 +339,12 @@ const steps = [
     {
       name: 'requirements',
       type: 'multiItemInput',
-      title: 'User Requirements',
+      title: 'Other User Requirements',
+      description: 'If you selected Other, please list here',
       placeholder:
         'A smartphone or similar device, The ability to ship items, ...',
       registerOptions: {
-        required: true,
+        required: false,
         validate: { empty: (value: any) => value !== [] },
       },
     },
@@ -309,7 +353,7 @@ const steps = [
       type: 'input',
       title: 'Average Monthly Earnings',
       placeholder: 'xx',
-      description: 'Number of dollars',
+      description: 'Please round to the nearest dollar — e.g. $10.',
       registerOptions: {
         required: true,
         validate: {
@@ -322,7 +366,7 @@ const steps = [
       name: 'timeToFirstDollar',
       type: 'input',
       title: 'Days to First Dollar',
-      description: 'Number of days',
+      description: 'How many days till the average earner first makes money?',
       placeholder: 'xx',
       registerOptions: {
         required: true,
@@ -335,7 +379,7 @@ const steps = [
     {
       name: 'numPeopleMakingMoney',
       type: 'input',
-      title: 'Number of People Making Money',
+      title: 'Number of people making money on your platform?',
       placeholder: 'xxx',
       registerOptions: {
         required: true,
@@ -346,22 +390,22 @@ const steps = [
       },
     },
     {
-      name: 'isFreePlatform',
+      name: 'profitModel',
       type: 'select',
-      title: 'Is your platform free for workers?',
+      title: 'Is your platform free, comission based, or does the worker pay?',
       registerOptions: {
         required: true,
       },
-      options: [
-        {
-          value: true,
-          label: 'Yes',
-        },
-        {
-          value: false,
-          label: 'No',
-        },
-      ],
+      options: profitModelOptions,
+    },
+    {
+      name: 'profitModelDescription',
+      type: 'input',
+      title:
+        'If commission based, how much is the average take rate? If the wokrer pays, whats the monthly fee?',
+      registerOptions: {
+        required: true,
+      },
     },
     {
       name: 'platformPricing',
@@ -375,25 +419,18 @@ const steps = [
       },
     },
     {
-      name: 'geographicalFocus',
-      type: 'input',
-      title: 'Geographical Focus',
-      registerOptions: {
-        required: true,
-      },
-    },
-    {
       name: 'affiliateLink',
       type: 'input',
+      description:
+        'Example: website.com/signup or affiliate link. If you have an affiliate link program, PLEASE enter that here!',
       title: 'Affiliate Link',
     },
     {
       name: 'founderMessage',
       type: 'input',
+      description:
+        'Some of our platforms have messages from their founders on what makes their platform special. See sidehustlestack.co/patreon for an example.',
       title: 'Founder Message',
-      registerOptions: {
-        required: true,
-      },
     },
     {
       name: 'founderName',
@@ -407,8 +444,8 @@ const steps = [
     {
       name: 'founderTwitter',
       type: 'input',
-      title: 'Founder Twitter',
-      placeholder: 'caelinsutch',
+      title: 'Please enter a link to the founders twitter',
+      placeholder: 'https://twitter.com/caelin_sutch',
     },
     {
       name: 'email',

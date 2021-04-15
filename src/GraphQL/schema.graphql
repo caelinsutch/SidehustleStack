@@ -37,7 +37,7 @@ input PlatformInput {
     headquarteredIn: String!
     funding: Funding!
     description: String!
-    typeOfWork: TypeOfWork!
+    typeOfWork: [TypeOfWork!]!
     category: CategoryOfWork!
     requiresDigitalAudience: ExistingDigitalAudienceRequired!
     applicationRequired: ApplicationRequired!
@@ -47,15 +47,16 @@ input PlatformInput {
     averageEarnings: AmountPerInput!
     timeToFirstDollar: AmountPerInput!
     numPeopleMakingMoney: Int!
-    geographicalFocus: String!
-    founderMessage: String!
+    geographicalFocus: GeographicalFocus!
+    founderMessage: String
     founderTwitter: String
     affiliateLink: String
     founderName: String!
     email: String!
+    profitModel: ProfitModel!
+    profitModelDescription: String!
     platformPricing: String!
-    isFreePlatform: IsFreePlatform!
-    requirements: [String!]!
+    requirements: [String!]
 }
 input PlatformRecommendationInput {
     name: String!
@@ -73,7 +74,7 @@ input UpdatePlatformInput {
     headquarteredIn: String
     funding: Funding
     description: String
-    typeOfWork: TypeOfWork
+    typeOfWork: [TypeOfWork!]
     category: CategoryOfWork
     requiresDigitalAudience: ExistingDigitalAudienceRequired
     applicationRequired: ApplicationRequired
@@ -83,7 +84,9 @@ input UpdatePlatformInput {
     averageEarnings: AmountPerInputUpdate
     timeToFirstDollar: AmountPerInput
     numPeopleMakingMoney: Int
-    geographicalFocus: String
+    geographicalFocus: GeographicalFocus
+    profitModel: ProfitModel
+    profitModelDescription: String
     affiliateLink: String
     founderMessage: String
     founderTwitter: String
@@ -92,7 +95,6 @@ input UpdatePlatformInput {
     tags: [String!]
     reviews: [ReviewInput!]
     platformPricing: String
-    isFreePlatform: IsFreePlatform
     requirements: [String!]
 }
 
@@ -126,7 +128,6 @@ type SuggestionMVC @entity {
 }
 
 type PlatformMVC @entity {
-    isFreePlatform: IsFreePlatform @column
     id: ID! @id
     status: Status! @column
     platformType: PlatformType! @column
@@ -137,7 +138,7 @@ type PlatformMVC @entity {
     headquarteredIn: String @column
     funding: Funding @column
     description: String @column
-    typeOfWork: TypeOfWork @column
+    typeOfWork: [TypeOfWork!] @column
     category: CategoryOfWork @column
     requiresDigitalAudience: ExistingDigitalAudienceRequired @column
     applicationRequired: ApplicationRequired @column
@@ -146,7 +147,9 @@ type PlatformMVC @entity {
     equipmentQualSkills: [EquipmentQualSkills!] @column
     averageEarnings: AmountPer @column
     timeToFirstDollar: AmountPer @column
-    geographicalFocus: String @column
+    profitModel: ProfitModel @column
+    profitModelDescription: String @column
+    geographicalFocus: GeographicalFocus @column
     affiliateLink: String @column
     founderMessage: String @column
     founderTwitter: String @column
@@ -172,6 +175,23 @@ type Review @entity(embedded: true) {
     status: Status! @column
 }
 
+enum ProfitModel {
+    FREE
+    COMISSION
+    WORKER_PAYS
+}
+
+enum GeographicalFocus {
+    WORLDWIDE
+    NORTH_AMERICA
+    SOUTH_AMERICA
+    EUROPE
+    ASIA
+    AFRICA
+    MIDDLE_EAST
+    AUSTRALIA
+}
+
 enum PlatformType {
     TOOL
     PLATFORM
@@ -183,6 +203,9 @@ enum Funding {
     FIVE_TO_TEN_MIL
     TEN_PLUS_MIL
     PUBLIC_COMPANY
+    BOOTSTRAPPED
+    CURRENTLY_RAISING
+    UNDISCLOSED
 }
 
 enum EquipmentQualSkills {
@@ -218,11 +241,6 @@ enum ApplicationRequired {
     YES
     YES_SELECTIVE
     NO
-}
-
-enum IsFreePlatform {
-    FREE,
-    PAID,
 }
 
 enum TypeOfWork {

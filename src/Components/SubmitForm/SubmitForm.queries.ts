@@ -9,7 +9,7 @@ export const createPlatform = gql`
     $headquarteredIn: String!
     $funding: Funding!
     $description: String!
-    $typeOfWork: TypeOfWork!
+    $typeOfWork: [TypeOfWork!]!
     $category: CategoryOfWork!
     $requiresDigitalAudience: ExistingDigitalAudienceRequired!
     $applicationRequired: ApplicationRequired!
@@ -18,7 +18,7 @@ export const createPlatform = gql`
     $equipmentQualSkills: [EquipmentQualSkills!]!
     $averageEarnings: AmountPerInput!
     $timeToFirstDollar: AmountPerInput!
-    $geographicalFocus: String!
+    $geographicalFocus: GeographicalFocus!
     $affiliateLink: String!
     $founderMessage: String!
     $founderTwitter: String!
@@ -29,7 +29,7 @@ export const createPlatform = gql`
     $platformPricing: String!
     $tags: [String]!
     $founderName: String!
-    $isFreePlatform: IsFreePlatform!
+    $profitModel: ProfitModel!
   ) {
     createPlatform(
       platform: {
@@ -59,7 +59,7 @@ export const createPlatform = gql`
         platformPricing: $platformPricing
         requirements: $requirements
         founderName: $founderName
-        isFreePlatform: $isFreePlatform
+        profitModel: $profitModel
       }
     ) {
       id

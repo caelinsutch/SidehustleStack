@@ -39,7 +39,7 @@ const SubmitForm: React.FC = () => {
             minimumAge: parseInt(formData.minimumAge, 10),
             averageEarnings: {
               amount: formData.averageEarnings,
-              per: 'days',
+              per: 'month',
             },
             timeToFirstDollar: {
               amount: formData.timeToFirstDollar,
@@ -60,6 +60,8 @@ const SubmitForm: React.FC = () => {
     if (i === 0) {
       if (stepData.isFounder === 'false') {
         setMaxSteps(2);
+      } else {
+        setMaxSteps(steps.length);
       }
     }
 

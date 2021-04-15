@@ -76,7 +76,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
             >
               {platform.name}
             </Text>
-            <Flex>
+            <Text display="flex" isTruncated>
               <Text
                 color="orange.400"
                 transition="all 0.2s ease"
@@ -89,35 +89,38 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 }
                 fontSize={{ base: 'xs', md: 'md' }}
                 isTruncated
+                mr={2}
                 as="h5"
               >
                 {snakeToStartCase(platform.category)}
               </Text>
-              <Text
-                color="orange.400"
-                mx={2}
-                fontSize={{ base: 'xs', md: 'md' }}
-              >
-                |
-              </Text>
-              <Text
-                color="orange.400"
-                fontSize={{ base: 'xs', md: 'md' }}
-                transition="all 0.2s ease"
-                _hover={{
-                  color: 'orange.300',
-                }}
-                cursor="pointer"
-                mr={4}
-                onClick={() =>
-                  updateFilterQueryParam('typeOfWork', platform.typeOfWork)
-                }
-                isTruncated
-                as="h5"
-              >
-                {snakeToStartCase(platform.typeOfWork)}
-              </Text>
-            </Flex>
+              {platform.typeOfWork.map((type) => (
+                <>
+                  <Text
+                    color="orange.400"
+                    mr={2}
+                    fontSize={{ base: 'xs', md: 'md' }}
+                  >
+                    |
+                  </Text>
+                  <Text
+                    color="orange.400"
+                    fontSize={{ base: 'xs', md: 'md' }}
+                    transition="all 0.2s ease"
+                    _hover={{
+                      color: 'orange.300',
+                    }}
+                    cursor="pointer"
+                    mr={2}
+                    onClick={() => updateFilterQueryParam('typeOfWork', type)}
+                    isTruncated
+                    as="h5"
+                  >
+                    {snakeToStartCase(type)}
+                  </Text>
+                </>
+              ))}
+            </Text>
           </Box>
         </HStack>
         <Wrap mt={4}>

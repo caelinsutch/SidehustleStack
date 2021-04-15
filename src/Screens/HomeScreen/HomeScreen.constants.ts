@@ -1,8 +1,8 @@
 import {
   CategoryOfWork,
   PlatformMvc,
+  ProfitModel,
   TypeOfWork,
-  IsFreePlatform,
 } from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
 import { StringParam } from 'use-query-params';
@@ -15,7 +15,7 @@ const categoryTypes: string[] = Object.values(CategoryOfWork).map((a) =>
   snakeToStartCase(a)
 );
 
-const isFreePlatformTypes: string[] = Object.values(IsFreePlatform).map((a) =>
+const profitModelTypes: string[] = Object.values(ProfitModel).map((a) =>
   snakeToStartCase(a)
 );
 
@@ -38,9 +38,9 @@ const workTypeFilter: PlatformFilter = {
 };
 
 const freePlatformsFilter: PlatformFilter = {
-  name: 'Free Platform',
-  key: 'isFreePlatform',
-  options: ['All', ...isFreePlatformTypes],
+  name: 'Profit Model',
+  key: 'profitModel',
+  options: ['All', ...profitModelTypes],
 };
 
 const filters: PlatformFilter[] = [

@@ -49,6 +49,11 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
       if (Object.keys(activeFilters).length === 0) return true;
       return Object.keys(activeFilters).every((filterKey) => {
         if (platform[filterKey] && activeFilters[filterKey] !== 'All') {
+          if (platform[filterKey].constructor === Array) {
+            return platform[filterKey]
+              .map((a) => snakeToStartCase(a))
+              .includes(activeFilters[filterKey]);
+          }
           return (
             snakeToStartCase(platform[filterKey]) === activeFilters[filterKey]
           );
