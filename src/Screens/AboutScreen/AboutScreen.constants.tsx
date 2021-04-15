@@ -53,7 +53,7 @@ const leftScreenText: AboutScreenText[] = [
       'How do I submit a new platform, updated data or corrections to the stack?',
     body: (
       <Text color="gray.700">
-        Submit new platforms or data corrections to our data{' '}
+        Submit new platforms or data corrections{' '}
         <TextLink
           href="/submit"
           next
@@ -78,9 +78,9 @@ const leftScreenText: AboutScreenText[] = [
         to our database, please use the forms linked above.
         <br />
         For press/media inquiries or anything else, DM{' '}
-        <Link textDecoration="underline" href="https://twitter.com/ljin18">
+        <TextLink textDecoration="underline" href="https://twitter.com/ljin18">
           @ljin18
-        </Link>{' '}
+        </TextLink>{' '}
         on Twitter, or email{' '}
         <TextLink
           textDecoration="underline"
@@ -123,7 +123,7 @@ const team: TeamText[] = [
     ),
   },
   {
-    title: 'Lila Schroff',
+    title: 'Lila Shroff',
     titleLink: 'https://twitter.com/lilashroff',
     body: (
       <Text color="gray.700">

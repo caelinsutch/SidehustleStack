@@ -11,8 +11,8 @@ const AboutScreen: React.FC = () => (
     <Grid templateColumns="repeat(3, 1fr)">
       <GridItem colSpan={{ base: 3, md: 2 }}>
         {leftScreenText.map(({ title, body }) => (
-          <Box key={title + body}>
-            <Text as="h2" fontSize="2xl" color="orange.400" mt={4}>
+          <Box key={title + body} mt={4}>
+            <Text as="h2" fontSize="2xl" color="orange.400">
               {title}
             </Text>
             <Box color="gray.800" fontSize="lg" mt={2}>
@@ -37,17 +37,11 @@ const AboutScreen: React.FC = () => (
           Side Hustle Stack is a labor of 💛 built by
         </Text>
         {team.map(({ title, body, titleLink }) => (
-          <Box key={title + body}>
-            <Text
-              as="a"
-              href={titleLink}
-              fontSize="2xl"
-              color="orange.400"
-              mt={4}
-            >
+          <Box key={title + body} mt={4}>
+            <Text as="a" href={titleLink} fontSize="2xl" color="orange.400">
               {title}
             </Text>
-            <Box color="gray.800" mt={2}>
+            <Box color="gray.800" mt={2} fontSize="lg">
               {body}
             </Box>
           </Box>
