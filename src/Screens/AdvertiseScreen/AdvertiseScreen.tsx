@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { GridItem, SimpleGrid, Text } from '@chakra-ui/react';
-import { DefaultContainer } from '@Components';
+import { DefaultContainer, TextLink } from '@Components';
 import { tweets } from '@Screens/AdvertiseScreen/AdvertiseScreen.constants';
 import styled from '@emotion/styled';
 
@@ -20,7 +20,13 @@ const AdvertiseScreen: React.FC = () => {
 
   return (
     <DefaultContainer pt={{ base: 160, md: 120 }}>
-      <Text as="h1" fontSize="4xl" textAlign="center" mx="auto">
+      <Text
+        as="h1"
+        fontSize="4xl"
+        textAlign="center"
+        mx="auto"
+        color="orange.400"
+      >
         Advertise on Sidehustle Stack
       </Text>
       <Text as="h2" fontSize="2xl" mt={16}>
@@ -35,13 +41,6 @@ const AdvertiseScreen: React.FC = () => {
         interested in new online tools and platforms. Companies have seen
         incredible growth almost immediately after being added.
       </Text>
-      <Text as="h3" fontSize="2xl" color="orange.400" mt={6}>
-        Feature in our newsletter
-      </Text>
-      <Text color="gray.800" fontSize="xl" mt={2}>
-        Thousands of subscribers deeply interested in side hustles, with a 50%
-        open rate
-      </Text>
       <Text as="h3" fontSize="2xl" color="orange.400" mt={4}>
         Get featured on our website
       </Text>
@@ -49,8 +48,11 @@ const AdvertiseScreen: React.FC = () => {
         Your brand in a special partner section at the top of the site.
         <br />
         <br />
-        Check out our media kit with more information on our audience, pricing
-        and how to get in touch with our Advertising Sales team.
+        Email{' '}
+        <TextLink href="mailto:hello@sidehustlestack.co">
+          hello@sidehustlestack.co
+        </TextLink>{' '}
+        for more information on advertising.
       </Text>
       <Text as="h3" fontSize="2xl" color="orange.400" mt={4}>
         Founder Testimonials
