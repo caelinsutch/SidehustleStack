@@ -27,7 +27,7 @@ const AdvertiseScreen: React.FC = () => {
         mx="auto"
         color="orange.400"
       >
-        Advertise on Sidehustle Stack
+        Advertise on Side Hustle Stack
       </Text>
       <Text as="h2" fontSize="2xl" mt={16}>
         Side Hustle Stack is the largest resource of its kind for flexible work

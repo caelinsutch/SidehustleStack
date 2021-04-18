@@ -87,7 +87,7 @@ const steps = [
       title: 'Company Logo',
       name: 'companyLogo',
       description:
-        'Company logo should be centered and fill approximately 1/3 of the space with whitespace on the top and bottom. Please submit a JPG file around 1000 x 800 pixels',
+        'Company logo should be transparent, centered and fill approximately 1/3 of the space with whitespace on the top and bottom. Please submit a JPG file around 1000 x 800 pixels',
       type: 'file',
       registerOptions: {
         required: true,

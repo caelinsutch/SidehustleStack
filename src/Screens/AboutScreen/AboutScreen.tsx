@@ -6,7 +6,7 @@ import { leftScreenText, team } from './AboutScreen.constants';
 const AboutScreen: React.FC = () => (
   <DefaultContainer pt={{ base: 160, md: 120 }}>
     <Text as="h1" fontSize="4xl" textAlign="center" mx="auto">
-      About Sidehustle Stack
+      About Side Hustle Stack
     </Text>
     <Grid templateColumns="repeat(3, 1fr)">
       <GridItem colSpan={{ base: 3, md: 2 }}>

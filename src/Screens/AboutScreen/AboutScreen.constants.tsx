@@ -13,7 +13,7 @@ type TeamText = {
 
 const leftScreenText: AboutScreenText[] = [
   {
-    title: 'What is Sidehustle Stack?',
+    title: 'What is Side Hustle Stack?',
     body: (
       <Text color="gray.700">
         Side Hustle Stack is a resource for finding various platforms to earn
@@ -104,14 +104,14 @@ const team: TeamText[] = [
         <TextLink textDecoration="underline" href="https://li.substack.com/">
           Li's Newsletter
         </TextLink>
-        ,
+        ,{' '}
         <TextLink
           textDecoration="underline"
           href="https://open.spotify.com/show/22A34FI1a2rrt3xUY4mSbh"
         >
           podcaster
         </TextLink>
-        and
+        {' '}and{' '}
         <TextLink
           textDecoration="underline"
           href="https://www.youtube.com/channel/UCssD_lb5-VivYtAp07bQ-uQ"
