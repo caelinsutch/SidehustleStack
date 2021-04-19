@@ -27,3 +27,5 @@ export type { LoadingSectionProps } from './LoadingSection';
 export { default as MultiItemInput } from './MultiItemInput';
 export type { MultiItemInputProps } from './MultiItemInput';
 export { default as Footer } from './Footer';
+export { default as CategoryTypeSection } from './CategoryTypeSection';
+export type { CategoryTypeSectionProps } from './CategoryTypeSection';

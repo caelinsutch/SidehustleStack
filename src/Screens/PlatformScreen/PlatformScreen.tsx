@@ -56,14 +56,18 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           <BreadcrumbSection id={id as string} platformName={name} />
           <HeaderInfo
             name={name}
-            tags={[
-              ...(tags || []),
-              ...typeOfWork.map((t) => snakeToStartCase(t)),
-              snakeToStartCase(category),
-            ]}
+            tags={tags || []}
+            category={category}
+            typeOfWork={typeOfWork}
             signUpLink={website}
           />
-          <Image src={companyLogo} objectFit="cover" borderRadius="md" my={4} />
+          <Image
+            src={companyLogo}
+            objectFit="cover"
+            borderRadius="md"
+            my={4}
+            mx="auto"
+          />
           <FounderQuoteSection
             quote={founderMessage}
             quoteAuthor={founderName}

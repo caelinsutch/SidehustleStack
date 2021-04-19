@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Text, HStack, Tag, Flex, Button } from '@chakra-ui/react';
+import { Box, Text, HStack, Tag, Flex, Button, Spacer } from '@chakra-ui/react';
 import { HiChevronRight } from 'react-icons/hi';
 import { snakeToStartCase } from '@Utils';
+import { CategoryTypeSection } from '@Components';
 
 export type HeaderInfoProps = {
   name: string;
@@ -22,52 +23,18 @@ const HeaderInfo: React.FC<HeaderInfoProps> = ({
     <Text fontSize="4xl" fontWeight="bold">
       {name}
     </Text>
-    <Flex mt={4} justifyContent="space-between" alignItems="center">
-      <Text display="flex" isTruncated>
-        <Text
-          color="orange.400"
-          transition="all 0.2s ease"
-          _hover={{
-            color: 'orange.300',
-          }}
-          cursor="pointer"
-          fontSize={{ base: 'xs', md: 'md' }}
-          isTruncated
-          mr={2}
-          as="h3"
-        >
-          {category}
-        </Text>
-        {typeOfWork.map((type) => (
-          <>
-            <Text color="orange.400" mr={2} fontSize={{ base: 'xs', md: 'md' }}>
-              |
-            </Text>
-            <Text
-              color="orange.400"
-              fontSize={{ base: 'xs', md: 'md' }}
-              transition="all 0.2s ease"
-              _hover={{
-                color: 'orange.300',
-              }}
-              cursor="pointer"
-              mr={2}
-              isTruncated
-              as="h3"
-            >
-              {snakeToStartCase(type)}
-            </Text>
-          </>
-        ))}
-      </Text>
-      <HStack>
+    <Flex mt={4} alignItems="center" display={{ base: 'box', md: 'flex' }}>
+      <CategoryTypeSection typeOfWork={typeOfWork} category={category} mt={2} />
+      <HStack mt={2} ml={{ base: 0, md: 4 }}>
         {tags.map((tag) => (
           <Tag key="tag" colorScheme="orange" variant="solid" size="lg">
             {tag}
           </Tag>
         ))}
       </HStack>
+      <Spacer />
       <Button
+        mt={2}
         colorScheme="orange"
         borderRadius="md"
         size="lg"

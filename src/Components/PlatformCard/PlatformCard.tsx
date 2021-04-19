@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { snakeToStartCase } from '@Utils';
 import { useUpdateFilterQueryParam } from '@Hooks';
 import VoteIcons from '@Components/VoteIcons';
+import CategoryTypeSectionText from '@Components/CategoryTypeSectionText';
 
 export type PlatformCardProps = {
   platform: GetAllPlatformsHomeQuery['allPlatforms'][0];
@@ -74,23 +75,16 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               {platform.name}
             </Text>
             <Text display="flex" isTruncated>
-              <Text
-                color="orange.400"
-                transition="all 0.2s ease"
-                _hover={{
-                  color: 'orange.300',
-                }}
-                cursor="pointer"
+              <CategoryTypeSectionText
                 onClick={() =>
                   updateFilterQueryParam('category', platform.category)
                 }
                 fontSize={{ base: 'xs', md: 'md' }}
-                isTruncated
                 mr={2}
                 as="h5"
               >
                 {snakeToStartCase(platform.category)}
-              </Text>
+              </CategoryTypeSectionText>
               {platform.typeOfWork.map((type) => (
                 <>
                   <Text
@@ -100,21 +94,13 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                   >
                     |
                   </Text>
-                  <Text
-                    color="orange.400"
+                  <CategoryTypeSectionText
                     fontSize={{ base: 'xs', md: 'md' }}
-                    transition="all 0.2s ease"
-                    _hover={{
-                      color: 'orange.300',
-                    }}
-                    cursor="pointer"
-                    mr={2}
                     onClick={() => updateFilterQueryParam('typeOfWork', type)}
-                    isTruncated
                     as="h5"
                   >
                     {snakeToStartCase(type)}
-                  </Text>
+                  </CategoryTypeSectionText>
                 </>
               ))}
             </Text>
