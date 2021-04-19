@@ -74,7 +74,7 @@ export type MutationAddReviewArgs = {
 
 export type MutationVoteArgs = {
   id: Scalars['ID'];
-  down?: Maybe<Scalars['Boolean']>;
+  amount: Scalars['Int'];
 };
 
 export type SuggestionInput = {
@@ -115,7 +115,8 @@ export type PlatformInput = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderName: Scalars['String'];
   email: Scalars['String'];
-  profitModel?: Maybe<ProfitModel>;
+  profitModel: ProfitModel;
+  profitModelDescription: Scalars['String'];
   platformPricing: Scalars['String'];
   requirements?: Maybe<Array<Scalars['String']>>;
 };
@@ -148,6 +149,7 @@ export type UpdatePlatformInput = {
   numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<GeographicalFocus>;
   profitModel?: Maybe<ProfitModel>;
+  profitModelDescription?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
@@ -209,6 +211,7 @@ export type PlatformMvc = {
   averageEarnings?: Maybe<AmountPer>;
   timeToFirstDollar?: Maybe<AmountPer>;
   profitModel?: Maybe<ProfitModel>;
+  profitModelDescription?: Maybe<Scalars['String']>;
   geographicalFocus?: Maybe<GeographicalFocus>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
@@ -455,12 +458,12 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   SuggestionInput: SuggestionInput;
   String: ResolverTypeWrapper<Scalars['String']>;
   UpdateSuggestionInput: UpdateSuggestionInput;
   PlatformInput: PlatformInput;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
   LinkInput: LinkInput;
@@ -488,12 +491,12 @@ export type ResolversParentTypes = {
   Query: {};
   ID: Scalars['ID'];
   Mutation: {};
-  Boolean: Scalars['Boolean'];
+  Int: Scalars['Int'];
   SuggestionInput: SuggestionInput;
   String: Scalars['String'];
   UpdateSuggestionInput: UpdateSuggestionInput;
   PlatformInput: PlatformInput;
-  Int: Scalars['Int'];
+  Boolean: Scalars['Boolean'];
   PlatformRecommendationInput: PlatformRecommendationInput;
   UpdatePlatformInput: UpdatePlatformInput;
   LinkInput: LinkInput;
@@ -577,7 +580,7 @@ export type MutationResolvers<
     Maybe<ResolversTypes['PlatformMVC']>,
     ParentType,
     ContextType,
-    RequireFields<MutationVoteArgs, 'id'>
+    RequireFields<MutationVoteArgs, 'id' | 'amount'>
   >;
 };
 
@@ -670,6 +673,11 @@ export type PlatformMvcResolvers<
   >;
   profitModel?: Resolver<
     Maybe<ResolversTypes['ProfitModel']>,
+    ParentType,
+    ContextType
+  >;
+  profitModelDescription?: Resolver<
+    Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType
   >;
@@ -819,7 +827,7 @@ export type GetPlatformQuery = {
 
 export type UpvotePlatformMutationVariables = Exact<{
   id: Scalars['ID'];
-  down?: Maybe<Scalars['Boolean']>;
+  amount: Scalars['Int'];
 }>;
 
 export type UpvotePlatformMutation = {
@@ -863,6 +871,7 @@ export type CreatePlatformMutationVariables = Exact<{
   tags: Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>;
   founderName: Scalars['String'];
   profitModel: ProfitModel;
+  profitModelDescription: Scalars['String'];
 }>;
 
 export type CreatePlatformMutation = {
@@ -1037,8 +1046,8 @@ export type GetPlatformQueryResult = ApolloReactCommon.QueryResult<
   GetPlatformQueryVariables
 >;
 export const UpvotePlatformDocument = gql`
-  mutation UpvotePlatform($id: ID!, $down: Boolean) {
-    vote(id: $id, down: $down) {
+  mutation UpvotePlatform($id: ID!, $amount: Int!) {
+    vote(id: $id, amount: $amount) {
       score
     }
   }
@@ -1062,7 +1071,7 @@ export type UpvotePlatformMutationFn = ApolloReactCommon.MutationFunction<
  * const [upvotePlatformMutation, { data, loading, error }] = useUpvotePlatformMutation({
  *   variables: {
  *      id: // value for 'id'
- *      down: // value for 'down'
+ *      amount: // value for 'amount'
  *   },
  * });
  */
@@ -1171,6 +1180,7 @@ export const CreatePlatformDocument = gql`
     $tags: [String]!
     $founderName: String!
     $profitModel: ProfitModel!
+    $profitModelDescription: String!
   ) {
     createPlatform(
       platform: {
@@ -1201,6 +1211,7 @@ export const CreatePlatformDocument = gql`
         requirements: $requirements
         founderName: $founderName
         profitModel: $profitModel
+        profitModelDescription: $profitModelDescription
       }
     ) {
       id
@@ -1253,6 +1264,7 @@ export type CreatePlatformMutationFn = ApolloReactCommon.MutationFunction<
  *      tags: // value for 'tags'
  *      founderName: // value for 'founderName'
  *      profitModel: // value for 'profitModel'
+ *      profitModelDescription: // value for 'profitModelDescription'
  *   },
  * });
  */

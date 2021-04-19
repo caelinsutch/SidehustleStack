@@ -66,7 +66,7 @@ export type MutationAddReviewArgs = {
 
 export type MutationVoteArgs = {
   id: Scalars['ID'];
-  down?: Maybe<Scalars['Boolean']>;
+  amount: Scalars['Int'];
 };
 
 export type SuggestionInput = {
@@ -107,7 +107,8 @@ export type PlatformInput = {
   affiliateLink?: Maybe<Scalars['String']>;
   founderName: Scalars['String'];
   email: Scalars['String'];
-  profitModel?: Maybe<ProfitModel>;
+  profitModel: ProfitModel;
+  profitModelDescription: Scalars['String'];
   platformPricing: Scalars['String'];
   requirements?: Maybe<Array<Scalars['String']>>;
 };
@@ -140,6 +141,7 @@ export type UpdatePlatformInput = {
   numPeopleMakingMoney?: Maybe<Scalars['Int']>;
   geographicalFocus?: Maybe<GeographicalFocus>;
   profitModel?: Maybe<ProfitModel>;
+  profitModelDescription?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
@@ -201,6 +203,7 @@ export type PlatformMvc = {
   averageEarnings?: Maybe<AmountPer>;
   timeToFirstDollar?: Maybe<AmountPer>;
   profitModel?: Maybe<ProfitModel>;
+  profitModelDescription?: Maybe<Scalars['String']>;
   geographicalFocus?: Maybe<GeographicalFocus>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
@@ -363,6 +366,7 @@ export type PlatformMvcDbObject = {
   averageEarnings?: Maybe<AmountPer>;
   timeToFirstDollar?: Maybe<AmountPer>;
   profitModel?: Maybe<string>;
+  profitModelDescription?: Maybe<string>;
   geographicalFocus?: Maybe<string>;
   affiliateLink?: Maybe<string>;
   founderMessage?: Maybe<string>;

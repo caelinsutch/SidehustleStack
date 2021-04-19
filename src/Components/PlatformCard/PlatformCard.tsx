@@ -8,14 +8,12 @@ import {
   BoxProps,
   WrapItem,
   Wrap,
-  Flex,
 } from '@chakra-ui/react';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { useRouter } from 'next/router';
-import { VoteIcons } from '@Components';
-import useOnUpvote from '@Components/PlatformCard/useOnUpvote';
 import { snakeToStartCase } from '@Utils';
 import { useUpdateFilterQueryParam } from '@Hooks';
+import VoteIcons from '@Components/VoteIcons';
 
 export type PlatformCardProps = {
   platform: GetAllPlatformsHomeQuery['allPlatforms'][0];
@@ -23,7 +21,6 @@ export type PlatformCardProps = {
 
 const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
   const router = useRouter();
-  const [score, vote, onVote] = useOnUpvote(platform.id, platform.score);
   const updateFilterQueryParam = useUpdateFilterQueryParam();
 
   const handleCardClick = () => {
@@ -61,7 +58,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
           alignContent="center"
           spacing="20px"
         >
-          <VoteIcons status={vote} onClick={onVote} upvotes={score} />
+          <VoteIcons initialUpvotes={platform.score} platformId={platform.id} />
           <Box>
             <Text
               color="black"

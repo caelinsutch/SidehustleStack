@@ -4,18 +4,15 @@ import {
 } from '@GraphQL/Platform';
 import { ObjectID } from 'mongodb';
 
-const vote = async (_: any, { id, down }) => {
+const vote = async (_: any, { id, amount }) => {
   const collection = await getPlatformCollection();
   const dbObject = await collection.findOne({
     _id: ObjectID.createFromHexString(id),
   });
   const previous = getPlatformMvcFromDbObject(dbObject);
   let newScore: number = previous.score != null ? previous.score : 0;
-  if (down) {
-    newScore -= 1;
-  } else {
-    newScore += 1;
-  }
+  newScore += amount;
+
   const result = await collection.findOneAndUpdate(
     {
       _id: ObjectID.createFromHexString(id),

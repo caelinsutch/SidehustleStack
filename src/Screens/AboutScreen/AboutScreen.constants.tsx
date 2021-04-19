@@ -110,8 +110,8 @@ const team: TeamText[] = [
           href="https://open.spotify.com/show/22A34FI1a2rrt3xUY4mSbh"
         >
           podcaster
-        </TextLink>
-        {' '}and{' '}
+        </TextLink>{' '}
+        and{' '}
         <TextLink
           textDecoration="underline"
           href="https://www.youtube.com/channel/UCssD_lb5-VivYtAp07bQ-uQ"

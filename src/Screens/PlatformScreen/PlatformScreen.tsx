@@ -58,7 +58,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
             name={name}
             tags={[
               ...(tags || []),
-              snakeToStartCase(typeOfWork),
+              ...typeOfWork.map((t) => snakeToStartCase(t)),
               snakeToStartCase(category),
             ]}
             signUpLink={website}

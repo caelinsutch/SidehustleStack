@@ -12,7 +12,7 @@ type Mutation {
     createSuggestion(suggestion: SuggestionInput): SuggestionMVC!
     updateSuggestion(id: ID!, data: UpdateSuggestionInput!): SuggestionMVC!
     addReview(id: ID!, review: ReviewInput): PlatformMVC
-    vote(id: ID!, down: Boolean): PlatformMVC
+    vote(id: ID!, amount: Int!): PlatformMVC
 }
 
 input SuggestionInput {
