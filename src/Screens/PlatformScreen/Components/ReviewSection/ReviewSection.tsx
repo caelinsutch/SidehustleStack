@@ -32,7 +32,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
           {reviews.length > 0 && (
             <Box textAlign="center">
               <Text
-                color="orange.400"
+                color="orange.500"
                 fontWeight="bold"
                 fontSize="4xl"
                 mx="auto"

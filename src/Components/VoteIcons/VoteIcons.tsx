@@ -73,10 +73,10 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
       <Icon
         transition="all 0.2s ease"
         as={IoTriangle}
-        color={status === 'up' ? 'orange.300' : 'gray.200'}
+        color={status === 'up' ? 'orange.500' : 'gray.200'}
         onClick={() => onClick('up')}
         _hover={{
-          color: status === 'up' ? 'orange.400' : 'gray.300',
+          color: status === 'up' ? 'orange.500' : 'gray.300',
         }}
       />
       <Text

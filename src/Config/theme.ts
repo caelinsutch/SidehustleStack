@@ -1,6 +1,11 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
+  colors: {
+    orange: {
+      500: 'rgb(255, 109, 9)',
+    },
+  },
   components: {
     Alert: {
       baseStyle: {

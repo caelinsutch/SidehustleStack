@@ -201,7 +201,7 @@ const FormSection: React.FC<FormSectionProps> = ({
         return (
           <Box key={`box${props.name}${props.title}`} mb={4}>
             {title && (
-              <Text fontWeight="bold" fontSize="2xl" color="orange.400" mb={3}>
+              <Text fontWeight="bold" fontSize="2xl" color="orange.500" mb={3}>
                 {title}
               </Text>
             )}

@@ -17,7 +17,7 @@ const StarInput: React.FC<StarInputProps> = ({
 
   const getColor = (index: number) => {
     if (numStarsFilled && index < numStarsFilled) {
-      return 'orange.400';
+      return 'orange.500';
     }
     if (isClickable && index <= hoverIndex) {
       return 'gray.200';

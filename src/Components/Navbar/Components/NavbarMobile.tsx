@@ -37,7 +37,7 @@ const NavbarMobile = withRouter(({ router }) => (
               next
               href={href}
               fontSize={{ base: 'xs', sm: 'sm', md: 'md' }}
-              color={router.pathname === href ? 'orange.400' : 'gray.700'}
+              color={router.pathname === href ? 'orange.500' : 'gray.700'}
             >
               {label}
             </TextLink>

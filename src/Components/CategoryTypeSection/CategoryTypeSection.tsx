@@ -19,7 +19,7 @@ const CategoryTypeSection: React.FC<CategoryTypeSectionProps> = ({
     </CategoryTypeSectionText>
     {typeOfWork.map((type) => (
       <>
-        <Text color="orange.400" mr={2} fontSize="md">
+        <Text color="orange.500" mr={2} fontSize="md">
           |
         </Text>
         <CategoryTypeSectionText>

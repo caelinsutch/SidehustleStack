@@ -19,8 +19,8 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
   id,
 }) => (
   <Flex alignItems="center">
-    <Icon color="orange.400" as={HiChevronLeft} />
-    <Breadcrumb color="orange.400">
+    <Icon color="orange.500" as={HiChevronLeft} />
+    <Breadcrumb color="orange.500">
       <BreadcrumbItem>
         <BreadcrumbLink as={NextLink} href="/">
           All Platforms

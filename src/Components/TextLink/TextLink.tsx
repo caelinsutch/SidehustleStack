@@ -16,7 +16,7 @@ const TextLink: React.FC<TextLinkProps> = ({
   if (next) {
     return (
       <NextLink href={href}>
-        <Link as="p" fontWeight="500" color="orange.400" {...props}>
+        <Link as="p" fontWeight="500" color="orange.500" {...props}>
           {children}
         </Link>
       </NextLink>
@@ -27,7 +27,7 @@ const TextLink: React.FC<TextLinkProps> = ({
     <Link
       href={href}
       fontWeight="500"
-      color="orange.400"
+      color="orange.500"
       target="_blank"
       {...props}
     >

@@ -22,10 +22,10 @@ const FounderQuoteSection: React.FC<FounderQuoteSectionProps> = ({
       <Link
         _hover={{
           textDecoration: 'none',
-          color: 'orange.500',
+          color: 'orange.600',
         }}
         pb={1}
-        color="orange.400"
+        color="orange.500"
         href={quoteAuthorLink}
         target="_blank"
       >

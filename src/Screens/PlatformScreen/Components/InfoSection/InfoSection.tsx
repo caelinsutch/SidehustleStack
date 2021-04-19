@@ -9,7 +9,7 @@ export type InfoSectionProps = {
 const InfoSection: React.FC<InfoSectionProps> = ({ title, body }) => (
   <Box mt={4} mb={8} as="section">
     <Box>
-      <Text fontWeight="bold" color="orange.400" fontSize="2xl">
+      <Text fontWeight="bold" color="orange.500" fontSize="2xl">
         {title}
       </Text>
     </Box>

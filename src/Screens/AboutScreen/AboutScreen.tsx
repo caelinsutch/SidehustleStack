@@ -12,7 +12,7 @@ const AboutScreen: React.FC = () => (
       <GridItem colSpan={{ base: 3, md: 2 }}>
         {leftScreenText.map(({ title, body }) => (
           <Box key={title + body} mt={4}>
-            <Text as="h2" fontSize="2xl" color="orange.400">
+            <Text as="h2" fontSize="2xl" color="orange.500">
               {title}
             </Text>
             <Box color="gray.800" fontSize="lg" mt={2}>
@@ -38,7 +38,7 @@ const AboutScreen: React.FC = () => (
         </Text>
         {team.map(({ title, body, titleLink }) => (
           <Box key={title + body} mt={4}>
-            <Text as="a" href={titleLink} fontSize="2xl" color="orange.400">
+            <Text as="a" href={titleLink} fontSize="2xl" color="orange.500">
               {title}
             </Text>
             <Box color="gray.800" mt={2} fontSize="lg">

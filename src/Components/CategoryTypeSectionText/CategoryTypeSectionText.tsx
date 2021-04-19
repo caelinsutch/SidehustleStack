@@ -7,10 +7,10 @@ const CategoryTypeSectionText: React.FC<CategoryTypeSectionTextProps> = (
   props
 ) => (
   <Text
-    color="orange.400"
+    color="orange.500"
     transition="all 0.2s ease"
     _hover={{
-      color: 'orange.300',
+      color: 'orange.500',
     }}
     cursor="pointer"
     fontSize="md"

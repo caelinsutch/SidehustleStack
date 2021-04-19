@@ -25,7 +25,7 @@ const AdvertiseScreen: React.FC = () => {
         fontSize="4xl"
         textAlign="center"
         mx="auto"
-        color="orange.400"
+        color="orange.500"
       >
         Advertise on Side Hustle Stack
       </Text>
@@ -41,7 +41,7 @@ const AdvertiseScreen: React.FC = () => {
         interested in new online tools and platforms. Companies have seen
         incredible growth almost immediately after being added.
       </Text>
-      <Text as="h3" fontSize="2xl" color="orange.400" mt={4}>
+      <Text as="h3" fontSize="2xl" color="orange.500" mt={4}>
         Get featured on our website
       </Text>
       <Text color="gray.800" fontSize="xl" mt={2}>
@@ -54,7 +54,7 @@ const AdvertiseScreen: React.FC = () => {
         </TextLink>{' '}
         for more information on advertising.
       </Text>
-      <Text as="h3" fontSize="2xl" color="orange.400" mt={4}>
+      <Text as="h3" fontSize="2xl" color="orange.500" mt={4}>
         Founder Testimonials
       </Text>
       <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} spacing={4} mt={4}>

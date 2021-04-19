@@ -8,6 +8,7 @@ import {
   BoxProps,
   WrapItem,
   Wrap,
+  Tag,
 } from '@chakra-ui/react';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { useRouter } from 'next/router';
@@ -67,7 +68,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               cursor="pointer"
               transition="all 0.2s ease"
               _hover={{
-                color: 'orange.400',
+                color: 'orange.500',
               }}
               onClick={handleCardClick}
               as="h4"
@@ -88,7 +89,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               {platform.typeOfWork.map((type) => (
                 <>
                   <Text
-                    color="orange.400"
+                    color="orange.500"
                     mr={2}
                     fontSize={{ base: 'xs', md: 'md' }}
                   >
@@ -109,21 +110,10 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
         <Wrap mt={4}>
           {platform.tags &&
             platform.tags.map((item, index) => (
-              <WrapItem key={platform.name + index}>
-                <Button
-                  bg="orange.400"
-                  borderRadius="md"
-                  fontSize={{ base: 'sm', md: 'md' }}
-                  px={{ base: 2, md: 3 }}
-                  py={{ base: 1, md: 2 }}
-                  h={{ base: 26, md: '36px' }}
-                  style={{
-                    marginInlineStart: '0px',
-                  }}
-                  as="h5"
-                >
+              <WrapItem key={item + index}>
+                <Tag colorScheme="orange" variant="solid" size="lg">
                   {item}
-                </Button>
+                </Tag>
               </WrapItem>
             ))}
         </Wrap>

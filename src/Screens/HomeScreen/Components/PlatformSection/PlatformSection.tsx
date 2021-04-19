@@ -108,6 +108,7 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
             <WrapItem>
               <Button
                 variant="ghost"
+                color="orange.500"
                 onClick={handleClickSortByAverageEarnings}
                 rightIcon={averageEarningsRightIcon()}
               >

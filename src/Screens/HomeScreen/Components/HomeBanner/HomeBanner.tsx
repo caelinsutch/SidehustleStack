@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 const HomeBanner: React.FC = () => (
   <Box textAlign="center" mt={12}>
-    <Text fontSize="3xl" fontWeight="bold" as="h1" color="orange.400">
+    <Text fontSize="3xl" fontWeight="bold" as="h1" color="orange.500">
       Side Hustle Stack is a free resource to find platform-based work, ranging
       from gig work and side hustles to platforms that help you start a small
       business that can grow

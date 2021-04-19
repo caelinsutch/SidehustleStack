@@ -1,5 +1,15 @@
 import React from 'react';
-import { Box, Text, HStack, Tag, Flex, Button, Spacer } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  HStack,
+  Tag,
+  Flex,
+  Button,
+  Spacer,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/react';
 import { HiChevronRight } from 'react-icons/hi';
 import { snakeToStartCase } from '@Utils';
 import { CategoryTypeSection } from '@Components';
@@ -25,13 +35,15 @@ const HeaderInfo: React.FC<HeaderInfoProps> = ({
     </Text>
     <Flex mt={4} alignItems="center" display={{ base: 'box', md: 'flex' }}>
       <CategoryTypeSection typeOfWork={typeOfWork} category={category} mt={2} />
-      <HStack mt={2} ml={{ base: 0, md: 4 }}>
-        {tags.map((tag) => (
-          <Tag key="tag" colorScheme="orange" variant="solid" size="lg">
-            {tag}
-          </Tag>
+      <Wrap mt={2} ml={{ base: 0, md: 4 }}>
+        {tags.map((tag, i) => (
+          <WrapItem key={tag + i}>
+            <Tag colorScheme="orange" variant="solid" size="lg">
+              {tag}
+            </Tag>
+          </WrapItem>
         ))}
-      </HStack>
+      </Wrap>
       <Spacer />
       <Button
         mt={2}
