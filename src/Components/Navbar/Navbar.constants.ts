@@ -15,11 +15,7 @@ const navbarItems: NavbarItem[] = [
   {
     label: 'Community',
     href: '/community',
-  },
-  {
-    label: 'Newsletter',
-    href: '/newsletter',
-  },
+  }
 ];
 
 export { navbarItems };

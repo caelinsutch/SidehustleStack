@@ -11,14 +11,12 @@ const TopSection: React.FC<TopSectionProps> = (props) => (
       Thank you for adding to the Stack! Are you submitting a platform or tool?
     </SubmissionInfoText>
     <SubmissionInfoText>
-      A <i>platform</i> is a generally marketplace-like entity that allows
-      people to directly monetize their skills and creativity, from driving for
-      Uber to selling custom enamel pins on Etsy.
+      A <i>platform</i> is a generally marketplace or similar entity that allows 
+      people to directly monetize their skills, knowledge, or creativity (e.g. Uber, Etsy, etc.)
     </SubmissionInfoText>
     <SubmissionInfoText>
-      A <i>tool</i>, roughly defined, is something that allows side hustlers to
-      do the above better, faster, or less expensively. A video transcriber or a
-      new creator-first calendar client would be quick examples of a tool.
+      A <i>tool</i>, allows side hustlers to do the above better, faster, or at a lower cost 
+      (e.g. an audio transcriber or a new creator-first calendar client)
     </SubmissionInfoText>
   </Box>
 );

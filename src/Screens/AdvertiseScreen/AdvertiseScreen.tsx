@@ -41,14 +41,12 @@ const AdvertiseScreen: React.FC = () => {
         interested in new online tools and platforms. Companies have seen
         incredible growth almost immediately after being added.
       </Text>
-      <Text as="h3" fontSize="2xl" color="orange.500" mt={4}>
-        Get featured on our website
-      </Text>
-      <Text color="gray.800" fontSize="xl" mt={2}>
-        Your brand in a special partner section at the top of the site.
-        <br />
-        <br />
-        Email{' '}
+      <Text as="h3" fontSize="xl" mt={2}>
+        Check out our{' '}
+        <TextLink href="/advertise.pdf">
+          media kit
+        </TextLink>{' '}
+        or email{' '}
         <TextLink href="mailto:hello@sidehustlestack.co">
           hello@sidehustlestack.co
         </TextLink>{' '}

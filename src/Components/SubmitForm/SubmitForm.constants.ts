@@ -1,4 +1,5 @@
 import { FormItem } from '@Components/FormSection/FormSection';
+import TextLink from '@Components/TextLink';
 import {
   ApplicationRequired,
   CategoryOfWork,
@@ -29,7 +30,7 @@ const steps = [
       name: 'platformType',
       placeholder: 'Select',
       type: 'select',
-      title: 'Are you selecting a platform or a tool?',
+      title: 'Are you submitting a platform or a tool?',
       registerOptions: {
         required: true,
       },
@@ -49,14 +50,14 @@ const steps = [
       placeholder: 'Select',
       type: 'select',
       title:
-        'Are you the founder of this company or submitting it as a suggestion?',
+        'Do you work at this company or are you submitting it as a suggestion?',
       registerOptions: {
         required: true,
       },
       options: [
         {
           value: true,
-          label: 'Founder',
+          label: 'I work at this company',
         },
         {
           value: false,
@@ -69,6 +70,8 @@ const steps = [
     {
       name: 'name',
       placeholder: 'Side Hustle Stack',
+      description:
+        'What is the name of your company?',
       type: 'input',
       title: 'Company Name',
       registerOptions: {
@@ -77,7 +80,9 @@ const steps = [
     },
     {
       name: 'website',
-      placeholder: 'sidehustlestack.co',
+      placeholder: 'www.sidehustlestack.co',
+      description:
+        'If not applicable, link to any page with relevant contact information (a YouTube video, Figma prototype, waitlist, etc)',
       type: 'input',
       title: 'Company Website',
     },
@@ -87,7 +92,7 @@ const steps = [
       title: 'Company Logo',
       name: 'companyLogo',
       description:
-        'Company logo should be transparent, centered and fill approximately 1/3 of the space with whitespace on the top and bottom. Please submit a JPG file around 1000 x 800 pixels',
+        'Please upload a high-resolution and background-free image. Check out our guide to image uploads for more help',
       type: 'file',
       registerOptions: {
         required: true,
@@ -96,15 +101,9 @@ const steps = [
     },
     {
       name: 'description',
-      placeholder: 'Description',
+      placeholder: 'Get paid to walk other people\'s dogs',
       description:
-        'Describe what workers do on your platform to earn income. The simpler the better. (~2 sentences). Write it so that it ACTIVELY describes what people will do to earn.\n' +
-        '\n' +
-        'Examples:\n' +
-        '\n' +
-        '"Sell your knowledge about any subject matter to others in an all-in-one platform."\n' +
-        '\n' +
-        '"Get paid to walk other people\'s dogs."',
+        'In one short phrase, what do people actively do on your platform to bring in income? For example: “Get paid to walk other people\’s dogs” or “Sell your SEO skills on our platform”',
       type: 'input',
       title: 'Short Description',
       registerOptions: {
@@ -114,7 +113,9 @@ const steps = [
     },
     {
       name: 'funding',
-      placeholder: 'xxxxx',
+      placeholder: 'Select',
+      description:
+        'Please round your answer to 1 decimal place — i.e. 26.5M, 1M',
       type: 'select',
       title: 'Total Funding',
       options: [
@@ -157,8 +158,8 @@ const steps = [
     },
     {
       name: 'founded',
-      placeholder: '02/2021',
-      description: 'Example, 02/2021',
+      placeholder: '2020',
+      description: 'What year was your company started?',
       type: 'input',
       title: 'Date Founded',
       registerOptions: {
@@ -167,11 +168,9 @@ const steps = [
     },
     {
       name: 'headquarteredIn',
-      placeholder: 'Berkeley, CA',
+      placeholder: 'Seattle, WA',
       description:
-        'If US, please list City, State. If international, please list City, Country.\n' +
-        '\n' +
-        'Example: Seattle, WA or Paris, France',
+        'If you are located in the US, please list as “City, State”. If your company is outside of the US, please list as “City, Country”. For example: Seattle, WA or Paris, France',
       type: 'input',
       title: 'Headquartered In',
       registerOptions: {
@@ -182,6 +181,8 @@ const steps = [
       name: 'geographicalFocus',
       type: 'multiSelect',
       title: 'Geographical Focus',
+      description:
+        'Which areas does your platform currently serve?',  
       registerOptions: {
         required: true,
       },
@@ -190,6 +191,8 @@ const steps = [
     {
       name: 'typeOfWork',
       type: 'multiSelect',
+      description:
+        'Choose up to 3 that apply to your platform',
       title: 'Type of Work',
       placeholder: 'Select',
       options: [
@@ -235,17 +238,19 @@ const steps = [
       placeholder: 'Select',
       title: 'Work Category',
       options: [
-        { label: 'Gig work (Uber, Doordash)', value: CategoryOfWork.Gig },
+        { 
+          label: 'Gig (work on your own time)',
+          value: CategoryOfWork.Gig },
         {
-          label: 'Creator / Monetize audience/fans',
+          label: 'Creator (monetize audience and fans)',
           value: CategoryOfWork.Creator,
         },
         {
-          label: 'Project Based / Freelance',
+          label: 'Freelance / project-based work',
           value: CategoryOfWork.ProjectBased,
         },
         {
-          label: 'Start an SMB (Shopify, Etsy, Poshmark)',
+          label: 'SMB (creation of a business)',
           value: CategoryOfWork.Smb,
         },
         { label: 'Rentals', value: CategoryOfWork.Rentals },
@@ -259,24 +264,29 @@ const steps = [
       name: 'requiresDigitalAudience',
       type: 'select',
       title:
-        'Does the platform require an existing digital audience to monetize? *\n',
+        'Audience Required',
       placeholder: 'Select',
+      description:
+        'Realistically, would a user without a pre-built social audience from TikTok, Instagram, Twitter, etc. turn an income on your platform?',
       registerOptions: {
         required: true,
       },
       options: [
-        { label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
+        { 
+          label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
         { label: 'No', value: ExistingDigitalAudienceRequired.No },
         {
-          label: 'No, but recommended',
+          label: 'No, however one would be helpful',
           value: ExistingDigitalAudienceRequired.Recommended,
         },
       ],
     },
     {
       name: 'applicationRequired',
-      type: 'select',
+      type: 'select', 
       title: 'Application Required',
+      description:
+        'Does everyone who signs up for the platform immediately receive an account?',
       placeholder: 'Select',
       registerOptions: {
         required: true,
@@ -290,7 +300,9 @@ const steps = [
     {
       name: 'remoteWork',
       type: 'select',
-      title: 'Work can be done from home?',
+      title: 'WFH',
+      description:
+        'Can work be done from home on your platform?',
       placeholder: 'Select',
       registerOptions: {
         required: true,
@@ -304,6 +316,8 @@ const steps = [
       name: 'minimumAge',
       type: 'input',
       title: 'Minimum Age',
+      description:
+        'What, if any, is the minimum age for someone to earn on your platform?',
       placeholder: '18',
       registerOptions: {
         required: true,
@@ -317,6 +331,8 @@ const steps = [
       name: 'equipmentQualSkills',
       type: 'multiSelect',
       title: 'Equipment, Qualification, and Skills',
+      description:
+        'What things might someone need to succeed on your platform?',
       options: [
         { label: 'Computer', value: 'COMPUTER' },
         { label: 'Smartphone', value: 'SMARTPHONE' },
@@ -340,9 +356,9 @@ const steps = [
       name: 'requirements',
       type: 'multiItemInput',
       title: 'Other User Requirements',
-      description: 'If you selected Other, please list here',
+      description: 'If you selected Other, please describe anything else needed in addition to do the above',
       placeholder:
-        'A smartphone or similar device, The ability to ship items, ...',
+        'The ability to ship items, items to sell, language proficiency, etc.',
       registerOptions: {
         required: false,
         validate: { empty: (value: any) => value !== [] },
@@ -352,8 +368,8 @@ const steps = [
       name: 'averageEarnings',
       type: 'input',
       title: 'Average Monthly Earnings',
-      placeholder: 'xx',
-      description: 'Please round to the nearest dollar — e.g. $10.',
+      placeholder: '$1,000',
+      description: 'Please round figures to the nearest dollar — e.g. $10, $100, $1,000',
       registerOptions: {
         required: true,
         validate: {
@@ -366,8 +382,8 @@ const steps = [
       name: 'timeToFirstDollar',
       type: 'input',
       title: 'Days to First Dollar',
-      description: 'How many days till the average earner first makes money?',
-      placeholder: 'xx',
+      description: 'How many days does it take for an average new user to earn their first dollar?',
+      placeholder: '7',
       registerOptions: {
         required: true,
         validate: {
@@ -379,8 +395,10 @@ const steps = [
     {
       name: 'numPeopleMakingMoney',
       type: 'input',
-      title: 'Number of people making money on your platform?',
-      placeholder: 'xxx',
+      title: 'Revenue Generation',
+      description:
+        'How many people are currently making money directly through your platform?',
+      placeholder: '10,000',
       registerOptions: {
         required: true,
         validate: {
@@ -421,22 +439,23 @@ const steps = [
     {
       name: 'affiliateLink',
       type: 'input',
+      placeholder:
+        'www.yourplatform.com/#source="SHS"',
       description:
-        'Example: website.com/signup or affiliate link. If you have an affiliate link program, PLEASE enter that here!',
+        'If your platform has an affiliate program set up, link that here — we’ll be in touch! If not applicable, leave blank',
       title: 'Affiliate Link',
     },
     {
       name: 'founderMessage',
       type: 'input',
       description:
-        'Some of our platforms have messages from their founders on what makes their platform special. See sidehustlestack.co/patreon for an example.',
+        'Some of our platforms have SHS-special messages about what makes them See Patreon for example!',
       title: 'Founder Message',
     },
     {
       name: 'founderName',
       type: 'input',
       title: 'Founder Name',
-      placeholder: 'Caelin Sutch',
       registerOptions: {
         required: true,
       },
@@ -444,14 +463,16 @@ const steps = [
     {
       name: 'founderTwitter',
       type: 'input',
-      title: 'Please enter a link to the founders twitter',
-      placeholder: 'https://twitter.com/caelin_sutch',
+      title: 'Please leave the link to the profile, not the handle!',
+      placeholder: 'https://twitter.com/sidehustlestack',
     },
     {
       name: 'email',
       type: 'input',
       title: 'Email',
-      placeholder: 'caelinsutch@gmail.com',
+      description:
+        'Who should we contact about questions with form submission?',
+      placeholder: 'team@sidehustlestack.co',
       registerOptions: {
         required: true,
       },
