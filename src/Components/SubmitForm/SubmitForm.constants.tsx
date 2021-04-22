@@ -1,5 +1,5 @@
+import React from 'react';
 import { FormItem } from '@Components/FormSection/FormSection';
-import TextLink from '@Components/TextLink';
 import {
   ApplicationRequired,
   CategoryOfWork,
@@ -11,6 +11,8 @@ import {
   TypeOfWork,
 } from '@GraphQL/types';
 import { snakeToStartCase } from '@Utils';
+import { Text } from '@chakra-ui/react';
+import { TextLink } from '@Components';
 
 const generateOptionsFromEnums = (e: any) =>
   Object.values(e).map((value: string) => ({
@@ -70,8 +72,7 @@ const steps = [
     {
       name: 'name',
       placeholder: 'Side Hustle Stack',
-      description:
-        'What is the name of your company?',
+      description: 'What is the name of your company?',
       type: 'input',
       title: 'Company Name',
       registerOptions: {
@@ -91,8 +92,13 @@ const steps = [
     {
       title: 'Company Logo',
       name: 'companyLogo',
-      description:
-        'Please upload a high-resolution and background-free image. Check out our guide to image uploads for more help',
+      description: (
+        <Text>
+          Please upload a high-resolution and background-free image. Check out
+          our <TextLink href="/upload.pdf">guide</TextLink> to image uploads for
+          more help.
+        </Text>
+      ),
       type: 'file',
       registerOptions: {
         required: true,
@@ -101,9 +107,9 @@ const steps = [
     },
     {
       name: 'description',
-      placeholder: 'Get paid to walk other people\'s dogs',
+      placeholder: "Get paid to walk other people's dogs",
       description:
-        'In one short phrase, what do people actively do on your platform to bring in income? For example: “Get paid to walk other people\’s dogs” or “Sell your SEO skills on our platform”',
+        'In one short phrase, what do people actively do on your platform to bring in income? For example: “Get paid to walk other people’s dogs” or “Sell your SEO skills on our platform”',
       type: 'input',
       title: 'Short Description',
       registerOptions: {
@@ -181,8 +187,7 @@ const steps = [
       name: 'geographicalFocus',
       type: 'multiSelect',
       title: 'Geographical Focus',
-      description:
-        'Which areas does your platform currently serve?',  
+      description: 'Which areas does your platform currently serve?',
       registerOptions: {
         required: true,
       },
@@ -191,8 +196,7 @@ const steps = [
     {
       name: 'typeOfWork',
       type: 'multiSelect',
-      description:
-        'Choose up to 3 that apply to your platform',
+      description: 'Choose up to 3 that apply to your platform',
       title: 'Type of Work',
       placeholder: 'Select',
       options: [
@@ -238,9 +242,10 @@ const steps = [
       placeholder: 'Select',
       title: 'Work Category',
       options: [
-        { 
+        {
           label: 'Gig (work on your own time)',
-          value: CategoryOfWork.Gig },
+          value: CategoryOfWork.Gig,
+        },
         {
           label: 'Creator (monetize audience and fans)',
           value: CategoryOfWork.Creator,
@@ -263,8 +268,7 @@ const steps = [
     {
       name: 'requiresDigitalAudience',
       type: 'select',
-      title:
-        'Audience Required',
+      title: 'Audience Required',
       placeholder: 'Select',
       description:
         'Realistically, would a user without a pre-built social audience from TikTok, Instagram, Twitter, etc. turn an income on your platform?',
@@ -272,8 +276,10 @@ const steps = [
         required: true,
       },
       options: [
-        { 
-          label: 'Yes', value: ExistingDigitalAudienceRequired.Yes },
+        {
+          label: 'Yes',
+          value: ExistingDigitalAudienceRequired.Yes,
+        },
         { label: 'No', value: ExistingDigitalAudienceRequired.No },
         {
           label: 'No, however one would be helpful',
@@ -283,7 +289,7 @@ const steps = [
     },
     {
       name: 'applicationRequired',
-      type: 'select', 
+      type: 'select',
       title: 'Application Required',
       description:
         'Does everyone who signs up for the platform immediately receive an account?',
@@ -301,8 +307,7 @@ const steps = [
       name: 'remoteWork',
       type: 'select',
       title: 'WFH',
-      description:
-        'Can work be done from home on your platform?',
+      description: 'Can work be done from home on your platform?',
       placeholder: 'Select',
       registerOptions: {
         required: true,
@@ -356,7 +361,8 @@ const steps = [
       name: 'requirements',
       type: 'multiItemInput',
       title: 'Other User Requirements',
-      description: 'If you selected Other, please describe anything else needed in addition to do the above',
+      description:
+        'If you selected Other, please describe anything else needed in addition to do the above',
       placeholder:
         'The ability to ship items, items to sell, language proficiency, etc.',
       registerOptions: {
@@ -369,7 +375,8 @@ const steps = [
       type: 'input',
       title: 'Average Monthly Earnings',
       placeholder: '$1,000',
-      description: 'Please round figures to the nearest dollar — e.g. $10, $100, $1,000',
+      description:
+        'Please round figures to the nearest dollar — e.g. $10, $100, $1,000',
       registerOptions: {
         required: true,
         validate: {
@@ -382,7 +389,8 @@ const steps = [
       name: 'timeToFirstDollar',
       type: 'input',
       title: 'Days to First Dollar',
-      description: 'How many days does it take for an average new user to earn their first dollar?',
+      description:
+        'How many days does it take for an average new user to earn their first dollar?',
       placeholder: '7',
       registerOptions: {
         required: true,
@@ -439,8 +447,7 @@ const steps = [
     {
       name: 'affiliateLink',
       type: 'input',
-      placeholder:
-        'www.yourplatform.com/#source="SHS"',
+      placeholder: 'www.yourplatform.com/#source="SHS"',
       description:
         'If your platform has an affiliate program set up, link that here — we’ll be in touch! If not applicable, leave blank',
       title: 'Affiliate Link',
@@ -448,14 +455,21 @@ const steps = [
     {
       name: 'founderMessage',
       type: 'input',
-      description:
-        'Some of our platforms have SHS-special messages about what makes them See Patreon for example!',
+      description: (
+        <Text>
+          Some of our platforms have SHS-special messages about what makes their
+          platform special. See{' '}
+          <TextLink href="sidehustlestack.co/patreon">Patreon</TextLink> for an
+          example.
+        </Text>
+      ),
       title: 'Founder Message',
     },
     {
       name: 'founderName',
       type: 'input',
       title: 'Founder Name',
+      placeholder: 'Caelin Sutch',
       registerOptions: {
         required: true,
       },

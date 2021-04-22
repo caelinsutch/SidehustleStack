@@ -13,9 +13,6 @@ const theme = extendTheme({
       },
     },
     Button: {
-      baseStyle: {
-        borderRadius: 1000,
-      },
       defaultProps: {
         colorScheme: 'orange',
       },

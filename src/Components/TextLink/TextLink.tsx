@@ -29,6 +29,7 @@ const TextLink: React.FC<TextLinkProps> = ({
       fontWeight="500"
       color="orange.500"
       target="_blank"
+      textDecoration="underline"
       {...props}
     >
       {children}

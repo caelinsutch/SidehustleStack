@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   Box,
   Button,
@@ -18,7 +18,7 @@ import FileUploader from '@Components/FileUploader';
 export type FormItemBase = {
   name: string;
   title?: string;
-  description?: string;
+  description?: ReactElement;
   placeholder?: string;
   registerOptions?: RegisterOptions;
   defaultValue?: any;
@@ -199,7 +199,7 @@ const FormSection: React.FC<FormSectionProps> = ({
         }
         const { title, description } = props;
         return (
-          <Box key={`box${props.name}${props.title}`} mb={4}>
+          <Box key={`box${props.name}${props.title}`} mb={10}>
             {title && (
               <Text fontWeight="bold" fontSize="2xl" color="orange.500" mb={3}>
                 {title}
@@ -224,11 +224,7 @@ const FormSection: React.FC<FormSectionProps> = ({
             Back
           </Button>
         )}
-        <Button
-          borderRadius={1000}
-          type="submit"
-          isDisabled={Object.keys(errors).length !== 0}
-        >
+        <Button type="submit" isDisabled={Object.keys(errors).length !== 0}>
           {buttonText}
         </Button>
       </Flex>

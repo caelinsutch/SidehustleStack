@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Link, Text } from '@chakra-ui/react';
 import { TextLink } from '@Components';
+import { Text } from '@chakra-ui/react';
 
 type AboutScreenText = {
   title: string;
@@ -37,11 +37,7 @@ const leftScreenText: AboutScreenText[] = [
         supplemental income. Side hustles are often things a person is
         passionate about, rather day a typical day job worked in order to make
         ends meet (
-        <TextLink
-          href="https://www.wonolo.com/blog/what-is-a-side-hustle/#:~:text=A%20side%20hustle%20is%20any,to%20one's%20full%2Dtime%20job.&text=While%20a%20part%2Dtime%20job,want%20to%20work%20and%20earn"
-          display="inline-block"
-          textDecoration="underline"
-        >
+        <TextLink href="https://www.wonolo.com/blog/what-is-a-side-hustle/#:~:text=A%20side%20hustle%20is%20any,to%20one's%20full%2Dtime%20job.&text=While%20a%20part%2Dtime%20job,want%20to%20work%20and%20earn">
           source
         </TextLink>
         ).
