@@ -418,7 +418,11 @@ const steps = [
     {
       name: 'profitModel',
       type: 'select',
-      title: 'Is your platform free, comission based, or does the worker pay?',
+      title: 'Platform Pricing',
+      description:
+        'How is your platform priced?',
+      placeholder:
+        'Select',
       registerOptions: {
         required: true,
       },
@@ -428,7 +432,9 @@ const steps = [
       name: 'profitModelDescription',
       type: 'input',
       title:
-        'If commission based, how much is the average take rate? If the wokrer pays, whats the monthly fee?',
+        'Monthly Take or Subscription Rate',
+      description:
+        'If your platform is not free, what is the monthly take rate / subscription amount?',
       registerOptions: {
         required: true,
       },
@@ -436,10 +442,9 @@ const steps = [
     {
       name: 'platformPricing',
       type: 'input',
-      title: 'Platform Pricing',
+      title: 'Other Pricing',
       description:
-        'If your platform is not free, do you charge a commission fee or subscription fee?',
-      placeholder: 'The platform fee is dependent on...',
+        'If you selected Other, please describe how the platform is priced',
       registerOptions: {
         required: true,
       },
@@ -469,7 +474,6 @@ const steps = [
       name: 'founderName',
       type: 'input',
       title: 'Founder Name',
-      placeholder: 'Caelin Sutch',
       registerOptions: {
         required: true,
       },
@@ -477,7 +481,8 @@ const steps = [
     {
       name: 'founderTwitter',
       type: 'input',
-      title: 'Please leave the link to the profile, not the handle!',
+      title: 'Founder Twitter Link',
+      description: 'Please leave the link to the profile, not the handle!',
       placeholder: 'https://twitter.com/sidehustlestack',
     },
     {

@@ -239,9 +239,10 @@ export type Review = {
 };
 
 export enum ProfitModel {
+  PercentageTakeRate = 'PERCENTAGE_TAKE_RATE',
+  SubscriptionFee = 'SUBSCRIPTION_FEE',
   Free = 'FREE',
-  Comission = 'COMISSION',
-  WorkerPays = 'WORKER_PAYS',
+  Other = 'OTHER'
 }
 
 export enum GeographicalFocus {

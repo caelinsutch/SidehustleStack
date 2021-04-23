@@ -176,9 +176,10 @@ type Review @entity(embedded: true) {
 }
 
 enum ProfitModel {
+    PERCENTAGE_TAKE_RATE
+    SUBSCRIPTION_FEE
     FREE
-    COMISSION
-    WORKER_PAYS
+    OTHER
 }
 
 enum GeographicalFocus {
