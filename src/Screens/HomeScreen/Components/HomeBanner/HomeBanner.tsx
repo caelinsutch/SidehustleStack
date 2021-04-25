@@ -10,7 +10,7 @@ const HomeBanner: React.FC = () => (
     </Text>
     <Box mt={8}>
       <Text fontSize="xl" fontWeight="bold" as="h4">
-        Invite us into your inbox
+        Subscribe to our Newsletter
       </Text>
       <Box mt={4}>
         <iframe

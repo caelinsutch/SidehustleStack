@@ -37,7 +37,7 @@ const NavbarDesktop = withRouter(({ router }) => (
         <Flex flex={1} justifyContent="flex-end">
           <NextLink href="/submit">
             <Button colorScheme="orange" borderRadius="md" ml="auto">
-              Upload a Platform
+              Submit a Platform
             </Button>
           </NextLink>
         </Flex>

@@ -24,7 +24,7 @@ const NavbarMobile = withRouter(({ router }) => (
         <Flex flex={1} justifyContent="flex-end">
           <NextLink href="/submit">
             <Button colorScheme="orange" borderRadius="md">
-              Upload a Platform
+              Submit a Platform
             </Button>
           </NextLink>
         </Flex>
