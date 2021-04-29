@@ -299,7 +299,6 @@ const steps = [
       },
       options: [
         { label: 'Yes', value: ApplicationRequired.Yes },
-        { label: 'Yes, selective', value: ApplicationRequired.YesSelective },
         { label: 'No', value: ApplicationRequired.No },
       ],
     },
@@ -339,8 +338,8 @@ const steps = [
       description:
         'What things might someone need to succeed on your platform?',
       options: [
-        { label: 'Computer', value: 'COMPUTER' },
-        { label: 'Smartphone', value: 'SMARTPHONE' },
+        { label: 'Computer (with Internet connection)', value: 'COMPUTER' },
+        { label: 'Smartphone (with data)', value: 'SMARTPHONE' },
         { label: 'Car', value: 'CAR' },
         { label: 'Microphone', value: 'MICROPHONE' },
         { label: 'Bank Account', value: 'BANK_ACCOUNT' },

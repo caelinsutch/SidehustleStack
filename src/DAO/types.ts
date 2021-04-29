@@ -295,7 +295,6 @@ export enum ExistingDigitalAudienceRequired {
 
 export enum ApplicationRequired {
   Yes = 'YES',
-  YesSelective = 'YES_SELECTIVE',
   No = 'NO',
 }
 
