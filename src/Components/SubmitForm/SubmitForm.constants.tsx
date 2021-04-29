@@ -212,7 +212,7 @@ const steps = [
         { label: 'Coach', value: TypeOfWork.Coach },
         { label: 'Community Leader', value: TypeOfWork.CommunityLeader },
         { label: 'Content Creator', value: TypeOfWork.ContentCreator },
-        { label: 'E-Commerce', value: TypeOfWork.Ecommerce },
+        { label: 'Ecommerce', value: TypeOfWork.Ecommerce },
         { label: 'Event Organizer', value: TypeOfWork.EventOrganizer },
         { label: 'Driver', value: TypeOfWork.Driver },
         { label: 'Fitness Instructor', value: TypeOfWork.FitnessInstructor },
