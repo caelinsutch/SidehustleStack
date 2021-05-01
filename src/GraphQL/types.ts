@@ -109,7 +109,7 @@ export type PlatformInput = {
   averageEarnings: AmountPerInput;
   timeToFirstDollar: AmountPerInput;
   numPeopleMakingMoney: Scalars['Int'];
-  geographicalFocus: GeographicalFocus;
+  geographicalFocus: Array<GeographicalFocus>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
@@ -147,7 +147,7 @@ export type UpdatePlatformInput = {
   averageEarnings?: Maybe<AmountPerInputUpdate>;
   timeToFirstDollar?: Maybe<AmountPerInput>;
   numPeopleMakingMoney?: Maybe<Scalars['Int']>;
-  geographicalFocus?: Maybe<GeographicalFocus>;
+  geographicalFocus?: Maybe<Array<Maybe<GeographicalFocus>>>;
   profitModel?: Maybe<ProfitModel>;
   profitModelDescription?: Maybe<Scalars['String']>;
   affiliateLink?: Maybe<Scalars['String']>;
@@ -212,7 +212,7 @@ export type PlatformMvc = {
   timeToFirstDollar?: Maybe<AmountPer>;
   profitModel?: Maybe<ProfitModel>;
   profitModelDescription?: Maybe<Scalars['String']>;
-  geographicalFocus?: Maybe<GeographicalFocus>;
+  geographicalFocus?: Maybe<Array<GeographicalFocus>>;
   affiliateLink?: Maybe<Scalars['String']>;
   founderMessage?: Maybe<Scalars['String']>;
   founderTwitter?: Maybe<Scalars['String']>;
@@ -303,6 +303,7 @@ export enum ExistingDigitalAudienceRequired {
 
 export enum ApplicationRequired {
   Yes = 'YES',
+  YesSelective = 'YES_SELECTIVE',
   No = 'NO',
 }
 
@@ -682,7 +683,7 @@ export type PlatformMvcResolvers<
     ContextType
   >;
   geographicalFocus?: Resolver<
-    Maybe<ResolversTypes['GeographicalFocus']>,
+    Maybe<Array<ResolversTypes['GeographicalFocus']>>,
     ParentType,
     ContextType
   >;
@@ -859,7 +860,7 @@ export type CreatePlatformMutationVariables = Exact<{
   equipmentQualSkills: Array<EquipmentQualSkills> | EquipmentQualSkills;
   averageEarnings: AmountPerInput;
   timeToFirstDollar: AmountPerInput;
-  geographicalFocus: GeographicalFocus;
+  geographicalFocus: Array<GeographicalFocus> | GeographicalFocus;
   affiliateLink: Scalars['String'];
   founderMessage: Scalars['String'];
   founderTwitter: Scalars['String'];
@@ -1168,7 +1169,7 @@ export const CreatePlatformDocument = gql`
     $equipmentQualSkills: [EquipmentQualSkills!]!
     $averageEarnings: AmountPerInput!
     $timeToFirstDollar: AmountPerInput!
-    $geographicalFocus: GeographicalFocus!
+    $geographicalFocus: [GeographicalFocus!]!
     $affiliateLink: String!
     $founderMessage: String!
     $founderTwitter: String!

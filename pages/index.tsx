@@ -34,7 +34,8 @@ export async function getServerSideProps() {
       })
     ).data;
   } catch (e) {
-    console.log(e.networkError.result.errors);
+    console.log(e);
+    // console.log(e.networkError.result.errors);
   }
 
   return {

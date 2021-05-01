@@ -70,23 +70,23 @@ const PlatformSection: React.FC<PlatformSectionProps> = ({
 
   return (
     <Box {...props}>
-      <Text fontSize="3xl" textAlign={{ base: 'center', sm: 'left' }} as="h2">
-        Sponsored {type}
-      </Text>
-      <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
-      <Text
-        fontSize="3xl"
-        mt={16}
-        textAlign={{ base: 'center', sm: 'left' }}
-        as="h2"
-      >
-        Trending {type}: February 2021
-      </Text>
-      <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" />
+      {/* <Text fontSize="3xl" textAlign={{ base: 'center', sm: 'left' }} as="h2"> */}
+      {/*  Sponsored {type} */}
+      {/* </Text> */}
+      {/* <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" /> */}
+      {/* <Text */}
+      {/*  fontSize="3xl" */}
+      {/*  mt={16} */}
+      {/*  textAlign={{ base: 'center', sm: 'left' }} */}
+      {/*  as="h2" */}
+      {/* > */}
+      {/*  Trending {type}: February 2021 */}
+      {/* </Text> */}
+      {/* <PlatformCardList cards={platforms.slice(0, 3)} w="100%" mt="40px" /> */}
       <Box mt={16}>
-        <Text fontSize="3xl" textAlign={{ base: 'center', sm: 'left' }} as="h2">
-          All {type}
-        </Text>
+        {/* <Text fontSize="3xl" textAlign={{ base: 'center', sm: 'left' }} as="h2"> */}
+        {/*  All {type} */}
+        {/* </Text> */}
         <Flex
           flex={1}
           justifyContent="space-between"

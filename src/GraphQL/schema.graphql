@@ -47,7 +47,7 @@ input PlatformInput {
     averageEarnings: AmountPerInput!
     timeToFirstDollar: AmountPerInput!
     numPeopleMakingMoney: Int!
-    geographicalFocus: GeographicalFocus!
+    geographicalFocus: [GeographicalFocus!]!
     founderMessage: String
     founderTwitter: String
     affiliateLink: String
@@ -84,7 +84,7 @@ input UpdatePlatformInput {
     averageEarnings: AmountPerInputUpdate
     timeToFirstDollar: AmountPerInput
     numPeopleMakingMoney: Int
-    geographicalFocus: GeographicalFocus
+    geographicalFocus: [GeographicalFocus]
     profitModel: ProfitModel
     profitModelDescription: String
     affiliateLink: String
@@ -149,7 +149,7 @@ type PlatformMVC @entity {
     timeToFirstDollar: AmountPer @column
     profitModel: ProfitModel @column
     profitModelDescription: String @column
-    geographicalFocus: GeographicalFocus @column
+    geographicalFocus: [GeographicalFocus!] @column
     affiliateLink: String @column
     founderMessage: String @column
     founderTwitter: String @column

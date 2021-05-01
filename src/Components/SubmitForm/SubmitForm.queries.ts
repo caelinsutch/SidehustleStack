@@ -18,7 +18,7 @@ export const createPlatform = gql`
     $equipmentQualSkills: [EquipmentQualSkills!]!
     $averageEarnings: AmountPerInput!
     $timeToFirstDollar: AmountPerInput!
-    $geographicalFocus: GeographicalFocus!
+    $geographicalFocus: [GeographicalFocus!]!
     $affiliateLink: String!
     $founderMessage: String!
     $founderTwitter: String!

@@ -1,7 +1,8 @@
 import FS from 'fs';
-import _ from 'lodash';
 import CsvReadableStream from 'csv-reader';
+import { MongoClient } from 'mongodb';
 import {
+  AmountPerInput,
   ApplicationRequired,
   CategoryOfWork,
   EquipmentQualSkills,
@@ -10,10 +11,11 @@ import {
   GeographicalFocus,
   PlatformInput,
   PlatformType,
-  TypeOfWork,
-  AmountPerInput,
   ProfitModel,
+  Status,
+  TypeOfWork,
 } from '../src/GraphQL/types';
+import { PlatformMvcDbObject } from '../src/DAO';
 
 const parseFunding = (input: string): Funding => {
   if (input === 'Bootstrapped') return Funding.Bootstrapped;
@@ -34,11 +36,44 @@ const parseFunding = (input: string): Funding => {
   return Funding.Undisclosed;
 };
 
-const parseTypeOfWork = (input: string): TypeOfWork[] =>
-  input
-    .split(',')
-    .map((item) => _.upperCase(_.snakeCase(item))) as TypeOfWork[];
+const parseTypeOfWork = (cInput: string): TypeOfWork | undefined => {
+  const input = cInput.toLowerCase();
+  if (input.includes('adult')) return TypeOfWork.AdultContentCreator;
+  if (input.includes('audio')) return TypeOfWork.AudioContentCreator;
+  if (input.includes('chef')) return TypeOfWork.Chef;
+  if (input.includes('coach')) return TypeOfWork.Coach;
+  if (input.includes('community')) return TypeOfWork.CommunityLeader;
+  if (input.includes('content')) return TypeOfWork.ContentCreator;
+  if (input.includes('ecommerce')) return TypeOfWork.Ecommerce;
+  if (input.includes('event')) return TypeOfWork.EventOrganizer;
+  if (input.includes('driver')) return TypeOfWork.Driver;
+  if (input.includes('fitness')) return TypeOfWork.FitnessInstructor;
+  if (input.includes('gamer')) return TypeOfWork.Gamer;
+  if (input.includes('health')) return TypeOfWork.Health;
+  if (input.includes('livestream')) return TypeOfWork.Livestreamer;
+  if (input.includes('personal')) return TypeOfWork.PersonalShopper;
+  if (input.includes('pet')) return TypeOfWork.PetCaretaker;
+  if (input.includes('podcast')) return TypeOfWork.Podcaster;
+  if (input.includes('rentals')) return TypeOfWork.Rentals;
+  if (input.includes('reseller')) return TypeOfWork.Reseller;
+  if (input.includes('restaurant')) return TypeOfWork.RestaurantWorker;
+  if (input.includes('sales')) return TypeOfWork.Salesperson;
+  if (input.includes('tasks')) return TypeOfWork.TasksAndServices;
+  if (input.includes('teacher')) return TypeOfWork.Teacher;
+  if (input.includes('tech')) return TypeOfWork.Tech;
+  if (input.includes('video')) return TypeOfWork.VideoCourseCreator;
+  if (input.includes('writer')) return TypeOfWork.Writer;
+  return undefined;
+};
 
+const parseTypeOfWorkArray = (input: string): TypeOfWork[] => {
+  const rValue: TypeOfWork[] = [];
+  input.split(',').forEach((i) => {
+    const c = parseTypeOfWork(i);
+    if (c) rValue.push(c);
+  });
+  return rValue;
+};
 const parseCategory = (input: string): CategoryOfWork => {
   const lCInput = input.toLowerCase();
   if (lCInput.includes('gig')) return CategoryOfWork.Gig;
@@ -98,6 +133,38 @@ const parseAverageEarnings = (input: string): AmountPerInput => ({
   per: 'month',
 });
 
+const parseGeographicalFocus = (
+  input: string
+): GeographicalFocus | undefined => {
+  const item = input.toLowerCase();
+  if (item.includes('u.s.')) return GeographicalFocus.NorthAmerica;
+  if (item.includes('north america')) return GeographicalFocus.NorthAmerica;
+  if (item.includes('europe')) return GeographicalFocus.Europe;
+  if (item.includes('worldwide')) return GeographicalFocus.Worldwide;
+  if (item.includes('australia')) return GeographicalFocus.Australia;
+  if (item.includes('asia')) return GeographicalFocus.Asia;
+  if (item.includes('africa')) return GeographicalFocus.Africa;
+  if (item.includes('middle')) return GeographicalFocus.MiddleEast;
+  return undefined;
+};
+
+const parseCompanyLogo = (input: string): string | undefined => {
+  if (input.match(/\(([^)]+)\)/)) {
+    return input.match(/\(([^)]+)\)/)[1];
+  }
+  return undefined;
+};
+
+const parseGeographicalFocusArray = (input: string): GeographicalFocus[] => {
+  const inputArray = input.split(',');
+  let returnVal: GeographicalFocus[] = [];
+  inputArray.forEach((item) => {
+    const parsed = parseGeographicalFocus(item);
+    if (parsed) returnVal.push(parsed);
+  });
+  return returnVal;
+};
+
 const parseProfitModel = (input: string): ProfitModel => {
   if (!input) return undefined;
   const lCInput = input.toLowerCase();
@@ -107,11 +174,11 @@ const parseProfitModel = (input: string): ProfitModel => {
   return ProfitModel.Other;
 };
 
-const getData = async (): Promise<Partial<PlatformInput>[]> =>
+const getData = async (): Promise<PlatformInput[]> =>
   new Promise((res) => {
     const inputStream = FS.createReadStream('./platforms.csv', 'utf8');
     let cols: string[];
-    let data: Partial<PlatformInput>[] = [];
+    let data: PlatformInput[] = [];
     let i = 0;
 
     inputStream
@@ -120,21 +187,23 @@ const getData = async (): Promise<Partial<PlatformInput>[]> =>
         // Get the cols
         if (i === 0) {
           cols = newRow as string[];
-        } else if (i < 2) {
+        } else {
           let dataAsObject: Record<string, string> = {};
           for (let colNum = 0; colNum < newRow.length; colNum += 1) {
             dataAsObject[cols[colNum]] = newRow[colNum];
           }
-          const platform: Partial<PlatformInput> = {
+          const platform: PlatformInput = {
             name: dataAsObject.name,
             website: dataAsObject.website,
             description: dataAsObject.description,
-            companyLogo: dataAsObject.companyLogo,
+            companyLogo: parseCompanyLogo(dataAsObject.companyLogo), // Gets text between parenthesis
             funding: parseFunding(dataAsObject.funding),
             founded: dataAsObject.founded,
             headquarteredIn: dataAsObject.headquarteredIn,
-            geographicalFocus: GeographicalFocus.Worldwide, // TODO
-            typeOfWork: parseTypeOfWork(dataAsObject.typeOfWork),
+            geographicalFocus: parseGeographicalFocusArray(
+              dataAsObject.geographicalFocus
+            ),
+            typeOfWork: parseTypeOfWorkArray(dataAsObject.typeOfWork),
             category: parseCategory(dataAsObject.category),
             requiresDigitalAudience: parseRequiresDigitalAudience(
               dataAsObject.requiresDigitalAudience
@@ -143,7 +212,7 @@ const getData = async (): Promise<Partial<PlatformInput>[]> =>
               dataAsObject.applicationRequired
             ),
             remoteWork: yesNoBool(dataAsObject.remoteWork),
-            minimumAge: parseInt(dataAsObject.minimumAge, 10),
+            minimumAge: parseInt(dataAsObject.minimumAge, 10) || undefined,
             equipmentQualSkills: parseEquipmentQualSkills(
               dataAsObject.equipmentQualSkills
             ),
@@ -158,11 +227,11 @@ const getData = async (): Promise<Partial<PlatformInput>[]> =>
             numPeopleMakingMoney:
               parseInt(dataAsObject.numPeopleMakingMoney, 10) || undefined,
             profitModel: parseProfitModel(dataAsObject.profitModel),
-            platformPricing: dataAsObject.platformPricing,
-            affiliateLink: dataAsObject.affiliateLink,
-            founderMessage: dataAsObject.founderMessager,
-            founderName: dataAsObject.founderName,
-            founderTwitter: dataAsObject.founderTwitter,
+            platformPricing: dataAsObject.platformPricing || undefined,
+            affiliateLink: dataAsObject.affiliateLink || undefined,
+            founderMessage: dataAsObject.founderMessager || undefined,
+            founderName: dataAsObject.founderName || undefined,
+            founderTwitter: dataAsObject.founderTwitter || undefined,
             email: dataAsObject.email,
             profitModelDescription: dataAsObject.profitModelDescription,
             platformType: PlatformType.Platform,
@@ -174,6 +243,32 @@ const getData = async (): Promise<Partial<PlatformInput>[]> =>
       .on('end', () => res(data));
   });
 
+const uploadPlatform = async (platform: PlatformInput) => {
+  let dbName = 'sidehustlestack-production';
+
+  const client = await MongoClient.connect(
+    `mongodb+srv://admin:adminpassword@main.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`
+  );
+
+  const db = client.db(dbName);
+  const platformCollection = db.collection<PlatformMvcDbObject>('Platform');
+
+  const data: Omit<PlatformMvcDbObject, '_id'> = {
+    ...platform,
+    status: Status.Published,
+    reviews: [],
+    score: 0,
+  };
+
+  await platformCollection.insertOne(data);
+};
+
 getData().then((data) => {
-  console.log(data);
+  Promise.all(
+    data.map(async (platform) => {
+      await uploadPlatform(platform);
+    })
+  ).then(() => {
+    console.log('Platforms uploaded!');
+  });
 });

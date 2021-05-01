@@ -41,18 +41,19 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
       alignItems="flex-start"
       justifyItems="flex-start"
       overflow="none"
+      width="100%"
       {...props}
     >
       <Image
         src={platform.companyLogo}
-        objectFit="cover"
+        objectFit="contain"
         alt="logo"
-        width="100%"
-        height="250px"
+        height="300px"
         alignSelf="center"
         cursor="pointer"
         onClick={handleCardClick}
         borderRadius="md"
+        mx="auto"
       />
       <Box p={{ base: 4, xl: 8 }}>
         <HStack

@@ -15,8 +15,6 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
   data,
   id,
 }) => {
-  // if (loading) return <LoadingSection />;
-
   if (!data?.platform)
     return (
       <DefaultContainer as="section" pt={{ base: 150, md: 200 }}>
@@ -68,12 +66,17 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
             my={4}
             mx="auto"
           />
-          <FounderQuoteSection
-            quote={founderMessage}
-            quoteAuthor={founderName}
-            quoteAuthorPosition="Founder"
-            quoteAuthorLink="https://google.com"
-          />
+          {founderMessage &&
+            founderMessage !== '' &&
+            founderName &&
+            founderName !== '' && (
+              <FounderQuoteSection
+                quote={founderMessage}
+                quoteAuthor={founderName}
+                quoteAuthorPosition="Founder"
+                quoteAuthorLink="https://google.com"
+              />
+            )}
           <InfoSection title="Description" body={[description]} />
           <InfoSection title="Requirements" body={requirements} />
           <InfoSection
