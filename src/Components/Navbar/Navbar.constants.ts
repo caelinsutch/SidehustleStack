@@ -15,7 +15,7 @@ const navbarItems: NavbarItem[] = [
   {
     label: 'Community',
     href: '/community',
-  }
+  },
 ];
 
 export { navbarItems };

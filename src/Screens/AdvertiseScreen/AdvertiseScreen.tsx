@@ -42,11 +42,8 @@ const AdvertiseScreen: React.FC = () => {
         incredible growth almost immediately after being added.
       </Text>
       <Text as="h3" fontSize="xl" mt={2}>
-        Check out our{' '}
-        <TextLink href="/advertise.pdf">
-          media kit
-        </TextLink>{' '}
-        or email{' '}
+        Check out our <TextLink href="/advertise.pdf">media kit</TextLink> or
+        email{' '}
         <TextLink href="mailto:hello@sidehustlestack.co">
           hello@sidehustlestack.co
         </TextLink>{' '}

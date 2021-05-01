@@ -418,10 +418,8 @@ const steps = [
       name: 'profitModel',
       type: 'select',
       title: 'Platform Pricing',
-      description:
-        'How is your platform priced?',
-      placeholder:
-        'Select',
+      description: 'How is your platform priced?',
+      placeholder: 'Select',
       registerOptions: {
         required: true,
       },
@@ -430,8 +428,7 @@ const steps = [
     {
       name: 'profitModelDescription',
       type: 'input',
-      title:
-        'Monthly Take or Subscription Rate',
+      title: 'Monthly Take or Subscription Rate',
       description:
         'If your platform is not free, what is the monthly take rate / subscription amount?',
       registerOptions: {

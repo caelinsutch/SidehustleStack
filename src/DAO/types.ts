@@ -234,7 +234,7 @@ export enum ProfitModel {
   PercentageTakeRate = 'PERCENTAGE_TAKE_RATE',
   SubscriptionFee = 'SUBSCRIPTION_FEE',
   Free = 'FREE',
-  Other = 'OTHER'
+  Other = 'OTHER',
 }
 
 export enum GeographicalFocus {
