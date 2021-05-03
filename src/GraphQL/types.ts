@@ -818,6 +818,8 @@ export type GetPlatformQuery = {
       | 'companyLogo'
       | 'founderName'
       | 'requirements'
+      | 'profitModel'
+      | 'profitModelDescription'
     > & {
       reviews?: Maybe<
         Array<Pick<Review, 'rating' | 'status' | 'description' | 'author'>>
@@ -990,6 +992,8 @@ export const GetPlatformDocument = gql`
       companyLogo
       founderName
       requirements
+      profitModel
+      profitModelDescription
       reviews {
         rating
         status

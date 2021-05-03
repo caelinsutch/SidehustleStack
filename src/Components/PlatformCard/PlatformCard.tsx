@@ -48,6 +48,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
         src={platform.companyLogo}
         objectFit="contain"
         alt="logo"
+        px={8}
         height="300px"
         alignSelf="center"
         cursor="pointer"
@@ -62,7 +63,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
           spacing="20px"
         >
           <VoteIcons initialUpvotes={platform.score} platformId={platform.id} />
-          <Box>
+          <Box overflow="hidden">
             <Text
               color="black"
               fontSize={{ base: '2xl', md: '3xl' }}
@@ -73,10 +74,11 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               }}
               onClick={handleCardClick}
               as="h4"
+              isTruncated
             >
               {platform.name}
             </Text>
-            <Text display="flex" isTruncated>
+            <Box display="flex">
               <CategoryTypeSectionText
                 onClick={() =>
                   updateFilterQueryParam('category', platform.category)
@@ -87,37 +89,40 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               >
                 {snakeToStartCase(platform.category)}
               </CategoryTypeSectionText>
-              {platform.typeOfWork.map((type) => (
-                <>
-                  <Text
-                    color="orange.500"
-                    mr={2}
-                    fontSize={{ base: 'xs', md: 'md' }}
-                  >
+              <Text
+                display="flex"
+                overflowX="auto"
+                color="orange.500"
+                fontSize={{ base: 'xs', md: 'md' }}
+                as="h5"
+              >
+                {platform.typeOfWork.map((type) => (
+                  <>
+                    {' '}
                     |
-                  </Text>
-                  <CategoryTypeSectionText
-                    fontSize={{ base: 'xs', md: 'md' }}
-                    onClick={() => updateFilterQueryParam('typeOfWork', type)}
-                    as="h5"
-                  >
-                    {snakeToStartCase(type)}
-                  </CategoryTypeSectionText>
-                </>
-              ))}
-            </Text>
+                    <Text
+                      isTruncated
+                      onClick={() => updateFilterQueryParam('typeOfWork', type)}
+                      ml={2}
+                    >
+                      {snakeToStartCase(type)}
+                    </Text>
+                  </>
+                ))}
+              </Text>
+            </Box>
           </Box>
         </HStack>
-        <Wrap mt={4}>
-          {platform.tags &&
-            platform.tags.map((item, index) => (
-              <WrapItem key={item + index}>
-                <Tag colorScheme="orange" variant="solid" size="lg">
-                  {item}
-                </Tag>
-              </WrapItem>
-            ))}
-        </Wrap>
+        {/* <Wrap mt={4}> */}
+        {/*  {platform.tags && */}
+        {/*    platform.tags.map((item, index) => ( */}
+        {/*      <WrapItem key={item + index}> */}
+        {/*        <Tag colorScheme="orange" variant="solid" size="lg"> */}
+        {/*          {item} */}
+        {/*        </Tag> */}
+        {/*      </WrapItem> */}
+        {/*    ))} */}
+        {/* </Wrap> */}
       </Box>
     </Box>
   );

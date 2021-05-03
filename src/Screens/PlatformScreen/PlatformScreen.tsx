@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, AlertIcon, AlertTitle, Image, Box } from '@chakra-ui/react';
-import { GetPlatformQuery } from '@GraphQL/types';
+import { GetPlatformQuery, ProfitModel } from '@GraphQL/types';
 import {
   FounderQuoteSection,
   HeaderInfo,
@@ -10,6 +10,7 @@ import {
 } from '@Screens/PlatformScreen/Components';
 import { DefaultContainer } from '@Components';
 import { snakeToStartCase } from '@Utils';
+import { generateProfitModelDescription } from '@Screens/PlatformScreen/PlatformScreen.utils';
 
 const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
   data,
@@ -44,6 +45,8 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
       equipmentQualSkills,
       description,
       companyLogo,
+      profitModel,
+      profitModelDescription,
     },
   } = data;
 
@@ -65,6 +68,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
             borderRadius="md"
             my={4}
             mx="auto"
+            maxH="250px"
           />
           {founderMessage &&
             founderMessage !== '' &&
@@ -78,12 +82,24 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
               />
             )}
           <InfoSection title="Description" body={[description]} />
-          <InfoSection title="Requirements" body={requirements} />
           <InfoSection
             title="People Making Money on Platform"
             body={[numPeopleMakingMoney?.toLocaleString()]}
           />
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
+          <InfoSection
+            title="Profit Model"
+            body={[snakeToStartCase(profitModel)]}
+          />
+          <InfoSection
+            title="Profit Model Description"
+            body={[
+              generateProfitModelDescription(
+                profitModel,
+                profitModelDescription
+              ),
+            ]}
+          />
           <InfoSection
             title="Requires Initial Audience"
             body={[snakeToStartCase(requiresDigitalAudience)]}
@@ -92,11 +108,12 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
             title="Equipment, Qualifications, & Skills"
             body={equipmentQualSkills.map(snakeToStartCase)}
           />
+          <InfoSection title="Additional Requirements" body={requirements} />
           <InfoSection title="Funding" body={[snakeToStartCase(funding)]} />
           <InfoSection title="Founded" body={[founded]} />
         </>
       </DefaultContainer>
-      <ReviewSection id={id} platformName="StockX" reviews={reviews} />
+      <ReviewSection id={id} platformName={name} reviews={reviews} />
     </Box>
   );
 };

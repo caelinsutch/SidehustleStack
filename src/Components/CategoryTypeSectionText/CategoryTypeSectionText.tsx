@@ -14,7 +14,6 @@ const CategoryTypeSectionText: React.FC<CategoryTypeSectionTextProps> = (
     }}
     cursor="pointer"
     fontSize="md"
-    isTruncated
     mr={2}
     as="h3"
     {...props}

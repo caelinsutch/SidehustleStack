@@ -25,6 +25,8 @@ const getPlatformQuery = gql`
       companyLogo
       founderName
       requirements
+      profitModel
+      profitModelDescription
       reviews {
         rating
         status
