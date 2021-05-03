@@ -1,7 +1,7 @@
 type Query {
     publishedPlatforms: [PlatformMVC]!
     allPlatforms: [PlatformMVC]!
-    platform(id: ID!): PlatformMVC
+    platform(id: ID, name: String): PlatformMVC
     allSuggestions: [SuggestionMVC]!
     suggestion(id: ID!): SuggestionMVC
 }

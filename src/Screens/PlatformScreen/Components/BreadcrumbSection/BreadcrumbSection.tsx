@@ -8,15 +8,14 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { HiChevronLeft } from 'react-icons/hi';
+import { parsePlatformNameForUrl } from '@Utils';
 
 export type BreadcrumbSectionProps = {
   platformName: string;
-  id: string;
 };
 
 const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
   platformName,
-  id,
 }) => (
   <Flex alignItems="center">
     <Icon color="orange.500" as={HiChevronLeft} />
@@ -27,7 +26,10 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
         </BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <BreadcrumbLink as={NextLink} href={`/platform/${id}`}>
+        <BreadcrumbLink
+          as={NextLink}
+          href={`/${parsePlatformNameForUrl(platformName)}`}
+        >
           {platformName}
         </BreadcrumbLink>
       </BreadcrumbItem>

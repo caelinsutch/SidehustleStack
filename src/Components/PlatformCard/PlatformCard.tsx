@@ -1,9 +1,8 @@
 import React from 'react';
 import { Box, Image, HStack, Text, BoxProps } from '@chakra-ui/react';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
-import { useRouter } from 'next/router';
 import { snakeToStartCase } from '@Utils';
-import { useUpdateFilterQueryParam } from '@Hooks';
+import { useNavigateToPlatform, useUpdateFilterQueryParam } from '@Hooks';
 import VoteIcons from '@Components/VoteIcons';
 import CategoryTypeSectionText from '@Components/CategoryTypeSectionText';
 
@@ -12,11 +11,11 @@ export type PlatformCardProps = {
 } & BoxProps;
 
 const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
-  const router = useRouter();
+  const { navigateToPlatform } = useNavigateToPlatform();
   const updateFilterQueryParam = useUpdateFilterQueryParam();
 
   const handleCardClick = () => {
-    router.push(`/platform/${platform.id}`);
+    navigateToPlatform(platform.name);
   };
 
   return (

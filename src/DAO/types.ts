@@ -25,7 +25,8 @@ export type Query = {
 };
 
 export type QueryPlatformArgs = {
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type QuerySuggestionArgs = {

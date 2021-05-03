@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, AlertIcon, AlertTitle, Image, Box } from '@chakra-ui/react';
-import { GetPlatformQuery, ProfitModel } from '@GraphQL/types';
+import { GetPlatformQuery } from '@GraphQL/types';
 import {
   FounderQuoteSection,
   HeaderInfo,
@@ -54,7 +54,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
     <Box as="section" pt={150}>
       <DefaultContainer>
         <>
-          <BreadcrumbSection id={id as string} platformName={name} />
+          <BreadcrumbSection platformName={name} />
           <HeaderInfo
             name={name}
             tags={tags || []}

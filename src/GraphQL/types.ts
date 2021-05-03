@@ -33,7 +33,8 @@ export type Query = {
 };
 
 export type QueryPlatformArgs = {
-  id: Scalars['ID'];
+  id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type QuerySuggestionArgs = {
@@ -458,10 +459,10 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   SuggestionInput: SuggestionInput;
-  String: ResolverTypeWrapper<Scalars['String']>;
   UpdateSuggestionInput: UpdateSuggestionInput;
   PlatformInput: PlatformInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -491,10 +492,10 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Query: {};
   ID: Scalars['ID'];
+  String: Scalars['String'];
   Mutation: {};
   Int: Scalars['Int'];
   SuggestionInput: SuggestionInput;
-  String: Scalars['String'];
   UpdateSuggestionInput: UpdateSuggestionInput;
   PlatformInput: PlatformInput;
   Boolean: Scalars['Boolean'];
@@ -528,7 +529,7 @@ export type QueryResolvers<
     Maybe<ResolversTypes['PlatformMVC']>,
     ParentType,
     ContextType,
-    RequireFields<QueryPlatformArgs, 'id'>
+    RequireFields<QueryPlatformArgs, never>
   >;
   allSuggestions?: Resolver<
     Array<Maybe<ResolversTypes['SuggestionMVC']>>,
@@ -795,13 +796,14 @@ export type GetAllPlatformsHomeQuery = {
 };
 
 export type GetPlatformQueryVariables = Exact<{
-  id: Scalars['ID'];
+  name: Scalars['String'];
 }>;
 
 export type GetPlatformQuery = {
   platform?: Maybe<
     Pick<
       PlatformMvc,
+      | 'id'
       | 'name'
       | 'website'
       | 'description'
@@ -974,8 +976,9 @@ export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
   GetAllPlatformsHomeQueryVariables
 >;
 export const GetPlatformDocument = gql`
-  query GetPlatform($id: ID!) {
-    platform(id: $id) {
+  query GetPlatform($name: String!) {
+    platform(name: $name) {
+      id
       name
       website
       description
@@ -1016,7 +1019,7 @@ export const GetPlatformDocument = gql`
  * @example
  * const { data, loading, error } = useGetPlatformQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      name: // value for 'name'
  *   },
  * });
  */
