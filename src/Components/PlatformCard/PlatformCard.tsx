@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Image,
-  HStack,
-  Text,
-  Button,
-  BoxProps,
-  WrapItem,
-  Wrap,
-  Tag,
-} from '@chakra-ui/react';
+import { Box, Image, HStack, Text, BoxProps } from '@chakra-ui/react';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
 import { useRouter } from 'next/router';
 import { snakeToStartCase } from '@Utils';
