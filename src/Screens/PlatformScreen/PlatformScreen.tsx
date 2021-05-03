@@ -88,11 +88,11 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           />
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
           <InfoSection
-            title="Profit Model"
+            title="Pricing Model"
             body={[snakeToStartCase(profitModel)]}
           />
           <InfoSection
-            title="Profit Model Description"
+            title="Cost"
             body={[
               generateProfitModelDescription(
                 profitModel,
