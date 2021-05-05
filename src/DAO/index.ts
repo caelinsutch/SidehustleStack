@@ -18,7 +18,9 @@ if (isProduction) {
 export const connect = async (): Promise<Db> => {
   if (!database) {
     console.info(`Connecting to database ${url}`);
-    client = await MongoClient.connect(url);
+    client = await MongoClient.connect(url, {
+      maxIdleTimeMS: 1200000,
+    });
     database = client.db(dbName);
   }
 
