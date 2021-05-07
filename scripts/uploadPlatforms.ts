@@ -244,10 +244,10 @@ const getData = async (): Promise<PlatformInput[]> =>
   });
 
 const uploadPlatform = async (platform: PlatformInput) => {
-  let dbName = 'sidehustlestack-production';
+  let dbName = 'sidehustlestack-development';
 
   const client = await MongoClient.connect(
-    `mongodb+srv://admin:adminpassword@main.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+    `mongodb+srv://admin:adminpassword@sidehustlemain.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`,
     {
       maxIdleTimeMS: 1200000,
     }

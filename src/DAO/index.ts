@@ -9,7 +9,7 @@ let database: Db;
 
 let dbName = 'sidehustlestack-development';
 
-let url = `mongodb+srv://admin:adminpassword@main.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+let url = `mongodb+srv://admin:adminpassword@sidehustlemain.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 if (isProduction) {
   dbName = 'sidehustlestack-production';
