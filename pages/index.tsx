@@ -4,6 +4,7 @@ import { PageWrapper } from '@Components';
 import { client } from '@Config';
 import { gql } from '@apollo/client';
 import { GetAllPlatformsHomeQuery } from '@GraphQL/types';
+import { GetStaticProps } from 'next';
 
 const getAllPlatformsHomeQuery = gql`
   query GetAllPlatformsHome {
@@ -25,7 +26,7 @@ const getAllPlatformsHomeQuery = gql`
   }
 `;
 
-export async function getServerSideProps() {
+export const getStaticProps: GetStaticProps = async () => {
   let data: GetAllPlatformsHomeQuery = null;
   try {
     data = (
@@ -35,7 +36,6 @@ export async function getServerSideProps() {
     ).data;
   } catch (e) {
     console.log(e);
-    // console.log(e.networkError.result.errors);
   }
 
   return {
@@ -43,7 +43,7 @@ export async function getServerSideProps() {
       data,
     },
   };
-}
+};
 
 const Home: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => (
   <PageWrapper>

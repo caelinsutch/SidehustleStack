@@ -24,6 +24,7 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
     variables: {
       id: platformId,
     },
+    skip: true,
   });
   const toast = useToast();
   const [status, setStatus] = useLocalStorage<VoteStatus>(

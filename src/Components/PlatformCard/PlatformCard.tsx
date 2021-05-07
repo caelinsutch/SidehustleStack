@@ -85,7 +85,7 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 fontSize={{ base: 'xs', md: 'md' }}
                 as="h5"
               >
-                {platform.typeOfWork.map((type) => (
+                {platform.typeOfWork.slice(0, 2).map((type) => (
                   <>
                     {' '}
                     |
@@ -102,16 +102,6 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
             </Box>
           </Box>
         </HStack>
-        {/* <Wrap mt={4}> */}
-        {/*  {platform.tags && */}
-        {/*    platform.tags.map((item, index) => ( */}
-        {/*      <WrapItem key={item + index}> */}
-        {/*        <Tag colorScheme="orange" variant="solid" size="lg"> */}
-        {/*          {item} */}
-        {/*        </Tag> */}
-        {/*      </WrapItem> */}
-        {/*    ))} */}
-        {/* </Wrap> */}
       </Box>
     </Box>
   );
