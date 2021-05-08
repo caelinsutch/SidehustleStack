@@ -11,7 +11,6 @@ import {
   WrapItem,
 } from '@chakra-ui/react';
 import { HiChevronRight } from 'react-icons/hi';
-import { snakeToStartCase } from '@Utils';
 import { CategoryTypeSection } from '@Components';
 
 export type HeaderInfoProps = {

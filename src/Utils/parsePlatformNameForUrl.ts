@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
 const parsePlatformNameForUrl = (platformName: string) =>
-  _.kebabCase(platformName);
+  _.toLower(platformName).replace(' ', '_');
 
 export default parsePlatformNameForUrl;

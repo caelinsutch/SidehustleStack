@@ -13,7 +13,10 @@ const platform = async (_: any, { id, name }) => {
     });
   } else if (name) {
     dbObject = await collection.findOne({
-      name,
+      name: {
+        $regex: `${name}.*`,
+        $options: 'i',
+      },
     });
   }
 

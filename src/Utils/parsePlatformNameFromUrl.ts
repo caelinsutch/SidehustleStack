@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
-const parsePlatformNameFromUrl = (url: string) => _.startCase(_.toLower(url));
+const parsePlatformNameFromUrl = (url: string) =>
+  _.toLower(url).replace('_', ' ');
 
 export default parsePlatformNameFromUrl;

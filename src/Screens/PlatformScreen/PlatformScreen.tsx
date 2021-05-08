@@ -89,7 +89,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
           <InfoSection
             title="Pricing Model"
-            body={[snakeToStartCase(profitModel)]}
+            body={[snakeToStartCase(profitModel || '')]}
           />
           <InfoSection
             title="Cost"
@@ -102,14 +102,17 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           />
           <InfoSection
             title="Requires Initial Audience"
-            body={[snakeToStartCase(requiresDigitalAudience)]}
+            body={[snakeToStartCase(requiresDigitalAudience || '')]}
           />
           <InfoSection
             title="Equipment, Qualifications, & Skills"
             body={equipmentQualSkills.map(snakeToStartCase)}
           />
           <InfoSection title="Additional Requirements" body={requirements} />
-          <InfoSection title="Funding" body={[snakeToStartCase(funding)]} />
+          <InfoSection
+            title="Funding"
+            body={[snakeToStartCase(funding || '')]}
+          />
           <InfoSection title="Founded" body={[founded]} />
         </>
       </DefaultContainer>
