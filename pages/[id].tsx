@@ -3,7 +3,7 @@ import { PlatformScreen } from '@Screens';
 import { PageWrapper } from '@Components';
 import { gql } from '@apollo/client';
 import { client } from '@Config';
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { GetAllNamesQuery, GetPlatformQuery } from '@GraphQL/types';
 import { parsePlatformNameForUrl, parsePlatformNameFromUrl } from '@Utils';
 
@@ -47,43 +47,23 @@ const getAllNames = gql`
   }
 `;
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const platforms: GetAllNamesQuery = (
-//     await client.query({
-//       query: getAllNames,
-//     })
-//   ).data;
-//
-//   const paths = platforms.allPlatforms.map((platform) => ({
-//     params: {
-//       id: parsePlatformNameForUrl(platform.name),
-//     },
-//   }));
-//
-//   return { paths, fallback: false };
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const platforms: GetAllNamesQuery = (
+    await client.query({
+      query: getAllNames,
+    })
+  ).data;
 
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   const { id } = params;
-//
-//   const name = parsePlatformNameFromUrl(id as string);
-//
-//   const { data } = await client.query({
-//     query: getPlatformQuery,
-//     variables: {
-//       name,
-//     },
-//   });
-//
-//   return {
-//     props: {
-//       data,
-//       id: data.platform.id,
-//     },
-//   };
-// };
+  const paths = platforms.allPlatforms.map((platform) => ({
+    params: {
+      id: parsePlatformNameForUrl(platform.name),
+    },
+  }));
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params;
 
   const name = parsePlatformNameFromUrl(id as string);
@@ -102,6 +82,26 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
   };
 };
+
+// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+//   const { id } = params;
+//
+//   const name = parsePlatformNameFromUrl(id as string);
+//
+//   const { data } = await client.query({
+//     query: getPlatformQuery,
+//     variables: {
+//       name,
+//     },
+//   });
+//
+//   return {
+//     props: {
+//       data,
+//       id: data.platform.id,
+//     },
+//   };
+// };
 
 const Platform: React.FC<{ data: GetPlatformQuery; id: string }> = ({
   data,
