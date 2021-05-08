@@ -3,9 +3,9 @@ import { PlatformScreen } from '@Screens';
 import { PageWrapper } from '@Components';
 import { gql } from '@apollo/client';
 import { client } from '@Config';
-import { NextPageContext } from 'next';
-import { GetPlatformQuery } from '@GraphQL/types';
-import { parsePlatformNameFromUrl } from '@Utils';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetAllNamesQuery, GetPlatformQuery } from '@GraphQL/types';
+import { parsePlatformNameForUrl, parsePlatformNameFromUrl } from '@Utils';
 
 const getPlatformQuery = gql`
   query GetPlatform($name: String!) {
@@ -39,26 +39,41 @@ const getPlatformQuery = gql`
   }
 `;
 
-export const getServerSideProps = async (context: NextPageContext) => {
-  const { id } = context.query;
-  const { res } = context;
-  let data = null;
-  const name = parsePlatformNameFromUrl(id as string);
-  try {
-    data = (
-      await client.query({
-        query: getPlatformQuery,
-        variables: {
-          name,
-        },
-      })
-    ).data;
-  } catch (e) {
-    console.error(e);
-    res.setHeader('location', '/404');
-    res.statusCode = 302;
-    res.end();
+const getAllNames = gql`
+  query GetAllNames {
+    allPlatforms {
+      name
+    }
   }
+`;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const platforms: GetAllNamesQuery = (
+    await client.query({
+      query: getAllNames,
+    })
+  ).data;
+
+  const paths = platforms.allPlatforms.map((platform) => ({
+    params: {
+      id: parsePlatformNameForUrl(platform.name),
+    },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { id } = params;
+
+  const name = parsePlatformNameFromUrl(id as string);
+
+  const { data } = await client.query({
+    query: getPlatformQuery,
+    variables: {
+      name,
+    },
+  });
 
   return {
     props: {
@@ -68,13 +83,16 @@ export const getServerSideProps = async (context: NextPageContext) => {
   };
 };
 
-const Platform: React.FC<{ data: GetPlatformQuery }> = ({ data }) => (
+const Platform: React.FC<{ data: GetPlatformQuery; id: string }> = ({
+  data,
+  id,
+}) => (
   <PageWrapper
     backgroundImage="url('../platform-profile-background.png')"
     backgroundSize="contain"
     title={`${data.platform.name} - Sidehustle Stack`}
   >
-    <PlatformScreen data={data} id={data.platform.id} />
+    <PlatformScreen data={data} id={id} />
   </PageWrapper>
 );
 

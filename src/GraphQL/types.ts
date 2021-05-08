@@ -773,28 +773,6 @@ export type Resolvers<ContextType = any> = {
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
-export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetAllPlatformsHomeQuery = {
-  allPlatforms: Array<
-    Maybe<
-      Pick<
-        PlatformMvc,
-        | 'id'
-        | 'score'
-        | 'name'
-        | 'description'
-        | 'companyLogo'
-        | 'platformType'
-        | 'category'
-        | 'tags'
-        | 'typeOfWork'
-        | 'status'
-      > & { averageEarnings?: Maybe<Pick<AmountPer, 'amount'>> }
-    >
-  >;
-};
-
 export type GetPlatformQueryVariables = Exact<{
   name: Scalars['String'];
 }>;
@@ -827,6 +805,34 @@ export type GetPlatformQuery = {
         Array<Pick<Review, 'rating' | 'status' | 'description' | 'author'>>
       >;
     }
+  >;
+};
+
+export type GetAllNamesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllNamesQuery = {
+  allPlatforms: Array<Maybe<Pick<PlatformMvc, 'name'>>>;
+};
+
+export type GetAllPlatformsHomeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAllPlatformsHomeQuery = {
+  allPlatforms: Array<
+    Maybe<
+      Pick<
+        PlatformMvc,
+        | 'id'
+        | 'score'
+        | 'name'
+        | 'description'
+        | 'companyLogo'
+        | 'platformType'
+        | 'category'
+        | 'tags'
+        | 'typeOfWork'
+        | 'status'
+      > & { averageEarnings?: Maybe<Pick<AmountPer, 'amount'>> }
+    >
   >;
 };
 
@@ -908,73 +914,6 @@ export type AddReviewMutation = {
   >;
 };
 
-export const GetAllPlatformsHomeDocument = gql`
-  query GetAllPlatformsHome {
-    allPlatforms {
-      id
-      score
-      name
-      description
-      companyLogo
-      platformType
-      category
-      tags
-      typeOfWork
-      status
-      averageEarnings {
-        amount
-      }
-    }
-  }
-`;
-
-/**
- * __useGetAllPlatformsHomeQuery__
- *
- * To run a query within a React component, call `useGetAllPlatformsHomeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllPlatformsHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllPlatformsHomeQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllPlatformsHomeQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >(GetAllPlatformsHomeDocument, baseOptions);
-}
-export function useGetAllPlatformsHomeLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    GetAllPlatformsHomeQuery,
-    GetAllPlatformsHomeQueryVariables
-  >(GetAllPlatformsHomeDocument, baseOptions);
-}
-export type GetAllPlatformsHomeQueryHookResult = ReturnType<
-  typeof useGetAllPlatformsHomeQuery
->;
-export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<
-  typeof useGetAllPlatformsHomeLazyQuery
->;
-export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
-  GetAllPlatformsHomeQuery,
-  GetAllPlatformsHomeQueryVariables
->;
 export const GetPlatformDocument = gql`
   query GetPlatform($name: String!) {
     platform(name: $name) {
@@ -1052,6 +991,126 @@ export type GetPlatformLazyQueryHookResult = ReturnType<
 export type GetPlatformQueryResult = ApolloReactCommon.QueryResult<
   GetPlatformQuery,
   GetPlatformQueryVariables
+>;
+export const GetAllNamesDocument = gql`
+  query GetAllNames {
+    allPlatforms {
+      name
+    }
+  }
+`;
+
+/**
+ * __useGetAllNamesQuery__
+ *
+ * To run a query within a React component, call `useGetAllNamesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllNamesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllNamesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllNamesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetAllNamesQuery,
+    GetAllNamesQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<GetAllNamesQuery, GetAllNamesQueryVariables>(
+    GetAllNamesDocument,
+    baseOptions
+  );
+}
+export function useGetAllNamesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetAllNamesQuery,
+    GetAllNamesQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetAllNamesQuery,
+    GetAllNamesQueryVariables
+  >(GetAllNamesDocument, baseOptions);
+}
+export type GetAllNamesQueryHookResult = ReturnType<typeof useGetAllNamesQuery>;
+export type GetAllNamesLazyQueryHookResult = ReturnType<
+  typeof useGetAllNamesLazyQuery
+>;
+export type GetAllNamesQueryResult = ApolloReactCommon.QueryResult<
+  GetAllNamesQuery,
+  GetAllNamesQueryVariables
+>;
+export const GetAllPlatformsHomeDocument = gql`
+  query GetAllPlatformsHome {
+    allPlatforms {
+      id
+      score
+      name
+      description
+      companyLogo
+      platformType
+      category
+      tags
+      typeOfWork
+      status
+      averageEarnings {
+        amount
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetAllPlatformsHomeQuery__
+ *
+ * To run a query within a React component, call `useGetAllPlatformsHomeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPlatformsHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPlatformsHomeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPlatformsHomeQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >(GetAllPlatformsHomeDocument, baseOptions);
+}
+export function useGetAllPlatformsHomeLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetAllPlatformsHomeQuery,
+    GetAllPlatformsHomeQueryVariables
+  >(GetAllPlatformsHomeDocument, baseOptions);
+}
+export type GetAllPlatformsHomeQueryHookResult = ReturnType<
+  typeof useGetAllPlatformsHomeQuery
+>;
+export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<
+  typeof useGetAllPlatformsHomeLazyQuery
+>;
+export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
+  GetAllPlatformsHomeQuery,
+  GetAllPlatformsHomeQueryVariables
 >;
 export const UpvotePlatformDocument = gql`
   mutation UpvotePlatform($id: ID!, $amount: Int!) {

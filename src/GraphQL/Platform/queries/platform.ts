@@ -16,6 +16,7 @@ const platform = async (_: any, { id, name }) => {
       name,
     });
   }
+
   return getPlatformMvcFromDbObject(dbObject);
 };
 export default platform;
