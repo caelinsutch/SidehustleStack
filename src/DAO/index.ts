@@ -7,7 +7,7 @@ export * from './types';
 let client: MongoClient;
 let database: Db;
 
-let dbName = 'sidehustlestack-development';
+let dbName = 'sidehustlestack-production';
 
 let url = `mongodb+srv://admin:adminpassword@sidehustlemain.qrbvi.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 

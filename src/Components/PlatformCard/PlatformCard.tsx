@@ -85,19 +85,19 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
                 fontSize={{ base: 'xs', md: 'md' }}
                 as="h5"
               >
-                {platform.typeOfWork.slice(0, 2).map((type) => (
-                  <>
-                    {' '}
-                    |
-                    <Text
-                      isTruncated
-                      onClick={() => updateFilterQueryParam('typeOfWork', type)}
-                      ml={2}
-                    >
-                      {snakeToStartCase(type)}
-                    </Text>
-                  </>
-                ))}
+                {' '}
+                |
+                <Text
+                  isTruncated
+                  onClick={() =>
+                    updateFilterQueryParam('typeOfWork', platform.typeOfWork[0])
+                  }
+                  ml={2}
+                >
+                  {snakeToStartCase(platform.typeOfWork[0])}
+                  {platform.typeOfWork.length > 1 &&
+                    ` + ${platform.typeOfWork.length}`}
+                </Text>
               </Text>
             </Box>
           </Box>
