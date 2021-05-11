@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useToast, Icon, Text, VStack } from '@chakra-ui/react';
 import { IoTriangle } from 'react-icons/io5';
-import {
-  useGetPlatformScoreQuery,
-  useUpvotePlatformMutation,
-} from '@GraphQL/types';
+import { useUpvotePlatformMutation } from '@GraphQL/types';
 import { promiseToastFeedback } from '@Utils';
 import { useLocalStorage } from '@Hooks';
 
@@ -20,17 +17,12 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
   platformId,
 }) => {
   const [upvotePlatform] = useUpvotePlatformMutation();
-  const { data, refetch } = useGetPlatformScoreQuery({
-    variables: {
-      id: platformId,
-    },
-    skip: true,
-  });
   const toast = useToast();
   const [status, setStatus] = useLocalStorage<VoteStatus>(
     platformId,
     'neutral'
   );
+  const [localScore, setLocalScore] = useState<number>(initialUpvotes);
 
   const onClick = (action: VoteStatus) => {
     if (action === status) {
@@ -56,9 +48,9 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
         },
       }),
       toast,
-      successCallback: () => {
+      successCallback: (res) => {
         setStatus(action);
-        refetch();
+        setLocalScore(res.data.vote.score);
       },
     });
   };
@@ -86,7 +78,9 @@ const VoteIcons: React.FC<VoteIconsProps> = ({
         fontSize="16px"
         lineHeight="80%"
         onClick={() => onClick('neutral')}
-      >{`${data?.platform?.score ?? initialUpvotes}`}</Text>
+      >
+        {localScore}
+      </Text>
       <Icon
         transition="all 0.2s ease"
         as={IoTriangle}

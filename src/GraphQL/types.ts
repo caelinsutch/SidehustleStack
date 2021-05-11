@@ -836,6 +836,12 @@ export type GetAllPlatformsHomeQuery = {
   >;
 };
 
+export type GetScoresHomeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetScoresHomeQuery = {
+  allPlatforms: Array<Maybe<Pick<PlatformMvc, 'id' | 'score'>>>;
+};
+
 export type UpvotePlatformMutationVariables = Exact<{
   id: Scalars['ID'];
   amount: Scalars['Int'];
@@ -1111,6 +1117,62 @@ export type GetAllPlatformsHomeLazyQueryHookResult = ReturnType<
 export type GetAllPlatformsHomeQueryResult = ApolloReactCommon.QueryResult<
   GetAllPlatformsHomeQuery,
   GetAllPlatformsHomeQueryVariables
+>;
+export const GetScoresHomeDocument = gql`
+  query getScoresHome {
+    allPlatforms {
+      id
+      score
+    }
+  }
+`;
+
+/**
+ * __useGetScoresHomeQuery__
+ *
+ * To run a query within a React component, call `useGetScoresHomeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetScoresHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetScoresHomeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetScoresHomeQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetScoresHomeQuery,
+    GetScoresHomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    GetScoresHomeQuery,
+    GetScoresHomeQueryVariables
+  >(GetScoresHomeDocument, baseOptions);
+}
+export function useGetScoresHomeLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetScoresHomeQuery,
+    GetScoresHomeQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetScoresHomeQuery,
+    GetScoresHomeQueryVariables
+  >(GetScoresHomeDocument, baseOptions);
+}
+export type GetScoresHomeQueryHookResult = ReturnType<
+  typeof useGetScoresHomeQuery
+>;
+export type GetScoresHomeLazyQueryHookResult = ReturnType<
+  typeof useGetScoresHomeLazyQuery
+>;
+export type GetScoresHomeQueryResult = ApolloReactCommon.QueryResult<
+  GetScoresHomeQuery,
+  GetScoresHomeQueryVariables
 >;
 export const UpvotePlatformDocument = gql`
   mutation UpvotePlatform($id: ID!, $amount: Int!) {

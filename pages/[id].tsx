@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PlatformScreen } from '@Screens';
 import { PageWrapper } from '@Components';
 import { gql } from '@apollo/client';
@@ -82,26 +82,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   };
 };
-
-// export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-//   const { id } = params;
-//
-//   const name = parsePlatformNameFromUrl(id as string);
-//
-//   const { data } = await client.query({
-//     query: getPlatformQuery,
-//     variables: {
-//       name,
-//     },
-//   });
-//
-//   return {
-//     props: {
-//       data,
-//       id: data.platform.id,
-//     },
-//   };
-// };
 
 const Platform: React.FC<{ data: GetPlatformQuery; id: string }> = ({
   data,

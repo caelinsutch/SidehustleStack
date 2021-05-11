@@ -11,7 +11,9 @@ import { activeFiltersAtom } from '../../Recoil';
 
 export type HomeView = 'Platforms' | 'Tools';
 
-const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
+const HomeScreen: React.FC<{
+  allPlatforms: GetAllPlatformsHomeQuery['allPlatforms'];
+}> = ({ allPlatforms }) => {
   const setActiveFilters = useSetRecoilState(activeFiltersAtom);
 
   const [query] = useQueryParams(useQueryParamsSettings);
@@ -35,9 +37,7 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
 
   const [view, setView] = useState<HomeView>('Platforms');
 
-  const published = data.allPlatforms.filter(
-    (p) => p.status === Status.Published
-  );
+  const published = allPlatforms.filter((p) => p.status === Status.Published);
 
   const platforms = published.filter(
     (platform) => platform.platformType === PlatformType.Platform
@@ -75,7 +75,7 @@ const HomeScreen: React.FC<{ data: GetAllPlatformsHomeQuery }> = ({ data }) => {
         </DefaultContainer>
       </Box>
       <DefaultContainer id="filteredPlatforms">
-        {data?.allPlatforms ? (
+        {allPlatforms ? (
           <>
             <PlatformSection
               type={view}

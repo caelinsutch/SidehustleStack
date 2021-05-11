@@ -8,12 +8,4 @@ const upvotePlatformMutation = gql`
   }
 `;
 
-const platformScoreQuery = gql`
-  query GetPlatformScore($id: ID!) {
-    platform(id: $id) {
-      score
-    }
-  }
-`;
-
-export { platformScoreQuery, upvotePlatformMutation };
+export { upvotePlatformMutation };
