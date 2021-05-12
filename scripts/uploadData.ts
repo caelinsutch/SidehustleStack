@@ -20,7 +20,7 @@ import getDb from './getDb';
 
 const getData = async (): Promise<PlatformInput[]> =>
   new Promise((res) => {
-    const inputStream = FS.createReadStream('./platforms.csv', 'utf8');
+    const inputStream = FS.createReadStream('./tools.csv', 'utf8');
     let cols: string[];
     let data: PlatformInput[] = [];
     let i = 0;
@@ -78,7 +78,7 @@ const getData = async (): Promise<PlatformInput[]> =>
             founderTwitter: dataAsObject.founderTwitter || undefined,
             email: dataAsObject.email,
             profitModelDescription: dataAsObject.profitModelDescription,
-            platformType: PlatformType.Platform,
+            platformType: PlatformType.Tool,
           };
           data.push(platform);
         }
