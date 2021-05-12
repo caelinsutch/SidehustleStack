@@ -78,27 +78,32 @@ const PlatformCard: React.FC<PlatformCardProps> = ({ platform, ...props }) => {
               >
                 {snakeToStartCase(platform.category)}
               </CategoryTypeSectionText>
-              <Text
-                display="flex"
-                overflowX="auto"
-                color="orange.500"
-                fontSize={{ base: 'xs', md: 'md' }}
-                as="h5"
-              >
-                {' '}
-                |
+              {platform.typeOfWork.length !== 0 && (
                 <Text
-                  isTruncated
-                  onClick={() =>
-                    updateFilterQueryParam('typeOfWork', platform.typeOfWork[0])
-                  }
-                  ml={2}
+                  display="flex"
+                  overflowX="auto"
+                  color="orange.500"
+                  fontSize={{ base: 'xs', md: 'md' }}
+                  as="h5"
                 >
-                  {snakeToStartCase(platform.typeOfWork[0])}
-                  {platform.typeOfWork.length > 1 &&
-                    ` + ${platform.typeOfWork.length}`}
+                  {' '}
+                  |
+                  <Text
+                    isTruncated
+                    onClick={() =>
+                      updateFilterQueryParam(
+                        'typeOfWork',
+                        platform.typeOfWork[0]
+                      )
+                    }
+                    ml={2}
+                  >
+                    {snakeToStartCase(platform.typeOfWork[0])}
+                    {platform.typeOfWork.length > 1 &&
+                      ` + ${platform.typeOfWork.length}`}
+                  </Text>
                 </Text>
-              </Text>
+              )}
             </Box>
           </Box>
         </HStack>
