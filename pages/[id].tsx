@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { GetAllNamesQuery, GetPlatformQuery } from '@GraphQL/types';
 import { parsePlatformNameForUrl, parsePlatformNameFromUrl } from '@Utils';
 
-const getPlatformQuery = gql`
+export const getPlatformQuery = gql`
   query GetPlatform($name: String!) {
     platform(name: $name) {
       id
