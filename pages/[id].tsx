@@ -29,11 +29,8 @@ export const getPlatformQuery = gql`
       requirements
       profitModel
       profitModelDescription
-      reviews {
-        rating
-        status
-        description
-        author
+      averageEarnings {
+        amount
       }
     }
   }

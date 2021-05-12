@@ -34,7 +34,6 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
       category,
       tags,
       typeOfWork,
-      reviews,
       numPeopleMakingMoney,
       platformPricing,
       requiresDigitalAudience,
@@ -47,6 +46,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
       companyLogo,
       profitModel,
       profitModelDescription,
+      averageEarnings: { amount },
     },
   } = data;
 
@@ -86,6 +86,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
             title="People Making Money on Platform"
             body={[numPeopleMakingMoney?.toLocaleString()]}
           />
+          <InfoSection title="Monthly Earnings" body={[`$${amount}`]} />
           <InfoSection title="Platform Pricing" body={[platformPricing]} />
           <InfoSection
             title="Pricing Model"
@@ -116,7 +117,7 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           <InfoSection title="Founded" body={[founded]} />
         </>
       </DefaultContainer>
-      <ReviewSection id={id} platformName={name} reviews={reviews} />
+      <ReviewSection id={id} platformName={name} />
     </Box>
   );
 };

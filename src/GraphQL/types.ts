@@ -800,11 +800,7 @@ export type GetPlatformQuery = {
       | 'requirements'
       | 'profitModel'
       | 'profitModelDescription'
-    > & {
-      reviews?: Maybe<
-        Array<Pick<Review, 'rating' | 'status' | 'description' | 'author'>>
-      >;
-    }
+    > & { averageEarnings?: Maybe<Pick<AmountPer, 'amount'>> }
   >;
 };
 
@@ -849,14 +845,6 @@ export type UpvotePlatformMutationVariables = Exact<{
 
 export type UpvotePlatformMutation = {
   vote?: Maybe<Pick<PlatformMvc, 'score'>>;
-};
-
-export type GetPlatformScoreQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-export type GetPlatformScoreQuery = {
-  platform?: Maybe<Pick<PlatformMvc, 'score'>>;
 };
 
 export type CreatePlatformMutationVariables = Exact<{
@@ -920,6 +908,18 @@ export type AddReviewMutation = {
   >;
 };
 
+export type GetPlatformReviewsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+export type GetPlatformReviewsQuery = {
+  platform?: Maybe<{
+    reviews?: Maybe<
+      Array<Pick<Review, 'rating' | 'description' | 'author' | 'status'>>
+    >;
+  }>;
+};
+
 export const GetPlatformDocument = gql`
   query GetPlatform($name: String!) {
     platform(name: $name) {
@@ -942,11 +942,8 @@ export const GetPlatformDocument = gql`
       requirements
       profitModel
       profitModelDescription
-      reviews {
-        rating
-        status
-        description
-        author
+      averageEarnings {
+        amount
       }
     }
   }
@@ -1223,62 +1220,6 @@ export type UpvotePlatformMutationOptions = ApolloReactCommon.BaseMutationOption
   UpvotePlatformMutation,
   UpvotePlatformMutationVariables
 >;
-export const GetPlatformScoreDocument = gql`
-  query GetPlatformScore($id: ID!) {
-    platform(id: $id) {
-      score
-    }
-  }
-`;
-
-/**
- * __useGetPlatformScoreQuery__
- *
- * To run a query within a React component, call `useGetPlatformScoreQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPlatformScoreQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPlatformScoreQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetPlatformScoreQuery(
-  baseOptions: ApolloReactHooks.QueryHookOptions<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >(GetPlatformScoreDocument, baseOptions);
-}
-export function useGetPlatformScoreLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    GetPlatformScoreQuery,
-    GetPlatformScoreQueryVariables
-  >(GetPlatformScoreDocument, baseOptions);
-}
-export type GetPlatformScoreQueryHookResult = ReturnType<
-  typeof useGetPlatformScoreQuery
->;
-export type GetPlatformScoreLazyQueryHookResult = ReturnType<
-  typeof useGetPlatformScoreLazyQuery
->;
-export type GetPlatformScoreQueryResult = ApolloReactCommon.QueryResult<
-  GetPlatformScoreQuery,
-  GetPlatformScoreQueryVariables
->;
 export const CreatePlatformDocument = gql`
   mutation CreatePlatform(
     $name: String!
@@ -1539,4 +1480,65 @@ export type AddReviewMutationResult = ApolloReactCommon.MutationResult<AddReview
 export type AddReviewMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddReviewMutation,
   AddReviewMutationVariables
+>;
+export const GetPlatformReviewsDocument = gql`
+  query GetPlatformReviews($id: ID!) {
+    platform(id: $id) {
+      reviews {
+        rating
+        description
+        author
+        status
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetPlatformReviewsQuery__
+ *
+ * To run a query within a React component, call `useGetPlatformReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPlatformReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPlatformReviewsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPlatformReviewsQuery(
+  baseOptions: ApolloReactHooks.QueryHookOptions<
+    GetPlatformReviewsQuery,
+    GetPlatformReviewsQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    GetPlatformReviewsQuery,
+    GetPlatformReviewsQueryVariables
+  >(GetPlatformReviewsDocument, baseOptions);
+}
+export function useGetPlatformReviewsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetPlatformReviewsQuery,
+    GetPlatformReviewsQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetPlatformReviewsQuery,
+    GetPlatformReviewsQueryVariables
+  >(GetPlatformReviewsDocument, baseOptions);
+}
+export type GetPlatformReviewsQueryHookResult = ReturnType<
+  typeof useGetPlatformReviewsQuery
+>;
+export type GetPlatformReviewsLazyQueryHookResult = ReturnType<
+  typeof useGetPlatformReviewsLazyQuery
+>;
+export type GetPlatformReviewsQueryResult = ApolloReactCommon.QueryResult<
+  GetPlatformReviewsQuery,
+  GetPlatformReviewsQueryVariables
 >;
