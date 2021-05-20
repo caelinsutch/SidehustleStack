@@ -14,7 +14,7 @@ const navbarItems: NavbarItem[] = [
   },
   {
     label: 'Community',
-    href: '/community',
+    href: 'https://discord.gg/XqnuqCnrzK',
   },
 ];
 

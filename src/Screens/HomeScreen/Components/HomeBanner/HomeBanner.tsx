@@ -6,7 +6,7 @@ const HomeBanner: React.FC = () => (
     <Text fontSize="3xl" fontWeight="bold" as="h1" color="orange.500">
       Side Hustle Stack is a free resource to find platform-based work, ranging
       from gig work and side hustles to platforms that help you start a small
-      business that can grow
+      business that can grow.
     </Text>
     <Box mt={8}>
       <Text fontSize="xl" fontWeight="bold" as="h4">
