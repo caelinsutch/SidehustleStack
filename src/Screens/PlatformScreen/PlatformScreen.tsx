@@ -9,7 +9,7 @@ import {
   ReviewSection,
 } from '@Screens/PlatformScreen/Components';
 import { DefaultContainer } from '@Components';
-import { snakeToStartCase } from '@Utils';
+import { isNumber, snakeToStartCase } from '@Utils';
 import { generateProfitModelDescription } from '@Screens/PlatformScreen/PlatformScreen.utils';
 
 const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
@@ -112,7 +112,11 @@ const PlatformScreen: React.FC<{ data: GetPlatformQuery; id: string }> = ({
           <InfoSection title="Additional Requirements" body={requirements} />
           <InfoSection
             title="Funding"
-            body={[snakeToStartCase(funding || '')]}
+            body={[
+              isNumber(funding)
+                ? `$${funding} Million`
+                : snakeToStartCase(funding || ''),
+            ]}
           />
           <InfoSection title="Founded" body={[founded]} />
         </>

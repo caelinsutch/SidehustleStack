@@ -4,13 +4,12 @@ import {
   ApplicationRequired,
   CategoryOfWork,
   ExistingDigitalAudienceRequired,
-  Funding,
   GeographicalFocus,
   PlatformType,
   ProfitModel,
   TypeOfWork,
 } from '@GraphQL/types';
-import { snakeToStartCase } from '@Utils';
+import { isNumber, snakeToStartCase } from '@Utils';
 import { Text } from '@chakra-ui/react';
 import { TextLink } from '@Components';
 
@@ -20,11 +19,17 @@ const generateOptionsFromEnums = (e: any) =>
     label: snakeToStartCase(value),
   }));
 
-const numberValidation = (value: any): boolean => Boolean(parseInt(value, 10));
-
 const geographicalFocusOptions = generateOptionsFromEnums(GeographicalFocus);
 
 const profitModelOptions = generateOptionsFromEnums(ProfitModel);
+
+const validFunding = [
+  'Bootstrapped',
+  'Currently Raising',
+  'Undisclosed',
+  'Public Company',
+  'Acquired',
+];
 
 const steps = [
   [
@@ -119,47 +124,14 @@ const steps = [
     },
     {
       name: 'funding',
-      placeholder: 'Select',
+      placeholder: '14.2',
       description:
-        'Please round your answer to 1 decimal place — i.e. 26.5M, 1M',
-      type: 'select',
+        'Please round your answer to 1 decimal place in millions — i.e. 26.5, 1. You can also enter "Public", "Bootstrapped", "Currently Raising", "Undisclosed"',
+      type: 'input',
       title: 'Total Funding',
-      options: [
-        {
-          value: Funding.Zero,
-          label: '0',
-        },
-        {
-          value: Funding.LessFiveMil,
-          label: '< 5 mil',
-        },
-        {
-          value: Funding.FiveToTenMil,
-          label: '5-10 mil',
-        },
-        {
-          value: Funding.TenPlusMil,
-          label: '10+ mil',
-        },
-        {
-          value: Funding.PublicCompany,
-          label: 'Public',
-        },
-        {
-          value: Funding.Bootstrapped,
-          label: 'Bootstrapped',
-        },
-        {
-          value: Funding.CurrentlyRaising,
-          label: 'Currently Raising',
-        },
-        {
-          value: Funding.Undisclosed,
-          label: 'Undisclosed',
-        },
-      ],
       registerOptions: {
         required: true,
+        validate: (ans: string) => validFunding.includes(ans) || isNumber(ans),
       },
     },
     {
@@ -326,7 +298,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: numberValidation,
+          number: isNumber,
         },
         valueAsNumber: true,
       },
@@ -379,7 +351,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: numberValidation,
+          number: isNumber,
         },
         valueAsNumber: true,
       },
@@ -394,7 +366,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: numberValidation,
+          number: isNumber,
         },
         valueAsNumber: true,
       },
@@ -409,7 +381,7 @@ const steps = [
       registerOptions: {
         required: true,
         validate: {
-          number: numberValidation,
+          number: isNumber,
         },
         valueAsNumber: true,
       },

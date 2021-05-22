@@ -35,7 +35,7 @@ input PlatformInput {
     tags: [String!]
     founded: String!
     headquarteredIn: String!
-    funding: Funding!
+    funding: String!
     description: String!
     typeOfWork: [TypeOfWork!]!
     category: CategoryOfWork!
@@ -72,7 +72,7 @@ input UpdatePlatformInput {
     website: String
     founded: String
     headquarteredIn: String
-    funding: Funding
+    funding: String
     description: String
     typeOfWork: [TypeOfWork!]
     category: CategoryOfWork
@@ -136,7 +136,7 @@ type PlatformMVC @entity {
     companyLogo: String @column
     founded: String @column
     headquarteredIn: String @column
-    funding: Funding @column
+    funding: String @column
     description: String @column
     typeOfWork: [TypeOfWork!] @column
     category: CategoryOfWork @column
@@ -196,17 +196,6 @@ enum GeographicalFocus {
 enum PlatformType {
     TOOL
     PLATFORM
-}
-
-enum Funding {
-    ZERO
-    LESS_FIVE_MIL
-    FIVE_TO_TEN_MIL
-    TEN_PLUS_MIL
-    PUBLIC_COMPANY
-    BOOTSTRAPPED
-    CURRENTLY_RAISING
-    UNDISCLOSED
 }
 
 enum EquipmentQualSkills {

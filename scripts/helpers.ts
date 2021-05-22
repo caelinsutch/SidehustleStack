@@ -4,30 +4,48 @@ import {
   CategoryOfWork,
   EquipmentQualSkills,
   ExistingDigitalAudienceRequired,
-  Funding,
   GeographicalFocus,
   ProfitModel,
   TypeOfWork,
 } from '../src/GraphQL/types';
 
-export const parseFunding = (input: string): Funding => {
-  if (input === 'Bootstrapped') return Funding.Bootstrapped;
-  if (input === 'Currently Raising') return Funding.CurrentlyRaising;
-  if (input === 'Undisclosed') return Funding.Undisclosed;
-  if (input === 'Public Company') return Funding.PublicCompany;
-  if (input.includes('Acquired')) return Funding.Undisclosed;
+export const parseFunding = (input: string): string => {
+  if (
+    input === 'Bootstrapped' ||
+    input === 'Currently Raising' ||
+    input === 'Undisclosed' ||
+    input === 'Public Company'
+  )
+    return input;
+  if (input.includes('Acquired')) return 'Undisclosed';
 
   let num = parseFloat(
     input.replace('$', '').replace('M', '').replace('m', '')
   );
 
-  if (num <= 0) return Funding.Zero;
-  if (num < 5) return Funding.LessFiveMil;
-  if (num < 10) return Funding.FiveToTenMil;
-  if (num > 20) return Funding.TenPlusMil;
+  if (num) return num.toString();
 
-  return Funding.Undisclosed;
+  return 'Undisclosed';
 };
+//
+// export const parseFunding = (input: string): Funding => {
+//   if (input === 'Bootstrapped') return Funding.Bootstrapped;
+//   if (input === 'Currently Raising') return Funding.CurrentlyRaising;
+//   if (input === 'Undisclosed') return Funding.Undisclosed;
+//   if (input === 'Public Company') return Funding.PublicCompany;
+//   if (input.includes('Acquired')) return Funding.Undisclosed;
+//
+//   let num = parseFloat(
+//     input.replace('$', '').replace('M', '').replace('m', '')
+//   );
+//
+//   if (num <= 0) return Funding.Zero;
+//   if (num < 5) return Funding.LessFiveMil;
+//   if (num < 10) return Funding.FiveToTenMil;
+//   if (num > 20) return Funding.TenPlusMil;
+//
+//   return Funding.Undisclosed;
+// };
 
 export const parseTypeOfWork = (cInput: string): TypeOfWork | undefined => {
   const input = cInput.toLowerCase();

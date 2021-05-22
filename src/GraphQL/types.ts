@@ -98,7 +98,7 @@ export type PlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   founded: Scalars['String'];
   headquarteredIn: Scalars['String'];
-  funding: Funding;
+  funding: Scalars['String'];
   description: Scalars['String'];
   typeOfWork: Array<TypeOfWork>;
   category: CategoryOfWork;
@@ -136,7 +136,7 @@ export type UpdatePlatformInput = {
   website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
-  funding?: Maybe<Funding>;
+  funding?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   typeOfWork?: Maybe<Array<TypeOfWork>>;
   category?: Maybe<CategoryOfWork>;
@@ -200,7 +200,7 @@ export type PlatformMvc = {
   companyLogo?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
-  funding?: Maybe<Funding>;
+  funding?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   typeOfWork?: Maybe<Array<TypeOfWork>>;
   category?: Maybe<CategoryOfWork>;
@@ -260,17 +260,6 @@ export enum GeographicalFocus {
 export enum PlatformType {
   Tool = 'TOOL',
   Platform = 'PLATFORM',
-}
-
-export enum Funding {
-  Zero = 'ZERO',
-  LessFiveMil = 'LESS_FIVE_MIL',
-  FiveToTenMil = 'FIVE_TO_TEN_MIL',
-  TenPlusMil = 'TEN_PLUS_MIL',
-  PublicCompany = 'PUBLIC_COMPANY',
-  Bootstrapped = 'BOOTSTRAPPED',
-  CurrentlyRaising = 'CURRENTLY_RAISING',
-  Undisclosed = 'UNDISCLOSED',
 }
 
 export enum EquipmentQualSkills {
@@ -479,7 +468,6 @@ export type ResolversTypes = {
   ProfitModel: ProfitModel;
   GeographicalFocus: GeographicalFocus;
   PlatformType: PlatformType;
-  Funding: Funding;
   EquipmentQualSkills: EquipmentQualSkills;
   CategoryOfWork: CategoryOfWork;
   ExistingDigitalAudienceRequired: ExistingDigitalAudienceRequired;
@@ -626,7 +614,7 @@ export type PlatformMvcResolvers<
     ParentType,
     ContextType
   >;
-  funding?: Resolver<Maybe<ResolversTypes['Funding']>, ParentType, ContextType>;
+  funding?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
@@ -853,7 +841,7 @@ export type CreatePlatformMutationVariables = Exact<{
   website: Scalars['String'];
   founded: Scalars['String'];
   headquarteredIn: Scalars['String'];
-  funding: Funding;
+  funding: Scalars['String'];
   description: Scalars['String'];
   typeOfWork: Array<TypeOfWork> | TypeOfWork;
   category: CategoryOfWork;
@@ -1227,7 +1215,7 @@ export const CreatePlatformDocument = gql`
     $website: String!
     $founded: String!
     $headquarteredIn: String!
-    $funding: Funding!
+    $funding: String!
     $description: String!
     $typeOfWork: [TypeOfWork!]!
     $category: CategoryOfWork!

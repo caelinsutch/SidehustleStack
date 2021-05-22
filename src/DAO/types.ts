@@ -90,7 +90,7 @@ export type PlatformInput = {
   tags?: Maybe<Array<Scalars['String']>>;
   founded: Scalars['String'];
   headquarteredIn: Scalars['String'];
-  funding: Funding;
+  funding: Scalars['String'];
   description: Scalars['String'];
   typeOfWork: Array<TypeOfWork>;
   category: CategoryOfWork;
@@ -128,7 +128,7 @@ export type UpdatePlatformInput = {
   website?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
-  funding?: Maybe<Funding>;
+  funding?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   typeOfWork?: Maybe<Array<TypeOfWork>>;
   category?: Maybe<CategoryOfWork>;
@@ -192,7 +192,7 @@ export type PlatformMvc = {
   companyLogo?: Maybe<Scalars['String']>;
   founded?: Maybe<Scalars['String']>;
   headquarteredIn?: Maybe<Scalars['String']>;
-  funding?: Maybe<Funding>;
+  funding?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   typeOfWork?: Maybe<Array<TypeOfWork>>;
   category?: Maybe<CategoryOfWork>;
@@ -252,17 +252,6 @@ export enum GeographicalFocus {
 export enum PlatformType {
   Tool = 'TOOL',
   Platform = 'PLATFORM',
-}
-
-export enum Funding {
-  Zero = 'ZERO',
-  LessFiveMil = 'LESS_FIVE_MIL',
-  FiveToTenMil = 'FIVE_TO_TEN_MIL',
-  TenPlusMil = 'TEN_PLUS_MIL',
-  PublicCompany = 'PUBLIC_COMPANY',
-  Bootstrapped = 'BOOTSTRAPPED',
-  CurrentlyRaising = 'CURRENTLY_RAISING',
-  Undisclosed = 'UNDISCLOSED',
 }
 
 export enum EquipmentQualSkills {

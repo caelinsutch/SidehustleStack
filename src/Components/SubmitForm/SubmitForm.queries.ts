@@ -7,7 +7,7 @@ export const createPlatform = gql`
     $website: String!
     $founded: String!
     $headquarteredIn: String!
-    $funding: Funding!
+    $funding: String!
     $description: String!
     $typeOfWork: [TypeOfWork!]!
     $category: CategoryOfWork!
